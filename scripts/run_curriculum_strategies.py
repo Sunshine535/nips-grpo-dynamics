@@ -28,7 +28,7 @@ from datasets import load_dataset
 from transformers import AutoTokenizer, TrainerCallback
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from src.qwen35_compat import apply_qwen35_text_only_patch
+from src.qwen35_compat import apply_qwen35_text_only_patch, ClearRopeDeltasCallback
 
 os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
 apply_qwen35_text_only_patch()
@@ -236,6 +236,7 @@ def train_with_strategy(strategy_name, schedule, cfg, model_name, dataset,
 
     reward_fn = build_scheduled_reward(schedule)
     schedule_cb = ScheduleUpdateCallback(schedule, strategy_name)
+    rope_cb = ClearRopeDeltasCallback()
 
     trainer = GRPOTrainer(
         model=model_name,
@@ -243,7 +244,7 @@ def train_with_strategy(strategy_name, schedule, cfg, model_name, dataset,
         train_dataset=dataset,
         processing_class=tokenizer,
         reward_funcs=reward_fn,
-        callbacks=[schedule_cb],
+        callbacks=[schedule_cb, rope_cb],
     )
 
     train_result = trainer.train()

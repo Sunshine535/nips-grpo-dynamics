@@ -24,7 +24,7 @@ from transformers import AutoTokenizer, TrainerCallback
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.balanced_grpo import BalancedGRPOCallback
-from src.qwen35_compat import apply_qwen35_text_only_patch
+from src.qwen35_compat import apply_qwen35_text_only_patch, ClearRopeDeltasCallback
 
 os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
 apply_qwen35_text_only_patch()
@@ -202,6 +202,7 @@ def main():
     reward_fn = build_reward_function(alpha, beta)
     metrics_cb = MetricsCallback(alpha, beta)
     balanced_cb = BalancedGRPOCallback(alpha, beta)
+    rope_cb = ClearRopeDeltasCallback()
 
     trainer = GRPOTrainer(
         model=model_name,
@@ -209,7 +210,7 @@ def main():
         train_dataset=dataset,
         processing_class=tokenizer,
         reward_funcs=reward_fn,
-        callbacks=[metrics_cb, balanced_cb],
+        callbacks=[metrics_cb, balanced_cb, rope_cb],
     )
 
     logger.info("Starting training...")

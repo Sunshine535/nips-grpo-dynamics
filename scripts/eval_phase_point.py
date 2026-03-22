@@ -18,7 +18,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from src.qwen35_compat import apply_qwen35_text_only_patch
+from src.qwen35_compat import apply_qwen35_text_only_patch, patch_model_instance
 apply_qwen35_text_only_patch()
 
 logging.basicConfig(
@@ -166,6 +166,7 @@ def main():
         device_map="auto",
         trust_remote_code=True,
     )
+    patch_model_instance(model)
     model.eval()
     device = next(model.parameters()).device
 

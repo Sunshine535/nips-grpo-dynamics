@@ -28,7 +28,7 @@ from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from src.qwen35_compat import apply_qwen35_text_only_patch
+from src.qwen35_compat import apply_qwen35_text_only_patch, patch_model_instance
 
 os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
 apply_qwen35_text_only_patch()
@@ -373,6 +373,7 @@ def main():
         trust_remote_code=True,
         attn_implementation="flash_attention_2",
     )
+    patch_model_instance(model)
     model.eval()
 
     eval_fns = {"gsm8k": eval_gsm8k, "math": eval_math}

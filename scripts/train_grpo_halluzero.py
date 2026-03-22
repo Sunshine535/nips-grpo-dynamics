@@ -23,7 +23,9 @@ from trl import GRPOConfig, GRPOTrainer
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.zero_score_handler import ZeroScoreConfig, ZeroScoreHandler, ZeroScoreStrategy
-from src.qwen35_compat import apply_qwen35_text_only_patch
+from src.qwen35_compat import (
+    apply_qwen35_text_only_patch, patch_model_instance, ClearRopeDeltasCallback,
+)
 
 os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
 apply_qwen35_text_only_patch()
@@ -204,6 +206,7 @@ def main():
         attn_implementation=cfg["model"].get("attn_implementation", "flash_attention_2"),
         trust_remote_code=True,
     )
+    patch_model_instance(model)
 
     logger.info("Preparing dataset")
     dataset = prepare_dataset(cfg, tokenizer)
@@ -278,6 +281,7 @@ def main():
         reward_funcs=reward_fn,
         processing_class=tokenizer,
         zero_score_handler=zs_handler,
+        callbacks=[ClearRopeDeltasCallback()],
     )
 
     logger.info("Starting GRPO training with HalluZero modifications")
