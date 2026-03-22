@@ -4,7 +4,7 @@
 # =============================================================================
 # Usage:
 #   bash scripts/run_all_experiments.sh           # full grid (long-running)
-#   bash scripts/run_all_experiments.sh --quick   # smoke / reduced grids
+#   QUICK=1 bash scripts/run_all_experiments.sh   # (dev only: reduced grids)
 #
 # Environment:
 #   PROJ_DIR_ROOT  — repository root (set automatically if unset)

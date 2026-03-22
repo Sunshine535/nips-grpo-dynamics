@@ -19,7 +19,7 @@ Together, the story is: **characterize where GRPO breaks** (phase diagram and co
 
 **Curriculum and diagnostics.** `run_curriculum_strategies.py` compares **α/β schedules** (anneal positive, anneal negative, cosine, static baseline). `run_diagnostic_analysis.py` aggregates runs under `results/zero_score_sweep/` into **tables and figures** for the paper supplement.
 
-The **master driver** is `scripts/run_all_experiments.sh`: model prefetch, baseline run, full sweeps, analysis, 27B validation, with **`--quick`** for smoke configurations.
+The **master driver** is `scripts/run_all_experiments.sh`: model prefetch, baseline run, full sweeps, analysis, 27B validation.
 
 ---
 
@@ -35,8 +35,6 @@ source .venv/bin/activate
 # Full pipeline (long-running; multi-GPU recommended)
 bash scripts/run_all_experiments.sh
 
-# Smoke / reduced grids and steps
-bash scripts/run_all_experiments.sh --quick
 ```
 
 **Environment variables**
@@ -44,7 +42,6 @@ bash scripts/run_all_experiments.sh --quick
 | Variable | Role |
 |----------|------|
 | `PROJ_DIR_ROOT` | Repository root; set automatically by `run_all_experiments.sh` if unset |
-| `QUICK=1` | Equivalent to passing `--quick` |
 | `HF_ENDPOINT` | Optional Hugging Face mirror (defaults are set in `gpu_utils.sh` / scripts) |
 
 **Outputs (typical)**
@@ -57,7 +54,7 @@ bash scripts/run_all_experiments.sh --quick
 | `results/analysis/` | Phase diagrams, collapse analysis, diagnostic figures |
 | `results/gradient_analysis/` | Gradient statistics from `analyze_gradients.py` |
 | `results/curriculum/` | Scheduled α/β runs |
-| `results/validation_27b_base/` | 27B base-model eval (full runs only; skipped in `--quick`) |
+| `results/validation_27b_base/` | 27B base-model eval |
 
 ---
 
