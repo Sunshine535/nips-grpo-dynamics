@@ -44,7 +44,7 @@ logging:
   logging_steps: 10
   save_steps: 200
   eval_steps: 200
-  report_to: "wandb"
+  report_to: "none"
   run_name: "halluzero-grpo-9b"
 
 evaluation:

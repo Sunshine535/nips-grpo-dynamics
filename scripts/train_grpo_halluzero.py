@@ -23,8 +23,10 @@ from trl import GRPOConfig, GRPOTrainer
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.zero_score_handler import ZeroScoreConfig, ZeroScoreHandler, ZeroScoreStrategy
+from src.qwen35_compat import apply_qwen35_text_only_patch
 
 os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
+apply_qwen35_text_only_patch()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -161,8 +163,8 @@ class HalluZeroGRPOTrainer(GRPOTrainer):
                 wrapped.append(rf)
         self.reward_funcs = wrapped
 
-    def _compute_loss(self, model, inputs, return_outputs=False, **kwargs):
-        loss, outputs = super()._compute_loss(model, inputs, return_outputs=True, **kwargs)
+    def _compute_loss(self, model, inputs, **kwargs):
+        loss = super()._compute_loss(model, inputs, **kwargs)
 
         if self._zero_score_enabled and self._step_rewards is not None:
             rewards = self._step_rewards
@@ -177,8 +179,6 @@ class HalluZeroGRPOTrainer(GRPOTrainer):
                     scale = self.zero_score_handler.config.clip_factor
                     loss = loss * (nonzero_ratio + zero_ratio * scale)
 
-        if return_outputs:
-            return loss, outputs
         return loss
 
 

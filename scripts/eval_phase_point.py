@@ -17,6 +17,10 @@ from datasets import load_dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from tqdm import tqdm
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.qwen35_compat import apply_qwen35_text_only_patch
+apply_qwen35_text_only_patch()
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",

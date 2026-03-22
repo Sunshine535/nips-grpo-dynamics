@@ -26,8 +26,10 @@ from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.zero_score_handler import ZeroScoreConfig, ZeroScoreHandler, ZeroScoreStrategy
+from src.qwen35_compat import apply_qwen35_text_only_patch
 
 os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
+apply_qwen35_text_only_patch()
 
 logging.basicConfig(
     level=logging.INFO,

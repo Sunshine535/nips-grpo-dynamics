@@ -28,8 +28,10 @@ from datasets import load_dataset
 from transformers import AutoTokenizer, TrainerCallback
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.qwen35_compat import apply_qwen35_text_only_patch
 
 os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
+apply_qwen35_text_only_patch()
 
 logging.basicConfig(
     level=logging.INFO,
