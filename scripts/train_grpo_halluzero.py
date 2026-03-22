@@ -258,7 +258,6 @@ def main():
         gradient_checkpointing=train_cfg["gradient_checkpointing"],
         num_generations=grpo_cfg["num_generations"],
         max_completion_length=cfg["dataset"]["max_completion_length"],
-        max_prompt_length=cfg["dataset"]["max_prompt_length"],
         logging_steps=cfg["logging"]["logging_steps"],
         save_steps=cfg["logging"]["save_steps"],
         eval_steps=cfg["logging"]["eval_steps"],

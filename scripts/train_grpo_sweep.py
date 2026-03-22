@@ -190,7 +190,6 @@ def main():
         save_total_limit=2,
         seed=seed,
         num_generations=tcfg["num_generations"],
-        max_prompt_length=tcfg["max_prompt_length"],
         max_completion_length=tcfg["max_completion_length"],
         max_steps=args.max_steps if args.max_steps > 0 else -1,
         report_to="none",
