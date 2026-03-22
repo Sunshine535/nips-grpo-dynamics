@@ -10,6 +10,7 @@ import torch
 import torch.nn.functional as F
 from dataclasses import dataclass
 from typing import Optional
+from transformers import TrainerCallback
 
 
 @dataclass
@@ -111,7 +112,7 @@ def build_grpo_reward_fn(positive_ratio: float, negative_weight: float):
     return shaped_reward
 
 
-class BalancedGRPOCallback:
+class BalancedGRPOCallback(TrainerCallback):
     """Callback to log balanced GRPO diagnostics during training."""
 
     def __init__(self, positive_ratio: float, negative_weight: float):
