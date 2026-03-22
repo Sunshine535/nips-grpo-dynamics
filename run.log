@@ -1,0 +1,65 @@
+[env] Activated venv: /ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv
+============================================
+ GPU Configuration
+============================================
+  GPUs detected     : 8
+  CUDA_VISIBLE      : 0,1,2,3,4,5,6,7
+  GPU memory (each) : 81920 MiB
+  GPU class          : a100_80g
+============================================
+============================================
+ PROJ_DIR_ROOT = /ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics
+ QUICK         = 0
+============================================
+
+>>> Phase 0: Model download (Qwen/Qwen3.5-9B + Qwen/Qwen3.5-27B)
+[snapshot_download] Qwen/Qwen3.5-9B
+Fetching 16 files:   0%|          | 0/16 [00:00<?, ?it/s]Fetching 16 files:   6%|▋         | 1/16 [00:00<00:09,  1.55it/s]Fetching 16 files:  12%|█▎        | 2/16 [00:00<00:05,  2.46it/s]Fetching 16 files:  25%|██▌       | 4/16 [00:01<00:02,  5.08it/s]Fetching 16 files:  38%|███▊      | 6/16 [00:01<00:02,  4.58it/s]Fetching 16 files:  44%|████▍     | 7/16 [07:27<16:53, 112.58s/it]Fetching 16 files:  50%|█████     | 8/16 [08:02<12:16, 92.06s/it] Fetching 16 files: 100%|██████████| 16/16 [08:02<00:00, 30.14s/it]
+[snapshot_download] Qwen/Qwen3.5-27B
+Fetching 23 files:   0%|          | 0/23 [00:00<?, ?it/s]Fetching 23 files:   4%|▍         | 1/23 [00:00<00:21,  1.04it/s]Fetching 23 files:  26%|██▌       | 6/23 [00:01<00:03,  4.96it/s]Fetching 23 files:  30%|███       | 7/23 [18:02<57:47, 216.74s/it]Fetching 23 files:  35%|███▍      | 8/23 [18:04<42:13, 168.92s/it]Fetching 23 files:  43%|████▎     | 10/23 [18:04<22:23, 103.37s/it]Fetching 23 files:  65%|██████▌   | 15/23 [24:01<11:17, 84.75s/it] Fetching 23 files:  70%|██████▉   | 16/23 [24:08<08:36, 73.73s/it]Fetching 23 files: 100%|██████████| 23/23 [24:08<00:00, 62.99s/it]
+
+>>> Phase 1: Baseline GRPO (train_grpo_sweep.py, α=0.5, β=1.0, seed 42)
+2026-03-22 21:29:41,851 [INFO] train_grpo_sweep: Training: alpha=0.50, beta=1.00, seed=42
+2026-03-22 21:29:41,851 [INFO] train_grpo_sweep: Model: Qwen/Qwen3.5-9B
+2026-03-22 21:29:41,851 [INFO] train_grpo_sweep: Output: /ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/checkpoints/baseline_grpo_alpha0.50_beta1.00_seed42
+2026-03-22 21:29:42,539 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-22 21:29:42,634 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
+2026-03-22 21:29:43,048 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-22 21:29:43,147 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-22 21:29:43,405 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-22 21:29:43,506 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-22 21:29:43,607 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-22 21:29:43,798 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-22 21:29:44,095 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/tokenizer.model "HTTP/1.1 404 Not Found"
+2026-03-22 21:29:44,356 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/added_tokens.json "HTTP/1.1 404 Not Found"
+2026-03-22 21:29:44,628 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/special_tokens_map.json "HTTP/1.1 404 Not Found"
+2026-03-22 21:29:46,228 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B "HTTP/1.1 429 Too Many Requests"
+2026-03-22 21:29:46,740 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-22 21:29:46,936 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-22 21:29:47,015 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-22 21:29:47,101 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-22 21:29:48,625 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B "HTTP/1.1 200 OK"
+2026-03-22 21:29:48,965 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-03-22 21:29:49,056 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/datasets/openai/gsm8k/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/README.md "HTTP/1.1 200 OK"
+2026-03-22 21:29:49,153 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/resolve-cache/datasets/openai/gsm8k/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/README.md "HTTP/1.1 200 OK"
+2026-03-22 21:29:49,397 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/gsm8k.py "HTTP/1.1 404 Not Found"
+2026-03-22 21:29:50,202 [INFO] httpx: HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/openai/gsm8k/openai/gsm8k.py "HTTP/1.1 404 Not Found"
+2026-03-22 21:29:50,295 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/datasets/openai/gsm8k/revision/cc7b047b6e5bb11b4f1af84efc572db110a51b3c "HTTP/1.1 200 OK"
+2026-03-22 21:29:50,606 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-03-22 21:29:50,901 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/datasets/openai/gsm8k/tree/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-22 21:29:50,979 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/datasets/openai/gsm8k/tree/cc7b047b6e5bb11b4f1af84efc572db110a51b3c?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-03-22 21:29:51,287 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-03-22 21:29:52,010 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/main/train-00000-of-00001.parquet "HTTP/1.1 302 Found"
+2026-03-22 21:29:52,380 [INFO] httpx: HTTP Request: GET https://cas-bridge.xethub.hf.co/xet-bridge-us/625552d2b339bb03abe3432d/2a53b35a9aa11e1e9da03cd3f0c0b78df3a6f15b4648b563755a0c644e246ae4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cas%2F20260322%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260322T132951Z&X-Amz-Expires=3600&X-Amz-Signature=8fc3dcc13b84ccd86601343b16ba18e8d3dcdc262b21c16663c81056a5dcb3d6&X-Amz-SignedHeaders=host&X-Xet-Cas-Uid=62171e3b6a99db28e0b3159d&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27train-00000-of-00001.parquet%3B+filename%3D%22train-00000-of-00001.parquet%22%3B&x-amz-checksum-mode=ENABLED&x-id=GetObject&Expires=1774189791&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc3NDE4OTc5MX19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2FzLWJyaWRnZS54ZXRodWIuaGYuY28veGV0LWJyaWRnZS11cy82MjU1NTJkMmIzMzliYjAzYWJlMzQzMmQvMmE1M2IzNWE5YWExMWUxZTlkYTAzY2QzZjBjMGI3OGRmM2E2ZjE1YjQ2NDhiNTYzNzU1YTBjNjQ0ZTI0NmFlNCoifV19&Signature=tr0Zg8mFNyi7lQ7E8McOjIS2QBeFwbCRh5zqv74O8ojEgqEXTjLxY3ndEjCpnIjIbh5SIvz7kUnO8IM1Ufhfyg4IlIPKOKJPycv0UerjvYwDsd4WtDiUbaXBsI0z89mF0KwhgKGjT7KwnDQXZtZxMFRTCX6iHyFkjGWVJC3gVzoZAmoTwUSE5Xu9Vu5YhY1QWKVkUfcCz13Wk1QB6RRmMt08gvOnGt787NhiQplUNgTuSGdEfXCAkaJ6itn0cVez5AEdq-0stz5IzjDEaQU8gvbQBPjDBRVDy4X5TUyN5aOJXE8KiPIru-S8O9wHbhmo7FL-OrcK7wf0RMQ64YlCtQ__&Key-Pair-Id=K2L8F4GPSG1IFC "HTTP/1.1 200 OK"
+2026-03-22 21:29:53,096 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/main/test-00000-of-00001.parquet "HTTP/1.1 302 Found"
+2026-03-22 21:29:53,163 [INFO] httpx: HTTP Request: GET https://cas-bridge.xethub.hf.co/xet-bridge-us/625552d2b339bb03abe3432d/ad526cbfe3eb75568603d62295066ebd2491137403f012186c30f9416839141d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cas%2F20260322%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260322T132952Z&X-Amz-Expires=3600&X-Amz-Signature=6f3b68aaa99295eb88b8df8a9a5f200a2c99c2a902715c0cb4d47ff195c10413&X-Amz-SignedHeaders=host&X-Xet-Cas-Uid=62171e3b6a99db28e0b3159d&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27test-00000-of-00001.parquet%3B+filename%3D%22test-00000-of-00001.parquet%22%3B&x-amz-checksum-mode=ENABLED&x-id=GetObject&Expires=1774189792&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc3NDE4OTc5Mn19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2FzLWJyaWRnZS54ZXRodWIuaGYuY28veGV0LWJyaWRnZS11cy82MjU1NTJkMmIzMzliYjAzYWJlMzQzMmQvYWQ1MjZjYmZlM2ViNzU1Njg2MDNkNjIyOTUwNjZlYmQyNDkxMTM3NDAzZjAxMjE4NmMzMGY5NDE2ODM5MTQxZCoifV19&Signature=hJWjkuYZRQTVY3HtkgUphNgsZ-wDo3UUouGvvzj7E7vDTQIYCYJdLFcGPGikw5uDqc3wXGYDkjQzmTEIR2R7tWxtZqe%7EywRAImcbbOYKJrjtnvPCWw01S7vE5bHHIpGiRppmaqm0rBEqbUWXEFKpW4XB4LnzWnVzTrwwUkkfLtDRoEH-2K6zESkta0soWQ7zBd-bLJxpJLFYywNLwVCD%7EXvk3GovilFVwn3If60cAgZtL-ptAJOO82nele3TyUT6OtebXnGOKhcSntnvhO-QTjgwofAgweSHqOgHKEcUZ90HSEfhMT%7EBiYWRtOZ8AoVPP7BIVhk-UAE4B7FCK3Dpjw__&Key-Pair-Id=K2L8F4GPSG1IFC "HTTP/1.1 200 OK"
+Generating train split:   0%|          | 0/7473 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 7473/7473 [00:00<00:00, 626893.21 examples/s]
+Generating test split:   0%|          | 0/1319 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1319/1319 [00:00<00:00, 456873.98 examples/s]
+Map:   0%|          | 0/7473 [00:00<?, ? examples/s]Map:  29%|██▉       | 2196/7473 [00:00<00:00, 21807.94 examples/s]Map:  60%|██████    | 4509/7473 [00:00<00:00, 22579.49 examples/s]Map:  91%|█████████▏| 6830/7473 [00:00<00:00, 22864.74 examples/s]Map: 100%|██████████| 7473/7473 [00:00<00:00, 22472.34 examples/s]
+2026-03-22 21:29:53,574 [INFO] train_grpo_sweep: Dataset: 7473 samples
+Traceback (most recent call last):
+  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/scripts/train_grpo_sweep.py", line 252, in <module>
+    main()
+  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/scripts/train_grpo_sweep.py", line 174, in main
+    training_config = GRPOConfig(
+TypeError: GRPOConfig.__init__() got an unexpected keyword argument 'max_prompt_length'
