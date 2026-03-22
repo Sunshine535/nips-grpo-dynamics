@@ -306,3 +306,20 @@ echo "  Phase diagram eval : $PHASE_EVAL_DIR"
 echo "  Aggregated analysis: $ANALYSIS_DIR"
 echo "  Zero-score sweep   : $ZERO_SWEEP_ROOT"
 echo "============================================"
+
+# --- Pipeline completion marker ---
+DONE_FILE="$(dirname "$(dirname "${BASH_SOURCE[0]}")")/results/.pipeline_done"
+mkdir -p "$(dirname "$DONE_FILE")"
+cat > "$DONE_FILE" << DONEEOF
+{
+  "project": "$(basename "$(dirname "$(dirname "${BASH_SOURCE[0]}")")")",
+  "completed_at": "$(date -u '+%Y-%m-%dT%H:%M:%SZ')",
+  "hostname": "$(hostname)",
+  "gpus": "${NUM_GPUS:-unknown}",
+  "status": "PIPELINE_COMPLETE"
+}
+DONEEOF
+echo ""
+echo "[PIPELINE_COMPLETE] All experiments finished successfully."
+echo "  Marker: $DONE_FILE"
+echo "  Run 'bash collect_results.sh' to package results."
