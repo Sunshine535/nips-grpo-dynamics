@@ -20,6 +20,7 @@ import numpy as np
 import torch
 import yaml
 from datasets import load_dataset
+from peft import LoraConfig
 from transformers import AutoTokenizer, TrainerCallback
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -187,6 +188,7 @@ def main():
         weight_decay=tcfg["weight_decay"],
         max_grad_norm=tcfg["max_grad_norm"],
         bf16=tcfg["bf16"],
+        gradient_checkpointing=tcfg.get("gradient_checkpointing", True),
         logging_steps=tcfg["logging_steps"],
         save_steps=tcfg["save_steps"],
         save_total_limit=2,
@@ -199,6 +201,16 @@ def main():
         log_on_each_node=False,
     )
 
+    lora_cfg = cfg.get("lora", {})
+    peft_config = LoraConfig(
+        r=lora_cfg.get("r", 64),
+        lora_alpha=lora_cfg.get("lora_alpha", 128),
+        target_modules=lora_cfg.get("target_modules", ["q_proj", "k_proj", "v_proj", "o_proj"]),
+        lora_dropout=lora_cfg.get("lora_dropout", 0.05),
+        task_type=lora_cfg.get("task_type", "CAUSAL_LM"),
+    )
+    logger.info("Using LoRA: r=%d, alpha=%d", peft_config.r, peft_config.lora_alpha)
+
     reward_fn = build_reward_function(alpha, beta)
     metrics_cb = MetricsCallback(alpha, beta)
     balanced_cb = BalancedGRPOCallback(alpha, beta)
@@ -210,6 +222,7 @@ def main():
         train_dataset=dataset,
         processing_class=tokenizer,
         reward_funcs=reward_fn,
+        peft_config=peft_config,
         callbacks=[metrics_cb, balanced_cb, rope_cb],
     )
 

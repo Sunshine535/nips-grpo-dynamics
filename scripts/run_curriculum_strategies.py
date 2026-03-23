@@ -25,6 +25,7 @@ import numpy as np
 import torch
 import yaml
 from datasets import load_dataset
+from peft import LoraConfig
 from transformers import AutoTokenizer, TrainerCallback
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -224,6 +225,7 @@ def train_with_strategy(strategy_name, schedule, cfg, model_name, dataset,
         weight_decay=tcfg["weight_decay"],
         max_grad_norm=tcfg["max_grad_norm"],
         bf16=tcfg["bf16"],
+        gradient_checkpointing=tcfg.get("gradient_checkpointing", True),
         logging_steps=tcfg["logging_steps"],
         save_steps=tcfg["save_steps"],
         save_total_limit=1,
@@ -232,6 +234,15 @@ def train_with_strategy(strategy_name, schedule, cfg, model_name, dataset,
         max_completion_length=tcfg["max_completion_length"],
         report_to="none",
         log_level="info",
+    )
+
+    lora_cfg = cfg.get("lora", {})
+    peft_config = LoraConfig(
+        r=lora_cfg.get("r", 64),
+        lora_alpha=lora_cfg.get("lora_alpha", 128),
+        target_modules=lora_cfg.get("target_modules", ["q_proj", "k_proj", "v_proj", "o_proj"]),
+        lora_dropout=lora_cfg.get("lora_dropout", 0.05),
+        task_type=lora_cfg.get("task_type", "CAUSAL_LM"),
     )
 
     reward_fn = build_scheduled_reward(schedule)
@@ -244,6 +255,7 @@ def train_with_strategy(strategy_name, schedule, cfg, model_name, dataset,
         train_dataset=dataset,
         processing_class=tokenizer,
         reward_funcs=reward_fn,
+        peft_config=peft_config,
         callbacks=[schedule_cb, rope_cb],
     )
 

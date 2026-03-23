@@ -1,0 +1,13 @@
+fix: robust Qwen3.5 text-only compat for GRPO training
+
+Root cause: compute_3d_position_ids kept stale rope_deltas from generation
+step, causing RuntimeError during logprob computation when inputs_embeds=None.
+
+Three-level defense:
+1. Class-level patch: unconditionally clear rope_deltas before calling
+   original compute_3d_position_ids; catch RuntimeError and fall back to 1D
+2. Instance-level hook: register_forward_pre_hook clears rope_deltas
+3. ClearRopeDeltasCallback: defense-in-depth for all trainer scripts
+
+Applied to all 7 scripts: train_grpo_sweep, train_grpo_halluzero,
+eval_phase_point, eval_halluzero, analyze_gradients, run_curriculum_strategies.

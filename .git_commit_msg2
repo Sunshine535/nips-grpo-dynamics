@@ -1,0 +1,16 @@
+fix: add LoRA + reduce batch/gen to fit 9B GRPO on single A100-80GB
+
+Full-param GRPO of Qwen3.5-9B OOMs on A100-80GB (policy + ref model +
+generation). Switch to LoRA (r=64, alpha=128) so GRPOTrainer shares the
+frozen base model as reference.
+
+Config changes:
+- per_device_train_batch_size: 2 -> 1
+- gradient_accumulation_steps: 4 -> 8 (same effective batch)
+- num_generations: 8 -> 4
+- learning_rate: 5e-6 -> 1e-4 (standard LoRA LR)
+- gradient_checkpointing: true (both configs)
+- LoRA: r=64, alpha=128, targets q/k/v/o/gate/up/down_proj
+
+Applied to: train_grpo_sweep.py, train_grpo_halluzero.py,
+run_curriculum_strategies.py, sweep_grid.yaml, grpo_9b.yaml.

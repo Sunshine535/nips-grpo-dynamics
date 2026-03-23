@@ -18,6 +18,7 @@ import torch
 import torch.nn as nn
 import yaml
 from datasets import load_dataset
+from peft import LoraConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from trl import GRPOConfig, GRPOTrainer
 
@@ -272,6 +273,16 @@ def main():
         log_completions=True,
     )
 
+    lora_cfg = cfg.get("lora", {})
+    peft_config = LoraConfig(
+        r=lora_cfg.get("r", 64),
+        lora_alpha=lora_cfg.get("lora_alpha", 128),
+        target_modules=lora_cfg.get("target_modules", ["q_proj", "k_proj", "v_proj", "o_proj"]),
+        lora_dropout=lora_cfg.get("lora_dropout", 0.05),
+        task_type=lora_cfg.get("task_type", "CAUSAL_LM"),
+    )
+    logger.info("Using LoRA: r=%d, alpha=%d", peft_config.r, peft_config.lora_alpha)
+
     reward_fn = build_reward_fn(tokenizer)
 
     trainer = HalluZeroGRPOTrainer(
@@ -281,6 +292,7 @@ def main():
         reward_funcs=reward_fn,
         processing_class=tokenizer,
         zero_score_handler=zs_handler,
+        peft_config=peft_config,
         callbacks=[ClearRopeDeltasCallback()],
     )
 
