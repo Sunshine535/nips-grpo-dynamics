@@ -39,7 +39,7 @@ dataset:
 
 eval:
   gsm8k_split: "test"
-  math_dataset: "lighteval/MATH"
+  math_dataset: "hendrycks/competition_math"
   math_split: "test"
   num_samples: 500
   temperature: 0.0

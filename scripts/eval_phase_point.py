@@ -191,7 +191,7 @@ def main():
     if args.eval_math:
         logger.info("Evaluating on MATH...")
         try:
-            math_ds = load_dataset("lighteval/MATH", split="test")
+            math_ds = load_dataset("hendrycks/competition_math", split="test")
             math_acc, math_results = evaluate_dataset(
                 model, tokenizer, math_ds, math_prompt, args.num_samples,
                 args.temperature, args.max_new_tokens, args.batch_size, device,
