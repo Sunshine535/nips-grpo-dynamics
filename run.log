@@ -10,117 +10,107 @@
 ============================================
  PROJ_DIR_ROOT = /ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics
  QUICK         = 0
+ TORCHRUN      = torchrun --nproc_per_node=8 --master_port=26716
 ============================================
 
 >>> Phase 0: Model download (Qwen/Qwen3.5-9B + Qwen/Qwen3.5-27B)
 [snapshot_download] Qwen/Qwen3.5-9B
-Fetching 16 files:   0%|          | 0/16 [00:00<?, ?it/s]Fetching 16 files: 100%|██████████| 16/16 [00:00<00:00, 41247.00it/s]
+Fetching 16 files:   0%|          | 0/16 [00:00<?, ?it/s]Fetching 16 files:   6%|▋         | 1/16 [00:00<00:13,  1.10it/s]Fetching 16 files:  12%|█▎        | 2/16 [00:01<00:11,  1.20it/s]Fetching 16 files:  38%|███▊      | 6/16 [00:03<00:05,  1.77it/s]Fetching 16 files:  44%|████▍     | 7/16 [13:20<25:52, 172.49s/it]Fetching 16 files:  50%|█████     | 8/16 [14:50<20:23, 152.91s/it]Fetching 16 files: 100%|██████████| 16/16 [14:50<00:00, 55.63s/it]
 [snapshot_download] Qwen/Qwen3.5-27B
-Fetching 23 files:   0%|          | 0/23 [00:00<?, ?it/s]Fetching 23 files: 100%|██████████| 23/23 [00:00<00:00, 239377.15it/s]
+Fetching 23 files:   0%|          | 0/23 [00:00<?, ?it/s]Fetching 23 files:   4%|▍         | 1/23 [00:00<00:21,  1.03it/s]Fetching 23 files:   9%|▊         | 2/23 [00:01<00:15,  1.39it/s]Fetching 23 files:  17%|█▋        | 4/23 [00:01<00:06,  2.83it/s]Fetching 23 files:  26%|██▌       | 6/23 [00:02<00:07,  2.42it/s]Fetching 23 files:  30%|███       | 7/23 [30:12<2:01:51, 456.97s/it]Fetching 23 files:  43%|████▎     | 10/23 [32:02<51:41, 238.55s/it] Fetching 23 files:  48%|████▊     | 11/23 [32:25<39:11, 195.92s/it]Fetching 23 files:  65%|██████▌   | 15/23 [39:26<19:42, 147.77s/it]Fetching 23 files:  70%|██████▉   | 16/23 [40:20<15:29, 132.73s/it]Fetching 23 files: 100%|██████████| 23/23 [40:20<00:00, 105.24s/it]
 
 >>> Phase 1: Baseline GRPO (train_grpo_sweep.py, α=0.5, β=1.0, seed 42)
-2026-03-22 23:34:43,000 [INFO] train_grpo_sweep: Training: alpha=0.50, beta=1.00, seed=42
-2026-03-22 23:34:43,000 [INFO] train_grpo_sweep: Model: Qwen/Qwen3.5-9B
-2026-03-22 23:34:43,000 [INFO] train_grpo_sweep: Output: /ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/checkpoints/baseline_grpo_alpha0.50_beta1.00_seed42
-2026-03-22 23:34:43,737 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
-2026-03-22 23:34:43,951 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
-2026-03-22 23:34:44,211 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
-2026-03-22 23:34:44,307 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/tokenizer_config.json "HTTP/1.1 200 OK"
-2026-03-22 23:34:44,622 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
-2026-03-22 23:34:44,729 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/tokenizer_config.json "HTTP/1.1 200 OK"
-2026-03-22 23:34:44,829 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
-2026-03-22 23:34:44,899 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
-2026-03-22 23:34:46,281 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B "HTTP/1.1 200 OK"
-2026-03-22 23:34:46,696 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
-2026-03-22 23:34:46,908 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/datasets/openai/gsm8k/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/README.md "HTTP/1.1 200 OK"
-2026-03-22 23:34:47,194 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/gsm8k.py "HTTP/1.1 404 Not Found"
-2026-03-22 23:34:48,245 [INFO] httpx: HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/openai/gsm8k/openai/gsm8k.py "HTTP/1.1 404 Not Found"
-2026-03-22 23:34:48,341 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/datasets/openai/gsm8k/revision/cc7b047b6e5bb11b4f1af84efc572db110a51b3c "HTTP/1.1 200 OK"
-2026-03-22 23:34:48,632 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/.huggingface.yaml "HTTP/1.1 404 Not Found"
-2026-03-22 23:34:48,917 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/datasets/openai/gsm8k/tree/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/main?recursive=true&expand=false "HTTP/1.1 200 OK"
-2026-03-22 23:34:49,062 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/datasets/openai/gsm8k/tree/cc7b047b6e5bb11b4f1af84efc572db110a51b3c?recursive=false&expand=false "HTTP/1.1 200 OK"
-2026-03-22 23:34:49,387 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/cc7b047b6e5bb11b4f1af84efc572db110a51b3c/dataset_infos.json "HTTP/1.1 404 Not Found"
-2026-03-22 23:34:49,414 [INFO] train_grpo_sweep: Dataset: 7473 samples
+2026-03-24 23:35:58,321 [INFO] train_grpo_sweep: Training: alpha=0.50, beta=1.00, seed=42
+2026-03-24 23:35:58,321 [INFO] train_grpo_sweep: Model: Qwen/Qwen3.5-9B
+2026-03-24 23:35:58,322 [INFO] train_grpo_sweep: Output: /ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/checkpoints/baseline_grpo_alpha0.50_beta1.00_seed42
+2026-03-24 23:35:59,436 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:35:59,664 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:00,111 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:36:00,336 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:01,135 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:36:01,359 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:01,596 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:01,883 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-24 23:36:02,305 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/tokenizer.model "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:02,703 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/added_tokens.json "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:03,208 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/special_tokens_map.json "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:04,877 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B "HTTP/1.1 200 OK"
+2026-03-24 23:36:05,411 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:36:05,626 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/datasets/openai/gsm8k/740312add88f781978c0658806c59bc2815b9866/README.md "HTTP/1.1 200 OK"
+2026-03-24 23:36:05,851 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/resolve-cache/datasets/openai/gsm8k/740312add88f781978c0658806c59bc2815b9866/README.md "HTTP/1.1 200 OK"
+2026-03-24 23:36:06,283 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/gsm8k.py "HTTP/1.1 404 Not Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-24 23:36:06,283 [WARNING] huggingface_hub.utils._http: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-03-24 23:36:07,471 [INFO] httpx: HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/openai/gsm8k/openai/gsm8k.py "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:07,741 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/datasets/openai/gsm8k/revision/740312add88f781978c0658806c59bc2815b9866 "HTTP/1.1 200 OK"
+2026-03-24 23:36:08,141 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:08,984 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/datasets/openai/gsm8k/tree/740312add88f781978c0658806c59bc2815b9866/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-24 23:36:09,208 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/datasets/openai/gsm8k/tree/740312add88f781978c0658806c59bc2815b9866?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-03-24 23:36:09,661 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:10,472 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/main/train-00000-of-00001.parquet "HTTP/1.1 302 Found"
+2026-03-24 23:36:11,208 [INFO] httpx: HTTP Request: GET https://cas-bridge.xethub.hf.co/xet-bridge-us/625552d2b339bb03abe3432d/2a53b35a9aa11e1e9da03cd3f0c0b78df3a6f15b4648b563755a0c644e246ae4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cas%2F20260324%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260324T152807Z&X-Amz-Expires=3600&X-Amz-Signature=7647ffa45e021e528151b1093768ed5aed9e654af106b51c3f0edb5484a537e6&X-Amz-SignedHeaders=host&X-Xet-Cas-Uid=62171e3b6a99db28e0b3159d&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27train-00000-of-00001.parquet%3B+filename%3D%22train-00000-of-00001.parquet%22%3B&x-amz-checksum-mode=ENABLED&x-id=GetObject&Expires=1774369687&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc3NDM2OTY4N319LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2FzLWJyaWRnZS54ZXRodWIuaGYuY28veGV0LWJyaWRnZS11cy82MjU1NTJkMmIzMzliYjAzYWJlMzQzMmQvMmE1M2IzNWE5YWExMWUxZTlkYTAzY2QzZjBjMGI3OGRmM2E2ZjE1YjQ2NDhiNTYzNzU1YTBjNjQ0ZTI0NmFlNCoifV19&Signature=CNK-zCQ6BtDaBTpUUMslkIuXGIha%7ELB-r295lm4Xm-ENkzvDllmy6U2CNxPB%7Ef%7EFpjoyrTCx6cRpSlFqNmAHbuNAUCbCTWawBtC3rqGnaTNXiphEFeWnTL6Psnr5Gv-WN9X0xcVDDxzlx9WZ8XDkzfU-cJUJCUk6WnBSqbYgTPsZkh6HVnOSmEYriOBKW1GyuVipH7eNtId4xMBHVARKuwh4cvYgLGIGSCay7UNqGzqjVLY0PDAMgGXG6-DM426pbw9UFBME0MSTs%7EDHQvfH9wRnoW4FGLi6ceUje7WtyAbLaLRbYosD000PwCbwLCSt%7EcuvRuy7QG03mLfU181x3A__&Key-Pair-Id=K2L8F4GPSG1IFC "HTTP/1.1 200 OK"
+2026-03-24 23:36:12,294 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/datasets/openai/gsm8k/resolve/740312add88f781978c0658806c59bc2815b9866/main/test-00000-of-00001.parquet "HTTP/1.1 302 Found"
+2026-03-24 23:36:12,471 [INFO] httpx: HTTP Request: GET https://cas-bridge.xethub.hf.co/xet-bridge-us/625552d2b339bb03abe3432d/ad526cbfe3eb75568603d62295066ebd2491137403f012186c30f9416839141d?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cas%2F20260324%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260324T153612Z&X-Amz-Expires=3600&X-Amz-Signature=b9aaae57e9290ae7eecbc9876dd713e08476cab5555b01523ec993db7b2daaec&X-Amz-SignedHeaders=host&X-Xet-Cas-Uid=62171e3b6a99db28e0b3159d&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27test-00000-of-00001.parquet%3B+filename%3D%22test-00000-of-00001.parquet%22%3B&x-amz-checksum-mode=ENABLED&x-id=GetObject&Expires=1774370172&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc3NDM3MDE3Mn19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2FzLWJyaWRnZS54ZXRodWIuaGYuY28veGV0LWJyaWRnZS11cy82MjU1NTJkMmIzMzliYjAzYWJlMzQzMmQvYWQ1MjZjYmZlM2ViNzU1Njg2MDNkNjIyOTUwNjZlYmQyNDkxMTM3NDAzZjAxMjE4NmMzMGY5NDE2ODM5MTQxZCoifV19&Signature=Orv0BgVK6xOukoPveemD5%7ETzlpmBMZOnuGUrtuxESc%7EJXAf9cj4KpauOjfr-5x-SMxZE4es0ocVQb3Klp96SPQHkKlWRQrcKEN834K-i1tOZjzwZEOQfnLojJEHznaNBASv7QkwGBHtTQmJgrRd-ki57A-CxKcWF9luXP-dapZKNvuSbsR16JeOJFtP-%7EnGnCN2SlerWHibZ-1sI4QT8RbxkH6cGo4K0ChPI9JlE0CJYrLONyhN8HCewS64c5YcSqu6GmMlDykgZXxoPx0Q%7EsAMqoP%7EkrK3jondBCV-4edghGlpTn9YdkZzwzAzpPHGTmGYAquypErWvmIdxOX2ibQ__&Key-Pair-Id=K2L8F4GPSG1IFC "HTTP/1.1 200 OK"
+[qwen35_compat] Patched Qwen3_5Model.compute_3d_position_ids
+Generating train split:   0%|          | 0/7473 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 7473/7473 [00:00<00:00, 581521.96 examples/s]
+Generating test split:   0%|          | 0/1319 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 1319/1319 [00:00<00:00, 438896.23 examples/s]
+Map:   0%|          | 0/7473 [00:00<?, ? examples/s]Map:  30%|██▉       | 2240/7473 [00:00<00:00, 22248.84 examples/s]Map:  61%|██████    | 4565/7473 [00:00<00:00, 22829.42 examples/s]Map: 100%|██████████| 7473/7473 [00:00<00:00, 22489.16 examples/s]Map: 100%|██████████| 7473/7473 [00:00<00:00, 22412.50 examples/s]
+2026-03-24 23:36:12,889 [INFO] train_grpo_sweep: Dataset: 7473 samples
 warmup_ratio is deprecated and will be removed in v5.2. Use `warmup_steps` instead.
-2026-03-22 23:34:50,079 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
-2026-03-22 23:34:50,182 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
-2026-03-22 23:34:50,440 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
-2026-03-22 23:34:50,548 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
-2026-03-22 23:34:50,782 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
-2026-03-22 23:34:50,984 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
-2026-03-22 23:34:51,229 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
-2026-03-22 23:34:51,468 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/model.safetensors.index.json "HTTP/1.1 307 Temporary Redirect"
-2026-03-22 23:34:51,565 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/model.safetensors.index.json "HTTP/1.1 200 OK"
-2026-03-22 23:34:51,669 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/revision/main "HTTP/1.1 200 OK"
-Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 55924.05it/s]
+2026-03-24 23:36:13,202 [INFO] train_grpo_sweep: Using LoRA: r=64, alpha=128
+2026-03-24 23:36:13,606 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:36:13,835 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:14,224 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:36:14,454 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:14,833 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:15,235 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:36:15,450 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:15,837 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:16,214 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/model.safetensors.index.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:36:16,448 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/model.safetensors.index.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:16,680 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/revision/main "HTTP/1.1 200 OK"
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 54120.05it/s]
 The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
-Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:   0%|          | 1/760 [00:01<17:36,  1.39s/it]Loading weights:  13%|█▎        | 96/760 [00:01<00:07, 88.40it/s]Loading weights:  19%|█▉        | 148/760 [00:01<00:06, 99.80it/s]Loading weights:  24%|██▍       | 182/760 [00:02<00:05, 108.36it/s]Loading weights:  27%|██▋       | 208/760 [00:02<00:05, 101.38it/s]Loading weights:  30%|███       | 228/760 [00:02<00:05, 105.87it/s]Loading weights:  32%|███▏      | 246/760 [00:02<00:04, 111.61it/s]Loading weights:  35%|███▍      | 263/760 [00:02<00:04, 103.82it/s]Loading weights:  37%|███▋      | 279/760 [00:03<00:04, 109.67it/s]Loading weights:  39%|███▊      | 293/760 [00:03<00:04, 110.55it/s]Loading weights:  40%|████      | 306/760 [00:03<00:03, 114.00it/s]Loading weights:  42%|████▏     | 319/760 [00:03<00:04, 108.44it/s]Loading weights:  44%|████▎     | 332/760 [00:03<00:03, 111.90it/s]Loading weights:  46%|████▌     | 346/760 [00:03<00:03, 117.66it/s]Loading weights:  47%|████▋     | 359/760 [00:03<00:03, 118.96it/s]Loading weights:  49%|████▉     | 372/760 [00:03<00:03, 110.16it/s]Loading weights:  51%|█████     | 385/760 [00:04<00:03, 114.65it/s]Loading weights:  52%|█████▏    | 398/760 [00:04<00:03, 115.22it/s]Loading weights:  54%|█████▍    | 412/760 [00:04<00:03, 114.31it/s]Loading weights:  56%|█████▌    | 424/760 [00:04<00:03, 108.27it/s]Loading weights:  68%|██████▊   | 517/760 [00:04<00:00, 322.11it/s]Loading weights:  82%|████████▏ | 625/760 [00:04<00:00, 524.30it/s]Loading weights:  97%|█████████▋| 739/760 [00:04<00:00, 693.37it/s]Loading weights: 100%|██████████| 760/760 [00:04<00:00, 160.75it/s]
-2026-03-22 23:34:59,935 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/generation_config.json "HTTP/1.1 404 Not Found"
-2026-03-22 23:35:00,185 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
-2026-03-22 23:35:00,287 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
-2026-03-22 23:35:00,538 [WARNING] accelerate.utils.other: [RANK 0] Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-2026-03-22 23:35:00,542 [INFO] train_grpo_sweep: Starting training...
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:   0%|          | 1/760 [00:01<17:26,  1.38s/it]Loading weights:  12%|█▎        | 95/760 [00:01<00:07, 88.12it/s]Loading weights:  19%|█▉        | 146/760 [00:01<00:06, 101.76it/s]Loading weights:  24%|██▎       | 180/760 [00:02<00:05, 106.04it/s]Loading weights:  27%|██▋       | 205/760 [00:02<00:05, 104.04it/s]Loading weights:  30%|██▉       | 225/760 [00:02<00:04, 107.64it/s]Loading weights:  32%|███▏      | 242/760 [00:02<00:04, 105.71it/s]Loading weights:  34%|███▍      | 257/760 [00:02<00:04, 109.86it/s]Loading weights:  36%|███▌      | 274/760 [00:03<00:04, 114.47it/s]Loading weights:  38%|███▊      | 288/760 [00:03<00:04, 114.64it/s]Loading weights:  40%|███▉      | 302/760 [00:03<00:03, 115.55it/s]Loading weights:  41%|████▏     | 315/760 [00:03<00:04, 109.42it/s]Loading weights:  44%|████▎     | 331/760 [00:03<00:03, 118.77it/s]Loading weights:  45%|████▌     | 345/760 [00:03<00:03, 117.39it/s]Loading weights:  47%|████▋     | 359/760 [00:03<00:03, 110.48it/s]Loading weights:  49%|████▉     | 372/760 [00:03<00:03, 109.17it/s]Loading weights:  52%|█████▏    | 394/760 [00:04<00:02, 125.12it/s]Loading weights:  54%|█████▎    | 408/760 [00:04<00:02, 121.63it/s]Loading weights:  55%|█████▌    | 421/760 [00:04<00:03, 109.12it/s]Loading weights:  68%|██████▊   | 517/760 [00:04<00:00, 310.27it/s]Loading weights:  83%|████████▎ | 630/760 [00:04<00:00, 517.13it/s]Loading weights:  97%|█████████▋| 735/760 [00:04<00:00, 657.85it/s]Loading weights: 100%|██████████| 760/760 [00:04<00:00, 163.58it/s]
+2026-03-24 23:36:24,390 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/generation_config.json "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:24,793 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:36:25,018 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:26,271 [WARNING] accelerate.utils.other: [RANK 0] Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+2026-03-24 23:36:26,277 [INFO] train_grpo_sweep: Starting training...
 The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 248046, 'pad_token_id': 248044}.
 ***** Running training *****
   Num examples = 7,473
   Num Epochs = 2
-  Num update steps per epoch = 7,473
-  Instantaneous batch size per device = 2
+  Num update steps per epoch = 3,736
+  Instantaneous batch size per device = 1
   Total train batch size (w. parallel, distributed & accumulation) = 8
-  Gradient Accumulation steps = 4
-  Total optimization steps = 14,946
-  Number of trainable parameters = 9,409,813,744
-  0%|          | 0/14946 [00:00<?, ?it/s]Passing `generation_config` together with generation-related arguments=({'disable_compile'}) is deprecated and will be removed in future versions. Please pass either a `generation_config` object OR all generation parameters explicitly, but not both.
-Traceback (most recent call last):
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/scripts/train_grpo_sweep.py", line 251, in <module>
-    main()
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/scripts/train_grpo_sweep.py", line 214, in main
-    train_result = trainer.train()
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 1424, in train
-    return inner_training_loop(
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 1506, in _inner_training_loop
-    self._run_epoch(
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 1734, in _run_epoch
-    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/trl/trainer/grpo_trainer.py", line 1085, in training_step
-    output = super().training_step(model, inputs, num_items_in_batch)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/transformers/trainer.py", line 1906, in training_step
-    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/trl/extras/profiling.py", line 202, in wrapper
-    return func(self, *args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/trl/trainer/grpo_trainer.py", line 2084, in compute_loss
-    return self._compute_loss(model, inputs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/trl/trainer/grpo_trainer.py", line 2118, in _compute_loss
-    per_token_logps, entropies = self._get_per_token_logps_and_entropies(
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/trl/extras/profiling.py", line 202, in wrapper
-    return func(self, *args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/trl/trainer/grpo_trainer.py", line 1062, in _get_per_token_logps_and_entropies
-    logits = model(**model_inputs).logits
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/accelerate/utils/operations.py", line 823, in forward
-    return model_forward(*args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/accelerate/utils/operations.py", line 811, in __call__
-    return convert_to_fp32(self.model_forward(*args, **kwargs))
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 44, in decorate_autocast
-    return func(*args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/accelerate/hooks.py", line 192, in new_forward
-    output = module._old_forward(*args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/transformers/utils/generic.py", line 843, in wrapper
-    output = func(self, *args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py", line 2024, in forward
-    outputs = self.model(
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
-    return self._call_impl(*args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
-    return forward_call(*args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/transformers/utils/generic.py", line 843, in wrapper
-    output = func(self, *args, **kwargs)
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py", line 1765, in forward
-    position_ids = self.compute_3d_position_ids(
-  File "/ytech_m2v4_hdd/mengzijie/nips-grpo-dynamics/.venv/lib/python3.10/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py", line 1707, in compute_3d_position_ids
-    position_ids = position_ids + delta.to(device=inputs_embeds.device)
-RuntimeError: The size of tensor a (2) must match the size of tensor b (0) at non-singleton dimension 1
-  0%|          | 0/14946 [01:37<?, ?it/s]
+  Gradient Accumulation steps = 8
+  Total optimization steps = 7,472
+  Number of trainable parameters = 116,391,936
+  0%|          | 0/7472 [00:00<?, ?it/s]Passing `generation_config` together with generation-related arguments=({'disable_compile'}) is deprecated and will be removed in future versions. Please pass either a `generation_config` object OR all generation parameters explicitly, but not both.
+  0%|          | 1/7472 [01:57<243:59:30, 117.57s/it]  0%|          | 2/7472 [03:52<241:06:10, 116.19s/it]  0%|          | 3/7472 [05:48<240:21:17, 115.85s/it]  0%|          | 4/7472 [07:43<240:00:07, 115.69s/it]  0%|          | 5/7472 [09:39<239:58:02, 115.69s/it]  0%|          | 6/7472 [11:34<239:32:56, 115.51s/it]  0%|          | 7/7472 [13:31<240:15:09, 115.86s/it]  0%|          | 8/7472 [15:26<240:03:42, 115.79s/it]  0%|          | 9/7472 [17:20<238:58:15, 115.27s/it]  0%|          | 10/7472 [19:16<238:57:10, 115.28s/it]                                                        0%|          | 10/7472 [19:16<238:57:10, 115.28s/it]  0%|          | 11/7472 [21:12<239:19:43, 115.48s/it]  0%|          | 12/7472 [23:07<239:11:53, 115.43s/it]  0%|          | 13/7472 [25:02<239:05:26, 115.39s/it]  0%|          | 14/7472 [26:57<238:42:08, 115.22s/it]  0%|          | 15/7472 [28:53<238:48:20, 115.29s/it]  0%|          | 16/7472 [30:48<238:46:35, 115.29s/it]  0%|          | 17/7472 [32:43<238:33:06, 115.20s/it]  0%|          | 18/7472 [34:39<238:54:46, 115.39s/it]  0%|          | 19/7472 [36:34<238:47:57, 115.35s/it]  0%|          | 20/7472 [38:28<238:07:33, 115.04s/it]                                                        0%|          | 20/7472 [38:29<238:07:33, 115.04s/it]  0%|          | 21/7472 [40:24<238:39:16, 115.31s/it]  0%|          | 22/7472 [42:20<239:08:04, 115.55s/it]  0%|          | 23/7472 [44:15<238:32:18, 115.28s/it]  0%|          | 24/7472 [46:11<238:43:53, 115.39s/it]  0%|          | 25/7472 [48:06<238:35:36, 115.34s/it]  0%|          | 26/7472 [50:01<238:28:57, 115.30s/it]  0%|          | 27/7472 [51:56<238:08:11, 115.15s/it]  0%|          | 28/7472 [53:51<238:18:09, 115.25s/it]  0%|          | 29/7472 [55:46<238:10:56, 115.20s/it]  0%|          | 30/7472 [57:42<238:20:51, 115.30s/it]                                                        0%|          | 30/7472 [57:42<238:20:51, 115.30s/it]  0%|          | 31/7472 [59:40<240:18:50, 116.27s/it]  0%|          | 32/7472 [1:01:36<239:49:22, 116.04s/it]  0%|          | 33/7472 [1:03:31<239:09:05, 115.73s/it]  0%|          | 34/7472 [1:05:26<238:58:11, 115.66s/it]direct"
+2026-03-24 23:36:15,450 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:15,837 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:16,214 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/model.safetensors.index.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:36:16,448 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/model.safetensors.index.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:16,680 [INFO] httpx: HTTP Request: GET https://hf-mirror.com/api/models/Qwen/Qwen3.5-9B/revision/main "HTTP/1.1 200 OK"
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 54120.05it/s]
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/760 [00:00<?, ?it/s]Loading weights:   0%|          | 1/760 [00:01<17:26,  1.38s/it]Loading weights:  12%|█▎        | 95/760 [00:01<00:07, 88.12it/s]Loading weights:  19%|█▉        | 146/760 [00:01<00:06, 101.76it/s]Loading weights:  24%|██▎       | 180/760 [00:02<00:05, 106.04it/s]Loading weights:  27%|██▋       | 205/760 [00:02<00:05, 104.04it/s]Loading weights:  30%|██▉       | 225/760 [00:02<00:04, 107.64it/s]Loading weights:  32%|███▏      | 242/760 [00:02<00:04, 105.71it/s]Loading weights:  34%|███▍      | 257/760 [00:02<00:04, 109.86it/s]Loading weights:  36%|███▌      | 274/760 [00:03<00:04, 114.47it/s]Loading weights:  38%|███▊      | 288/760 [00:03<00:04, 114.64it/s]Loading weights:  40%|███▉      | 302/760 [00:03<00:03, 115.55it/s]Loading weights:  41%|████▏     | 315/760 [00:03<00:04, 109.42it/s]Loading weights:  44%|████▎     | 331/760 [00:03<00:03, 118.77it/s]Loading weights:  45%|████▌     | 345/760 [00:03<00:03, 117.39it/s]Loading weights:  47%|████▋     | 359/760 [00:03<00:03, 110.48it/s]Loading weights:  49%|████▉     | 372/760 [00:03<00:03, 109.17it/s]Loading weights:  52%|█████▏    | 394/760 [00:04<00:02, 125.12it/s]Loading weights:  54%|█████▎    | 408/760 [00:04<00:02, 121.63it/s]Loading weights:  55%|█████▌    | 421/760 [00:04<00:03, 109.12it/s]Loading weights:  68%|██████▊   | 517/760 [00:04<00:00, 310.27it/s]Loading weights:  83%|████████▎ | 630/760 [00:04<00:00, 517.13it/s]Loading weights:  97%|█████████▋| 735/760 [00:04<00:00, 657.85it/s]Loading weights: 100%|██████████| 760/760 [00:04<00:00, 163.58it/s]
+2026-03-24 23:36:24,390 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/generation_config.json "HTTP/1.1 404 Not Found"
+2026-03-24 23:36:24,793 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/Qwen/Qwen3.5-9B/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-24 23:36:25,018 [INFO] httpx: HTTP Request: HEAD https://hf-mirror.com/api/resolve-cache/models/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json "HTTP/1.1 200 OK"
+2026-03-24 23:36:26,271 [WARNING] accelerate.utils.other: [RANK 0] Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+2026-03-24 23:36:26,277 [INFO] train_grpo_sweep: Starting training...
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 248046, 'pad_token_id': 248044}.
+***** Running training *****
+  Num examples = 7,473
+  Num Epochs = 2
+  Num update steps per epoch = 3,736
+  Instantaneous batch size per device = 1
+  Total train batch size (w. parallel, distributed & accumulation) = 8
+  Gradient Accumulation steps = 8
+  Total optimization steps = 7,472
+  Number of trainable parameters = 116,391,936
+  0%|          | 0/7472 [00:00<?, ?it/s]Passing `generation_config` together with generation-related arguments=({'disable_compile'}) is deprecated and will be removed in future versions. Please pass either a `generation_config` object OR all generation parameters explicitly, but not both.
+  0%|          | 1/7472 [01:57<243:59:30, 117.57s/it]  0%|          | 2/7472 [03:52<241:06:10, 116.19s/it]  0%|          | 3/7472 [05:48<240:21:17, 115.85s/it]  0%|          | 4/7472 [07:43<240:00:07, 115.69s/it]  0%|          | 5/7472 [09:39<239:58:02, 115.69s/it]  0%|          | 6/7472 [11:34<239:32:56, 115.51s/it]  0%|          | 7/7472 [13:31<240:15:09, 115.86s/it]  0%|          | 8/7472 [15:26<240:03:42, 115.79s/it]  0%|          | 9/7472 [17:20<238:58:15, 115.27s/it]  0%|          | 10/7472 [19:16<238:57:10, 115.28s/it]                                                        0%|          | 10/7472 [19:16<238:57:10, 115.28s/it]  0%|          | 11/7472 [21:12<239:19:43, 115.48s/it]  0%|          | 12/7472 [23:07<239:11:53, 115.43s/it]  0%|          | 13/7472 [25:02<239:05:26, 115.39s/it]  0%|          | 14/7472 [26:57<238:42:08, 115.22s/it]  0%|          | 15/7472 [28:53<238:48:20, 115.29s/it]  0%|          | 16/7472 [30:48<238:46:35, 115.29s/it]  0%|          | 17/7472 [32:43<238:33:06, 115.20s/it]  0%|          | 18/7472 [34:39<238:54:46, 115.39s/it]  0%|          | 19/7472 [36:34<238:47:57, 115.35s/it]  0%|          | 20/7472 [38:28<238:07:33, 115.04s/it]                                                        0%|          | 20/7472 [38:29<238:07:33, 115.04s/it]  0%|          | 21/7472 [40:24<238:39:16, 115.31s/it]  0%|          | 22/7472 [42:20<239:08:04, 115.55s/it]  0%|          | 23/7472 [44:15<238:32:18, 115.28s/it]  0%|          | 24/7472 [46:11<238:43:53, 115.39s/it]  0%|          | 25/7472 [48:06<238:35:36, 115.34s/it]  0%|          | 26/7472 [50:01<238:28:57, 115.30s/it]  0%|          | 27/7472 [51:56<238:08:11, 115.15s/it]  0%|          | 28/7472 [53:51<238:18:09, 115.25s/it]  0%|          | 29/7472 [55:46<238:10:56, 115.20s/it]  0%|          | 30/7472 [57:42<238:20:51, 115.30s/it]                                                        0%|          | 30/7472 [57:42<238:20:51, 115.30s/it]  0%|          | 31/7472 [59:40<240:18:50, 116.27s/it]  0%|          | 32/7472 [1:01:36<239:49:22, 116.04s/it]  0%|          | 33/7472 [1:03:31<239:09:05, 115.73s/it]  0%|          | 34/7472 [1:05:26<238:58:11, 115.66s/it]
