@@ -38,6 +38,9 @@ source "$SCRIPT_DIR/../../_shared/gpu_utils.sh" 2>/dev/null \
 
 auto_setup
 
+TORCHRUN="$(get_torchrun_cmd "$NUM_GPUS")"
+export TORCHRUN
+
 PYTHON="${PYTHON:-python3}"
 CONFIG_SWEEP="$PROJ_DIR_ROOT/configs/sweep_grid.yaml"
 CONFIG_HALLU="$PROJ_DIR_ROOT/configs/grpo_9b.yaml"
@@ -94,6 +97,7 @@ fi
 echo "============================================"
 echo " PROJ_DIR_ROOT = $PROJ_DIR_ROOT"
 echo " QUICK         = $QUICK"
+echo " TORCHRUN      = $TORCHRUN"
 echo "============================================"
 
 # -----------------------------------------------------------------------------
@@ -141,61 +145,91 @@ $PYTHON "$SCRIPT_DIR/eval_phase_point.py" \
   "${EVAL_NUM_SAMPLES[@]}" \
   --eval_math
 
+# Round-robin GPU pool: wait when the last-launched job completes a full cycle of NUM_GPUS workers.
+wait_if_gpu_batch_full() {
+  if [ $((GPU_IDX % NUM_GPUS)) -eq 0 ] && [ ${#PIDS[@]} -ge "$NUM_GPUS" ]; then
+    for pid in "${PIDS[@]}"; do wait "$pid" || exit 1; done
+    PIDS=()
+  fi
+}
+
 # -----------------------------------------------------------------------------
 # Phase 2 — Phase diagram sweep (α × β × seeds)
 # -----------------------------------------------------------------------------
 echo ""
-echo ">>> Phase 2: Phase diagram sweep"
+echo ">>> Phase 2: Phase diagram sweep (parallel, ${NUM_GPUS} GPUs)"
+
+run_phase2_combo() {
+  local A="$1" B="$2" S="$3"
+  local TAG RUN_DIR EVAL_JSON
+  TAG="$(printf 'alpha%.2f_beta%.2f_seed%d' "$A" "$B" "$S")"
+  RUN_DIR="$CKPT_ROOT/$TAG"
+  if [[ ! -f "$RUN_DIR/training_metrics.json" ]]; then
+    echo "    train  $TAG (GPU ${CUDA_VISIBLE_DEVICES:-?})"
+    $PYTHON "$SCRIPT_DIR/train_grpo_sweep.py" \
+      --positive_ratio "$A" \
+      --negative_weight "$B" \
+      --seed "$S" \
+      --config "$CONFIG_SWEEP" \
+      --output_dir "$RUN_DIR" \
+      "${SWEEP_MAX_STEPS[@]}"
+  else
+    echo "    (skip train) $TAG"
+  fi
+  EVAL_JSON="$PHASE_EVAL_DIR/eval_${TAG}.json"
+  if [[ ! -f "$EVAL_JSON" ]]; then
+    echo "    eval   $TAG (GPU ${CUDA_VISIBLE_DEVICES:-?})"
+    $PYTHON "$SCRIPT_DIR/eval_phase_point.py" \
+      --checkpoint_dir "$RUN_DIR" \
+      --positive_ratio "$A" \
+      --negative_weight "$B" \
+      --seed "$S" \
+      --output_dir "$PHASE_EVAL_DIR" \
+      "${EVAL_NUM_SAMPLES[@]}" \
+      --eval_math
+  else
+    echo "    (skip eval) $TAG"
+  fi
+}
+
+PHASE2_LOG_DIR="$PROJ_DIR_ROOT/results/logs/phase2"
+mkdir -p "$PHASE2_LOG_DIR"
+
+GPU_IDX=0
+PIDS=()
 for A in "${PHASE2_ALPHAS[@]}"; do
   for B in "${PHASE2_BETAS[@]}"; do
     for S in "${PHASE2_SEEDS[@]}"; do
       TAG="$(printf 'alpha%.2f_beta%.2f_seed%d' "$A" "$B" "$S")"
-      RUN_DIR="$CKPT_ROOT/$TAG"
-      if [[ ! -f "$RUN_DIR/training_metrics.json" ]]; then
-        echo "    train  $TAG"
-        $PYTHON "$SCRIPT_DIR/train_grpo_sweep.py" \
-          --positive_ratio "$A" \
-          --negative_weight "$B" \
-          --seed "$S" \
-          --config "$CONFIG_SWEEP" \
-          --output_dir "$RUN_DIR" \
-          "${SWEEP_MAX_STEPS[@]}"
-      else
-        echo "    (skip train) $TAG"
-      fi
-      EVAL_JSON="$PHASE_EVAL_DIR/eval_${TAG}.json"
-      if [[ ! -f "$EVAL_JSON" ]]; then
-        echo "    eval   $TAG"
-        $PYTHON "$SCRIPT_DIR/eval_phase_point.py" \
-          --checkpoint_dir "$RUN_DIR" \
-          --positive_ratio "$A" \
-          --negative_weight "$B" \
-          --seed "$S" \
-          --output_dir "$PHASE_EVAL_DIR" \
-          "${EVAL_NUM_SAMPLES[@]}" \
-          --eval_math
-      else
-        echo "    (skip eval) $TAG"
-      fi
+      LOG_FILE="$PHASE2_LOG_DIR/${TAG}.log"
+      CUDA_VISIBLE_DEVICES=$((GPU_IDX % NUM_GPUS)) run_phase2_combo "$A" "$B" "$S" >"$LOG_FILE" 2>&1 &
+      PIDS+=($!)
+      GPU_IDX=$((GPU_IDX + 1))
+      wait_if_gpu_batch_full
     done
   done
 done
+for pid in "${PIDS[@]}"; do wait "$pid" || exit 1; done
+echo ">>> Phase 2: all jobs finished OK"
 
 # -----------------------------------------------------------------------------
 # Phase 3 — Zero-score strategy sweep (4 strategies × hyperparams × seeds)
 # Path layout includes the substring 'sweep' for run_diagnostic_analysis.py
 # -----------------------------------------------------------------------------
 echo ""
-echo ">>> Phase 3: Zero-score strategy sweep (HalluZero)"
+echo ">>> Phase 3: Zero-score strategy sweep (HalluZero, parallel, ${NUM_GPUS} GPUs)"
 
+# Args: gpu_index strategy output_dir [train_grpo_halluzero.py args...]
 run_hallu() {
-  local strategy="$1"
-  local out_dir="$2"
-  shift 2
+  local gpu="$1"
+  local strategy="$2"
+  local out_dir="$3"
+  shift 3
+  export CUDA_VISIBLE_DEVICES="$gpu"
   if [[ -f "$out_dir/training_metrics.json" ]]; then
-    echo "    (skip train) $out_dir"
+    echo "    (skip train) $out_dir (GPU $gpu)"
   else
-    echo "    train  $out_dir"
+    echo "    train  $out_dir (GPU $gpu)"
     $PYTHON "$SCRIPT_DIR/train_grpo_halluzero.py" \
       --config_path "$CONFIG_HALLU" \
       --output_dir "$out_dir" \
@@ -204,43 +238,66 @@ run_hallu() {
       "${HALLU_EPOCHS[@]}"
   fi
   if [[ ! -f "$out_dir/eval/summary.json" ]]; then
-    echo "    eval   $out_dir"
+    echo "    eval   $out_dir (GPU $gpu)"
     $PYTHON "$SCRIPT_DIR/eval_halluzero.py" \
       --model_path "$out_dir" \
       --output_dir "$out_dir/eval" \
       "${EVAL_GSM8K[@]}" \
       "${EVAL_MATH[@]}"
   else
-    echo "    (skip eval) $out_dir"
+    echo "    (skip eval) $out_dir (GPU $gpu)"
   fi
 }
 
+PHASE3_LOG_DIR="$PROJ_DIR_ROOT/results/logs/phase3"
+mkdir -p "$PHASE3_LOG_DIR"
+
+GPU_IDX=0
+PIDS=()
 for S in "${PHASE3_SEEDS[@]}"; do
   for CF in "${CLIP_FACTORS[@]}"; do
     TAG="cf_$(printf '%.2f' "$CF")"
-    run_hallu clip "$ZERO_SWEEP_ROOT/sweep/clip/${TAG}/seed_${S}" \
+    LOG_FILE="$PHASE3_LOG_DIR/clip_${TAG}_seed${S}.log"
+    run_hallu "$((GPU_IDX % NUM_GPUS))" clip "$ZERO_SWEEP_ROOT/sweep/clip/${TAG}/seed_${S}" \
       --seed "$S" \
-      --clip_factor "$CF"
+      --clip_factor "$CF" >"$LOG_FILE" 2>&1 &
+    PIDS+=($!)
+    GPU_IDX=$((GPU_IDX + 1))
+    wait_if_gpu_batch_full
   done
   for TB in "${TEMP_BOOSTS[@]}"; do
     TAG="tb_$(printf '%.2f' "$TB")"
-    run_hallu temperature "$ZERO_SWEEP_ROOT/sweep/temperature/${TAG}/seed_${S}" \
+    LOG_FILE="$PHASE3_LOG_DIR/temperature_${TAG}_seed${S}.log"
+    run_hallu "$((GPU_IDX % NUM_GPUS))" temperature "$ZERO_SWEEP_ROOT/sweep/temperature/${TAG}/seed_${S}" \
       --seed "$S" \
-      --temperature_boost "$TB"
+      --temperature_boost "$TB" >"$LOG_FILE" 2>&1 &
+    PIDS+=($!)
+    GPU_IDX=$((GPU_IDX + 1))
+    wait_if_gpu_batch_full
   done
   for CW in "${CURR_WARMS[@]}"; do
     TAG="warm_${CW}"
-    run_hallu curriculum "$ZERO_SWEEP_ROOT/sweep/curriculum/${TAG}/seed_${S}" \
+    LOG_FILE="$PHASE3_LOG_DIR/curriculum_${TAG}_seed${S}.log"
+    run_hallu "$((GPU_IDX % NUM_GPUS))" curriculum "$ZERO_SWEEP_ROOT/sweep/curriculum/${TAG}/seed_${S}" \
       --seed "$S" \
-      --curriculum_warmup_steps "$CW"
+      --curriculum_warmup_steps "$CW" >"$LOG_FILE" 2>&1 &
+    PIDS+=($!)
+    GPU_IDX=$((GPU_IDX + 1))
+    wait_if_gpu_batch_full
   done
   for RE in "${RELABEL_EPS[@]}"; do
     TAG="eps_$(printf '%.4f' "$RE" | tr '.' 'p')"
-    run_hallu relabel "$ZERO_SWEEP_ROOT/sweep/relabel/${TAG}/seed_${S}" \
+    LOG_FILE="$PHASE3_LOG_DIR/relabel_${TAG}_seed${S}.log"
+    run_hallu "$((GPU_IDX % NUM_GPUS))" relabel "$ZERO_SWEEP_ROOT/sweep/relabel/${TAG}/seed_${S}" \
       --seed "$S" \
-      --relabel_epsilon "$RE"
+      --relabel_epsilon "$RE" >"$LOG_FILE" 2>&1 &
+    PIDS+=($!)
+    GPU_IDX=$((GPU_IDX + 1))
+    wait_if_gpu_batch_full
   done
 done
+for pid in "${PIDS[@]}"; do wait "$pid" || exit 1; done
+echo ">>> Phase 3: all jobs finished OK"
 
 # -----------------------------------------------------------------------------
 # Phase 4 — Phase diagram + collapse-zone analysis
