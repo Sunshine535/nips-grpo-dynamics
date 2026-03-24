@@ -21,11 +21,11 @@ import torch
 import yaml
 from datasets import load_dataset
 from peft import LoraConfig
-from transformers import AutoTokenizer, TrainerCallback
+from transformers import AutoModelForCausalLM, AutoTokenizer, TrainerCallback
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.balanced_grpo import BalancedGRPOCallback
-from src.qwen35_compat import apply_qwen35_text_only_patch, ClearRopeDeltasCallback
+from src.qwen35_compat import apply_qwen35_text_only_patch, patch_model_instance, ClearRopeDeltasCallback
 
 os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
 apply_qwen35_text_only_patch()
@@ -201,6 +201,16 @@ def main():
         log_on_each_node=False,
     )
 
+    logger.info("Loading model: %s (device_map=None, bf16)", model_name)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        torch_dtype=torch.bfloat16,
+        attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+        device_map=None,
+    )
+    patch_model_instance(model)
+
     lora_cfg = cfg.get("lora", {})
     peft_config = LoraConfig(
         r=lora_cfg.get("r", 64),
@@ -217,7 +227,7 @@ def main():
     rope_cb = ClearRopeDeltasCallback()
 
     trainer = GRPOTrainer(
-        model=model_name,
+        model=model,
         args=training_config,
         train_dataset=dataset,
         processing_class=tokenizer,

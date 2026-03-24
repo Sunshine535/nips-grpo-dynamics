@@ -42,6 +42,11 @@ TORCHRUN="$(get_torchrun_cmd "$NUM_GPUS")"
 export TORCHRUN
 
 PYTHON="${PYTHON:-python3}"
+
+# Multi-GPU accelerate config for DDP training (Phase 1 baseline)
+ACCEL_CONFIG="$PROJ_DIR_ROOT/configs/accelerate_multi_gpu.yaml"
+generate_accelerate_config "$ACCEL_CONFIG" "$NUM_GPUS"
+ACCEL_CMD="accelerate launch --config_file $ACCEL_CONFIG"
 CONFIG_SWEEP="$PROJ_DIR_ROOT/configs/sweep_grid.yaml"
 CONFIG_HALLU="$PROJ_DIR_ROOT/configs/grpo_9b.yaml"
 CKPT_ROOT="$PROJ_DIR_ROOT/checkpoints"
@@ -97,6 +102,8 @@ fi
 echo "============================================"
 echo " PROJ_DIR_ROOT = $PROJ_DIR_ROOT"
 echo " QUICK         = $QUICK"
+echo " NUM_GPUS      = $NUM_GPUS"
+echo " ACCEL_CMD     = $ACCEL_CMD"
 echo " TORCHRUN      = $TORCHRUN"
 echo "============================================"
 
@@ -123,14 +130,17 @@ done
 # -----------------------------------------------------------------------------
 echo ""
 echo ">>> Phase 1: Baseline GRPO (train_grpo_sweep.py, α=0.5, β=1.0, seed 42)"
+echo "    Using ${NUM_GPUS}-GPU DDP via accelerate launch"
 BASELINE_DIR="$CKPT_ROOT/baseline_grpo_alpha0.50_beta1.00_seed42"
 if [[ ! -f "$BASELINE_DIR/training_metrics.json" ]]; then
-  $PYTHON "$SCRIPT_DIR/train_grpo_sweep.py" \
+  $ACCEL_CMD "$SCRIPT_DIR/train_grpo_sweep.py" \
     --positive_ratio 0.5 \
     --negative_weight 1.0 \
     --seed 42 \
     --config "$CONFIG_SWEEP" \
     --output_dir "$BASELINE_DIR" \
+    --per_device_train_batch_size 2 \
+    --gradient_accumulation_steps 1 \
     "${BASELINE_MAX_STEPS[@]}"
 else
   echo "    (skip) $BASELINE_DIR already has training_metrics.json"

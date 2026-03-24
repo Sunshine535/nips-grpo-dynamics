@@ -206,6 +206,7 @@ def main():
         torch_dtype=getattr(torch, cfg["model"]["torch_dtype"]),
         attn_implementation=cfg["model"].get("attn_implementation", "flash_attention_2"),
         trust_remote_code=True,
+        device_map=None,
     )
     patch_model_instance(model)
 
