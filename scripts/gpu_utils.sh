@@ -102,7 +102,6 @@ compute_environment: LOCAL_MACHINE
 distributed_type: MULTI_GPU
 downcast_bf16: 'no'
 machine_rank: 0
-main_training_tp_size: 1
 mixed_precision: bf16
 num_machines: 1
 num_processes: ${nproc}
