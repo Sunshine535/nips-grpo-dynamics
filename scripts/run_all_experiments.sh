@@ -130,18 +130,29 @@ done
 # -----------------------------------------------------------------------------
 echo ""
 echo ">>> Phase 1: Baseline GRPO (train_grpo_sweep.py, α=0.5, β=1.0, seed 42)"
-echo "    Using ${NUM_GPUS}-GPU DDP via accelerate launch"
 BASELINE_DIR="$CKPT_ROOT/baseline_grpo_alpha0.50_beta1.00_seed42"
 if [[ ! -f "$BASELINE_DIR/training_metrics.json" ]]; then
-  $ACCEL_CMD "$SCRIPT_DIR/train_grpo_sweep.py" \
-    --positive_ratio 0.5 \
-    --negative_weight 1.0 \
-    --seed 42 \
-    --config "$CONFIG_SWEEP" \
-    --output_dir "$BASELINE_DIR" \
-    --per_device_train_batch_size 2 \
-    --gradient_accumulation_steps 1 \
-    "${BASELINE_MAX_STEPS[@]}"
+  if [[ "$NUM_GPUS" -gt 1 ]]; then
+    echo "    Using ${NUM_GPUS}-GPU DDP via accelerate launch"
+    $ACCEL_CMD "$SCRIPT_DIR/train_grpo_sweep.py" \
+      --positive_ratio 0.5 \
+      --negative_weight 1.0 \
+      --seed 42 \
+      --config "$CONFIG_SWEEP" \
+      --output_dir "$BASELINE_DIR" \
+      --per_device_train_batch_size 2 \
+      --gradient_accumulation_steps 1 \
+      "${BASELINE_MAX_STEPS[@]}"
+  else
+    echo "    Using single-GPU training"
+    $PYTHON "$SCRIPT_DIR/train_grpo_sweep.py" \
+      --positive_ratio 0.5 \
+      --negative_weight 1.0 \
+      --seed 42 \
+      --config "$CONFIG_SWEEP" \
+      --output_dir "$BASELINE_DIR" \
+      "${BASELINE_MAX_STEPS[@]}"
+  fi
 else
   echo "    (skip) $BASELINE_DIR already has training_metrics.json"
 fi

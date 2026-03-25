@@ -12,22 +12,28 @@ detect_gpus() {
         exit 1
     fi
 
-    export NUM_GPUS=$(nvidia-smi -L 2>/dev/null | wc -l)
-    if [ "$NUM_GPUS" -eq 0 ]; then
-        echo "[ERROR] No GPUs detected."
-        exit 1
+    if [ -n "${CUDA_VISIBLE_DEVICES:-}" ]; then
+        # Respect pre-set CUDA_VISIBLE_DEVICES
+        local IFS=','
+        local -a gpu_arr=($CUDA_VISIBLE_DEVICES)
+        export NUM_GPUS=${#gpu_arr[@]}
+    else
+        export NUM_GPUS=$(nvidia-smi -L 2>/dev/null | wc -l)
+        if [ "$NUM_GPUS" -eq 0 ]; then
+            echo "[ERROR] No GPUs detected."
+            exit 1
+        fi
+        local gpu_ids=""
+        for ((i=0; i<NUM_GPUS; i++)); do
+            [ -n "$gpu_ids" ] && gpu_ids="${gpu_ids},"
+            gpu_ids="${gpu_ids}${i}"
+        done
+        export CUDA_VISIBLE_DEVICES="$gpu_ids"
     fi
 
-    # Build CUDA_VISIBLE_DEVICES string: 0,1,...,N-1
-    local gpu_ids=""
-    for ((i=0; i<NUM_GPUS; i++)); do
-        [ -n "$gpu_ids" ] && gpu_ids="${gpu_ids},"
-        gpu_ids="${gpu_ids}${i}"
-    done
-    export CUDA_VISIBLE_DEVICES="$gpu_ids"
-
-    # GPU memory in MiB (of first GPU)
-    export GPU_MEM_MIB=$(nvidia-smi --query-gpu=memory.total --format=csv,noheader,nounits -i 0 2>/dev/null | tr -d ' ')
+    # GPU memory in MiB (of first GPU visible)
+    local first_gpu="${CUDA_VISIBLE_DEVICES%%,*}"
+    export GPU_MEM_MIB=$(nvidia-smi --query-gpu=memory.total --format=csv,noheader,nounits -i "$first_gpu" 2>/dev/null | tr -d ' ')
 
     # Determine if we can run large models
     if [ "${GPU_MEM_MIB:-0}" -ge 70000 ]; then
