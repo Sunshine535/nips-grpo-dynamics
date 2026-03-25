@@ -223,7 +223,7 @@ for A in "${PHASE2_ALPHAS[@]}"; do
     for S in "${PHASE2_SEEDS[@]}"; do
       TAG="$(printf 'alpha%.2f_beta%.2f_seed%d' "$A" "$B" "$S")"
       LOG_FILE="$PHASE2_LOG_DIR/${TAG}.log"
-      CUDA_VISIBLE_DEVICES=$((GPU_IDX % NUM_GPUS)) run_phase2_combo "$A" "$B" "$S" >"$LOG_FILE" 2>&1 &
+      CUDA_VISIBLE_DEVICES=$(get_gpu_id $GPU_IDX) run_phase2_combo "$A" "$B" "$S" >"$LOG_FILE" 2>&1 &
       PIDS+=($!)
       GPU_IDX=$((GPU_IDX + 1))
       wait_if_gpu_batch_full
@@ -279,7 +279,7 @@ for S in "${PHASE3_SEEDS[@]}"; do
   for CF in "${CLIP_FACTORS[@]}"; do
     TAG="cf_$(printf '%.2f' "$CF")"
     LOG_FILE="$PHASE3_LOG_DIR/clip_${TAG}_seed${S}.log"
-    run_hallu "$((GPU_IDX % NUM_GPUS))" clip "$ZERO_SWEEP_ROOT/sweep/clip/${TAG}/seed_${S}" \
+    run_hallu "$(get_gpu_id $GPU_IDX)" clip "$ZERO_SWEEP_ROOT/sweep/clip/${TAG}/seed_${S}" \
       --seed "$S" \
       --clip_factor "$CF" >"$LOG_FILE" 2>&1 &
     PIDS+=($!)
@@ -289,7 +289,7 @@ for S in "${PHASE3_SEEDS[@]}"; do
   for TB in "${TEMP_BOOSTS[@]}"; do
     TAG="tb_$(printf '%.2f' "$TB")"
     LOG_FILE="$PHASE3_LOG_DIR/temperature_${TAG}_seed${S}.log"
-    run_hallu "$((GPU_IDX % NUM_GPUS))" temperature "$ZERO_SWEEP_ROOT/sweep/temperature/${TAG}/seed_${S}" \
+    run_hallu "$(get_gpu_id $GPU_IDX)" temperature "$ZERO_SWEEP_ROOT/sweep/temperature/${TAG}/seed_${S}" \
       --seed "$S" \
       --temperature_boost "$TB" >"$LOG_FILE" 2>&1 &
     PIDS+=($!)
@@ -299,7 +299,7 @@ for S in "${PHASE3_SEEDS[@]}"; do
   for CW in "${CURR_WARMS[@]}"; do
     TAG="warm_${CW}"
     LOG_FILE="$PHASE3_LOG_DIR/curriculum_${TAG}_seed${S}.log"
-    run_hallu "$((GPU_IDX % NUM_GPUS))" curriculum "$ZERO_SWEEP_ROOT/sweep/curriculum/${TAG}/seed_${S}" \
+    run_hallu "$(get_gpu_id $GPU_IDX)" curriculum "$ZERO_SWEEP_ROOT/sweep/curriculum/${TAG}/seed_${S}" \
       --seed "$S" \
       --curriculum_warmup_steps "$CW" >"$LOG_FILE" 2>&1 &
     PIDS+=($!)
@@ -309,7 +309,7 @@ for S in "${PHASE3_SEEDS[@]}"; do
   for RE in "${RELABEL_EPS[@]}"; do
     TAG="eps_$(printf '%.4f' "$RE" | tr '.' 'p')"
     LOG_FILE="$PHASE3_LOG_DIR/relabel_${TAG}_seed${S}.log"
-    run_hallu "$((GPU_IDX % NUM_GPUS))" relabel "$ZERO_SWEEP_ROOT/sweep/relabel/${TAG}/seed_${S}" \
+    run_hallu "$(get_gpu_id $GPU_IDX)" relabel "$ZERO_SWEEP_ROOT/sweep/relabel/${TAG}/seed_${S}" \
       --seed "$S" \
       --relabel_epsilon "$RE" >"$LOG_FILE" 2>&1 &
     PIDS+=($!)

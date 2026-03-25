@@ -14,6 +14,7 @@ detect_gpus() {
 
     if [ -n "${CUDA_VISIBLE_DEVICES:-}" ]; then
         # Respect pre-set CUDA_VISIBLE_DEVICES
+        export VISIBLE_GPU_IDS="$CUDA_VISIBLE_DEVICES"
         local IFS=','
         local -a gpu_arr=($CUDA_VISIBLE_DEVICES)
         export NUM_GPUS=${#gpu_arr[@]}
@@ -29,6 +30,7 @@ detect_gpus() {
             gpu_ids="${gpu_ids}${i}"
         done
         export CUDA_VISIBLE_DEVICES="$gpu_ids"
+        export VISIBLE_GPU_IDS="$gpu_ids"
     fi
 
     # GPU memory in MiB (of first GPU visible)
@@ -54,6 +56,14 @@ detect_gpus() {
     echo "  GPU memory (each) : ${GPU_MEM_MIB} MiB"
     echo "  GPU class          : $GPU_CLASS"
     echo "============================================"
+}
+
+# Map logical GPU index to physical GPU ID from VISIBLE_GPU_IDS
+get_gpu_id() {
+    local idx=$1
+    local IFS=','
+    local -a arr=($VISIBLE_GPU_IDS)
+    echo "${arr[$((idx % ${#arr[@]}))]}"
 }
 
 # Select torchrun command based on GPU count
