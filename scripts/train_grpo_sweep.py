@@ -201,11 +201,16 @@ def main():
         log_on_each_node=False,
     )
 
-    logger.info("Loading model: %s (device_map=None, bf16)", model_name)
+    try:
+        import flash_attn  # noqa: F401
+        attn_impl = "flash_attention_2"
+    except ImportError:
+        attn_impl = "sdpa"
+    logger.info("Loading model: %s (device_map=None, bf16, attn=%s)", model_name, attn_impl)
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
         torch_dtype=torch.bfloat16,
-        attn_implementation="flash_attention_2",
+        attn_implementation=attn_impl,
         trust_remote_code=True,
         device_map=None,
     )

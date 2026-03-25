@@ -201,10 +201,17 @@ def main():
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
+    requested_attn = cfg["model"].get("attn_implementation", "flash_attention_2")
+    try:
+        import flash_attn  # noqa: F401
+    except ImportError:
+        if requested_attn == "flash_attention_2":
+            requested_attn = "sdpa"
+            logger.warning("flash_attn not installed, falling back to %s", requested_attn)
     model = AutoModelForCausalLM.from_pretrained(
         cfg["model"]["name_or_path"],
         torch_dtype=getattr(torch, cfg["model"]["torch_dtype"]),
-        attn_implementation=cfg["model"].get("attn_implementation", "flash_attention_2"),
+        attn_implementation=requested_attn,
         trust_remote_code=True,
         device_map=None,
     )
