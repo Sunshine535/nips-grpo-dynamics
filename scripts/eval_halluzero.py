@@ -370,7 +370,7 @@ def main():
         torch_dtype=torch.bfloat16,
         device_map="auto",
         trust_remote_code=True,
-        attn_implementation="flash_attention_2",
+        attn_implementation="sdpa",
     )
     patch_model_instance(model)
     model.eval()
