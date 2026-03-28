@@ -152,8 +152,6 @@ def math_prompt(example):
 def main():
     args = parse_args()
 
-    os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
-
     logger.info(f"Loading checkpoint from {args.checkpoint_dir}")
     tokenizer = AutoTokenizer.from_pretrained(args.checkpoint_dir, trust_remote_code=True)
     if tokenizer.pad_token is None:

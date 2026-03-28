@@ -119,7 +119,7 @@ else
   MODELS_TO_FETCH=("$MODEL_9B" "$MODEL_27B")
 fi
 for mid in "${MODELS_TO_FETCH[@]}"; do
-  $PYTHON -c "import os; os.environ.setdefault('HF_ENDPOINT', os.environ.get('HF_ENDPOINT', 'https://hf-mirror.com')); from huggingface_hub import snapshot_download; print('[snapshot_download]', '${mid}'); snapshot_download(repo_id='${mid}')"
+  $PYTHON -c "from huggingface_hub import snapshot_download; print('[snapshot_download]', '${mid}'); snapshot_download(repo_id='${mid}')"
 done
 
 # -----------------------------------------------------------------------------
