@@ -8,6 +8,7 @@ Saves checkpoint + training_metrics.json to output_dir.
 """
 
 import argparse
+import glob
 import json
 import logging
 import os
@@ -36,6 +37,13 @@ logging.basicConfig(
 logger = logging.getLogger("train_grpo_sweep")
 
 
+def find_latest_checkpoint(output_dir):
+    """Find the latest checkpoint directory in output_dir."""
+    ckpts = sorted(glob.glob(os.path.join(output_dir, "checkpoint-*")),
+                   key=lambda x: int(x.split("-")[-1]) if x.split("-")[-1].isdigit() else 0)
+    return ckpts[-1] if ckpts else None
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description="GRPO training (single α,β point)")
     parser.add_argument("--positive_ratio", type=float, required=True,
@@ -53,6 +61,8 @@ def parse_args():
     parser.add_argument("--per_device_train_batch_size", type=int, default=None)
     parser.add_argument("--gradient_accumulation_steps", type=int, default=None)
     parser.add_argument("--max_steps", type=int, default=-1)
+    parser.add_argument("--resume_from_checkpoint", type=str, default="auto",
+                        help="Resume from checkpoint. 'auto' finds latest, path for specific, 'none' to disable")
     return parser.parse_args()
 
 
@@ -240,8 +250,17 @@ def main():
         callbacks=[metrics_cb, balanced_cb, rope_cb],
     )
 
+    resume_ckpt = None
+    if args.resume_from_checkpoint != "none":
+        if args.resume_from_checkpoint == "auto":
+            resume_ckpt = find_latest_checkpoint(output_dir)
+        else:
+            resume_ckpt = args.resume_from_checkpoint
+        if resume_ckpt:
+            logger.info("Resuming from checkpoint: %s", resume_ckpt)
+
     logger.info("Starting training...")
-    train_result = trainer.train()
+    train_result = trainer.train(resume_from_checkpoint=resume_ckpt)
 
     # Save model + tokenizer
     trainer.save_model(output_dir)

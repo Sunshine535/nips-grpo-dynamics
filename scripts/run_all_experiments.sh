@@ -38,6 +38,17 @@ source "$SCRIPT_DIR/../../_shared/gpu_utils.sh" 2>/dev/null \
 
 auto_setup
 
+PHASE_MARKER_DIR="$PROJ_DIR_ROOT/results/.phase_markers"
+mkdir -p "$PHASE_MARKER_DIR"
+FORCE_RERUN="${FORCE_RERUN:-0}"
+
+phase_done() { touch "$PHASE_MARKER_DIR/phase_${1}.done"; echo "[PHASE $1] Completed at $(date)"; }
+is_phase_done() {
+    [[ "$FORCE_RERUN" == "1" ]] && return 1
+    [[ -f "$PHASE_MARKER_DIR/phase_${1}.done" ]] && echo "[PHASE $1] Already completed. Skipping. (FORCE_RERUN=1 to override)" && return 0
+    return 1
+}
+
 TORCHRUN="$(get_torchrun_cmd "$NUM_GPUS")"
 export TORCHRUN
 
@@ -110,6 +121,7 @@ echo "============================================"
 # -----------------------------------------------------------------------------
 # Phase 0 — Model download (Hugging Face Hub)
 # -----------------------------------------------------------------------------
+if ! is_phase_done 0; then
 echo ""
 if [[ "$QUICK" == "1" ]]; then
   echo ">>> Phase 0: Model download ($MODEL_9B only; --quick skips 27B prefetch)"
@@ -121,6 +133,7 @@ fi
 for mid in "${MODELS_TO_FETCH[@]}"; do
   $PYTHON -c "from huggingface_hub import snapshot_download; print('[snapshot_download]', '${mid}'); snapshot_download(repo_id='${mid}')"
 done
+phase_done 0; fi
 
 # -----------------------------------------------------------------------------
 # Phase 1 — Baseline GRPO (α,β parameterization, reference point α=0.5, β=1.0)
@@ -128,6 +141,7 @@ done
 # explicit sweep — same trainer as the diagram study, fixed at the center of
 # the (α,β) plane.
 # -----------------------------------------------------------------------------
+if ! is_phase_done 1; then
 echo ""
 echo ">>> Phase 1: Baseline GRPO (train_grpo_sweep.py, α=0.5, β=1.0, seed 42)"
 BASELINE_DIR="$CKPT_ROOT/baseline_grpo_alpha0.50_beta1.00_seed42"
@@ -165,6 +179,7 @@ $PYTHON "$SCRIPT_DIR/eval_phase_point.py" \
   --output_dir "$PHASE_EVAL_DIR" \
   "${EVAL_NUM_SAMPLES[@]}" \
   --eval_math
+phase_done 1; fi
 
 # Round-robin GPU pool: wait when the last-launched job completes a full cycle of NUM_GPUS workers.
 wait_if_gpu_batch_full() {
@@ -177,6 +192,7 @@ wait_if_gpu_batch_full() {
 # -----------------------------------------------------------------------------
 # Phase 2 — Phase diagram sweep (α × β × seeds)
 # -----------------------------------------------------------------------------
+if ! is_phase_done 2; then
 echo ""
 echo ">>> Phase 2: Phase diagram sweep (parallel, ${NUM_GPUS} GPUs)"
 
@@ -232,11 +248,13 @@ for A in "${PHASE2_ALPHAS[@]}"; do
 done
 for pid in "${PIDS[@]}"; do wait "$pid" || exit 1; done
 echo ">>> Phase 2: all jobs finished OK"
+phase_done 2; fi
 
 # -----------------------------------------------------------------------------
 # Phase 3 — Zero-score strategy sweep (4 strategies × hyperparams × seeds)
 # Path layout includes the substring 'sweep' for run_diagnostic_analysis.py
 # -----------------------------------------------------------------------------
+if ! is_phase_done 3; then
 echo ""
 echo ">>> Phase 3: Zero-score strategy sweep (HalluZero, parallel, ${NUM_GPUS} GPUs)"
 
@@ -319,10 +337,12 @@ for S in "${PHASE3_SEEDS[@]}"; do
 done
 for pid in "${PIDS[@]}"; do wait "$pid" || exit 1; done
 echo ">>> Phase 3: all jobs finished OK"
+phase_done 3; fi
 
 # -----------------------------------------------------------------------------
 # Phase 4 — Phase diagram + collapse-zone analysis
 # -----------------------------------------------------------------------------
+if ! is_phase_done 4; then
 echo ""
 echo ">>> Phase 4: build_phase_diagram.py"
 $PYTHON "$SCRIPT_DIR/build_phase_diagram.py" \
@@ -330,20 +350,24 @@ $PYTHON "$SCRIPT_DIR/build_phase_diagram.py" \
   --checkpoint_dir "$CKPT_ROOT" \
   --curriculum_dir "$PROJ_DIR_ROOT/results/curriculum" \
   --output_dir "$ANALYSIS_DIR"
+phase_done 4; fi
 
 # -----------------------------------------------------------------------------
 # Phase 5 — Gradient analysis (zero vs nonzero)
 # -----------------------------------------------------------------------------
+if ! is_phase_done 5; then
 echo ""
 echo ">>> Phase 5: analyze_gradients.py"
 $PYTHON "$SCRIPT_DIR/analyze_gradients.py" \
   --model_path "$MODEL_9B" \
   --output_dir "$PROJ_DIR_ROOT/results/gradient_analysis" \
   --num_samples "$( [[ "$QUICK" == "1" ]] && echo 48 || echo 200 )"
+phase_done 5; fi
 
 # -----------------------------------------------------------------------------
 # Phase 6 — Curriculum strategies (α/β schedules)
 # -----------------------------------------------------------------------------
+if ! is_phase_done 6; then
 echo ""
 echo ">>> Phase 6: run_curriculum_strategies.py"
 $PYTHON "$SCRIPT_DIR/run_curriculum_strategies.py" \
@@ -352,19 +376,23 @@ $PYTHON "$SCRIPT_DIR/run_curriculum_strategies.py" \
   --best_alpha 0.5 \
   --best_beta 1.0 \
   --total_steps_estimate "$( [[ "$QUICK" == "1" ]] && echo 120 || echo 500 )"
+phase_done 6; fi
 
 # -----------------------------------------------------------------------------
 # Phase 7 — Diagnostic figures / tables
 # -----------------------------------------------------------------------------
+if ! is_phase_done 7; then
 echo ""
 echo ">>> Phase 7: run_diagnostic_analysis.py"
 $PYTHON "$SCRIPT_DIR/run_diagnostic_analysis.py" \
   --results_dir "$ZERO_SWEEP_ROOT" \
   --output_dir "$ANALYSIS_DIR/diagnostics"
+phase_done 7; fi
 
 # -----------------------------------------------------------------------------
 # Phase 8 — 27B validation (weights prefetched in Phase 0 when not --quick)
 # -----------------------------------------------------------------------------
+if ! is_phase_done 8; then
 echo ""
 if [[ "${SKIP_27B_VALIDATION:-0}" == "1" ]]; then
   echo ">>> Phase 8: skipped (--quick; avoids large 27B download / eval)"
@@ -376,6 +404,7 @@ else
     "${PHASE8_EVAL_GSM8K[@]}" \
     "${PHASE8_EVAL_MATH[@]}"
 fi
+phase_done 8; fi
 
 echo ""
 echo "============================================"
