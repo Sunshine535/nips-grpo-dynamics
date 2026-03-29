@@ -9,10 +9,13 @@
 git clone https://github.com/Sunshine535/nips-grpo-dynamics.git
 cd nips-grpo-dynamics
 
-# 2. One-command setup + run all experiments
+# 2. Install dependencies
+bash setup.sh
+
+# 3. Run all experiments
 bash run.sh
 
-# 3. (Optional) Run in background for long experiments
+# 4. (Optional) Run in background for long experiments
 nohup bash run.sh > run.log 2>&1 &
 tail -f run.log
 ```
@@ -128,7 +131,7 @@ The master script enables **MATH** alongside **GSM8K** for phase-point evaluatio
 
 - **Python 3.10+** recommended (see `setup.sh`).
 - **NVIDIA GPU(s)** with a recent **CUDA** stack for training; inference-only phases can be run with smaller batches.
-- **PyTorch** is **installed separately** (not pinned in `requirements.txt`); `setup.sh` installs CUDA wheels via `uv` and then installs `requirements.txt`.
+- **PyTorch** is **installed separately** (not pinned in `requirements.txt`); `setup.sh` installs CUDA wheels and then installs `requirements.txt`.
 - **Python packages** are listed in `requirements.txt` (**transformers**, **datasets**, **accelerate**, **trl**, **peft**, **wandb**, **scipy**, **matplotlib**, **pandas**, etc.).
 
 After `setup.sh`:
