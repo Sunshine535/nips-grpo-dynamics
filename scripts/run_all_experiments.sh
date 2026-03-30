@@ -64,8 +64,8 @@ CKPT_ROOT="$PROJ_DIR_ROOT/checkpoints"
 PHASE_EVAL_DIR="$PROJ_DIR_ROOT/results/phase_diagram"
 ZERO_SWEEP_ROOT="$PROJ_DIR_ROOT/results/zero_score_sweep"
 ANALYSIS_DIR="$PROJ_DIR_ROOT/results/analysis"
-MODEL_9B="Qwen/Qwen3.5-9B"
-MODEL_27B="Qwen/Qwen3.5-27B"
+MODEL_9B="${MODEL_9B:-Qwen/Qwen3.5-9B}"
+MODEL_27B="${MODEL_27B:-Qwen/Qwen3.5-27B}"
 
 # Training / eval shortcuts
 if [[ "$QUICK" == "1" ]]; then
