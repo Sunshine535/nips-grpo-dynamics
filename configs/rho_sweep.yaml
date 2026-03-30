@@ -1,0 +1,73 @@
+sweep:
+  rho_values: [0.1, 0.3, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 5.0]
+  seeds: [42, 43, 44]
+  coarse_max_steps: 200
+  fine_max_steps: -1
+
+model:
+  name: "Qwen/Qwen3.5-9B"
+  name_27b: "Qwen/Qwen3.5-27B"
+
+training:
+  num_train_epochs: 2
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  learning_rate: 1.0e-4
+  warmup_ratio: 0.05
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  bf16: true
+  logging_steps: 5
+  save_steps: 100
+  num_generations: 4
+  max_prompt_length: 256
+  max_completion_length: 256
+  gradient_checkpointing: true
+  kl_coef: 0.05
+  clip_range: 0.2
+
+lora:
+  r: 64
+  lora_alpha: 128
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+  lora_dropout: 0.05
+  task_type: "CAUSAL_LM"
+
+dataset:
+  name: "openai/gsm8k"
+  split: "train"
+  eval_split: "test"
+
+eval:
+  gsm8k_split: "test"
+  math_dataset: "hendrycks/competition_math"
+  math_split: "test"
+  num_samples: 500
+  temperature: 0.0
+  max_new_tokens: 512
+
+adabalance:
+  K: 50
+  tau: 0.1
+  rho_init: 1.0
+  warmup_steps: 50
+  rho_min_floor: 0.1
+  rho_max_ceil: 10.0
+  history_window: 200
+
+collapse_detection:
+  p_0_threshold: 0.8
+  kl_multiplier: 2.0
+  entropy_drop_threshold: 0.5
+  stagnation_window: 100
+
+output:
+  base_dir: "./results"
+  sweep_coarse_dir: "./results/sweep_coarse"
+  sweep_fine_dir: "./results/sweep_fine"
+  adabalance_dir: "./results/adabalance"
+  robustness_dir: "./results/robustness"
+  validation_27b_dir: "./results/validation_27b"
+  stability_dir: "./results/stability_analysis"
+  figures_dir: "./results/figures"
+  checkpoint_dir: "./checkpoints"

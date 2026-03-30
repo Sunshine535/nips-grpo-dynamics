@@ -26,6 +26,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, TrainerCallback
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.balanced_grpo import BalancedGRPOCallback
+from src.rho_grpo_trainer import BalancedGRPOTrainer
 from src.qwen35_compat import apply_qwen35_text_only_patch, patch_model_instance, ClearRopeDeltasCallback
 
 apply_qwen35_text_only_patch()
@@ -79,10 +80,8 @@ def extract_gsm8k_answer(text: str) -> str:
     return numbers[-1].replace(",", "") if numbers else ""
 
 
-def build_reward_function(positive_ratio: float, negative_weight: float):
-    """Reward function that applies balanced α/β weighting."""
-    alpha = positive_ratio
-    beta = negative_weight
+def build_binary_reward_function():
+    """Standard binary 0/1 reward function for GSM8K correctness."""
 
     def reward_fn(completions, answer, **kwargs):
         rewards = []
@@ -96,11 +95,7 @@ def build_reward_function(positive_ratio: float, negative_weight: float):
 
             pred = extract_gsm8k_answer(text)
             gold_clean = str(gold).strip()
-
-            if pred == gold_clean:
-                rewards.append(1.0 * alpha)
-            else:
-                rewards.append(-1.0 * (1.0 - alpha) * beta)
+            rewards.append(1.0 if pred == gold_clean else 0.0)
         return rewards
 
     return reward_fn
@@ -157,7 +152,7 @@ def main():
     args = parse_args()
     cfg = load_config(args.config)
 
-    from trl import GRPOConfig, GRPOTrainer
+    from trl import GRPOConfig
 
     alpha = args.positive_ratio
     beta = args.negative_weight
@@ -235,18 +230,20 @@ def main():
     )
     logger.info("Using LoRA: r=%d, alpha=%d", peft_config.r, peft_config.lora_alpha)
 
-    reward_fn = build_reward_function(alpha, beta)
+    reward_fn = build_binary_reward_function()
     metrics_cb = MetricsCallback(alpha, beta)
     balanced_cb = BalancedGRPOCallback(alpha, beta)
     rope_cb = ClearRopeDeltasCallback()
 
-    trainer = GRPOTrainer(
+    trainer = BalancedGRPOTrainer(
         model=model,
         args=training_config,
         train_dataset=dataset,
         processing_class=tokenizer,
         reward_funcs=reward_fn,
         peft_config=peft_config,
+        alpha=alpha,
+        beta=beta,
         callbacks=[metrics_cb, balanced_cb, rope_cb],
     )
 

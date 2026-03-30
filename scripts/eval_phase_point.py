@@ -31,8 +31,10 @@ logger = logging.getLogger("eval_phase_point")
 def parse_args():
     parser = argparse.ArgumentParser(description="Evaluate phase diagram checkpoint")
     parser.add_argument("--checkpoint_dir", type=str, required=True)
-    parser.add_argument("--positive_ratio", type=float, required=True)
-    parser.add_argument("--negative_weight", type=float, required=True)
+    parser.add_argument("--positive_ratio", type=float, default=None)
+    parser.add_argument("--negative_weight", type=float, default=None)
+    parser.add_argument("--rho", type=float, default=None,
+                        help="rho value (for rho-sweep runs)")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--num_samples", type=int, default=500,
                         help="Max samples to evaluate per dataset")
@@ -83,10 +85,9 @@ def evaluate_dataset(model, tokenizer, dataset, prompt_template, max_samples,
 
             outputs = model.generate(**inputs, **gen_kwargs)
 
-        pad_id = tokenizer.pad_token_id if tokenizer.pad_token_id is not None else 0
+        input_len = inputs["input_ids"].shape[1]
         for j, output in enumerate(outputs):
-            prompt_len = (inputs["input_ids"][j] != pad_id).sum().item()
-            generated = tokenizer.decode(output[prompt_len:], skip_special_tokens=True)
+            generated = tokenizer.decode(output[input_len:], skip_special_tokens=True)
 
             idx = i + j
             if idx >= len(samples):
@@ -169,11 +170,15 @@ def main():
     device = next(model.parameters()).device
 
     all_metrics = {
-        "positive_ratio": args.positive_ratio,
-        "negative_weight": args.negative_weight,
         "seed": args.seed,
         "checkpoint_dir": args.checkpoint_dir,
     }
+    if args.positive_ratio is not None:
+        all_metrics["positive_ratio"] = args.positive_ratio
+    if args.negative_weight is not None:
+        all_metrics["negative_weight"] = args.negative_weight
+    if args.rho is not None:
+        all_metrics["rho"] = args.rho
 
     # GSM8K evaluation
     logger.info("Evaluating on GSM8K...")
@@ -202,7 +207,12 @@ def main():
 
     # Save results
     os.makedirs(args.output_dir, exist_ok=True)
-    tag = f"alpha{args.positive_ratio:.2f}_beta{args.negative_weight:.2f}_seed{args.seed}"
+    if args.rho is not None:
+        tag = f"rho{args.rho:.2f}_seed{args.seed}"
+    elif args.positive_ratio is not None and args.negative_weight is not None:
+        tag = f"alpha{args.positive_ratio:.2f}_beta{args.negative_weight:.2f}_seed{args.seed}"
+    else:
+        tag = f"seed{args.seed}"
     output_path = os.path.join(args.output_dir, f"eval_{tag}.json")
     with open(output_path, "w") as f:
         json.dump(all_metrics, f, indent=2)

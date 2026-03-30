@@ -340,76 +340,178 @@ echo ">>> Phase 3: all jobs finished OK"
 phase_done 3; fi
 
 # -----------------------------------------------------------------------------
-# Phase 4 — Phase diagram + collapse-zone analysis
+# Phase 4 — rho-GRPO sweep (uses RhoGRPOTrainer with actual rho-weighting)
 # -----------------------------------------------------------------------------
 if ! is_phase_done 4; then
 echo ""
-echo ">>> Phase 4: build_phase_diagram.py"
-$PYTHON "$SCRIPT_DIR/build_phase_diagram.py" \
-  --results_dir "$PHASE_EVAL_DIR" \
-  --checkpoint_dir "$CKPT_ROOT" \
-  --curriculum_dir "$PROJ_DIR_ROOT/results/curriculum" \
-  --output_dir "$ANALYSIS_DIR"
+echo ">>> Phase 4: rho-GRPO sweep (parallel, ${NUM_GPUS} GPUs)"
+
+CONFIG_RHO="$PROJ_DIR_ROOT/configs/rho_sweep.yaml"
+RHO_SWEEP_DIR="$PROJ_DIR_ROOT/results/sweep_coarse"
+RHO_EVAL_DIR="$PROJ_DIR_ROOT/results/rho_eval"
+mkdir -p "$RHO_EVAL_DIR"
+
+if [[ "$QUICK" == "1" ]]; then
+  RHO_VALUES=(0.3 1.0 3.0)
+  RHO_SEEDS=(42)
+  RHO_MAX_STEPS=(--max_steps 40)
+else
+  RHO_VALUES=(0.1 0.3 0.5 0.7 1.0 1.5 2.0 3.0 5.0)
+  RHO_SEEDS=(42 43 44)
+  RHO_MAX_STEPS=()
+fi
+
+GPU_IDX=0
+PIDS=()
+for R in "${RHO_VALUES[@]}"; do
+  for S in "${RHO_SEEDS[@]}"; do
+    TAG="$(printf 'rho%.2f_seed%d' "$R" "$S")"
+    RUN_DIR="$RHO_SWEEP_DIR/$TAG"
+    LOG_FILE="$PROJ_DIR_ROOT/results/logs/phase4/${TAG}.log"
+    mkdir -p "$(dirname "$LOG_FILE")"
+    (
+      export CUDA_VISIBLE_DEVICES="$(get_gpu_id $GPU_IDX)"
+      if [[ ! -f "$RUN_DIR/training_metrics.json" ]]; then
+        $PYTHON "$SCRIPT_DIR/train_rho_sweep.py" \
+          --rho "$R" --seed "$S" \
+          --config "$CONFIG_RHO" \
+          --output_dir "$RUN_DIR" \
+          "${RHO_MAX_STEPS[@]}"
+      fi
+      $PYTHON "$SCRIPT_DIR/eval_phase_point.py" \
+        --checkpoint_dir "$RUN_DIR" \
+        --rho "$R" --seed "$S" \
+        --output_dir "$RHO_EVAL_DIR" \
+        "${EVAL_NUM_SAMPLES[@]}" \
+        --eval_math
+    ) >"$LOG_FILE" 2>&1 &
+    PIDS+=($!)
+    GPU_IDX=$((GPU_IDX + 1))
+    wait_if_gpu_batch_full
+  done
+done
+for pid in "${PIDS[@]}"; do wait "$pid" || exit 1; done
+echo ">>> Phase 4: rho sweep finished OK"
 phase_done 4; fi
 
 # -----------------------------------------------------------------------------
-# Phase 5 — Gradient analysis (zero vs nonzero)
+# Phase 5 — AdaBalance training (uses RhoGRPOTrainer with adaptive rho)
 # -----------------------------------------------------------------------------
 if ! is_phase_done 5; then
 echo ""
-echo ">>> Phase 5: analyze_gradients.py"
+echo ">>> Phase 5: AdaBalance training"
+
+if [[ "$QUICK" == "1" ]]; then
+  ADA_MAX_STEPS=(--max_steps 40)
+  ADA_SEEDS=(42)
+else
+  ADA_MAX_STEPS=()
+  ADA_SEEDS=(42 43)
+fi
+
+GPU_IDX=0
+PIDS=()
+for S in "${ADA_SEEDS[@]}"; do
+  TAG="adabalance_K50_tau0.1_seed${S}"
+  ADA_DIR="$PROJ_DIR_ROOT/results/adabalance/$TAG"
+  LOG_FILE="$PROJ_DIR_ROOT/results/logs/phase5/${TAG}.log"
+  mkdir -p "$(dirname "$LOG_FILE")"
+  (
+    export CUDA_VISIBLE_DEVICES="$(get_gpu_id $GPU_IDX)"
+    if [[ ! -f "$ADA_DIR/training_metrics.json" ]]; then
+      $PYTHON "$SCRIPT_DIR/train_adabalance.py" \
+        --seed "$S" \
+        --config "$PROJ_DIR_ROOT/configs/rho_sweep.yaml" \
+        --output_dir "$ADA_DIR" \
+        "${ADA_MAX_STEPS[@]}"
+    fi
+    $PYTHON "$SCRIPT_DIR/eval_phase_point.py" \
+      --checkpoint_dir "$ADA_DIR" \
+      --seed "$S" \
+      --output_dir "$PROJ_DIR_ROOT/results/rho_eval" \
+      "${EVAL_NUM_SAMPLES[@]}" \
+      --eval_math
+  ) >"$LOG_FILE" 2>&1 &
+  PIDS+=($!)
+  GPU_IDX=$((GPU_IDX + 1))
+  wait_if_gpu_batch_full
+done
+for pid in "${PIDS[@]}"; do wait "$pid" || exit 1; done
+echo ">>> Phase 5: AdaBalance finished OK"
+phase_done 5; fi
+
+# -----------------------------------------------------------------------------
+# Phase 6 — Gradient analysis (zero vs nonzero)
+# -----------------------------------------------------------------------------
+if ! is_phase_done 6; then
+echo ""
+echo ">>> Phase 6: analyze_gradients.py"
 $PYTHON "$SCRIPT_DIR/analyze_gradients.py" \
   --model_path "$MODEL_9B" \
   --output_dir "$PROJ_DIR_ROOT/results/gradient_analysis" \
   --num_samples "$( [[ "$QUICK" == "1" ]] && echo 48 || echo 200 )"
-phase_done 5; fi
+phase_done 6; fi
 
 # -----------------------------------------------------------------------------
-# Phase 6 — Curriculum strategies (α/β schedules)
+# Phase 7 — Curriculum strategies (α/β schedules)
 # -----------------------------------------------------------------------------
-if ! is_phase_done 6; then
+if ! is_phase_done 7; then
 echo ""
-echo ">>> Phase 6: run_curriculum_strategies.py"
+echo ">>> Phase 7: run_curriculum_strategies.py"
 $PYTHON "$SCRIPT_DIR/run_curriculum_strategies.py" \
   --config "$CONFIG_SWEEP" \
   --output_dir "$PROJ_DIR_ROOT/results/curriculum" \
   --best_alpha 0.5 \
   --best_beta 1.0 \
   --total_steps_estimate "$( [[ "$QUICK" == "1" ]] && echo 120 || echo 500 )"
-phase_done 6; fi
-
-# -----------------------------------------------------------------------------
-# Phase 7 — Diagnostic figures / tables
-# -----------------------------------------------------------------------------
-if ! is_phase_done 7; then
-echo ""
-echo ">>> Phase 7: run_diagnostic_analysis.py"
-$PYTHON "$SCRIPT_DIR/run_diagnostic_analysis.py" \
-  --results_dir "$ZERO_SWEEP_ROOT" \
-  --output_dir "$ANALYSIS_DIR/diagnostics"
 phase_done 7; fi
 
 # -----------------------------------------------------------------------------
-# Phase 8 — 27B validation (weights prefetched in Phase 0 when not --quick)
+# Phase 8 — Phase diagram + collapse-zone analysis (AFTER curriculum in Phase 7)
 # -----------------------------------------------------------------------------
 if ! is_phase_done 8; then
 echo ""
+echo ">>> Phase 8: build_phase_diagram.py"
+$PYTHON "$SCRIPT_DIR/build_phase_diagram.py" \
+  --results_dir "$PHASE_EVAL_DIR" \
+  --checkpoint_dir "$CKPT_ROOT" \
+  --curriculum_dir "$PROJ_DIR_ROOT/results/curriculum" \
+  --output_dir "$ANALYSIS_DIR"
+phase_done 8; fi
+
+# -----------------------------------------------------------------------------
+# Phase 9 — Diagnostic figures / tables
+# -----------------------------------------------------------------------------
+if ! is_phase_done 9; then
+echo ""
+echo ">>> Phase 9: run_diagnostic_analysis.py"
+$PYTHON "$SCRIPT_DIR/run_diagnostic_analysis.py" \
+  --results_dir "$ZERO_SWEEP_ROOT" \
+  --output_dir "$ANALYSIS_DIR/diagnostics"
+phase_done 9; fi
+
+# -----------------------------------------------------------------------------
+# Phase 10 — 27B validation (weights prefetched in Phase 0 when not --quick)
+# -----------------------------------------------------------------------------
+if ! is_phase_done 10; then
+echo ""
 if [[ "${SKIP_27B_VALIDATION:-0}" == "1" ]]; then
-  echo ">>> Phase 8: skipped (--quick; avoids large 27B download / eval)"
+  echo ">>> Phase 10: skipped (--quick; avoids large 27B download / eval)"
 else
-  echo ">>> Phase 8: 27B validation (eval_halluzero on base $MODEL_27B)"
+  echo ">>> Phase 10: 27B validation (eval_halluzero on base $MODEL_27B)"
   $PYTHON "$SCRIPT_DIR/eval_halluzero.py" \
     --model_path "$MODEL_27B" \
     --output_dir "$PROJ_DIR_ROOT/results/validation_27b_base" \
     "${PHASE8_EVAL_GSM8K[@]}" \
     "${PHASE8_EVAL_MATH[@]}"
 fi
-phase_done 8; fi
+phase_done 10; fi
 
 echo ""
 echo "============================================"
 echo " All phases finished."
 echo "  Phase diagram eval : $PHASE_EVAL_DIR"
+echo "  Rho sweep eval     : ${RHO_EVAL_DIR:-results/rho_eval}"
 echo "  Aggregated analysis: $ANALYSIS_DIR"
 echo "  Zero-score sweep   : $ZERO_SWEEP_ROOT"
 echo "============================================"

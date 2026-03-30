@@ -48,12 +48,17 @@ export PIP_DEFAULT_TIMEOUT="${PIP_DEFAULT_TIMEOUT:-600}"
 echo "[3/5] Upgrading pip ..."
 python -m pip install -U pip setuptools wheel
 
-echo "[4/5] Installing PyTorch 2.10.0 + CUDA 12.8 + project deps ..."
-python -m pip install \
-    "torch==2.10.0" "torchvision" "torchaudio" \
-    -r "$PROJ_DIR/requirements.txt" \
-    --index-url https://download.pytorch.org/whl/cu128 \
-    --extra-index-url https://pypi.org/simple
+echo "[4/5] Installing PyTorch + project deps ..."
+if python -c "import torch; print(torch.__version__)" 2>/dev/null; then
+    echo "  [info] System PyTorch detected — skipping torch install to prevent conflicts"
+    grep -v '^torch' "$PROJ_DIR/requirements.txt" | python -m pip install -r /dev/stdin
+else
+    python -m pip install \
+        "torch>=2.4.0" "torchvision" "torchaudio" \
+        -r "$PROJ_DIR/requirements.txt" \
+        --index-url https://download.pytorch.org/whl/cu128 \
+        --extra-index-url https://pypi.org/simple
+fi
 
 # --- Optional: flash-attention ---
 _FA_MARKER="$VENV_DIR/.flash_attn_attempted"

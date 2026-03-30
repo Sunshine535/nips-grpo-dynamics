@@ -3,7 +3,7 @@
 # PyTorch (torch, torchvision, torchaudio) is NOT listed here: install it separately
 # for your CUDA/CPU stack (see setup.sh for an example: uv + cu128 wheels).
 #
-transformers>=4.46.0
+transformers>=4.46.0,<5.0.0
 datasets>=2.21.0
 accelerate>=0.34.0
 numpy
@@ -13,6 +13,6 @@ tqdm
 pandas
 pyyaml
 huggingface_hub
-trl>=0.12.0
+trl>=0.15.0,<0.17.0
 peft>=0.13.0
 wandb

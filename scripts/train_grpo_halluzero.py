@@ -141,18 +141,19 @@ def prepare_dataset(cfg: dict, tokenizer):
 
 
 class HalluZeroGRPOTrainer(GRPOTrainer):
-    """GRPO Trainer with zero-score gradient reshaping."""
+    """GRPO Trainer with zero-score gradient reshaping via advantage reweighting."""
 
     def __init__(self, *args, zero_score_handler: ZeroScoreHandler = None, **kwargs):
         super().__init__(*args, **kwargs)
         self.zero_score_handler = zero_score_handler
         self._zero_score_enabled = zero_score_handler is not None
         self._step_rewards = None
+        self._halluzero_stats = []
         if self._zero_score_enabled:
             self._wrap_reward_funcs_for_step_rewards()
 
     def _wrap_reward_funcs_for_step_rewards(self):
-        """Capture per-sample rewards when TRL calls reward funcs (inputs dict has no raw rewards)."""
+        """Capture per-sample rewards so we know which samples scored zero."""
 
         def wrap(fn):
             def wrapped(*a, **kw):
@@ -175,23 +176,41 @@ class HalluZeroGRPOTrainer(GRPOTrainer):
                 wrapped.append(rf)
         self.reward_funcs = wrapped
 
-    def _compute_loss(self, model, inputs, **kwargs):
-        loss = super()._compute_loss(model, inputs, **kwargs)
-
-        if self._zero_score_enabled and self._step_rewards is not None:
+    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
+        """Reweight advantages using ZeroScoreHandler before GRPO loss."""
+        if (
+            self._zero_score_enabled
+            and self._step_rewards is not None
+            and "advantages" in inputs
+            and isinstance(inputs.get("advantages"), torch.Tensor)
+        ):
+            advantages = inputs["advantages"]
             rewards = self._step_rewards
-            zero_mask = rewards == 0.0
-            if zero_mask.any():
-                zero_ratio = zero_mask.float().mean().item()
-                nonzero_ratio = 1.0 - zero_ratio
 
-                if zero_ratio > 0.8:
-                    loss = loss * 0.5
-                elif zero_ratio > 0 and nonzero_ratio > 0:
-                    scale = self.zero_score_handler.config.clip_factor
-                    loss = loss * (nonzero_ratio + zero_ratio * scale)
+            if rewards.shape[0] != advantages.shape[0]:
+                rewards = rewards[: advantages.shape[0]]
 
-        return loss
+            step = self.state.global_step if self.state else 0
+            reweighted = self.zero_score_handler.reweight_advantages(
+                advantages, rewards, global_step=step,
+            )
+
+            inputs = dict(inputs)
+            inputs["advantages"] = reweighted
+
+            zero_ratio = (rewards == 0.0).float().mean().item()
+            self._halluzero_stats.append({
+                "step": step,
+                "zero_ratio": zero_ratio,
+                "strategy": self.zero_score_handler.strategy.value,
+                "orig_adv_std": float(advantages.std()),
+                "reweighted_adv_std": float(reweighted.std()),
+            })
+
+        kwargs = {}
+        if num_items_in_batch is not None:
+            kwargs["num_items_in_batch"] = num_items_in_batch
+        return super().compute_loss(model, inputs, return_outputs=return_outputs, **kwargs)
 
 
 def main():
@@ -332,6 +351,21 @@ def main():
     metrics = train_result.metrics
     trainer.log_metrics("train", metrics)
     trainer.save_metrics("train", metrics)
+
+    summary = {
+        "strategy": strategy,
+        "seed": args.seed if args.seed is not None else 42,
+        "model": cfg["model"]["name_or_path"],
+        "train_loss": metrics.get("train_loss"),
+        "train_runtime": metrics.get("train_runtime"),
+        "total_steps": metrics.get("train_steps", trainer.state.global_step),
+    }
+    with open(os.path.join(output_dir, "training_metrics.json"), "w") as f:
+        json.dump(summary, f, indent=2)
+
+    if hasattr(trainer, "_halluzero_stats") and trainer._halluzero_stats:
+        with open(os.path.join(output_dir, "halluzero_stats.json"), "w") as f:
+            json.dump(trainer._halluzero_stats, f, indent=2)
 
     with open(os.path.join(output_dir, "training_config.json"), "w") as f:
         json.dump(cfg, f, indent=2)

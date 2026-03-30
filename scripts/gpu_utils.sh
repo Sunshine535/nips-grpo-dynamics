@@ -79,6 +79,8 @@ gpu_at_index() {
     echo "${_arr[$(($1 % ${#_arr[@]}))]}"
 }
 
+get_gpu_id() { gpu_at_index "$@"; }
+
 gpu_range() {
     local start=$1 count=$2
     IFS=',' read -ra _arr <<< "$CUDA_VISIBLE_DEVICES"
