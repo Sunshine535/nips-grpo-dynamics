@@ -19,7 +19,16 @@ if [ -z "$PYTHON_CMD" ]; then
     echo "ERROR: Need python3.10+."
     exit 1
 fi
-echo "[1/5] Using: $($PYTHON_CMD --version)"
+
+# Validate Python version >= 3.10
+PY_VERSION="$("$PYTHON_CMD" -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')" 2>/dev/null)"
+PY_MAJOR="$("$PYTHON_CMD" -c "import sys; print(sys.version_info.major)" 2>/dev/null)"
+PY_MINOR="$("$PYTHON_CMD" -c "import sys; print(sys.version_info.minor)" 2>/dev/null)"
+if [ -z "$PY_MAJOR" ] || [ "$PY_MAJOR" -lt 3 ] || { [ "$PY_MAJOR" -eq 3 ] && [ "${PY_MINOR:-0}" -lt 10 ]; }; then
+    echo "ERROR: Python >= 3.10 required, found $PY_VERSION ($PYTHON_CMD)"
+    exit 1
+fi
+echo "[1/5] Using: $PYTHON_CMD ($PY_VERSION)"
 
 # --- Create venv ---
 VENV_DIR="$PROJ_DIR/.venv"
@@ -74,10 +83,15 @@ fi
 echo ""
 echo "============================================"
 python -c "
-import torch
-print(f'  PyTorch  : {torch.__version__}')
-print(f'  CUDA     : {torch.version.cuda}')
-print(f'  GPUs     : {torch.cuda.device_count()}')
+import torch, transformers, datasets, trl, accelerate, peft
+print(f'  PyTorch       : {torch.__version__}')
+print(f'  Transformers  : {transformers.__version__}')
+print(f'  TRL           : {trl.__version__}')
+print(f'  Accelerate    : {accelerate.__version__}')
+print(f'  PEFT          : {peft.__version__}')
+print(f'  Datasets      : {datasets.__version__}')
+print(f'  CUDA          : {torch.version.cuda}')
+print(f'  GPUs          : {torch.cuda.device_count()}')
 for i in range(torch.cuda.device_count()):
     print(f'    GPU {i}: {torch.cuda.get_device_name(i)}')
 "

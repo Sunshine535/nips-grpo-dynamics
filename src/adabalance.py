@@ -1,3 +1,7 @@
+import json
+import logging
+import os
+
 import numpy as np
 from collections import deque
 from dataclasses import dataclass
@@ -140,6 +144,45 @@ class AdaBalanceController:
             "step": self.step,
         }
 
+    def state_dict(self) -> dict:
+        return {
+            "rho": self.rho,
+            "rho_ema": self.rho_ema,
+            "step": self.step,
+            "p_hat_ema": self.p_hat_ema,
+            "gsr_ema": self.gsr_ema,
+            "V_plus_ema": self.V_plus_ema,
+            "V_minus_ema": self.V_minus_ema,
+            "C_pG_ema": self.C_pG_ema,
+            "success_history": list(self.success_history),
+            "grad_pos_history": list(self.grad_pos_history),
+            "grad_neg_history": list(self.grad_neg_history),
+            "rho_history": self.rho_history,
+            "p_hat_history": self.p_hat_history,
+            "gsr_history": self.gsr_history,
+            "bounds_history": self.bounds_history,
+        }
+
+    def load_state_dict(self, state: dict):
+        self.rho = state["rho"]
+        self.rho_ema = state["rho_ema"]
+        self.step = state["step"]
+        self.p_hat_ema = state["p_hat_ema"]
+        self.gsr_ema = state["gsr_ema"]
+        self.V_plus_ema = state["V_plus_ema"]
+        self.V_minus_ema = state["V_minus_ema"]
+        self.C_pG_ema = state["C_pG_ema"]
+        self.success_history = deque(state.get("success_history", []),
+                                     maxlen=self.config.history_window)
+        self.grad_pos_history = deque(state.get("grad_pos_history", []),
+                                      maxlen=self.config.history_window)
+        self.grad_neg_history = deque(state.get("grad_neg_history", []),
+                                      maxlen=self.config.history_window)
+        self.rho_history = state.get("rho_history", [])
+        self.p_hat_history = state.get("p_hat_history", [])
+        self.gsr_history = state.get("gsr_history", [])
+        self.bounds_history = state.get("bounds_history", [])
+
 
 class AdaBalanceCallback(TrainerCallback):
     """
@@ -222,3 +265,15 @@ class AdaBalanceCallback(TrainerCallback):
             "step": state.global_step,
             **telemetry,
         })
+
+    def on_save(self, args, state, control, **kwargs):
+        """Persist controller state inside each checkpoint for correct resume."""
+        ckpt_dir = os.path.join(args.output_dir, f"checkpoint-{state.global_step}")
+        if os.path.isdir(ckpt_dir):
+            path = os.path.join(ckpt_dir, "adabalance_state.json")
+            with open(path, "w") as f:
+                json.dump(self.controller.state_dict(), f, indent=2)
+            logging.getLogger(__name__).info(
+                "Saved AdaBalance state to %s (step %d, rho=%.4f)",
+                path, state.global_step, self.controller.rho,
+            )

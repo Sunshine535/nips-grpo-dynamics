@@ -110,6 +110,18 @@ class AdaBalanceMetricsCallback(TrainerCallback):
         with open(path, "w") as f:
             json.dump(self.step_metrics, f, indent=2)
 
+    def on_save(self, args, state, control, **kwargs):
+        """Persist controller state inside each checkpoint for correct resume."""
+        ckpt_dir = os.path.join(args.output_dir, f"checkpoint-{state.global_step}")
+        if os.path.isdir(ckpt_dir):
+            path = os.path.join(ckpt_dir, "adabalance_state.json")
+            with open(path, "w") as f:
+                json.dump(self.controller.state_dict(), f, indent=2)
+            logger.info(
+                "Saved AdaBalance state to %s (step %d, rho=%.4f)",
+                path, state.global_step, self.controller.rho,
+            )
+
 
 def main():
     args = parse_args()
@@ -221,10 +233,21 @@ def main():
         else:
             resume_ckpt = args.resume_from_checkpoint
 
+    if resume_ckpt:
+        ada_state_path = os.path.join(resume_ckpt, "adabalance_state.json")
+        if os.path.exists(ada_state_path):
+            with open(ada_state_path) as f:
+                controller.load_state_dict(json.load(f))
+            logger.info("Restored AdaBalance state from %s", ada_state_path)
+
     train_result = trainer.train(resume_from_checkpoint=resume_ckpt)
 
     trainer.save_model(output_dir)
     tokenizer.save_pretrained(output_dir)
+
+    ada_state_path = os.path.join(output_dir, "adabalance_state.json")
+    with open(ada_state_path, "w") as f:
+        json.dump(controller.state_dict(), f, indent=2)
 
     final_metrics = {
         "method": "adabalance",

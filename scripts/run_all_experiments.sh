@@ -5,10 +5,18 @@
 # Usage:
 #   bash scripts/run_all_experiments.sh           # full grid (long-running)
 #   QUICK=1 bash scripts/run_all_experiments.sh   # (dev only: reduced grids)
+#   bash scripts/run_all_experiments.sh --from-phase 3  # resume from phase 3
+#
+# Multi-GPU design:
+#   Phase 1 uses multi-GPU DDP via accelerate launch for single-run training.
+#   Phase 2-5 sweeps use job-level parallelism: each (α,β,seed) or (rho,seed)
+#   combo runs as a single-GPU job, round-robin scheduled across available GPUs.
+#   This is intentional — each sweep point is a short independent training run.
 #
 # Environment:
 #   PROJ_DIR_ROOT  — repository root (set automatically if unset)
 #   QUICK=1        — same as --quick
+#   FORCE_RERUN=1  — ignore phase markers, rerun everything
 # =============================================================================
 set -euo pipefail
 
@@ -17,10 +25,15 @@ export PROJ_DIR_ROOT="${PROJ_DIR_ROOT:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 cd "$PROJ_DIR_ROOT"
 
 QUICK="${QUICK:-0}"
-if [[ "${1:-}" == "--quick" ]]; then
-  QUICK=1
-  shift
-fi
+FROM_PHASE=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --quick) QUICK=1; shift ;;
+    --from-phase) FROM_PHASE="$2"; shift 2 ;;
+    --from-phase=*) FROM_PHASE="${1#*=}"; shift ;;
+    *) echo "[warn] Unknown arg: $1"; shift ;;
+  esac
+done
 
 # --- Virtualenv (setup.sh creates .venv under project root) ---
 if [[ -f "$PROJ_DIR_ROOT/.venv/bin/activate" ]]; then
@@ -45,6 +58,11 @@ FORCE_RERUN="${FORCE_RERUN:-0}"
 phase_done() { touch "$PHASE_MARKER_DIR/phase_${1}.done"; echo "[PHASE $1] Completed at $(date)"; }
 is_phase_done() {
     [[ "$FORCE_RERUN" == "1" ]] && return 1
+    # --from-phase: skip (mark done) all phases before the requested start
+    if [[ "$1" -lt "$FROM_PHASE" ]]; then
+        echo "[PHASE $1] Skipped (--from-phase $FROM_PHASE)"
+        return 0
+    fi
     [[ -f "$PHASE_MARKER_DIR/phase_${1}.done" ]] && echo "[PHASE $1] Already completed. Skipping. (FORCE_RERUN=1 to override)" && return 0
     return 1
 }
@@ -113,6 +131,7 @@ fi
 echo "============================================"
 echo " PROJ_DIR_ROOT = $PROJ_DIR_ROOT"
 echo " QUICK         = $QUICK"
+echo " FROM_PHASE    = $FROM_PHASE"
 echo " NUM_GPUS      = $NUM_GPUS"
 echo " ACCEL_CMD     = $ACCEL_CMD"
 echo " TORCHRUN      = $TORCHRUN"
@@ -148,7 +167,7 @@ BASELINE_DIR="$CKPT_ROOT/baseline_grpo_alpha0.50_beta1.00_seed42"
 if [[ ! -f "$BASELINE_DIR/training_metrics.json" ]]; then
   if [[ "$NUM_GPUS" -gt 1 ]]; then
     echo "    Using ${NUM_GPUS}-GPU DDP via accelerate launch"
-    $ACCEL_CMD "$SCRIPT_DIR/train_grpo_sweep.py" \
+    if ! $ACCEL_CMD "$SCRIPT_DIR/train_grpo_sweep.py" \
       --positive_ratio 0.5 \
       --negative_weight 1.0 \
       --seed 42 \
@@ -156,16 +175,22 @@ if [[ ! -f "$BASELINE_DIR/training_metrics.json" ]]; then
       --output_dir "$BASELINE_DIR" \
       --per_device_train_batch_size 2 \
       --gradient_accumulation_steps 1 \
-      "${BASELINE_MAX_STEPS[@]}"
+      "${BASELINE_MAX_STEPS[@]}"; then
+      echo "[ERROR] Phase 1 baseline training failed (accelerate launch). Aborting."
+      exit 1
+    fi
   else
     echo "    Using single-GPU training"
-    $PYTHON "$SCRIPT_DIR/train_grpo_sweep.py" \
+    if ! $PYTHON "$SCRIPT_DIR/train_grpo_sweep.py" \
       --positive_ratio 0.5 \
       --negative_weight 1.0 \
       --seed 42 \
       --config "$CONFIG_SWEEP" \
       --output_dir "$BASELINE_DIR" \
-      "${BASELINE_MAX_STEPS[@]}"
+      "${BASELINE_MAX_STEPS[@]}"; then
+      echo "[ERROR] Phase 1 baseline training failed. Aborting."
+      exit 1
+    fi
   fi
 else
   echo "    (skip) $BASELINE_DIR already has training_metrics.json"
@@ -458,11 +483,36 @@ phase_done 6; fi
 if ! is_phase_done 7; then
 echo ""
 echo ">>> Phase 7: run_curriculum_strategies.py"
+# Read best (alpha, beta) from phase diagram analysis or Phase 2 eval results
+BEST_ALPHA=0.5
+BEST_BETA=1.0
+PHASE_ANALYSIS="$ANALYSIS_DIR/phase_analysis.json"
+if [[ -f "$PHASE_ANALYSIS" ]]; then
+  BEST_ALPHA=$($PYTHON -c "import json; print(json.load(open('$PHASE_ANALYSIS'))['best_static']['alpha'])" 2>/dev/null || echo 0.5)
+  BEST_BETA=$($PYTHON -c "import json; print(json.load(open('$PHASE_ANALYSIS'))['best_static']['beta'])" 2>/dev/null || echo 1.0)
+  echo "    Read best params from $PHASE_ANALYSIS: alpha=$BEST_ALPHA, beta=$BEST_BETA"
+else
+  # Fall back: scan Phase 2 eval JSONs for the best accuracy
+  read -r BEST_ALPHA BEST_BETA < <($PYTHON -c "
+import json, glob, os
+results = []
+for f in glob.glob(os.path.join('$PHASE_EVAL_DIR', 'eval_alpha*.json')):
+    d = json.load(open(f))
+    if 'gsm8k_accuracy' in d:
+        results.append(d)
+if results:
+    best = max(results, key=lambda x: x.get('gsm8k_accuracy', 0))
+    print(best.get('positive_ratio', 0.5), best.get('negative_weight', 1.0))
+else:
+    print(0.5, 1.0)
+" 2>/dev/null || echo "0.5 1.0")
+  echo "    Best params from Phase 2 eval: alpha=$BEST_ALPHA, beta=$BEST_BETA"
+fi
 $PYTHON "$SCRIPT_DIR/run_curriculum_strategies.py" \
   --config "$CONFIG_SWEEP" \
   --output_dir "$PROJ_DIR_ROOT/results/curriculum" \
-  --best_alpha 0.5 \
-  --best_beta 1.0 \
+  --best_alpha "$BEST_ALPHA" \
+  --best_beta "$BEST_BETA" \
   --total_steps_estimate "$( [[ "$QUICK" == "1" ]] && echo 120 || echo 500 )"
 phase_done 7; fi
 

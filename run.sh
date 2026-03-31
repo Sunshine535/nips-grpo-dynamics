@@ -23,7 +23,7 @@ else
 fi
 
 # Quick dependency check
-python3 -c "import torch, transformers, datasets" 2>/dev/null || {
+python3 -c "import torch, transformers, datasets, trl, accelerate, peft" 2>/dev/null || {
     echo "[ERROR] Missing dependencies. Run: bash setup.sh"
     exit 1
 }

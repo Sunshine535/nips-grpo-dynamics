@@ -44,16 +44,37 @@ def parse_args():
     parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--eval_math", action="store_true",
                         help="Also evaluate on MATH dataset")
+    parser.add_argument("--gsm8k_samples", type=int, default=None,
+                        help="Override num_samples for GSM8K")
+    parser.add_argument("--math_samples", type=int, default=None,
+                        help="Override num_samples for MATH")
     return parser.parse_args()
+
+
+def _extract_boxed(text: str) -> str:
+    """Extract answer from \\boxed{...} in MATH solutions, handling nested braces."""
+    idx = text.find(r"\boxed{")
+    if idx == -1:
+        return ""
+    start = idx + len(r"\boxed{")
+    depth = 1
+    i = start
+    while i < len(text) and depth > 0:
+        if text[i] == "{":
+            depth += 1
+        elif text[i] == "}":
+            depth -= 1
+        i += 1
+    return text[start:i - 1].strip() if depth == 0 else ""
 
 
 def extract_numeric_answer(text: str) -> str:
     match = re.search(r"####\s*(-?[\d,]+\.?\d*)", text)
     if match:
         return match.group(1).replace(",", "")
-    boxed = re.search(r"\\boxed\{([^}]+)\}", text)
+    boxed = _extract_boxed(text)
     if boxed:
-        return boxed.group(1).strip()
+        return boxed
     numbers = re.findall(r"-?[\d,]+\.?\d*", text)
     return numbers[-1].replace(",", "") if numbers else ""
 
@@ -126,6 +147,14 @@ def _get_answer(batch, idx):
         if isinstance(ans, list):
             return ans[idx]
         return ans
+    if "solution" in batch:
+        sol = batch["solution"]
+        sol_text = sol[idx] if isinstance(sol, list) else sol
+        boxed = _extract_boxed(str(sol_text))
+        if boxed:
+            return boxed
+        nums = re.findall(r"-?[\d,]+\.?\d*", str(sol_text))
+        return nums[-1].replace(",", "") if nums else ""
     return ""
 
 
@@ -181,10 +210,11 @@ def main():
         all_metrics["rho"] = args.rho
 
     # GSM8K evaluation
-    logger.info("Evaluating on GSM8K...")
+    gsm8k_n = args.gsm8k_samples if args.gsm8k_samples is not None else args.num_samples
+    logger.info("Evaluating on GSM8K (max %d samples)...", gsm8k_n)
     gsm8k = load_dataset("openai/gsm8k", "main", split="test")
     gsm8k_acc, gsm8k_results = evaluate_dataset(
-        model, tokenizer, gsm8k, gsm8k_prompt, args.num_samples,
+        model, tokenizer, gsm8k, gsm8k_prompt, gsm8k_n,
         args.temperature, args.max_new_tokens, args.batch_size, device,
     )
     all_metrics["gsm8k_accuracy"] = gsm8k_acc
@@ -192,17 +222,25 @@ def main():
 
     # MATH evaluation
     if args.eval_math:
-        logger.info("Evaluating on MATH...")
-        try:
-            math_ds = load_dataset("hendrycks/competition_math", split="test")
+        math_n = args.math_samples if args.math_samples is not None else args.num_samples
+        logger.info("Evaluating on MATH (max %d samples)...", math_n)
+        math_ds = None
+        for ds_name in ["hendrycks/competition_math", "lighteval/MATH"]:
+            try:
+                math_ds = load_dataset(ds_name, split="test")
+                logger.info("Loaded MATH dataset from %s", ds_name)
+                break
+            except Exception:
+                continue
+        if math_ds is not None:
             math_acc, math_results = evaluate_dataset(
-                model, tokenizer, math_ds, math_prompt, args.num_samples,
+                model, tokenizer, math_ds, math_prompt, math_n,
                 args.temperature, args.max_new_tokens, args.batch_size, device,
             )
             all_metrics["math_accuracy"] = math_acc
             logger.info(f"MATH accuracy: {math_acc:.4f}")
-        except Exception as e:
-            logger.warning(f"MATH evaluation failed: {e}")
+        else:
+            logger.warning("MATH dataset unavailable (tried hendrycks/competition_math, lighteval/MATH)")
             all_metrics["math_accuracy"] = None
 
     # Save results

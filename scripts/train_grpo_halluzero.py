@@ -60,7 +60,6 @@ def parse_args():
     parser.add_argument("--learning_rate", type=float, default=None)
     parser.add_argument("--resume_from_checkpoint", type=str, default="auto",
                         help="Resume from checkpoint. 'auto' finds latest, path for specific, 'none' to disable")
-    parser.add_argument("--local_rank", type=int, default=-1)
     return parser.parse_args()
 
 
