@@ -44,10 +44,9 @@ else
   echo "[warn] No .venv found at $PROJ_DIR_ROOT/.venv — using current Python"
 fi
 
-# --- GPU utilities (monorepo shared copy, then local fallback) ---
+# --- GPU utilities (vendored copy only; no external dependencies) ---
 # shellcheck source=/dev/null
-source "$SCRIPT_DIR/../../_shared/gpu_utils.sh" 2>/dev/null \
-  || source "$SCRIPT_DIR/gpu_utils.sh"
+source "$SCRIPT_DIR/gpu_utils.sh"
 
 auto_setup
 
@@ -75,6 +74,17 @@ PYTHON="${PYTHON:-python3}"
 # Multi-GPU accelerate config for DDP training (Phase 1 baseline)
 ACCEL_CONFIG="$PROJ_DIR_ROOT/configs/accelerate_multi_gpu.yaml"
 generate_accelerate_config "$ACCEL_CONFIG" "$NUM_GPUS"
+
+if [[ ! -s "$ACCEL_CONFIG" ]]; then
+  echo "[ERROR] Accelerate config is empty or missing: $ACCEL_CONFIG"
+  exit 1
+fi
+if ! $PYTHON -c "import yaml; yaml.safe_load(open('$ACCEL_CONFIG'))" 2>/dev/null; then
+  echo "[ERROR] Accelerate config is not valid YAML: $ACCEL_CONFIG"
+  exit 1
+fi
+echo "  Validated accelerate config: $ACCEL_CONFIG"
+
 ACCEL_CMD="accelerate launch --config_file $ACCEL_CONFIG"
 CONFIG_SWEEP="$PROJ_DIR_ROOT/configs/sweep_grid.yaml"
 CONFIG_HALLU="$PROJ_DIR_ROOT/configs/grpo_9b.yaml"

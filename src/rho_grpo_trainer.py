@@ -51,9 +51,20 @@ class BalancedGRPOTrainer(GRPOTrainer):
             neg_mask = advantages < 0
             zero_mask = advantages == 0
 
+            raw_pos_w = self._alpha
+            raw_neg_w = (1.0 - self._alpha) * self._beta
+
+            norm_sum = raw_pos_w + raw_neg_w
+            if norm_sum > 0:
+                norm_pos_w = raw_pos_w * 2.0 / norm_sum
+                norm_neg_w = raw_neg_w * 2.0 / norm_sum
+            else:
+                norm_pos_w = 1.0
+                norm_neg_w = 1.0
+
             weighted = advantages.clone()
-            weighted[pos_mask] = advantages[pos_mask] * self._alpha
-            weighted[neg_mask] = advantages[neg_mask] * (1.0 - self._alpha) * self._beta
+            weighted[pos_mask] = advantages[pos_mask] * norm_pos_w
+            weighted[neg_mask] = advantages[neg_mask] * norm_neg_w
 
             inputs = dict(inputs)
             inputs["advantages"] = weighted
@@ -69,8 +80,12 @@ class BalancedGRPOTrainer(GRPOTrainer):
                 "n_positive": n_pos,
                 "n_negative": n_neg,
                 "n_degenerate": n_deg,
-                "effective_pos_weight": self._alpha,
-                "effective_neg_weight": (1.0 - self._alpha) * self._beta,
+                "raw_pos_weight": raw_pos_w,
+                "raw_neg_weight": raw_neg_w,
+                "normalized_pos_weight": norm_pos_w,
+                "normalized_neg_weight": norm_neg_w,
+                "pos_neg_ratio_raw": raw_pos_w / max(raw_neg_w, 1e-8),
+                "pos_neg_ratio_normalized": norm_pos_w / max(norm_neg_w, 1e-8),
             })
 
         kwargs = {}
@@ -110,8 +125,15 @@ class RhoGRPOTrainer(GRPOTrainer):
             neg_mask = advantages < 0
             zero_mask = advantages == 0
 
+            raw_pos_w = self._rho
+            raw_neg_w = 1.0
+            norm_factor = 2.0 / (raw_pos_w + raw_neg_w)
+            norm_pos_w = raw_pos_w * norm_factor
+            norm_neg_w = raw_neg_w * norm_factor
+
             weighted = advantages.clone()
-            weighted[pos_mask] = advantages[pos_mask] * self._rho
+            weighted[pos_mask] = advantages[pos_mask] * norm_pos_w
+            weighted[neg_mask] = advantages[neg_mask] * norm_neg_w
             if self._degenerate_floor != 0.0:
                 weighted[zero_mask] = self._degenerate_floor
 
@@ -131,6 +153,10 @@ class RhoGRPOTrainer(GRPOTrainer):
                 "mean_pos_adv": float(advantages[pos_mask].mean()) if n_pos > 0 else 0.0,
                 "mean_neg_adv": float(advantages[neg_mask].mean()) if n_neg > 0 else 0.0,
                 "degenerate_ratio": n_deg / max(n_pos + n_neg + n_deg, 1),
+                "raw_pos_weight": raw_pos_w,
+                "raw_neg_weight": raw_neg_w,
+                "normalized_pos_weight": norm_pos_w,
+                "normalized_neg_weight": norm_neg_w,
             })
 
         kwargs = {}

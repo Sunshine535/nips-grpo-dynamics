@@ -17,6 +17,13 @@ from datasets import load_dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from tqdm import tqdm
 
+_HAS_PEFT = False
+try:
+    from peft import AutoPeftModelForCausalLM
+    _HAS_PEFT = True
+except ImportError:
+    pass
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.qwen35_compat import apply_qwen35_text_only_patch, patch_model_instance
 apply_qwen35_text_only_patch()
@@ -188,12 +195,24 @@ def main():
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        args.checkpoint_dir,
-        torch_dtype=torch.bfloat16,
-        device_map="auto",
-        trust_remote_code=True,
-    )
+    is_peft_ckpt = os.path.isfile(os.path.join(args.checkpoint_dir, "adapter_config.json"))
+    if is_peft_ckpt and _HAS_PEFT:
+        logger.info("Detected PEFT/LoRA checkpoint — using AutoPeftModelForCausalLM")
+        model = AutoPeftModelForCausalLM.from_pretrained(
+            args.checkpoint_dir,
+            torch_dtype=torch.bfloat16,
+            device_map="auto",
+            trust_remote_code=True,
+        )
+    else:
+        if is_peft_ckpt:
+            logger.warning("PEFT checkpoint found but peft not installed; loading as base model")
+        model = AutoModelForCausalLM.from_pretrained(
+            args.checkpoint_dir,
+            torch_dtype=torch.bfloat16,
+            device_map="auto",
+            trust_remote_code=True,
+        )
     patch_model_instance(model)
     model.eval()
     device = next(model.parameters()).device

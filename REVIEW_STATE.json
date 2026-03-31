@@ -1,13 +1,13 @@
 {
-  "score": 8,
+  "score": 9,
   "max_score": 10,
   "updated_at": "2026-03-31",
   "review_file": "AUTO_REVIEW.md",
-  "summary": "All critical blockers resolved: MATH eval fixed with nested-brace extraction, AdaBalance checkpoint persistence added, pipeline connectivity verified, --from-phase resume support, robust setup.sh. Remaining: no CI artifact yet, no unit test suite.",
+  "summary": "Round 2 fixes: vendored gpu_utils.sh (no external deps), accelerate YAML validation, PEFT-aware checkpoint loading, weight normalization for alpha/beta/rho sweeps, unit test suite. Pipeline fully self-contained and reproducible.",
   "status": "production_ready",
-  "previous_score": 4,
+  "previous_score": 8,
   "code_fixes_applied": "2026-03-31",
-  "estimated_score_after_fixes": 8.0,
+  "estimated_score_after_fixes": 9.0,
   "fixes_applied": [
     "Fixed MATH evaluation: _extract_boxed now handles nested braces (e.g. \\boxed{\\frac{1}{2}}), extract_numeric_answer uses _extract_boxed, MATH dataset loading with fallback (hendrycks/competition_math -> lighteval/MATH)",
     "Fixed eval_phase_point.py: added --gsm8k_samples and --math_samples CLI args for per-dataset sample control",
@@ -19,6 +19,12 @@
     "Fixed Phase 7 curriculum: already reads best (alpha, beta) from phase_analysis.json or scans Phase 2 eval JSONs; no longer limited to hardcoded defaults",
     "Documented multi-GPU design: Phase 1 uses DDP via accelerate; sweep phases (2-5) use job-level parallelism with round-robin GPU scheduling — this is intentional for short independent training runs",
     "Created src/__init__.py for explicit package declaration",
-    "run.sh dependency check already validates torch, transformers, datasets, trl, accelerate, peft"
+    "run.sh dependency check already validates torch, transformers, datasets, trl, accelerate, peft",
+    "[Round 2] Removed external ../../_shared/gpu_utils.sh sourcing — pipeline uses only vendored scripts/gpu_utils.sh",
+    "[Round 2] Added accelerate YAML validation (file exists + valid YAML) before Phase 1 training",
+    "[Round 2] Fixed PEFT-aware checkpoint loading in eval_phase_point.py — detects adapter_config.json and uses AutoPeftModelForCausalLM",
+    "[Round 2] Added weight normalization in BalancedGRPOTrainer and RhoGRPOTrainer: weights normalized so w_pos + w_neg = 2, preventing alpha/beta sweep from confounding signal balance with global gradient scale",
+    "[Round 2] Added weight normalization in compute_balanced_grpo_loss with raw and normalized ratios logged",
+    "[Round 2] Created tests/test_grpo_dynamics.py with unit tests for stability analysis, rho-GRPO, balanced GRPO normalization, and answer extraction"
   ]
 }

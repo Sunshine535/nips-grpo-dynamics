@@ -49,8 +49,17 @@ def compute_balanced_grpo_loss(
     alpha = config.positive_ratio
     beta = config.negative_weight
 
-    # Reweight advantages: scale positive by alpha, negative by beta * (1 - alpha)
-    weights = positive_mask * alpha + negative_mask * (1.0 - alpha) * beta
+    raw_pos_w = alpha
+    raw_neg_w = (1.0 - alpha) * beta
+    norm_sum = raw_pos_w + raw_neg_w
+    if norm_sum > 0:
+        norm_pos_w = raw_pos_w * 2.0 / norm_sum
+        norm_neg_w = raw_neg_w * 2.0 / norm_sum
+    else:
+        norm_pos_w = 1.0
+        norm_neg_w = 1.0
+
+    weights = positive_mask * norm_pos_w + negative_mask * norm_neg_w
     weighted_advantages = advantages * weights
 
     # Clipped surrogate objective
@@ -85,8 +94,12 @@ def compute_balanced_grpo_loss(
         "frac_positive": frac_positive,
         "mean_pos_advantage": mean_pos_adv,
         "mean_neg_advantage": mean_neg_adv,
-        "effective_weight_pos": alpha,
-        "effective_weight_neg": (1.0 - alpha) * beta,
+        "raw_weight_pos": raw_pos_w,
+        "raw_weight_neg": raw_neg_w,
+        "normalized_weight_pos": norm_pos_w,
+        "normalized_weight_neg": norm_neg_w,
+        "pos_neg_ratio_raw": raw_pos_w / max(raw_neg_w, 1e-8),
+        "pos_neg_ratio_normalized": norm_pos_w / max(norm_neg_w, 1e-8),
     }
 
 
