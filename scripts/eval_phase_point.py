@@ -151,9 +151,9 @@ def _iter_batch(batch):
 def _get_answer(batch, idx):
     if "answer" in batch:
         ans = batch["answer"]
-        if isinstance(ans, list):
-            return ans[idx]
-        return ans
+        raw = ans[idx] if isinstance(ans, list) else ans
+        # GSM8K answers contain full solution; extract number after ####
+        return extract_numeric_answer(str(raw))
     if "solution" in batch:
         sol = batch["solution"]
         sol_text = sol[idx] if isinstance(sol, list) else sol
@@ -172,9 +172,24 @@ def _normalize(s: str) -> str:
 def gsm8k_prompt(example):
     return (
         f"Solve the following math problem step by step. "
-        f"End with '#### <answer>'.\n\n"
+        f"Put your final numerical answer after ####.\n\n"
         f"Question: {example['question']}\n\nAnswer:"
     )
+
+# Chat-template-aware version for instruct models
+_eval_tokenizer = None
+
+def gsm8k_prompt_chat(example):
+    """Format as chat message for instruct models."""
+    content = (
+        f"Solve the following math problem step by step. "
+        f"Put your final numerical answer after ####.\n\n"
+        f"Question: {example['question']}"
+    )
+    messages = [{"role": "user", "content": content}]
+    if _eval_tokenizer and hasattr(_eval_tokenizer, 'apply_chat_template'):
+        return _eval_tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+    return gsm8k_prompt(example)
 
 
 def math_prompt(example):
@@ -228,12 +243,19 @@ def main():
     if args.rho is not None:
         all_metrics["rho"] = args.rho
 
-    # GSM8K evaluation
+    # GSM8K evaluation — use chat template for instruct models
+    global _eval_tokenizer
+    _eval_tokenizer = tokenizer
+    use_chat = hasattr(tokenizer, 'apply_chat_template') and tokenizer.chat_template is not None
+    prompt_fn = gsm8k_prompt_chat if use_chat else gsm8k_prompt
+    if use_chat:
+        logger.info("Using chat template for instruct model evaluation")
+
     gsm8k_n = args.gsm8k_samples if args.gsm8k_samples is not None else args.num_samples
     logger.info("Evaluating on GSM8K (max %d samples)...", gsm8k_n)
     gsm8k = load_dataset("openai/gsm8k", "main", split="test")
     gsm8k_acc, gsm8k_results = evaluate_dataset(
-        model, tokenizer, gsm8k, gsm8k_prompt, gsm8k_n,
+        model, tokenizer, gsm8k, prompt_fn, gsm8k_n,
         args.temperature, args.max_new_tokens, args.batch_size, device,
     )
     all_metrics["gsm8k_accuracy"] = gsm8k_acc

@@ -1,0 +1,99 @@
+=== START Sun Apr  5 04:41:39 AM UTC 2026 ===
+>>> [04:41] TRAIN rho0.70_seed45 (2xH100 DDP)
+Special tokens file saved in results/sweep_extra/rho0.70_seed45/special_tokens_map.json
+2026-04-05 05:41:08,735 [INFO] train_rho_sweep: Training complete: rho=0.70, seed=45
+[rank0]:[W405 05:41:09.119092775 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [05:41] rho0.70_seed45 done (metrics: results/sweep_extra/rho0.70_seed45/training_metrics.json
+OK)
+>>> [05:41] TRAIN rho0.70_seed46 (2xH100 DDP)
+Special tokens file saved in results/sweep_extra/rho0.70_seed46/special_tokens_map.json
+2026-04-05 06:42:56,088 [INFO] train_rho_sweep: Training complete: rho=0.70, seed=46
+[rank0]:[W405 06:42:56.495305264 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [06:42] rho0.70_seed46 done (metrics: results/sweep_extra/rho0.70_seed46/training_metrics.json
+OK)
+>>> [06:42] TRAIN rho0.70_seed47 (2xH100 DDP)
+Special tokens file saved in results/sweep_extra/rho0.70_seed47/special_tokens_map.json
+2026-04-05 07:57:42,456 [INFO] train_rho_sweep: Training complete: rho=0.70, seed=47
+[rank0]:[W405 07:57:43.855250299 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [07:57] rho0.70_seed47 done (metrics: results/sweep_extra/rho0.70_seed47/training_metrics.json
+OK)
+>>> [07:57] TRAIN rho1.00_seed45 (2xH100 DDP)
+Special tokens file saved in results/sweep_extra/rho1.00_seed45/special_tokens_map.json
+2026-04-05 09:06:51,526 [INFO] train_rho_sweep: Training complete: rho=1.00, seed=45
+[rank0]:[W405 09:06:52.897862782 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [09:06] rho1.00_seed45 done (metrics: results/sweep_extra/rho1.00_seed45/training_metrics.json
+OK)
+>>> [09:06] TRAIN rho1.00_seed46 (2xH100 DDP)
+Special tokens file saved in results/sweep_extra/rho1.00_seed46/special_tokens_map.json
+2026-04-05 10:07:33,457 [INFO] train_rho_sweep: Training complete: rho=1.00, seed=46
+[rank0]:[W405 10:07:34.827035920 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [10:07] rho1.00_seed46 done (metrics: results/sweep_extra/rho1.00_seed46/training_metrics.json
+OK)
+>>> [10:07] TRAIN rho1.00_seed47 (2xH100 DDP)
+Special tokens file saved in results/sweep_extra/rho1.00_seed47/special_tokens_map.json
+2026-04-05 11:13:17,192 [INFO] train_rho_sweep: Training complete: rho=1.00, seed=47
+[rank0]:[W405 11:13:17.729196857 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [11:13] rho1.00_seed47 done (metrics: results/sweep_extra/rho1.00_seed47/training_metrics.json
+OK)
+>>> [11:13] TRAIN rho3.00_seed45 (2xH100 DDP)
+Special tokens file saved in results/sweep_extra/rho3.00_seed45/special_tokens_map.json
+2026-04-05 12:17:21,886 [INFO] train_rho_sweep: Training complete: rho=3.00, seed=45
+[rank0]:[W405 12:17:22.163802197 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [12:17] rho3.00_seed45 done (metrics: results/sweep_extra/rho3.00_seed45/training_metrics.json
+OK)
+>>> [12:17] TRAIN rho3.00_seed46 (2xH100 DDP)
+Special tokens file saved in results/sweep_extra/rho3.00_seed46/special_tokens_map.json
+2026-04-05 13:11:30,435 [INFO] train_rho_sweep: Training complete: rho=3.00, seed=46
+[rank0]:[W405 13:11:31.901801676 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [13:11] rho3.00_seed46 done (metrics: results/sweep_extra/rho3.00_seed46/training_metrics.json
+OK)
+>>> [13:11] TRAIN rho3.00_seed47 (2xH100 DDP)
+Special tokens file saved in results/sweep_extra/rho3.00_seed47/special_tokens_map.json
+2026-04-05 14:05:59,351 [INFO] train_rho_sweep: Training complete: rho=3.00, seed=47
+[rank0]:[W405 14:05:59.798347984 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [14:06] rho3.00_seed47 done (metrics: results/sweep_extra/rho3.00_seed47/training_metrics.json
+OK)
+>>> [14:06] CONFOUNDER G2_rho0.70_seed42
+Special tokens file saved in results/confounder/G2_rho0.70_seed42/special_tokens_map.json
+2026-04-05 15:05:40,704 [INFO] train_rho_sweep: Training complete: rho=0.70, seed=42
+[rank0]:[W405 15:05:41.112654633 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< G2_rho0.70_seed42 done
+>>> [15:05] CONFOUNDER G2_rho3.00_seed42
+Special tokens file saved in results/confounder/G2_rho3.00_seed42/special_tokens_map.json
+2026-04-05 16:08:41,167 [INFO] train_rho_sweep: Training complete: rho=3.00, seed=42
+[rank0]:[W405 16:08:41.555393981 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< G2_rho3.00_seed42 done
+>>> [16:08] CONFOUNDER G8_rho0.70_seed42
+Special tokens file saved in results/confounder/G8_rho0.70_seed42/special_tokens_map.json
+2026-04-05 17:12:00,809 [INFO] train_rho_sweep: Training complete: rho=0.70, seed=42
+[rank0]:[W405 17:12:01.189227225 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< G8_rho0.70_seed42 done
+>>> [17:12] CONFOUNDER G8_rho3.00_seed42
+Special tokens file saved in results/confounder/G8_rho3.00_seed42/special_tokens_map.json
+2026-04-05 18:03:04,373 [INFO] train_rho_sweep: Training complete: rho=3.00, seed=42
+[rank0]:[W405 18:03:04.736215822 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< G8_rho3.00_seed42 done
+>>> [18:03] CONFOUNDER kl0.01_rho0.70_seed42
+Special tokens file saved in results/confounder/kl0.01_rho0.70_seed42/special_tokens_map.json
+2026-04-05 19:00:30,205 [INFO] train_rho_sweep: Training complete: rho=0.70, seed=42
+[rank0]:[W405 19:00:30.584586000 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< kl0.01_rho0.70_seed42 done
+>>> [19:00] CONFOUNDER kl0.01_rho3.00_seed42
+Special tokens file saved in results/confounder/kl0.01_rho3.00_seed42/special_tokens_map.json
+2026-04-05 20:00:38,096 [INFO] train_rho_sweep: Training complete: rho=3.00, seed=42
+[rank0]:[W405 20:00:38.546743388 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< kl0.01_rho3.00_seed42 done
+>>> [20:00] CONFOUNDER kl0.20_rho0.70_seed42
+Special tokens file saved in results/confounder/kl0.20_rho0.70_seed42/special_tokens_map.json
+2026-04-05 21:13:05,550 [INFO] train_rho_sweep: Training complete: rho=0.70, seed=42
+[rank0]:[W405 21:13:06.923761332 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< kl0.20_rho0.70_seed42 done
+>>> [21:13] CONFOUNDER kl0.20_rho3.00_seed42
+Special tokens file saved in results/confounder/kl0.20_rho3.00_seed42/special_tokens_map.json
+2026-04-05 22:04:44,824 [INFO] train_rho_sweep: Training complete: rho=3.00, seed=42
+[rank0]:[W405 22:04:45.358710101 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< kl0.20_rho3.00_seed42 done
+>>> [22:04] METHOD static_rho0.7_seed42
+  "top_p": 0.8
+}
+

@@ -6,7 +6,7 @@ sweep:
 
 model:
   name: "Qwen/Qwen3.5-9B"
-  name_27b: "Qwen/Qwen3.5-27B"
+  name_27b: "Qwen/Qwen2.5-32B-Instruct"
 
 training:
   num_train_epochs: 2
@@ -21,7 +21,7 @@ training:
   save_steps: 100
   num_generations: 4
   max_prompt_length: 256
-  max_completion_length: 256
+  max_completion_length: 512
   gradient_checkpointing: true
   kl_coef: 0.05
   clip_range: 0.2

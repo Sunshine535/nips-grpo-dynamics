@@ -1,0 +1,80 @@
+17:06 confounders=2/8
+17:11 confounders=2/8
+17:16 confounders=3/8
+17:21 confounders=3/8
+17:26 confounders=3/8
+17:31 confounders=3/8
+17:36 confounders=3/8
+17:41 confounders=3/8
+17:46 confounders=3/8
+17:51 confounders=3/8
+17:56 confounders=3/8
+18:01 confounders=3/8
+18:06 confounders=4/8
+18:11 confounders=4/8
+18:16 confounders=4/8
+18:21 confounders=4/8
+18:26 confounders=4/8
+18:31 confounders=4/8
+18:36 confounders=4/8
+18:41 confounders=4/8
+18:46 confounders=4/8
+18:51 confounders=4/8
+18:56 confounders=4/8
+19:01 confounders=5/8
+19:06 confounders=5/8
+19:11 confounders=5/8
+19:16 confounders=5/8
+19:21 confounders=5/8
+19:26 confounders=5/8
+19:31 confounders=5/8
+19:36 confounders=5/8
+19:41 confounders=5/8
+19:46 confounders=5/8
+19:51 confounders=5/8
+19:56 confounders=5/8
+20:01 confounders=6/8
+20:06 confounders=6/8
+20:11 confounders=6/8
+20:16 confounders=6/8
+20:21 confounders=6/8
+20:26 confounders=6/8
+20:31 confounders=6/8
+20:36 confounders=6/8
+20:41 confounders=6/8
+20:46 confounders=6/8
+20:51 confounders=6/8
+20:56 confounders=6/8
+21:01 confounders=6/8
+21:06 confounders=6/8
+21:11 confounders=6/8
+21:16 confounders=7/8
+21:21 confounders=7/8
+21:26 confounders=7/8
+21:31 confounders=7/8
+21:36 confounders=7/8
+21:41 confounders=7/8
+21:46 confounders=7/8
+21:51 confounders=7/8
+21:56 confounders=7/8
+22:01 confounders=7/8
+22:06 confounders=8/8
+=== All 8 confounders done! ===
+Killing old pipeline (PID 34503)...
+Launching long-horizon + method comparison + full eval...
+============================================================
+ LONG-HORIZON TRAINING (fatal for best paper)
+ ρ=1.0 vs ρ=3.0, 600 steps, 2 seeds each
+ Sun Apr  5 10:06:46 PM UTC 2026
+============================================================
+>>> [22:06] rho1.00_seed42_600steps (2xH100 DDP, 600 steps)
+Special tokens file saved in results/long_horizon/rho1.00_seed42_600steps/special_tokens_map.json
+2026-04-06 01:15:33,145 [INFO] train_rho_sweep: Training complete: rho=1.00, seed=42
+[rank0]:[W406 01:15:33.580767019 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [01:15] rho1.00_seed42_600steps done
+>>> [01:15] rho1.00_seed43_600steps (2xH100 DDP, 600 steps)
+  "top_p": 0.8
+}
+
+run_longhorizon.sh: line 18: 14250 Killed                  CUDA_VISIBLE_DEVICES=0,1 $ACCEL scripts/train_rho_sweep.py --rho "$R" --seed "$S" --config "$CONFIG" --output_dir "$OUT" --max_steps 600 2>&1
+     14251 Done                    | tail -3

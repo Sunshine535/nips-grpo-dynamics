@@ -57,6 +57,8 @@ def parse_args():
     parser.add_argument("--per_device_train_batch_size", type=int, default=None)
     parser.add_argument("--gradient_accumulation_steps", type=int, default=None)
     parser.add_argument("--resume_from_checkpoint", type=str, default="auto")
+    parser.add_argument("--use_vllm", action="store_true", default=False,
+                        help="Use vLLM for fast generation (requires vllm package)")
     return parser.parse_args()
 
 
@@ -78,7 +80,7 @@ def format_gsm8k_prompt(example):
         "prompt": [
             {"role": "user", "content": (
                 f"Solve the following math problem step by step. "
-                f"End with '#### <answer>'.\n\n"
+                f"Put your final numerical answer after ####.\n\n"
                 f"Question: {example['question']}"
             )},
         ],
@@ -190,6 +192,31 @@ def main():
     if max_steps <= 0:
         max_steps = cfg["sweep"].get("coarse_max_steps", -1)
 
+    # vLLM configuration for fast generation
+    vllm_kwargs = {}
+    if args.use_vllm:
+        vllm_server_url = os.environ.get("VLLM_SERVER_URL", "")
+        if vllm_server_url:
+            # Server mode: vLLM runs as external server (supports TP across GPUs)
+            vllm_kwargs = {
+                "use_vllm": True,
+                "vllm_mode": "server",
+                "vllm_server_base_url": vllm_server_url,
+            }
+            logger.info("Using vLLM server mode: %s", vllm_server_url)
+        else:
+            # Colocate mode: vLLM runs inside training process
+            vllm_port = int(os.environ.get("VLLM_PORT", 51216))
+            tp_size = int(os.environ.get("VLLM_TP_SIZE", "1"))
+            vllm_kwargs = {
+                "use_vllm": True,
+                "vllm_mode": "colocate",
+                "vllm_gpu_memory_utilization": 0.35,
+                "vllm_group_port": vllm_port,
+                "vllm_tensor_parallel_size": tp_size,
+            }
+            logger.info("Using vLLM colocate (port=%d, tp=%d)", vllm_port, tp_size)
+
     training_config = GRPOConfig(
         output_dir=output_dir,
         num_train_epochs=args.num_train_epochs or tcfg["num_train_epochs"],
@@ -211,6 +238,8 @@ def main():
         report_to="none",
         log_level="info",
         log_on_each_node=False,
+        ddp_timeout=7200,  # 2h timeout for vLLM colocate + DDP
+        **vllm_kwargs,
     )
 
     try:

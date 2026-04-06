@@ -1,0 +1,17 @@
+============================================================
+ OPTIMIZED QWEN3.5-9B PIPELINE — BEST PAPER PRIORITY ORDER
+ Mon Apr  6 06:54:21 AM UTC 2026
+============================================================
+
+>>> P1: Core sweep (ρ=0.7/1.0/3.0 × 3 seeds)
+>>> [06:54] rho1.00_seed42 (2xH100 DDP)
+2026-04-06 08:41:51,699 [INFO] train_rho_sweep: Training complete: rho=1.00, seed=42
+[rank0]:[W406 08:41:52.936635074 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [08:41] rho1.00_seed42 done (results/qwen35/sweep_coarse/rho1.00_seed42/training_metrics.json
+OK)
+>>> [08:41] rho1.00_seed43 (2xH100 DDP)
+2026-04-06 10:27:54,219 [INFO] train_rho_sweep: Training complete: rho=1.00, seed=43
+[rank0]:[W406 10:27:54.467993871 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [10:27] rho1.00_seed43 done (results/qwen35/sweep_coarse/rho1.00_seed43/training_metrics.json
+OK)
+>>> [10:27] rho1.00_seed44 (2xH100 DDP)

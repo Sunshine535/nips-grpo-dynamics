@@ -168,7 +168,7 @@ def format_gsm8k_prompt(example):
         "prompt": [
             {"role": "user", "content": (
                 f"Solve the following math problem step by step. "
-                f"End with '#### <answer>'.\n\n"
+                f"Put your final numerical answer after ####.\n\n"
                 f"Question: {example['question']}"
             )},
         ],

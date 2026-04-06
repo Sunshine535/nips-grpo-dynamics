@@ -1,0 +1,372 @@
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/__init__.py:22: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if is_vllm_available():
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/vllm_client.py:40: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if is_vllm_available():
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/vllm_generation.py:37: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if is_vllm_available():
+2026-04-05 00:28:39,526 [INFO] train_rho_sweep: Training: rho=3.00, seed=43
+2026-04-05 00:28:39,527 [INFO] train_rho_sweep: Model: Qwen/Qwen2.5-7B-Instruct
+2026-04-05 00:28:39,527 [INFO] train_rho_sweep: Output: results/adabalance/best_static_rho3.0_seed43
+2026-04-05 00:28:45,401 [INFO] train_rho_sweep: Dataset: 7473 samples
+2026-04-05 00:28:45,402 [INFO] train_rho_sweep: Using vLLM for generation (colocate mode, port=51259)
+2026-04-05 00:28:45,962 [INFO] train_rho_sweep: Loading model: Qwen/Qwen2.5-7B-Instruct (bf16, attn=sdpa)
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 171.11it/s]
+max_steps is given, it will override any value given in num_train_epochs
+Using auto half precision backend
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/vllm_generation.py:289: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if not is_vllm_available():
+loading configuration file config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/config.json
+loading configuration file config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/config.json
+loading configuration file config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/config.json
+Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "dtype": "bfloat16",
+  "eos_token_id": 151645,
+  "hidden_act": "silu",
+  "hidden_size": 3584,
+  "initializer_range": 0.02,
+  "intermediate_size": 18944,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 32768,
+  "max_window_layers": 28,
+  "model_type": "qwen2",
+  "num_attention_heads": 28,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 4,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": null,
+  "tie_word_embeddings": false,
+  "transformers_version": "4.57.6",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 152064
+}
+
+Could not locate the image processor configuration file, will try to use the model config instead.
+loading file vocab.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/vocab.json
+loading file merges.txt from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/merges.txt
+loading file tokenizer.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer.json
+loading file added_tokens.json from cache at None
+loading file special_tokens_map.json from cache at None
+loading file tokenizer_config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer_config.json
+loading file chat_template.jinja from cache at None
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+loading configuration file generation_config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/generation_config.json
+Generate config GenerationConfig {
+  "bos_token_id": 151643,
+  "do_sample": true,
+  "eos_token_id": [
+    151645,
+    151643
+  ],
+  "pad_token_id": 151643,
+  "repetition_penalty": 1.05,
+  "temperature": 0.7,
+  "top_k": 20,
+  "top_p": 0.8
+}
+
+<frozen importlib._bootstrap_external>:1241: FutureWarning: The cuda.cudart module is deprecated and will be removed in a future release, please switch to use the cuda.bindings.runtime module instead.
+<frozen importlib._bootstrap_external>:1241: FutureWarning: The cuda.nvrtc module is deprecated and will be removed in a future release, please switch to use the cuda.bindings.nvrtc module instead.
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:01,  1.66it/s]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:01<00:01,  1.65it/s]
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:01<00:00,  1.70it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:02<00:00,  1.79it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:02<00:00,  1.74it/s]
+
+2026-04-05 00:29:16,057 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-04-05 00:29:16,066 - INFO - autotuner.py:268 - flashinfer.jit: [Autotuner]: Autotuning process ends
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/5 [00:00<?, ?it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 5/5 [00:00<00:00, 36.70it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 5/5 [00:00<00:00, 36.64it/s]
+Capturing CUDA graphs (decode, FULL):   0%|          | 0/4 [00:00<?, ?it/s]Capturing CUDA graphs (decode, FULL): 100%|██████████| 4/4 [00:00<00:00, 46.33it/s]
+2026-04-05 00:29:17,221 [INFO] train_rho_sweep: Starting training (rho=3.00)...
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+***** Running training *****
+  Num examples = 7,473
+  Num Epochs = 1
+  Instantaneous batch size per device = 2
+  Total train batch size (w. parallel, distributed & accumulation) = 8
+  Gradient Accumulation steps = 4
+  Total optimization steps = 200
+  Number of trainable parameters = 161,480,704
+  0%|          | 0/200 [00:00<?, ?it/s]Could not estimate the number of tokens of the input, floating-point operations will not be computed
+  0%|          | 1/200 [00:03<10:39,  3.21s/it]  1%|          | 2/200 [00:06<11:04,  3.36s/it]  2%|▏         | 3/200 [00:09<10:57,  3.34s/it]  2%|▏         | 4/200 [00:13<10:32,  3.23s/it]  2%|▎         | 5/200 [00:17<12:09,  3.74s/it]                                                 2%|▎         | 5/200 [00:17<12:09,  3.74s/it]  3%|▎         | 6/200 [00:21<12:06,  3.74s/it]  4%|▎         | 7/200 [00:25<12:46,  3.97s/it]  4%|▍         | 8/200 [00:29<11:55,  3.72s/it]  4%|▍         | 9/200 [00:33<12:42,  3.99s/it]  5%|▌         | 10/200 [00:37<12:30,  3.95s/it]                                                  5%|▌         | 10/200 [00:37<12:30,  3.95s/it]  6%|▌         | 11/200 [00:40<11:15,  3.57s/it]  6%|▌         | 12/200 [00:43<11:18,  3.61s/it]  6%|▋         | 13/200 [00:48<12:12,  3.92s/it]  7%|▋         | 14/200 [00:51<11:39,  3.76s/it]  8%|▊         | 15/200 [00:55<11:14,  3.65s/it]                                                  8%|▊         | 15/200 [00:55<11:14,  3.65s/it]  8%|▊         | 16/200 [00:59<11:16,  3.67s/it]  8%|▊         | 17/200 [01:03<12:09,  3.98s/it]  9%|▉         | 18/200 [01:07<11:23,  3.76s/it] 10%|▉         | 19/200 [01:11<11:33,  3.83s/it] 10%|█         | 20/200 [01:14<10:54,  3.64s/it]                                                 10%|█         | 20/200 [01:14<10:54,  3.64s/it] 10%|█         | 21/200 [01:17<10:13,  3.43s/it] 11%|█         | 22/200 [01:19<09:17,  3.13s/it] 12%|█▏        | 23/200 [01:22<09:01,  3.06s/it] 12%|█▏        | 24/200 [01:26<09:41,  3.30s/it] 12%|█▎        | 25/200 [01:29<09:50,  3.37s/it]                                                 12%|█▎        | 25/200 [01:29<09:50,  3.37s/it] 13%|█▎        | 26/200 [01:33<09:35,  3.31s/it] 14%|█▎        | 27/200 [01:36<09:18,  3.23s/it] 14%|█▍        | 28/200 [01:39<09:15,  3.23s/it] 14%|█▍        | 29/200 [01:43<09:43,  3.41s/it] 15%|█▌        | 30/200 [01:46<09:46,  3.45s/it]                                                 15%|█▌        | 30/200 [01:46<09:46,  3.45s/it] 16%|█▌        | 31/200 [01:50<09:50,  3.50s/it] 16%|█▌        | 32/200 [01:53<09:28,  3.38s/it] 16%|█▋        | 33/200 [01:57<10:13,  3.67s/it] 17%|█▋        | 34/200 [02:01<09:58,  3.60s/it] 18%|█▊        | 35/200 [02:05<10:07,  3.68s/it]                                                 18%|█▊        | 35/200 [02:05<10:07,  3.68s/it] 18%|█▊        | 36/200 [02:08<10:03,  3.68s/it] 18%|█▊        | 37/200 [02:12<09:50,  3.62s/it] 19%|█▉        | 38/200 [02:15<09:45,  3.61s/it] 20%|█▉        | 39/200 [02:19<09:56,  3.71s/it] 20%|██        | 40/200 [02:24<10:40,  4.00s/it]                                                {'loss': -0.0919, 'grad_norm': 0.17370732128620148, 'learning_rate': 4e-05, 'num_tokens': 13334.0, 'completions/mean_length': 233.35, 'completions/min_length': 153.8, 'completions/max_length': 325.6, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 221.03333740234376, 'completions/min_terminated_length': 153.8, 'completions/max_terminated_length': 311.6, 'rewards/reward_fn/mean': 0.825, 'rewards/reward_fn/std': 0.27019718289375305, 'reward': 0.825, 'reward_std': 0.27019718289375305, 'frac_reward_zero_std': 0.8, 'sampling/sampling_logp_difference/mean': 0.007536851242184639, 'sampling/sampling_logp_difference/max': 0.3201601505279541, 'sampling/importance_sampling_ratio/min': 0.6240732610225678, 'sampling/importance_sampling_ratio/mean': 1.0084436774253844, 'sampling/importance_sampling_ratio/max': 1.6190134048461915, 'entropy': 0.15568139106035234, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.00015723269898444415, 'clip_ratio/high_max': 0.00015723269898444415, 'clip_ratio/region_mean': 0.00015723269898444415, 'step_time': 3.4907990457490086, 'epoch': 0.0}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 9e-05, 'num_tokens': 28285.0, 'completions/mean_length': 266.775, 'completions/min_length': 155.4, 'completions/max_length': 411.4, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 266.775, 'completions/min_terminated_length': 155.4, 'completions/max_terminated_length': 411.4, 'rewards/reward_fn/mean': 1.0, 'rewards/reward_fn/std': 0.0, 'reward': 1.0, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'sampling/sampling_logp_difference/mean': 0.00805563796311617, 'sampling/sampling_logp_difference/max': 0.40842280387878416, 'sampling/importance_sampling_ratio/min': 0.41935920119285586, 'sampling/importance_sampling_ratio/mean': 0.9643253803253173, 'sampling/importance_sampling_ratio/max': 1.9517804384231567, 'entropy': 0.1324635449796915, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 3.9166187435388564, 'epoch': 0.0}
+{'loss': -0.0286, 'grad_norm': 0.15837010741233826, 'learning_rate': 9.789473684210527e-05, 'num_tokens': 41846.0, 'completions/mean_length': 237.425, 'completions/min_length': 153.4, 'completions/max_length': 348.2, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 237.425, 'completions/min_terminated_length': 153.4, 'completions/max_terminated_length': 348.2, 'rewards/reward_fn/mean': 0.975, 'rewards/reward_fn/std': 0.07071067690849304, 'reward': 0.975, 'reward_std': 0.07071067690849304, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.009459389839321375, 'sampling/sampling_logp_difference/max': 0.45834763050079347, 'sampling/importance_sampling_ratio/min': 0.37503181099891664, 'sampling/importance_sampling_ratio/mean': 0.8658140301704407, 'sampling/importance_sampling_ratio/max': 1.6984479904174805, 'entropy': 0.1428691975772381, 'clip_ratio/low_mean': 0.0002570694079622626, 'clip_ratio/low_min': 0.0002570694079622626, 'clip_ratio/high_mean': 0.0006269395817071199, 'clip_ratio/high_max': 0.0006269395817071199, 'clip_ratio/region_mean': 0.0008840089896693826, 'step_time': 3.524388960003853, 'epoch': 0.0}
+{'loss': -0.0166, 'grad_norm': 0.0, 'learning_rate': 9.526315789473685e-05, 'num_tokens': 57032.0, 'completions/mean_length': 277.95, 'completions/min_length': 178.0, 'completions/max_length': 376.4, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 246.65, 'completions/min_terminated_length': 178.0, 'completions/max_terminated_length': 319.0, 'rewards/reward_fn/mean': 0.75, 'rewards/reward_fn/std': 0.30639100074768066, 'reward': 0.75, 'reward_std': 0.30639100074768066, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.006493106298148632, 'sampling/sampling_logp_difference/max': 0.40969191789627074, 'sampling/importance_sampling_ratio/min': 0.44301902055740355, 'sampling/importance_sampling_ratio/mean': 0.9654678344726563, 'sampling/importance_sampling_ratio/max': 1.6119279623031617, 'entropy': 0.115221206843853, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 3.723884074948728, 'epoch': 0.01}
+{'loss': -0.0125, 'grad_norm': 0.1584300398826599, 'learning_rate': 9.263157894736843e-05, 'num_tokens': 69912.0, 'completions/mean_length': 215.0, 'completions/min_length': 168.2, 'completions/max_length': 284.4, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 215.0, 'completions/min_terminated_length': 168.2, 'completions/max_terminated_length': 284.4, 'rewards/reward_fn/mean': 0.975, 'rewards/reward_fn/std': 0.07071067690849304, 'reward': 0.975, 'reward_std': 0.07071067690849304, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.006214150879532099, 'sampling/sampling_logp_difference/max': 0.5821148753166199, 'sampling/importance_sampling_ratio/min': 0.4572435081005096, 'sampling/importance_sampling_ratio/mean': 0.9480146646499634, 'sampling/importance_sampling_ratio/max': 1.7355028152465821, 'entropy': 0.09273448754101991, 'clip_ratio/low_mean': 9.191176504828036e-05, 'clip_ratio/low_min': 9.191176504828036e-05, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 9.191176504828036e-05, 'step_time': 3.1036837226711214, 'epoch': 0.01}
+{'loss': -0.2275, 'grad_norm': 0.0, 'learning_rate': 9e-05, 'num_tokens': 83192.0, 'completions/mean_length': 230.4, 'completions/min_length': 149.2, 'completions/max_length': 322.8, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 230.4, 'completions/min_terminated_length': 149.2, 'completions/max_terminated_length': 322.8, 'rewards/reward_fn/mean': 0.875, 'rewards/reward_fn/std': 0.1776151716709137, 'reward': 0.875, 'reward_std': 0.1776151716709137, 'frac_reward_zero_std': 0.7, 'sampling/sampling_logp_difference/mean': 0.007566409278661012, 'sampling/sampling_logp_difference/max': 0.5540569305419922, 'sampling/importance_sampling_ratio/min': 0.5922449767589569, 'sampling/importance_sampling_ratio/mean': 1.030245065689087, 'sampling/importance_sampling_ratio/max': 1.8113653421401978, 'entropy': 0.11325141433626414, 'clip_ratio/low_mean': 8.944543660618364e-05, 'clip_ratio/low_min': 8.944543660618364e-05, 'clip_ratio/high_mean': 0.0003167214337736368, 'clip_ratio/high_max': 0.0003167214337736368, 'clip_ratio/region_mean': 0.0004061668703798205, 'step_time': 3.327354946359992, 'epoch': 0.01}
+{'loss': -0.0628, 'grad_norm': 0.20481105148792267, 'learning_rate': 8.736842105263158e-05, 'num_tokens': 98028.0, 'completions/mean_length': 260.1, 'completions/min_length': 175.0, 'completions/max_length': 369.6, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 260.1, 'completions/min_terminated_length': 175.0, 'completions/max_terminated_length': 369.6, 'rewards/reward_fn/mean': 0.975, 'rewards/reward_fn/std': 0.07071067690849304, 'reward': 0.975, 'reward_std': 0.07071067690849304, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.006683423276990652, 'sampling/sampling_logp_difference/max': 0.3707392454147339, 'sampling/importance_sampling_ratio/min': 0.36475907564163207, 'sampling/importance_sampling_ratio/mean': 0.9676530361175537, 'sampling/importance_sampling_ratio/max': 1.7832494258880616, 'entropy': 0.11175030060112476, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.00010822510812431574, 'clip_ratio/high_max': 0.00010822510812431574, 'clip_ratio/region_mean': 0.00010822510812431574, 'step_time': 3.641058901324868, 'epoch': 0.01}
+ 20%|██        | 40/200 [02:24<10:40,  4.00s/it] 20%|██        | 41/200 [02:27<09:44,  3.68s/it] 21%|██        | 42/200 [02:31<09:42,  3.69s/it] 22%|██▏       | 43/200 [02:34<09:20,  3.57s/it] 22%|██▏       | 44/200 [02:37<08:53,  3.42s/it] 22%|██▎       | 45/200 [02:40<08:27,  3.28s/it]                                                 22%|██▎       | 45/200 [02:40<08:27,  3.28s/it] 23%|██▎       | 46/200 [02:43<08:16,  3.22s/it] 24%|██▎       | 47/200 [02:46<07:47,  3.06s/it] 24%|██▍       | 48/200 [02:50<08:42,  3.44s/it] 24%|██▍       | 49/200 [02:53<08:38,  3.43s/it] 25%|██▌       | 50/200 [02:56<08:03,  3.23s/it]                                                 25%|██▌       | 50/200 [02:56<08:03,  3.23s/it] 26%|██▌       | 51/200 [02:59<07:28,  3.01s/it] 26%|██▌       | 52/200 [03:02<07:20,  2.98s/it] 26%|██▋       | 53/200 [03:06<08:30,  3.47s/it] 27%|██▋       | 54/200 [03:09<08:20,  3.43s/it] 28%|██▊       | 55/200 [03:14<08:56,  3.70s/it]                                                 28%|██▊       | 55/200 [03:14<08:56,  3.70s/it] 28%|██▊       | 56/200 [03:17<08:14,  3.43s/it] 28%|██▊       | 57/200 [03:20<08:21,  3.51s/it] 29%|██▉       | 58/200 [03:25<09:08,  3.86s/it] 30%|██▉       | 59/200 [03:29<09:03,  3.85s/it] 30%|███       | 60/200 [03:33<08:58,  3.85s/it]                                                 30%|███       | 60/200 [03:33<08:58,  3.85s/it] 30%|███       | 61/200 [03:36<08:13,  3.55s/it] 31%|███       | 62/200 [03:39<07:49,  3.40s/it] 32%|███▏      | 63/200 [03:42<07:38,  3.35s/it] 32%|███▏      | 64/200 [03:45<07:33,  3.34s/it] 32%|███▎      | 65/200 [03:48<07:18,  3.25s/it]                                                 32%|███▎      | 65/200 [03:48<07:18,  3.25s/it] 33%|███▎      | 66/200 [03:51<06:42,  3.00s/it] 34%|███▎      | 67/200 [03:53<06:14,  2.81s/it] 34%|███▍      | 68/200 [03:56<06:22,  2.89s/it] 34%|███▍      | 69/200 [03:59<06:13,  2.85s/it] 35%|███▌      | 70/200 [04:02<06:12,  2.87s/it]                                                 35%|███▌      | 70/200 [04:02<06:12,  2.87s/it] 36%|███▌      | 71/200 [04:04<06:04,  2.83s/it] 36%|███▌      | 72/200 [04:08<06:27,  3.02s/it] 36%|███▋      | 73/200 [04:12<07:06,  3.36s/it] 37%|███▋      | 74/200 [04:14<06:25,  3.06s/it] 38%|███▊      | 75/200 [04:18<06:27,  3.10s/it]                                                {'loss': -0.1265, 'grad_norm': 0.0, 'learning_rate': 8.473684210526316e-05, 'num_tokens': 116008.0, 'completions/mean_length': 328.4, 'completions/min_length': 263.6, 'completions/max_length': 397.4, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 321.125, 'completions/min_terminated_length': 263.6, 'completions/max_terminated_length': 396.8, 'rewards/reward_fn/mean': 0.725, 'rewards/reward_fn/std': 0.44441770315170287, 'reward': 0.725, 'reward_std': 0.4444176912307739, 'frac_reward_zero_std': 0.6, 'sampling/sampling_logp_difference/mean': 0.004665981605648994, 'sampling/sampling_logp_difference/max': 0.32611789703369143, 'sampling/importance_sampling_ratio/min': 0.4849827945232391, 'sampling/importance_sampling_ratio/mean': 0.8938651561737061, 'sampling/importance_sampling_ratio/max': 1.449390721321106, 'entropy': 0.09462940357625485, 'clip_ratio/low_mean': 0.00017660573357716202, 'clip_ratio/low_min': 0.00017660573357716202, 'clip_ratio/high_mean': 0.0005283360776957124, 'clip_ratio/high_max': 0.0005283360776957124, 'clip_ratio/region_mean': 0.0007049418112728745, 'step_time': 3.8276358152739705, 'epoch': 0.01}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 8.210526315789474e-05, 'num_tokens': 129354.0, 'completions/mean_length': 231.95, 'completions/min_length': 171.6, 'completions/max_length': 294.8, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 231.95, 'completions/min_terminated_length': 171.6, 'completions/max_terminated_length': 294.8, 'rewards/reward_fn/mean': 1.0, 'rewards/reward_fn/std': 0.0, 'reward': 1.0, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'sampling/sampling_logp_difference/mean': 0.004439333686605096, 'sampling/sampling_logp_difference/max': 0.31755039691925047, 'sampling/importance_sampling_ratio/min': 0.5927681148052215, 'sampling/importance_sampling_ratio/mean': 1.019525372982025, 'sampling/importance_sampling_ratio/max': 1.5011966466903686, 'entropy': 0.07778323348611593, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 3.154485139902681, 'epoch': 0.01}
+{'loss': -0.0733, 'grad_norm': 0.0, 'learning_rate': 7.947368421052632e-05, 'num_tokens': 142214.0, 'completions/mean_length': 216.5, 'completions/min_length': 158.0, 'completions/max_length': 306.4, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 216.5, 'completions/min_terminated_length': 158.0, 'completions/max_terminated_length': 306.4, 'rewards/reward_fn/mean': 0.8, 'rewards/reward_fn/std': 0.28112501502037046, 'reward': 0.8, 'reward_std': 0.28112500309944155, 'frac_reward_zero_std': 0.8, 'sampling/sampling_logp_difference/mean': 0.005397052597254514, 'sampling/sampling_logp_difference/max': 0.3797340393066406, 'sampling/importance_sampling_ratio/min': 0.5774674534797668, 'sampling/importance_sampling_ratio/mean': 1.0081864595413208, 'sampling/importance_sampling_ratio/max': 1.6186625480651855, 'entropy': 0.09143162574619054, 'clip_ratio/low_mean': 9.881423320621253e-05, 'clip_ratio/low_min': 9.881423320621253e-05, 'clip_ratio/high_mean': 0.000305916037177667, 'clip_ratio/high_max': 0.000305916037177667, 'clip_ratio/region_mean': 0.0004047302703838795, 'step_time': 3.2178127584978937, 'epoch': 0.01}
+{'loss': -0.0265, 'grad_norm': 0.0, 'learning_rate': 7.68421052631579e-05, 'num_tokens': 156555.0, 'completions/mean_length': 247.725, 'completions/min_length': 154.2, 'completions/max_length': 347.6, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 236.40833740234376, 'completions/min_terminated_length': 154.2, 'completions/max_terminated_length': 337.8, 'rewards/reward_fn/mean': 0.875, 'rewards/reward_fn/std': 0.1776151716709137, 'reward': 0.875, 'reward_std': 0.1776151716709137, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.0050531407352536915, 'sampling/sampling_logp_difference/max': 0.3084119319915771, 'sampling/importance_sampling_ratio/min': 0.6102330088615417, 'sampling/importance_sampling_ratio/mean': 1.0907180547714233, 'sampling/importance_sampling_ratio/max': 1.7314922571182252, 'entropy': 0.08950520846992731, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0003733647638000548, 'clip_ratio/high_max': 0.0003733647638000548, 'clip_ratio/region_mean': 0.0003733647638000548, 'step_time': 3.4948069554753602, 'epoch': 0.01}
+{'loss': -0.0203, 'grad_norm': 0.0, 'learning_rate': 7.421052631578948e-05, 'num_tokens': 171680.0, 'completions/mean_length': 269.525, 'completions/min_length': 196.0, 'completions/max_length': 382.0, 'completions/clipped_ratio': 0.025, 'completions/mean_terminated_length': 264.175, 'completions/min_terminated_length': 196.0, 'completions/max_terminated_length': 380.8, 'rewards/reward_fn/mean': 0.925, 'rewards/reward_fn/std': 0.10350984334945679, 'reward': 0.925, 'reward_std': 0.10350983142852783, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.003592604259029031, 'sampling/sampling_logp_difference/max': 0.3336800098419189, 'sampling/importance_sampling_ratio/min': 0.674775218963623, 'sampling/importance_sampling_ratio/mean': 1.0430821061134339, 'sampling/importance_sampling_ratio/max': 1.6407340526580811, 'entropy': 0.06106821279972792, 'clip_ratio/low_mean': 0.00012376237427815794, 'clip_ratio/low_min': 0.00012376237427815794, 'clip_ratio/high_mean': 0.00015015015378594398, 'clip_ratio/high_max': 0.00015015015378594398, 'clip_ratio/region_mean': 0.00027391252806410196, 'step_time': 3.723360185790807, 'epoch': 0.02}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 7.157894736842105e-05, 'num_tokens': 184543.0, 'completions/mean_length': 212.675, 'completions/min_length': 153.8, 'completions/max_length': 281.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 212.675, 'completions/min_terminated_length': 153.8, 'completions/max_terminated_length': 281.0, 'rewards/reward_fn/mean': 1.0, 'rewards/reward_fn/std': 0.0, 'reward': 1.0, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'sampling/sampling_logp_difference/mean': 0.004380930354818702, 'sampling/sampling_logp_difference/max': 0.321796178817749, 'sampling/importance_sampling_ratio/min': 0.5961844146251678, 'sampling/importance_sampling_ratio/mean': 0.9535823822021484, 'sampling/importance_sampling_ratio/max': 1.4565383434295653, 'entropy': 0.0784981980919838, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 3.0664328294806182, 'epoch': 0.02}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 6.894736842105263e-05, 'num_tokens': 195664.0, 'completions/mean_length': 182.025, 'completions/min_length': 146.0, 'completions/max_length': 219.4, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 182.025, 'completions/min_terminated_length': 146.0, 'completions/max_terminated_length': 219.4, 'rewards/reward_fn/mean': 1.0, 'rewards/reward_fn/std': 0.0, 'reward': 1.0, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'sampling/sampling_logp_difference/mean': 0.0038162060547620056, 'sampling/sampling_logp_difference/max': 0.26098082065582273, 'sampling/importance_sampling_ratio/min': 0.665517783164978, 'sampling/importance_sampling_ratio/mean': 0.9706283688545227, 'sampling/importance_sampling_ratio/max': 1.442173218727112, 'entropy': 0.0686947513371706, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 2.673234576638788, 'epoch': 0.02}
+ 38%|███▊      | 75/200 [04:18<06:27,  3.10s/it] 38%|███▊      | 76/200 [04:21<06:25,  3.11s/it] 38%|███▊      | 77/200 [04:24<06:42,  3.27s/it] 39%|███▉      | 78/200 [04:27<06:15,  3.08s/it] 40%|███▉      | 79/200 [04:30<05:53,  2.92s/it] 40%|████      | 80/200 [04:33<06:16,  3.14s/it]                                                 40%|████      | 80/200 [04:33<06:16,  3.14s/it] 40%|████      | 81/200 [04:36<06:16,  3.16s/it] 41%|████      | 82/200 [04:39<05:52,  2.99s/it] 42%|████▏     | 83/200 [04:42<05:51,  3.01s/it] 42%|████▏     | 84/200 [04:46<06:16,  3.25s/it] 42%|████▎     | 85/200 [04:48<05:36,  2.92s/it]                                                 42%|████▎     | 85/200 [04:48<05:36,  2.92s/it] 43%|████▎     | 86/200 [04:51<05:27,  2.87s/it] 44%|████▎     | 87/200 [04:53<04:57,  2.63s/it] 44%|████▍     | 88/200 [04:55<04:52,  2.61s/it] 44%|████▍     | 89/200 [04:58<04:59,  2.70s/it] 45%|████▌     | 90/200 [05:01<04:42,  2.57s/it]                                                 45%|████▌     | 90/200 [05:01<04:42,  2.57s/it] 46%|████▌     | 91/200 [05:03<04:34,  2.52s/it] 46%|████▌     | 92/200 [05:06<04:46,  2.65s/it] 46%|████▋     | 93/200 [05:08<04:30,  2.53s/it] 47%|████▋     | 94/200 [05:10<04:19,  2.45s/it] 48%|████▊     | 95/200 [05:13<04:17,  2.45s/it]                                                 48%|████▊     | 95/200 [05:13<04:17,  2.45s/it] 48%|████▊     | 96/200 [05:17<05:20,  3.08s/it] 48%|████▊     | 97/200 [05:20<05:13,  3.04s/it] 49%|████▉     | 98/200 [05:23<04:58,  2.92s/it] 50%|████▉     | 99/200 [05:26<04:43,  2.81s/it] 50%|█████     | 100/200 [05:28<04:37,  2.78s/it]                                                  50%|█████     | 100/200 [05:28<04:37,  2.78s/it]Saving model checkpoint to results/adabalance/best_static_rho3.0_seed43/checkpoint-100
+loading configuration file config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/config.json
+Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "dtype": "bfloat16",
+  "eos_token_id": 151645,
+  "hidden_act": "silu",
+  "hidden_size": 3584,
+  "initializer_range": 0.02,
+  "intermediate_size": 18944,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 32768,
+  "max_window_layers": 28,
+  "model_type": "qwen2",
+  "num_attention_heads": 28,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 4,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": null,
+  "tie_word_embeddings": false,
+  "transformers_version": "4.57.6",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 152064
+}
+
+chat template saved in results/adabalance/best_static_rho3.0_seed43/checkpoint-100/chat_template.jinja
+tokenizer config file saved in results/adabalance/best_static_rho3.0_seed43/checkpoint-100/tokenizer_config.json
+Special tokens file saved in results/adabalance/best_static_rho3.0_seed43/checkpoint-100/special_tokens_map.json
+ 50%|█████     | 101/200 [05:34<06:04,  3.68s/it] 51%|█████     | 102/200 [05:37<05:27,  3.34s/it] 52%|█████▏    | 103/200 [05:40<05:16,  3.26s/it] 52%|█████▏    | 104/200 [05:43<05:06,  3.20s/it] 52%|█████▎    | 105/200 [05:45<04:48,  3.04s/it]                                                  52%|█████▎    | 105/200 [05:45<04:48,  3.04s/it] 53%|█████▎    | 106/200 [05:48<04:21,  2.78s/it] 54%|█████▎    | 107/200 [05:51<04:40,  3.01s/it] 54%|█████▍    | 108/200 [05:56<05:22,  3.51s/it] 55%|█████▍    | 109/200 [05:59<05:21,  3.54s/it] 55%|█████▌    | 110/200 [06:03<05:14,  3.50s/it]                                                 {'loss': -0.1869, 'grad_norm': 0.18955068290233612, 'learning_rate': 6.631578947368421e-05, 'num_tokens': 208630.0, 'completions/mean_length': 214.35, 'completions/min_length': 146.8, 'completions/max_length': 292.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 214.35, 'completions/min_terminated_length': 146.8, 'completions/max_terminated_length': 292.0, 'rewards/reward_fn/mean': 0.825, 'rewards/reward_fn/std': 0.2777303636074066, 'reward': 0.825, 'reward_std': 0.27773033976554873, 'frac_reward_zero_std': 0.7, 'sampling/sampling_logp_difference/mean': 0.004258263343945146, 'sampling/sampling_logp_difference/max': 0.2673621535301208, 'sampling/importance_sampling_ratio/min': 0.6151648998260498, 'sampling/importance_sampling_ratio/mean': 0.9915586590766907, 'sampling/importance_sampling_ratio/max': 1.392933988571167, 'entropy': 0.07625504359602928, 'clip_ratio/low_mean': 8.196721319109201e-05, 'clip_ratio/low_min': 8.196721319109201e-05, 'clip_ratio/high_mean': 0.00018148820381611586, 'clip_ratio/high_max': 0.00018148820381611586, 'clip_ratio/region_mean': 0.00026345541700720785, 'step_time': 3.1501004631631075, 'epoch': 0.02}
+{'loss': -0.1047, 'grad_norm': 0.24095718562602997, 'learning_rate': 6.368421052631579e-05, 'num_tokens': 220575.0, 'completions/mean_length': 190.825, 'completions/min_length': 132.4, 'completions/max_length': 284.6, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 190.825, 'completions/min_terminated_length': 132.4, 'completions/max_terminated_length': 284.6, 'rewards/reward_fn/mean': 0.925, 'rewards/reward_fn/std': 0.1632926881313324, 'reward': 0.925, 'reward_std': 0.1632926881313324, 'frac_reward_zero_std': 0.8, 'sampling/sampling_logp_difference/mean': 0.003909224784001708, 'sampling/sampling_logp_difference/max': 0.4085291147232056, 'sampling/importance_sampling_ratio/min': 0.6217006981372833, 'sampling/importance_sampling_ratio/mean': 0.9523455381393433, 'sampling/importance_sampling_ratio/max': 1.2416813492774963, 'entropy': 0.056854219362139705, 'clip_ratio/low_mean': 0.00022902257042005657, 'clip_ratio/low_min': 0.00022902257042005657, 'clip_ratio/high_mean': 0.00023437500931322575, 'clip_ratio/high_max': 0.00023437500931322575, 'clip_ratio/region_mean': 0.0004633975797332823, 'step_time': 3.088242733757943, 'epoch': 0.02}
+{'loss': -0.0808, 'grad_norm': 0.0, 'learning_rate': 6.105263157894737e-05, 'num_tokens': 232001.0, 'completions/mean_length': 157.55, 'completions/min_length': 109.8, 'completions/max_length': 259.2, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 157.55, 'completions/min_terminated_length': 109.8, 'completions/max_terminated_length': 259.2, 'rewards/reward_fn/mean': 0.925, 'rewards/reward_fn/std': 0.10350984334945679, 'reward': 0.925, 'reward_std': 0.10350983142852783, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.004873842466622591, 'sampling/sampling_logp_difference/max': 0.5626662492752075, 'sampling/importance_sampling_ratio/min': 0.5342532604932785, 'sampling/importance_sampling_ratio/mean': 0.9787342190742493, 'sampling/importance_sampling_ratio/max': 1.705043888092041, 'entropy': 0.06099600745365023, 'clip_ratio/low_mean': 0.0004455844755284488, 'clip_ratio/low_min': 0.0004455844755284488, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0004455844755284488, 'step_time': 2.9314240917563437, 'epoch': 0.02}
+{'loss': -0.0843, 'grad_norm': 0.0, 'learning_rate': 5.8421052631578954e-05, 'num_tokens': 241200.0, 'completions/mean_length': 129.275, 'completions/min_length': 87.2, 'completions/max_length': 189.4, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 129.275, 'completions/min_terminated_length': 87.2, 'completions/max_terminated_length': 189.4, 'rewards/reward_fn/mean': 0.775, 'rewards/reward_fn/std': 0.3029963493347168, 'reward': 0.775, 'reward_std': 0.30299633741378784, 'frac_reward_zero_std': 0.8, 'sampling/sampling_logp_difference/mean': 0.005035209748893976, 'sampling/sampling_logp_difference/max': 0.3381309986114502, 'sampling/importance_sampling_ratio/min': 0.6471029639244079, 'sampling/importance_sampling_ratio/mean': 0.9970707654953003, 'sampling/importance_sampling_ratio/max': 1.4060449361801148, 'entropy': 0.05940002184361219, 'clip_ratio/low_mean': 0.0002582920016720891, 'clip_ratio/low_min': 0.0002582920016720891, 'clip_ratio/high_mean': 0.00014925373252481223, 'clip_ratio/high_max': 0.00014925373252481223, 'clip_ratio/region_mean': 0.00040754573419690134, 'step_time': 2.4765517695806922, 'epoch': 0.02}
+{'loss': -0.0978, 'grad_norm': 0.0, 'learning_rate': 5.5789473684210526e-05, 'num_tokens': 251082.0, 'completions/mean_length': 132.65, 'completions/min_length': 100.6, 'completions/max_length': 182.6, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 132.65, 'completions/min_terminated_length': 100.6, 'completions/max_terminated_length': 182.6, 'rewards/reward_fn/mean': 0.75, 'rewards/reward_fn/std': 0.28112501502037046, 'reward': 0.75, 'reward_std': 0.28112500309944155, 'frac_reward_zero_std': 0.7, 'sampling/sampling_logp_difference/mean': 0.004449358233250678, 'sampling/sampling_logp_difference/max': 0.2996775984764099, 'sampling/importance_sampling_ratio/min': 0.7329118251800537, 'sampling/importance_sampling_ratio/mean': 1.0270378351211549, 'sampling/importance_sampling_ratio/max': 1.3758846759796142, 'entropy': 0.049376890249550345, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0007109704427421093, 'clip_ratio/high_max': 0.0007109704427421093, 'clip_ratio/region_mean': 0.0007109704427421093, 'step_time': 2.431997496355325, 'epoch': 0.03}
+{'loss': -0.1176, 'grad_norm': 0.0, 'learning_rate': 5.3157894736842104e-05, 'num_tokens': 262656.0, 'completions/mean_length': 174.15, 'completions/min_length': 129.2, 'completions/max_length': 278.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 174.15, 'completions/min_terminated_length': 129.2, 'completions/max_terminated_length': 278.0, 'rewards/reward_fn/mean': 0.925, 'rewards/reward_fn/std': 0.10350984334945679, 'reward': 0.925, 'reward_std': 0.10350983142852783, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.003734075790271163, 'sampling/sampling_logp_difference/max': 0.41300415992736816, 'sampling/importance_sampling_ratio/min': 0.5918957948684692, 'sampling/importance_sampling_ratio/mean': 0.9664375424385071, 'sampling/importance_sampling_ratio/max': 1.4373439788818358, 'entropy': 0.051620321441441776, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 3.0417612641118468, 'epoch': 0.03}
+{'loss': -0.0492, 'grad_norm': 0.0, 'learning_rate': 5.052631578947369e-05, 'num_tokens': 274502.0, 'completions/mean_length': 190.15, 'completions/min_length': 133.8, 'completions/max_length': 255.2, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 190.15, 'completions/min_terminated_length': 133.8, 'completions/max_terminated_length': 255.2, 'rewards/reward_fn/mean': 0.925, 'rewards/reward_fn/std': 0.10350984334945679, 'reward': 0.925, 'reward_std': 0.10350983142852783, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.0040103695821017025, 'sampling/sampling_logp_difference/max': 0.35213000774383546, 'sampling/importance_sampling_ratio/min': 0.5518716692924499, 'sampling/importance_sampling_ratio/mean': 0.9869948387145996, 'sampling/importance_sampling_ratio/max': 1.437916922569275, 'entropy': 0.06053027333691716, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 9.765625e-05, 'clip_ratio/high_max': 9.765625e-05, 'clip_ratio/region_mean': 9.765625e-05, 'step_time': 2.889311902411282, 'epoch': 0.03}
+ 55%|█████▌    | 110/200 [06:03<05:14,  3.50s/it] 56%|█████▌    | 111/200 [06:06<05:08,  3.46s/it] 56%|█████▌    | 112/200 [06:10<05:16,  3.59s/it] 56%|█████▋    | 113/200 [06:14<05:11,  3.58s/it] 57%|█████▋    | 114/200 [06:17<05:01,  3.51s/it] 57%|█████▊    | 115/200 [06:21<05:03,  3.57s/it]                                                  57%|█████▊    | 115/200 [06:21<05:03,  3.57s/it] 58%|█████▊    | 116/200 [06:25<05:10,  3.70s/it] 58%|█████▊    | 117/200 [06:28<04:51,  3.51s/it] 59%|█████▉    | 118/200 [06:31<04:28,  3.27s/it] 60%|█████▉    | 119/200 [06:35<04:59,  3.69s/it] 60%|██████    | 120/200 [06:38<04:35,  3.44s/it]                                                  60%|██████    | 120/200 [06:38<04:35,  3.44s/it] 60%|██████    | 121/200 [06:42<04:53,  3.72s/it] 61%|██████    | 122/200 [06:45<04:33,  3.50s/it] 62%|██████▏   | 123/200 [06:48<04:16,  3.33s/it] 62%|██████▏   | 124/200 [06:51<04:08,  3.27s/it] 62%|██████▎   | 125/200 [06:55<04:09,  3.33s/it]                                                  62%|██████▎   | 125/200 [06:55<04:09,  3.33s/it] 63%|██████▎   | 126/200 [06:58<04:00,  3.25s/it] 64%|██████▎   | 127/200 [07:01<04:00,  3.30s/it] 64%|██████▍   | 128/200 [07:06<04:19,  3.61s/it] 64%|██████▍   | 129/200 [07:09<04:03,  3.43s/it] 65%|██████▌   | 130/200 [07:12<03:55,  3.37s/it]                                                  65%|██████▌   | 130/200 [07:12<03:55,  3.37s/it] 66%|██████▌   | 131/200 [07:16<04:08,  3.60s/it] 66%|██████▌   | 132/200 [07:20<04:00,  3.53s/it] 66%|██████▋   | 133/200 [07:23<03:58,  3.57s/it] 67%|██████▋   | 134/200 [07:27<04:00,  3.65s/it] 68%|██████▊   | 135/200 [07:31<03:54,  3.61s/it]                                                  68%|██████▊   | 135/200 [07:31<03:54,  3.61s/it] 68%|██████▊   | 136/200 [07:34<03:45,  3.52s/it] 68%|██████▊   | 137/200 [07:37<03:38,  3.47s/it] 69%|██████▉   | 138/200 [07:41<03:32,  3.43s/it] 70%|██████▉   | 139/200 [07:44<03:33,  3.49s/it] 70%|███████   | 140/200 [07:48<03:27,  3.46s/it]                                                  70%|███████   | 140/200 [07:48<03:27,  3.46s/it] 70%|███████   | 141/200 [07:52<03:45,  3.82s/it] 71%|███████   | 142/200 [07:55<03:30,  3.62s/it] 72%|███████▏  | 143/200 [07:58<03:12,  3.37s/it] 72%|███████▏  | 144/200 [08:01<02:57,  3.16s/it] 72%|███████▎  | 145/200 [08:04<03:00,  3.29s/it]                                                 {'loss': -0.1352, 'grad_norm': 0.0, 'learning_rate': 4.789473684210526e-05, 'num_tokens': 288639.0, 'completions/mean_length': 246.225, 'completions/min_length': 169.8, 'completions/max_length': 336.4, 'completions/clipped_ratio': 0.1, 'completions/mean_terminated_length': 235.775, 'completions/min_terminated_length': 169.8, 'completions/max_terminated_length': 322.8, 'rewards/reward_fn/mean': 0.725, 'rewards/reward_fn/std': 0.3173188328742981, 'reward': 0.725, 'reward_std': 0.31731882095336916, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.003538746666163206, 'sampling/sampling_logp_difference/max': 0.34647650718688966, 'sampling/importance_sampling_ratio/min': 0.5687135338783265, 'sampling/importance_sampling_ratio/mean': 0.9797139525413513, 'sampling/importance_sampling_ratio/max': 1.516504669189453, 'entropy': 0.04750725831836462, 'clip_ratio/low_mean': 0.0001396648003719747, 'clip_ratio/low_min': 0.0001396648003719747, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0001396648003719747, 'step_time': 3.440025451686233, 'epoch': 0.03}
+{'loss': -0.0698, 'grad_norm': 0.26260313391685486, 'learning_rate': 4.5263157894736846e-05, 'num_tokens': 303282.0, 'completions/mean_length': 244.875, 'completions/min_length': 180.2, 'completions/max_length': 354.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 244.875, 'completions/min_terminated_length': 180.2, 'completions/max_terminated_length': 354.0, 'rewards/reward_fn/mean': 0.95, 'rewards/reward_fn/std': 0.1414213538169861, 'reward': 0.95, 'reward_std': 0.1414213538169861, 'frac_reward_zero_std': 0.8, 'sampling/sampling_logp_difference/mean': 0.004108118428848684, 'sampling/sampling_logp_difference/max': 0.337175989151001, 'sampling/importance_sampling_ratio/min': 0.6017972528934479, 'sampling/importance_sampling_ratio/mean': 1.0073607563972473, 'sampling/importance_sampling_ratio/max': 1.5289294958114623, 'entropy': 0.0642489243298769, 'clip_ratio/low_mean': 8.865247946232557e-05, 'clip_ratio/low_min': 8.865247946232557e-05, 'clip_ratio/high_mean': 0.0009456353553105145, 'clip_ratio/high_max': 0.0009456353553105145, 'clip_ratio/region_mean': 0.00103428783477284, 'step_time': 3.5445540769957007, 'epoch': 0.03}
+{'loss': -0.0996, 'grad_norm': 0.0, 'learning_rate': 4.2631578947368425e-05, 'num_tokens': 316925.0, 'completions/mean_length': 228.575, 'completions/min_length': 136.0, 'completions/max_length': 331.8, 'completions/clipped_ratio': 0.025, 'completions/mean_terminated_length': 222.50714721679688, 'completions/min_terminated_length': 136.0, 'completions/max_terminated_length': 331.6, 'rewards/reward_fn/mean': 0.9, 'rewards/reward_fn/std': 0.17422052025794982, 'reward': 0.9, 'reward_std': 0.17422050833702088, 'frac_reward_zero_std': 0.7, 'sampling/sampling_logp_difference/mean': 0.004069925425574184, 'sampling/sampling_logp_difference/max': 0.343435001373291, 'sampling/importance_sampling_ratio/min': 0.6379203259944916, 'sampling/importance_sampling_ratio/mean': 1.07420471906662, 'sampling/importance_sampling_ratio/max': 1.8544347047805787, 'entropy': 0.06801804471760989, 'clip_ratio/low_mean': 0.0003315376699902117, 'clip_ratio/low_min': 0.0003315376699902117, 'clip_ratio/high_mean': 0.0004198651295155287, 'clip_ratio/high_max': 0.0004198651295155287, 'clip_ratio/region_mean': 0.0007514027995057404, 'step_time': 3.4125378098338843, 'epoch': 0.03}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 4e-05, 'num_tokens': 331660.0, 'completions/mean_length': 246.675, 'completions/min_length': 190.6, 'completions/max_length': 321.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 246.675, 'completions/min_terminated_length': 190.6, 'completions/max_terminated_length': 321.0, 'rewards/reward_fn/mean': 0.8, 'rewards/reward_fn/std': 0.21380898952484131, 'reward': 0.8, 'reward_std': 0.21380898952484131, 'frac_reward_zero_std': 1.0, 'sampling/sampling_logp_difference/mean': 0.003661455027759075, 'sampling/sampling_logp_difference/max': 0.24834685325622557, 'sampling/importance_sampling_ratio/min': 0.6924295783042907, 'sampling/importance_sampling_ratio/mean': 1.0283653616905213, 'sampling/importance_sampling_ratio/max': 1.6285851716995239, 'entropy': 0.059123314544558526, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 3.3345820426009594, 'epoch': 0.03}
+{'loss': -0.1548, 'grad_norm': 0.2069002389907837, 'learning_rate': 3.736842105263158e-05, 'num_tokens': 346432.0, 'completions/mean_length': 256.1, 'completions/min_length': 194.4, 'completions/max_length': 328.2, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 256.1, 'completions/min_terminated_length': 194.4, 'completions/max_terminated_length': 328.2, 'rewards/reward_fn/mean': 0.925, 'rewards/reward_fn/std': 0.1632926881313324, 'reward': 0.925, 'reward_std': 0.1632926881313324, 'frac_reward_zero_std': 0.8, 'sampling/sampling_logp_difference/mean': 0.00345726334489882, 'sampling/sampling_logp_difference/max': 0.30456249713897704, 'sampling/importance_sampling_ratio/min': 0.616379463672638, 'sampling/importance_sampling_ratio/mean': 1.0396942973136902, 'sampling/importance_sampling_ratio/max': 1.6661059379577636, 'entropy': 0.055150794330984354, 'clip_ratio/low_mean': 7.76397529989481e-05, 'clip_ratio/low_min': 7.76397529989481e-05, 'clip_ratio/high_mean': 0.0003418803447857499, 'clip_ratio/high_max': 0.0003418803447857499, 'clip_ratio/region_mean': 0.00041952009778469803, 'step_time': 3.371918057091534, 'epoch': 0.03}
+{'loss': -0.0359, 'grad_norm': 0.20664404332637787, 'learning_rate': 3.473684210526316e-05, 'num_tokens': 361965.0, 'completions/mean_length': 276.225, 'completions/min_length': 180.0, 'completions/max_length': 372.8, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 276.225, 'completions/min_terminated_length': 180.0, 'completions/max_terminated_length': 372.8, 'rewards/reward_fn/mean': 0.975, 'rewards/reward_fn/std': 0.07071067690849304, 'reward': 0.975, 'reward_std': 0.07071067690849304, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.003358409693464637, 'sampling/sampling_logp_difference/max': 0.33533353805541993, 'sampling/importance_sampling_ratio/min': 0.6423579335212708, 'sampling/importance_sampling_ratio/mean': 0.9720974087715148, 'sampling/importance_sampling_ratio/max': 1.490797233581543, 'entropy': 0.049451295658946036, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.00017030268791131675, 'clip_ratio/high_max': 0.00017030268791131675, 'clip_ratio/region_mean': 0.00017030268791131675, 'step_time': 3.6703208961524068, 'epoch': 0.04}
+{'loss': -0.0217, 'grad_norm': 0.17431257665157318, 'learning_rate': 3.210526315789474e-05, 'num_tokens': 376675.0, 'completions/mean_length': 252.35, 'completions/min_length': 169.6, 'completions/max_length': 327.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 252.35, 'completions/min_terminated_length': 169.6, 'completions/max_terminated_length': 327.0, 'rewards/reward_fn/mean': 0.975, 'rewards/reward_fn/std': 0.07071067690849304, 'reward': 0.975, 'reward_std': 0.07071067690849304, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.004269223427399993, 'sampling/sampling_logp_difference/max': 0.3869412302970886, 'sampling/importance_sampling_ratio/min': 0.5226383745670319, 'sampling/importance_sampling_ratio/mean': 0.9675673723220826, 'sampling/importance_sampling_ratio/max': 1.5976774215698242, 'entropy': 0.05905927084386349, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0001722476677969098, 'clip_ratio/high_max': 0.0001722476677969098, 'clip_ratio/region_mean': 0.0001722476677969098, 'step_time': 3.372788679320365, 'epoch': 0.04}
+ 72%|███████▎  | 145/200 [08:04<03:00,  3.29s/it] 73%|███████▎  | 146/200 [08:08<02:59,  3.32s/it] 74%|███████▎  | 147/200 [08:11<02:55,  3.32s/it] 74%|███████▍  | 148/200 [08:14<02:39,  3.06s/it] 74%|███████▍  | 149/200 [08:17<02:45,  3.24s/it] 75%|███████▌  | 150/200 [08:22<02:57,  3.56s/it]                                                  75%|███████▌  | 150/200 [08:22<02:57,  3.56s/it] 76%|███████▌  | 151/200 [08:25<02:56,  3.61s/it] 76%|███████▌  | 152/200 [08:29<02:58,  3.71s/it] 76%|███████▋  | 153/200 [08:33<02:51,  3.64s/it] 77%|███████▋  | 154/200 [08:35<02:35,  3.39s/it] 78%|███████▊  | 155/200 [08:39<02:34,  3.44s/it]                                                  78%|███████▊  | 155/200 [08:39<02:34,  3.44s/it] 78%|███████▊  | 156/200 [08:44<02:46,  3.79s/it] 78%|███████▊  | 157/200 [08:47<02:41,  3.76s/it] 79%|███████▉  | 158/200 [08:51<02:30,  3.59s/it] 80%|███████▉  | 159/200 [08:54<02:28,  3.61s/it] 80%|████████  | 160/200 [08:57<02:11,  3.28s/it]                                                  80%|████████  | 160/200 [08:57<02:11,  3.28s/it] 80%|████████  | 161/200 [09:01<02:23,  3.69s/it] 81%|████████  | 162/200 [09:05<02:15,  3.55s/it] 82%|████████▏ | 163/200 [09:08<02:14,  3.63s/it] 82%|████████▏ | 164/200 [09:11<02:02,  3.40s/it] 82%|████████▎ | 165/200 [09:15<02:00,  3.43s/it]                                                  82%|████████▎ | 165/200 [09:15<02:00,  3.43s/it] 83%|████████▎ | 166/200 [09:18<01:55,  3.40s/it] 84%|████████▎ | 167/200 [09:22<01:58,  3.59s/it] 84%|████████▍ | 168/200 [09:25<01:48,  3.40s/it] 84%|████████▍ | 169/200 [09:28<01:43,  3.34s/it] 85%|████████▌ | 170/200 [09:32<01:45,  3.52s/it]                                                  85%|████████▌ | 170/200 [09:32<01:45,  3.52s/it] 86%|████████▌ | 171/200 [09:36<01:41,  3.50s/it] 86%|████████▌ | 172/200 [09:38<01:32,  3.29s/it] 86%|████████▋ | 173/200 [09:42<01:27,  3.23s/it] 87%|████████▋ | 174/200 [09:46<01:31,  3.53s/it] 88%|████████▊ | 175/200 [09:50<01:36,  3.86s/it]                                                  88%|████████▊ | 175/200 [09:50<01:36,  3.86s/it] 88%|████████▊ | 176/200 [09:53<01:22,  3.42s/it] 88%|████████▊ | 177/200 [09:57<01:20,  3.51s/it] 89%|████████▉ | 178/200 [09:59<01:13,  3.34s/it] 90%|████████▉ | 179/200 [10:03<01:10,  3.35s/it] 90%|█████████ | 180/200 [10:07<01:12,  3.62s/it]                                                 {'loss': -0.0336, 'grad_norm': 0.3010925352573395, 'learning_rate': 2.9473684210526314e-05, 'num_tokens': 391979.0, 'completions/mean_length': 269.8, 'completions/min_length': 214.0, 'completions/max_length': 320.0, 'completions/clipped_ratio': 0.025, 'completions/mean_terminated_length': 267.3857177734375, 'completions/min_terminated_length': 214.0, 'completions/max_terminated_length': 315.4, 'rewards/reward_fn/mean': 0.825, 'rewards/reward_fn/std': 0.21041433811187743, 'reward': 0.825, 'reward_std': 0.2104143261909485, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.0036015572957694532, 'sampling/sampling_logp_difference/max': 0.3305209636688232, 'sampling/importance_sampling_ratio/min': 0.5813668370246887, 'sampling/importance_sampling_ratio/mean': 1.0409841060638427, 'sampling/importance_sampling_ratio/max': 1.6114243030548097, 'entropy': 0.050408145599067214, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 7.949125720188021e-05, 'clip_ratio/high_max': 7.949125720188021e-05, 'clip_ratio/region_mean': 7.949125720188021e-05, 'step_time': 3.3305233653634785, 'epoch': 0.04}
+{'loss': -0.1045, 'grad_norm': 0.3795999586582184, 'learning_rate': 2.6842105263157896e-05, 'num_tokens': 406413.0, 'completions/mean_length': 254.55, 'completions/min_length': 194.8, 'completions/max_length': 327.8, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 254.55, 'completions/min_terminated_length': 194.8, 'completions/max_terminated_length': 327.8, 'rewards/reward_fn/mean': 0.85, 'rewards/reward_fn/std': 0.19948650598526002, 'reward': 0.85, 'reward_std': 0.19948650598526002, 'frac_reward_zero_std': 0.7, 'sampling/sampling_logp_difference/mean': 0.004207418952137232, 'sampling/sampling_logp_difference/max': 0.34789233207702636, 'sampling/importance_sampling_ratio/min': 0.6033913373947144, 'sampling/importance_sampling_ratio/mean': 1.102976393699646, 'sampling/importance_sampling_ratio/max': 1.6589203357696534, 'entropy': 0.0644618658348918, 'clip_ratio/low_mean': 7.861634949222208e-05, 'clip_ratio/low_min': 7.861634949222208e-05, 'clip_ratio/high_mean': 0.0005204314657021314, 'clip_ratio/high_max': 0.0005204314657021314, 'clip_ratio/region_mean': 0.0005990478268358857, 'step_time': 3.388225547131151, 'epoch': 0.04}
+{'loss': -0.0507, 'grad_norm': 0.0, 'learning_rate': 2.4210526315789474e-05, 'num_tokens': 421171.0, 'completions/mean_length': 257.25, 'completions/min_length': 187.2, 'completions/max_length': 337.2, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 257.25, 'completions/min_terminated_length': 187.2, 'completions/max_terminated_length': 337.2, 'rewards/reward_fn/mean': 0.925, 'rewards/reward_fn/std': 0.10350984334945679, 'reward': 0.925, 'reward_std': 0.10350983142852783, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.0038567396812140943, 'sampling/sampling_logp_difference/max': 0.3427040338516235, 'sampling/importance_sampling_ratio/min': 0.6583593308925628, 'sampling/importance_sampling_ratio/mean': 1.0911137938499451, 'sampling/importance_sampling_ratio/max': 1.9578285694122315, 'entropy': 0.052105539944022894, 'clip_ratio/low_mean': 0.00045515705132856963, 'clip_ratio/low_min': 0.00045515705132856963, 'clip_ratio/high_mean': 0.0003612716682255268, 'clip_ratio/high_max': 0.0003612716682255268, 'clip_ratio/region_mean': 0.0008164287195540964, 'step_time': 3.467310913372785, 'epoch': 0.04}
+{'loss': -0.0635, 'grad_norm': 0.0, 'learning_rate': 2.1578947368421053e-05, 'num_tokens': 435454.0, 'completions/mean_length': 253.975, 'completions/min_length': 164.8, 'completions/max_length': 346.6, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 242.35, 'completions/min_terminated_length': 164.8, 'completions/max_terminated_length': 337.8, 'rewards/reward_fn/mean': 0.925, 'rewards/reward_fn/std': 0.1632926881313324, 'reward': 0.925, 'reward_std': 0.1632926881313324, 'frac_reward_zero_std': 0.8, 'sampling/sampling_logp_difference/mean': 0.003385571390390396, 'sampling/sampling_logp_difference/max': 0.3974578380584717, 'sampling/importance_sampling_ratio/min': 0.5502804517745972, 'sampling/importance_sampling_ratio/mean': 1.0144699692726136, 'sampling/importance_sampling_ratio/max': 1.5209469079971314, 'entropy': 0.04407707788050175, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0006901394459418953, 'clip_ratio/high_max': 0.0006901394459418953, 'clip_ratio/region_mean': 0.0006901394459418953, 'step_time': 3.493222745973617, 'epoch': 0.04}
+{'loss': 0.0019, 'grad_norm': 0.0, 'learning_rate': 1.8947368421052634e-05, 'num_tokens': 451002.0, 'completions/mean_length': 279.3, 'completions/min_length': 212.6, 'completions/max_length': 358.4, 'completions/clipped_ratio': 0.075, 'completions/mean_terminated_length': 260.8350036621094, 'completions/min_terminated_length': 212.6, 'completions/max_terminated_length': 334.4, 'rewards/reward_fn/mean': 0.925, 'rewards/reward_fn/std': 0.10350984334945679, 'reward': 0.925, 'reward_std': 0.10350983142852783, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.002985120378434658, 'sampling/sampling_logp_difference/max': 0.395121169090271, 'sampling/importance_sampling_ratio/min': 0.46233625411987306, 'sampling/importance_sampling_ratio/mean': 0.9328006863594055, 'sampling/importance_sampling_ratio/max': 1.3552786350250243, 'entropy': 0.04220999041572213, 'clip_ratio/low_mean': 6.702413083985448e-05, 'clip_ratio/low_min': 6.702413083985448e-05, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 6.702413083985448e-05, 'step_time': 3.566697618551552, 'epoch': 0.04}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 1.6315789473684213e-05, 'num_tokens': 465079.0, 'completions/mean_length': 246.825, 'completions/min_length': 165.8, 'completions/max_length': 341.2, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 246.825, 'completions/min_terminated_length': 165.8, 'completions/max_terminated_length': 341.2, 'rewards/reward_fn/mean': 0.9, 'rewards/reward_fn/std': 0.10690449476242066, 'reward': 0.9, 'reward_std': 0.10690449476242066, 'frac_reward_zero_std': 1.0, 'sampling/sampling_logp_difference/mean': 0.003160797571763396, 'sampling/sampling_logp_difference/max': 0.35857161283493044, 'sampling/importance_sampling_ratio/min': 0.5514251351356506, 'sampling/importance_sampling_ratio/mean': 1.0354531764984132, 'sampling/importance_sampling_ratio/max': 1.5397626876831054, 'entropy': 0.03987936414778233, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 3.45380689362064, 'epoch': 0.05}
+{'loss': -0.0264, 'grad_norm': 0.10883699357509613, 'learning_rate': 1.3684210526315791e-05, 'num_tokens': 480192.0, 'completions/mean_length': 275.125, 'completions/min_length': 181.0, 'completions/max_length': 363.8, 'completions/clipped_ratio': 0.025, 'completions/mean_terminated_length': 270.7214294433594, 'completions/min_terminated_length': 181.0, 'completions/max_terminated_length': 340.2, 'rewards/reward_fn/mean': 0.975, 'rewards/reward_fn/std': 0.07071067690849304, 'reward': 0.975, 'reward_std': 0.07071067690849304, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.0033265583915635943, 'sampling/sampling_logp_difference/max': 0.3652112245559692, 'sampling/importance_sampling_ratio/min': 0.5616171777248382, 'sampling/importance_sampling_ratio/mean': 0.8983287811279297, 'sampling/importance_sampling_ratio/max': 1.3226330280303955, 'entropy': 0.043313337862491606, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.00016977929044514894, 'clip_ratio/high_max': 0.00016977929044514894, 'clip_ratio/region_mean': 0.00016977929044514894, 'step_time': 3.5986619416624306, 'epoch': 0.05}
+ 90%|█████████ | 180/200 [10:07<01:12,  3.62s/it] 90%|█████████ | 181/200 [10:10<01:03,  3.33s/it] 91%|█████████ | 182/200 [10:13<00:59,  3.31s/it] 92%|█████████▏| 183/200 [10:16<00:56,  3.32s/it] 92%|█████████▏| 184/200 [10:20<00:52,  3.28s/it] 92%|█████████▎| 185/200 [10:23<00:48,  3.22s/it]                                                  92%|█████████▎| 185/200 [10:23<00:48,  3.22s/it] 93%|█████████▎| 186/200 [10:26<00:44,  3.16s/it] 94%|█████████▎| 187/200 [10:29<00:42,  3.27s/it] 94%|█████████▍| 188/200 [10:33<00:39,  3.31s/it] 94%|█████████▍| 189/200 [10:37<00:40,  3.70s/it] 95%|█████████▌| 190/200 [10:40<00:34,  3.41s/it]                                                  95%|█████████▌| 190/200 [10:40<00:34,  3.41s/it] 96%|█████████▌| 191/200 [10:43<00:30,  3.39s/it] 96%|█████████▌| 192/200 [10:47<00:27,  3.47s/it] 96%|█████████▋| 193/200 [10:51<00:25,  3.58s/it] 97%|█████████▋| 194/200 [10:54<00:20,  3.36s/it] 98%|█████████▊| 195/200 [10:57<00:17,  3.46s/it]                                                  98%|█████████▊| 195/200 [10:57<00:17,  3.46s/it] 98%|█████████▊| 196/200 [11:00<00:13,  3.30s/it] 98%|█████████▊| 197/200 [11:04<00:10,  3.52s/it] 99%|█████████▉| 198/200 [11:07<00:06,  3.44s/it]100%|█████████▉| 199/200 [11:11<00:03,  3.38s/it]100%|██████████| 200/200 [11:14<00:00,  3.23s/it]                                                 100%|██████████| 200/200 [11:14<00:00,  3.23s/it]Saving model checkpoint to results/adabalance/best_static_rho3.0_seed43/checkpoint-200
+loading configuration file config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/config.json
+Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "dtype": "bfloat16",
+  "eos_token_id": 151645,
+  "hidden_act": "silu",
+  "hidden_size": 3584,
+  "initializer_range": 0.02,
+  "intermediate_size": 18944,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 32768,
+  "max_window_layers": 28,
+  "model_type": "qwen2",
+  "num_attention_heads": 28,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 4,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": null,
+  "tie_word_embeddings": false,
+  "transformers_version": "4.57.6",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 152064
+}
+
+chat template saved in results/adabalance/best_static_rho3.0_seed43/checkpoint-200/chat_template.jinja
+tokenizer config file saved in results/adabalance/best_static_rho3.0_seed43/checkpoint-200/tokenizer_config.json
+Special tokens file saved in results/adabalance/best_static_rho3.0_seed43/checkpoint-200/special_tokens_map.json
+
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+                                                 100%|██████████| 200/200 [11:16<00:00,  3.23s/it]100%|██████████| 200/200 [11:16<00:00,  3.38s/it]
+Saving model checkpoint to results/adabalance/best_static_rho3.0_seed43
+loading configuration file config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/config.json
+Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "dtype": "bfloat16",
+  "eos_token_id": 151645,
+  "hidden_act": "silu",
+  "hidden_size": 3584,
+  "initializer_range": 0.02,
+  "intermediate_size": 18944,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 32768,
+  "max_window_layers": 28,
+  "model_type": "qwen2",
+  "num_attention_heads": 28,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 4,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": null,
+  "tie_word_embeddings": false,
+  "transformers_version": "4.57.6",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 152064
+}
+
+chat template saved in results/adabalance/best_static_rho3.0_seed43/chat_template.jinja
+tokenizer config file saved in results/adabalance/best_static_rho3.0_seed43/tokenizer_config.json
+Special tokens file saved in results/adabalance/best_static_rho3.0_seed43/special_tokens_map.json
+chat template saved in results/adabalance/best_static_rho3.0_seed43/chat_template.jinja
+tokenizer config file saved in results/adabalance/best_static_rho3.0_seed43/tokenizer_config.json
+Special tokens file saved in results/adabalance/best_static_rho3.0_seed43/special_tokens_map.json
+2026-04-05 00:40:35,443 [INFO] train_rho_sweep: Training complete: rho=3.00, seed=43
+{'loss': -0.1306, 'grad_norm': 0.0, 'learning_rate': 1.1052631578947368e-05, 'num_tokens': 494650.0, 'completions/mean_length': 255.65, 'completions/min_length': 198.2, 'completions/max_length': 318.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 255.65, 'completions/min_terminated_length': 198.2, 'completions/max_terminated_length': 318.0, 'rewards/reward_fn/mean': 0.925, 'rewards/reward_fn/std': 0.1632926881313324, 'reward': 0.925, 'reward_std': 0.1632926881313324, 'frac_reward_zero_std': 0.8, 'sampling/sampling_logp_difference/mean': 0.0031478451564908028, 'sampling/sampling_logp_difference/max': 0.37279470562934874, 'sampling/importance_sampling_ratio/min': 0.6186546742916107, 'sampling/importance_sampling_ratio/mean': 1.0322239398956299, 'sampling/importance_sampling_ratio/max': 1.750740075111389, 'entropy': 0.0378358724527061, 'clip_ratio/low_mean': 0.0002970297122374177, 'clip_ratio/low_min': 0.0002970297122374177, 'clip_ratio/high_mean': 0.0002169463667087257, 'clip_ratio/high_max': 0.0002169463667087257, 'clip_ratio/region_mean': 0.0005139760789461434, 'step_time': 3.3029177519492805, 'epoch': 0.05}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 8.421052631578948e-06, 'num_tokens': 508012.0, 'completions/mean_length': 230.75, 'completions/min_length': 181.6, 'completions/max_length': 283.6, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 230.75, 'completions/min_terminated_length': 181.6, 'completions/max_terminated_length': 283.6, 'rewards/reward_fn/mean': 1.0, 'rewards/reward_fn/std': 0.0, 'reward': 1.0, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'sampling/sampling_logp_difference/mean': 0.0036343705374747514, 'sampling/sampling_logp_difference/max': 0.42548704147338867, 'sampling/importance_sampling_ratio/min': 0.5647383570671082, 'sampling/importance_sampling_ratio/mean': 1.005700409412384, 'sampling/importance_sampling_ratio/max': 1.548229694366455, 'entropy': 0.043808285240083934, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 3.069647083710879, 'epoch': 0.05}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 5.789473684210527e-06, 'num_tokens': 522744.0, 'completions/mean_length': 260.9, 'completions/min_length': 207.2, 'completions/max_length': 336.8, 'completions/clipped_ratio': 0.05, 'completions/mean_terminated_length': 247.75833435058593, 'completions/min_terminated_length': 207.2, 'completions/max_terminated_length': 328.0, 'rewards/reward_fn/mean': 0.9, 'rewards/reward_fn/std': 0.10690449476242066, 'reward': 0.9, 'reward_std': 0.10690449476242066, 'frac_reward_zero_std': 1.0, 'sampling/sampling_logp_difference/mean': 0.004507528012618422, 'sampling/sampling_logp_difference/max': 0.4057410955429077, 'sampling/importance_sampling_ratio/min': 0.5802845299243927, 'sampling/importance_sampling_ratio/mean': 0.9989004850387573, 'sampling/importance_sampling_ratio/max': 1.8486184358596802, 'entropy': 0.06082503935322166, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 3.41978462561965, 'epoch': 0.05}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 3.1578947368421056e-06, 'num_tokens': 537351.0, 'completions/mean_length': 256.975, 'completions/min_length': 174.6, 'completions/max_length': 339.2, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 256.975, 'completions/min_terminated_length': 174.6, 'completions/max_terminated_length': 339.2, 'rewards/reward_fn/mean': 1.0, 'rewards/reward_fn/std': 0.0, 'reward': 1.0, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'sampling/sampling_logp_difference/mean': 0.0028577699791640042, 'sampling/sampling_logp_difference/max': 0.4667723894119263, 'sampling/importance_sampling_ratio/min': 0.40554351806640626, 'sampling/importance_sampling_ratio/mean': 0.9510659813880921, 'sampling/importance_sampling_ratio/max': 1.3789782524108887, 'entropy': 0.03599508050829172, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'step_time': 3.4414312622509895, 'epoch': 0.05}
+{'loss': -0.0268, 'grad_norm': 0.0, 'learning_rate': 5.263157894736843e-07, 'num_tokens': 551126.0, 'completions/mean_length': 238.275, 'completions/min_length': 171.4, 'completions/max_length': 307.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 238.275, 'completions/min_terminated_length': 171.4, 'completions/max_terminated_length': 307.0, 'rewards/reward_fn/mean': 0.975, 'rewards/reward_fn/std': 0.07071067690849304, 'reward': 0.975, 'reward_std': 0.07071067690849304, 'frac_reward_zero_std': 0.9, 'sampling/sampling_logp_difference/mean': 0.0038238406646996736, 'sampling/sampling_logp_difference/max': 0.39564738273620603, 'sampling/importance_sampling_ratio/min': 0.4307209551334381, 'sampling/importance_sampling_ratio/mean': 0.9457353830337525, 'sampling/importance_sampling_ratio/max': 1.5962974786758424, 'entropy': 0.04534934405237436, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 8.605851908214391e-05, 'clip_ratio/high_max': 8.605851908214391e-05, 'clip_ratio/region_mean': 8.605851908214391e-05, 'step_time': 3.231474845763296, 'epoch': 0.05}
+{'train_runtime': 676.6456, 'train_samples_per_second': 2.365, 'train_steps_per_second': 0.296, 'train_loss': -0.05897732052952051, 'epoch': 0.05}
+[rank0]:[W405 00:40:35.394758735 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

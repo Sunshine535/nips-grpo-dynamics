@@ -1,0 +1,17 @@
+2026-04-04 23:52:30,947 [INFO] eval_phase_point: Loading checkpoint from results/sweep_coarse/rho3.00_seed44
+2026-04-04 23:52:31,247 [INFO] eval_phase_point: Detected PEFT/LoRA checkpoint — using AutoPeftModelForCausalLM
+`torch_dtype` is deprecated! Use `dtype` instead!
+2026-04-04 23:52:32,799 [INFO] accelerate.utils.modeling: We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.09it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.20it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.30it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.34it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.29it/s]
+2026-04-04 23:52:56,443 [INFO] eval_phase_point: Using chat template for instruct model evaluation
+2026-04-04 23:52:56,443 [INFO] eval_phase_point: Evaluating on GSM8K (max 200 samples)...
+Evaluating:   0%|          | 0/25 [00:00<?, ?it/s]The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Evaluating:   4%|▍         | 1/25 [00:14<05:47, 14.49s/it]Evaluating:   8%|▊         | 2/25 [00:31<06:10, 16.10s/it]Evaluating:  12%|█▏        | 3/25 [00:44<05:24, 14.73s/it]Evaluating:  16%|█▌        | 4/25 [00:55<04:39, 13.33s/it]Evaluating:  20%|██        | 5/25 [01:13<04:57, 14.87s/it]Evaluating:  24%|██▍       | 6/25 [01:25<04:22, 13.82s/it]Evaluating:  28%|██▊       | 7/25 [01:33<03:38, 12.11s/it]Evaluating:  32%|███▏      | 8/25 [01:44<03:19, 11.75s/it]Evaluating:  36%|███▌      | 9/25 [01:54<02:57, 11.07s/it]Evaluating:  40%|████      | 10/25 [02:08<02:58, 11.88s/it]Evaluating:  44%|████▍     | 11/25 [02:20<02:47, 11.94s/it]Evaluating:  48%|████▊     | 12/25 [02:30<02:29, 11.54s/it]Evaluating:  52%|█████▏    | 13/25 [02:41<02:14, 11.23s/it]Evaluating:  56%|█████▌    | 14/25 [02:54<02:08, 11.69s/it]Evaluating:  60%|██████    | 15/25 [03:07<02:02, 12.30s/it]Evaluating:  64%|██████▍   | 16/25 [03:20<01:50, 12.32s/it]Evaluating:  68%|██████▊   | 17/25 [03:32<01:37, 12.20s/it]Evaluating:  72%|███████▏  | 18/25 [03:43<01:23, 11.98s/it]Evaluating:  76%|███████▌  | 19/25 [03:56<01:13, 12.22s/it]Evaluating:  80%|████████  | 20/25 [04:12<01:06, 13.29s/it]Evaluating:  84%|████████▍ | 21/25 [04:23<00:50, 12.62s/it]Evaluating:  88%|████████▊ | 22/25 [04:43<00:44, 14.98s/it]Evaluating:  92%|█████████▏| 23/25 [04:57<00:29, 14.55s/it]Evaluating:  96%|█████████▌| 24/25 [05:14<00:15, 15.29s/it]Evaluating: 100%|██████████| 25/25 [05:24<00:00, 13.74s/it]Evaluating: 100%|██████████| 25/25 [05:24<00:00, 12.98s/it]
+2026-04-04 23:58:24,381 [INFO] eval_phase_point: GSM8K accuracy: 0.8650
+2026-04-04 23:58:24,381 [INFO] eval_phase_point: Results saved to results/rho_eval_coarse/eval_rho3.00_seed44.json
+{
+  "seed": 44,
+  "checkpoint_dir": "results/sweep_coarse/rho3.00_seed44",
+  "rho": 3.0,
+  "gsm8k_accuracy": 0.865
+}

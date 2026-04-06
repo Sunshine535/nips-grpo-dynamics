@@ -110,7 +110,10 @@ def compute_rho_grpo_loss(
 
 def build_gsm8k_binary_reward_function():
     import re
-    _pattern = re.compile(r"####\s*(-?[\d,]+\.?\d*)")
+    # Match "#### <number>" with optional text between #### and the number
+    _pattern = re.compile(r"####\s*(?:.*?)(-?\d[\d,]*\.?\d*)")
+    # Fallback: last number in the text
+    _fallback = re.compile(r"(-?\d[\d,]*\.?\d*)")
 
     def reward_fn(completions, answer, **kwargs):
         rewards = []
@@ -123,9 +126,14 @@ def build_gsm8k_binary_reward_function():
                 text = str(completion)
 
             match = _pattern.search(text)
-            pred = match.group(1).replace(",", "") if match else ""
-            gold_clean = str(gold).strip()
+            if match:
+                pred = match.group(1).replace(",", "")
+            else:
+                # Fallback: last number in text
+                nums = _fallback.findall(text)
+                pred = nums[-1].replace(",", "") if nums else ""
 
+            gold_clean = str(gold).strip()
             rewards.append(1.0 if pred == gold_clean else 0.0)
         return rewards
 

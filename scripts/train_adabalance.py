@@ -50,6 +50,8 @@ def parse_args():
     parser.add_argument("--model_name", type=str, default=None)
     parser.add_argument("--max_steps", type=int, default=-1)
     parser.add_argument("--resume_from_checkpoint", type=str, default="auto")
+    parser.add_argument("--use_vllm", action="store_true", default=False,
+                        help="Use vLLM for fast generation")
     return parser.parse_args()
 
 
@@ -71,7 +73,7 @@ def format_gsm8k_prompt(example):
         "prompt": [
             {"role": "user", "content": (
                 f"Solve the following math problem step by step. "
-                f"End with '#### <answer>'.\n\n"
+                f"Put your final numerical answer after ####.\n\n"
                 f"Question: {example['question']}"
             )},
         ],
@@ -146,6 +148,19 @@ def main():
     dataset = load_dataset(cfg["dataset"]["name"], "main", split=cfg["dataset"]["split"])
     dataset = dataset.map(format_gsm8k_prompt, remove_columns=dataset.column_names)
 
+    vllm_kwargs = {}
+    if args.use_vllm:
+        vllm_port = int(os.environ.get("VLLM_PORT", 51216))
+        tp_size = int(os.environ.get("VLLM_TP_SIZE", "1"))
+        vllm_kwargs = {
+            "use_vllm": True,
+            "vllm_mode": "colocate",
+            "vllm_gpu_memory_utilization": 0.35,
+            "vllm_group_port": vllm_port,
+            "vllm_tensor_parallel_size": tp_size,
+        }
+        logger.info("Using vLLM for generation (colocate, port=%d, tp=%d)", vllm_port, tp_size)
+
     training_config = GRPOConfig(
         output_dir=output_dir,
         num_train_epochs=tcfg["num_train_epochs"],
@@ -166,6 +181,7 @@ def main():
         max_steps=args.max_steps if args.max_steps > 0 else -1,
         report_to="none",
         log_level="info",
+        **vllm_kwargs,
     )
 
     try:

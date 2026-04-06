@@ -1,0 +1,51 @@
+[env] Activated venv: /home/claude/grpo-venv
+============================================
+ GPU Configuration
+============================================
+  GPUs detected     : 2
+  CUDA_VISIBLE      : 0,1
+  GPU memory (each) : 81559 MiB
+  GPU class          : a100_80g
+============================================
+run_targeted.sh: line 77: [[: 1a: value too great for base (error token is "1a")
+
+============================================================
+ EXP 1a: Coarse rho sweep (9 rho x 3 seeds x 200 steps)
+ Sat Apr  4 05:58:17 PM UTC 2026
+============================================================
+  [launch] rho0.10_seed42 on GPU 0 (PID 39533, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.10_seed42.log)
+  [launch] rho0.10_seed43 on GPU 1 (PID 39540, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.10_seed43.log)
+  [launch] rho0.10_seed44 on GPU 0 (PID 46184, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.10_seed44.log)
+  [launch] rho0.30_seed42 on GPU 1 (PID 46191, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.30_seed42.log)
+  [launch] rho0.30_seed43 on GPU 0 (PID 51694, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.30_seed43.log)
+  [launch] rho0.30_seed44 on GPU 1 (PID 51701, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.30_seed44.log)
+  [launch] rho0.50_seed42 on GPU 0 (PID 58074, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.50_seed42.log)
+  [launch] rho0.50_seed43 on GPU 1 (PID 58081, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.50_seed43.log)
+  [launch] rho0.50_seed44 on GPU 0 (PID 63680, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.50_seed44.log)
+  [launch] rho0.70_seed42 on GPU 1 (PID 63687, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.70_seed42.log)
+  [launch] rho0.70_seed43 on GPU 0 (PID 4420, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.70_seed43.log)
+  [launch] rho0.70_seed44 on GPU 1 (PID 4427, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho0.70_seed44.log)
+  [launch] rho1.00_seed42 on GPU 0 (PID 11429, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho1.00_seed42.log)
+  [launch] rho1.00_seed43 on GPU 1 (PID 11436, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho1.00_seed43.log)
+  [launch] rho1.00_seed44 on GPU 0 (PID 19024, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho1.00_seed44.log)
+  [launch] rho1.50_seed42 on GPU 1 (PID 19031, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho1.50_seed42.log)
+  [launch] rho1.50_seed43 on GPU 0 (PID 25813, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho1.50_seed43.log)
+  [launch] rho1.50_seed44 on GPU 1 (PID 25820, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho1.50_seed44.log)
+  [launch] rho2.00_seed42 on GPU 0 (PID 32387, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho2.00_seed42.log)
+  [launch] rho2.00_seed43 on GPU 1 (PID 32394, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho2.00_seed43.log)
+  [launch] rho2.00_seed44 on GPU 0 (PID 37953, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho2.00_seed44.log)
+  [launch] rho3.00_seed42 on GPU 1 (PID 37960, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho3.00_seed42.log)
+  [launch] rho3.00_seed43 on GPU 0 (PID 42720, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho3.00_seed43.log)
+  [launch] rho3.00_seed44 on GPU 1 (PID 42727, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho3.00_seed44.log)
+  [launch] rho5.00_seed42 on GPU 0 (PID 45766, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho5.00_seed42.log)
+  [launch] rho5.00_seed43 on GPU 1 (PID 45773, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho5.00_seed43.log)
+  [launch] rho5.00_seed44 on GPU 0 (PID 51188, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/rho5.00_seed44.log)
+[EXP 1a] Training done. Running evaluations...
+  [launch] eval_rho0.10_seed42 on GPU 0 (PID 55929, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/eval_rho0.10_seed42.log)
+  [launch] eval_rho0.10_seed43 on GPU 1 (PID 55940, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/eval_rho0.10_seed43.log)
+  [launch] eval_rho0.10_seed44 on GPU 0 (PID 64127, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/eval_rho0.10_seed44.log)
+  [launch] eval_rho0.30_seed42 on GPU 1 (PID 64134, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/eval_rho0.30_seed42.log)
+  [launch] eval_rho0.30_seed43 on GPU 0 (PID 2878, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/eval_rho0.30_seed43.log)
+  [launch] eval_rho0.30_seed44 on GPU 1 (PID 2885, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/eval_rho0.30_seed44.log)
+  [launch] eval_rho0.50_seed42 on GPU 0 (PID 4955, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/eval_rho0.50_seed42.log)
+  [launch] eval_rho0.50_seed43 on GPU 1 (PID 4962, log: /home/claude/nips-workspace/nips-grpo-dynamics/results/logs/exp1a/eval_rho0.50_seed43.log)

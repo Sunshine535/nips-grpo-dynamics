@@ -1,0 +1,251 @@
+============================================================
+ PHASE 1: Extra seeds at critical rho values (双卡)
+============================================================
+>>> [03:40] rho0.70_seed45 (2xH100)
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/__init__.py:22: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if is_vllm_available():
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/vllm_client.py:40: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if is_vllm_available():
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/__init__.py:22: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if is_vllm_available():
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/vllm_client.py:40: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if is_vllm_available():
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/vllm_generation.py:37: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if is_vllm_available():
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/vllm_generation.py:37: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if is_vllm_available():
+2026-04-05 03:40:42,048 [INFO] train_rho_sweep: Training: rho=0.70, seed=45
+2026-04-05 03:40:42,048 [INFO] train_rho_sweep: Model: Qwen/Qwen2.5-7B-Instruct
+2026-04-05 03:40:42,048 [INFO] train_rho_sweep: Output: results/sweep_extra/rho0.70_seed45
+2026-04-05 03:40:42,076 [INFO] train_rho_sweep: Training: rho=0.70, seed=45
+2026-04-05 03:40:42,076 [INFO] train_rho_sweep: Model: Qwen/Qwen2.5-7B-Instruct
+2026-04-05 03:40:42,076 [INFO] train_rho_sweep: Output: results/sweep_extra/rho0.70_seed45
+2026-04-05 03:40:48,304 [INFO] train_rho_sweep: Dataset: 7473 samples
+2026-04-05 03:40:48,304 [INFO] train_rho_sweep: Using vLLM for generation (colocate, port=51216, tp=2)
+2026-04-05 03:40:48,616 [INFO] train_rho_sweep: Loading model: Qwen/Qwen2.5-7B-Instruct (bf16, attn=sdpa)
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 160.40it/s]
+max_steps is given, it will override any value given in num_train_epochs
+Using auto half precision backend
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/vllm_generation.py:289: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if not is_vllm_available():
+loading configuration file config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/config.json
+loading configuration file config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/config.json
+loading configuration file config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/config.json
+Model config Qwen2Config {
+  "architectures": [
+    "Qwen2ForCausalLM"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "dtype": "bfloat16",
+  "eos_token_id": 151645,
+  "hidden_act": "silu",
+  "hidden_size": 3584,
+  "initializer_range": 0.02,
+  "intermediate_size": 18944,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 32768,
+  "max_window_layers": 28,
+  "model_type": "qwen2",
+  "num_attention_heads": 28,
+  "num_hidden_layers": 28,
+  "num_key_value_heads": 4,
+  "rms_norm_eps": 1e-06,
+  "rope_scaling": null,
+  "rope_theta": 1000000.0,
+  "sliding_window": null,
+  "tie_word_embeddings": false,
+  "transformers_version": "4.57.6",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 152064
+}
+
+Could not locate the image processor configuration file, will try to use the model config instead.
+<frozen importlib._bootstrap_external>:1241: FutureWarning: The cuda.cudart module is deprecated and will be removed in a future release, please switch to use the cuda.bindings.runtime module instead.
+<frozen importlib._bootstrap_external>:1241: FutureWarning: The cuda.nvrtc module is deprecated and will be removed in a future release, please switch to use the cuda.bindings.nvrtc module instead.
+loading file vocab.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/vocab.json
+loading file merges.txt from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/merges.txt
+loading file tokenizer.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer.json
+loading file added_tokens.json from cache at None
+loading file special_tokens_map.json from cache at None
+loading file tokenizer_config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/tokenizer_config.json
+loading file chat_template.jinja from cache at None
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+loading configuration file generation_config.json from cache at /home/claude/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28/generation_config.json
+Generate config GenerationConfig {
+  "bos_token_id": 151643,
+  "do_sample": true,
+  "eos_token_id": [
+    151645,
+    151643
+  ],
+  "pad_token_id": 151643,
+  "repetition_penalty": 1.05,
+  "temperature": 0.7,
+  "top_k": 20,
+  "top_p": 0.8
+}
+
+2026-04-05 03:41:05,654 [INFO] train_rho_sweep: Dataset: 7473 samples
+2026-04-05 03:41:05,654 [INFO] train_rho_sweep: Using vLLM for generation (colocate, port=51216, tp=2)
+2026-04-05 03:41:05,971 [INFO] train_rho_sweep: Loading model: Qwen/Qwen2.5-7B-Instruct (bf16, attn=sdpa)
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 170.93it/s]
+/home/claude/grpo-venv/lib/python3.11/site-packages/trl/generation/vllm_generation.py:289: UserWarning: TRL currently supports vLLM versions from 0.10.2 to 0.17.1. You have version 0.19.0 installed. We recommend installing a supported version to avoid compatibility issues.
+  if not is_vllm_available():
+<frozen importlib._bootstrap_external>:1241: FutureWarning: The cuda.cudart module is deprecated and will be removed in a future release, please switch to use the cuda.bindings.runtime module instead.
+<frozen importlib._bootstrap_external>:1241: FutureWarning: The cuda.nvrtc module is deprecated and will be removed in a future release, please switch to use the cuda.bindings.nvrtc module instead.
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:01,  1.90it/s]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:01<00:01,  1.72it/s]
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:01<00:00,  1.70it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:02<00:00,  1.82it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:02<00:00,  1.79it/s]
+
+2026-04-05 03:41:24,566 [INFO] root: [SymmDeviceMemory] Rank: 1, Group size: 2, device_idx: 1, Signal pad offset: 58720256
+2026-04-05 03:41:25,222 [INFO] root: [SymmDeviceMemory] Rank: 0, Group size: 2, device_idx: 0, Signal pad offset: 58720256
+/home/claude/grpo-venv/lib/python3.11/site-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+2026-04-05 03:41:25,452 [INFO] root: [SymmDeviceMemory] Rank: 0, Group size: 2, device_idx: 0, Signal pad offset: 2097152
+2026-04-05 03:41:25,452 [INFO] root: [SymmDeviceMemory] Rank: 1, Group size: 2, device_idx: 1, Signal pad offset: 2097152
+2026-04-05 03:41:25,454 [INFO] root: [SymmDeviceMemory] Rank: 1, Group size: 2, device_idx: 1, Signal pad offset: 176160768
+2026-04-05 03:41:25,454 [INFO] root: [SymmDeviceMemory] Rank: 0, Group size: 2, device_idx: 0, Signal pad offset: 176160768
+2026-04-05 03:41:35,561 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-04-05 03:41:35,561 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+2026-04-05 03:41:35,575 - INFO - autotuner.py:268 - flashinfer.jit: [Autotuner]: Autotuning process ends
+2026-04-05 03:41:35,576 - INFO - autotuner.py:268 - flashinfer.jit: [Autotuner]: Autotuning process ends
+Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):   0%|          | 0/7 [00:00<?, ?it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE):  57%|█████▋    | 4/7 [00:00<00:00, 35.95it/s]Capturing CUDA graphs (mixed prefill-decode, PIECEWISE): 100%|██████████| 7/7 [00:00<00:00, 32.85it/s]
+Capturing CUDA graphs (decode, FULL):   0%|          | 0/5 [00:00<?, ?it/s]Capturing CUDA graphs (decode, FULL): 100%|██████████| 5/5 [00:00<00:00, 42.86it/s]Capturing CUDA graphs (decode, FULL): 100%|██████████| 5/5 [00:00<00:00, 42.79it/s]
+2026-04-05 03:41:36,984 [INFO] train_rho_sweep: Starting training (rho=0.70)...
+2026-04-05 03:41:36,984 [INFO] train_rho_sweep: Starting training (rho=0.70)...
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+***** Running training *****
+  Num examples = 7,473
+  Num Epochs = 1
+  Instantaneous batch size per device = 2
+  Total train batch size (w. parallel, distributed & accumulation) = 16
+  Gradient Accumulation steps = 4
+  Total optimization steps = 200
+  Number of trainable parameters = 161,480,704
+  0%|          | 0/200 [00:00<?, ?it/s]Could not estimate the number of tokens of the input, floating-point operations will not be computed
+Could not estimate the number of tokens of the input, floating-point operations will not be computed
+[rank1]:[W405 03:41:40.342211164 reducer.cpp:1500] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+[rank0]:[W405 03:41:40.359975446 reducer.cpp:1500] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+  0%|          | 1/200 [00:03<12:08,  3.66s/it][rank0]:[E405 03:51:41.285624929 ProcessGroupNCCL.cpp:688] [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=404, OpType=_ALLGATHER_BASE, NumelIn=1140480, NumelOut=2280960, Timeout(ms)=600000) ran for 600053 milliseconds before timing out.
+[rank0]:[E405 03:51:41.286127773 ProcessGroupNCCL.cpp:2277] [PG ID 3 PG GUID 4 Rank 0]  failure detected by watchdog at work sequence id: 404 PG status: last enqueued work: 405, last completed work: 403
+[rank0]:[E405 03:51:41.286137408 ProcessGroupNCCL.cpp:735] Stack trace of the failed collective not found, potentially because FlightRecorder is disabled. You can enable it by setting TORCH_NCCL_TRACE_BUFFER_SIZE to a non-zero value.
+[rank0]:[E405 03:51:41.286173422 ProcessGroupNCCL.cpp:2610] [PG ID 3 PG GUID 4 Rank 0] First PG on this rank to signal dumping.
+[rank1]:[E405 03:51:41.321650177 ProcessGroupNCCL.cpp:688] [Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=405, OpType=_ALLGATHER_BASE, NumelIn=1216512, NumelOut=2433024, Timeout(ms)=600000) ran for 600085 milliseconds before timing out.
+[rank1]:[E405 03:51:41.322157127 ProcessGroupNCCL.cpp:2277] [PG ID 3 PG GUID 4 Rank 1]  failure detected by watchdog at work sequence id: 405 PG status: last enqueued work: 406, last completed work: 404
+[rank1]:[E405 03:51:41.322166234 ProcessGroupNCCL.cpp:735] Stack trace of the failed collective not found, potentially because FlightRecorder is disabled. You can enable it by setting TORCH_NCCL_TRACE_BUFFER_SIZE to a non-zero value.
+[rank1]:[E405 03:51:41.322206733 ProcessGroupNCCL.cpp:2610] [PG ID 3 PG GUID 4 Rank 1] First PG on this rank to signal dumping.
+[rank0]:[E405 03:51:41.760604145 ProcessGroupNCCL.cpp:1890] [PG ID 0 PG GUID 0(default_pg) Rank 0] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 106, last completed NCCL work: 106.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank0]:[E405 03:51:41.761075893 ProcessGroupNCCL.cpp:1606] [PG ID 0 PG GUID 0(default_pg) Rank 0] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank1]:[E405 03:51:42.121648663 ProcessGroupNCCL.cpp:1890] [PG ID 0 PG GUID 0(default_pg) Rank 1] Received a dump signal due to a collective timeout from this local rank and we will try our best to dump the debug info. Last enqueued NCCL work: 106, last completed NCCL work: 106.This is most likely caused by incorrect usages of collectives, e.g., wrong sizes used across ranks, the order of collectives is not same for all ranks or the scheduled collective, for some reason, didn't run. Additionally, this can be caused by GIL deadlock or other reasons such as network errors or bugs in the communications library (e.g. NCCL), etc. 
+[rank1]:[E405 03:51:42.122097819 ProcessGroupNCCL.cpp:1606] [PG ID 0 PG GUID 0(default_pg) Rank 1] ProcessGroupNCCL preparing to dump debug info. Include stack trace: 1, only active collectives: 0
+[rank0]:[E405 03:52:41.816321691 ProcessGroupNCCL.cpp:749] [Rank 0] Some NCCL operations have failed or timed out. Due to the asynchronous nature of CUDA kernels, subsequent GPU operations might run on corrupted/incomplete data.
+[rank0]:[E405 03:52:41.816364512 ProcessGroupNCCL.cpp:763] [Rank 0] To avoid data inconsistency, we are taking the entire process down.
+[rank0]:[E405 03:52:41.817312533 ProcessGroupNCCL.cpp:2093] [PG ID 3 PG GUID 4 Rank 0] Process group watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=404, OpType=_ALLGATHER_BASE, NumelIn=1140480, NumelOut=2280960, Timeout(ms)=600000) ran for 600053 milliseconds before timing out.
+Exception raised from checkTimeout at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:691 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7f6f34d72fdd in /home/claude/grpo-venv/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x26a (0x7f6e18ebcd7a in /home/claude/grpo-venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x16a1 (0x7f6e18ec1261 in /home/claude/grpo-venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::Watchdog::run() + 0x105 (0x7f6e18ec25a5 in /home/claude/grpo-venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xd44a3 (0x7f6f3813c4a3 in /lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #5: <unknown function> + 0x891f5 (0x7f6f3ab4d1f5 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #6: <unknown function> + 0x1098dc (0x7f6f3abcd8dc in /lib/x86_64-linux-gnu/libc.so.6)
+
+terminate called after throwing an instance of 'c10::DistBackendError'
+ERROR 04-05 03:52:41 [dump_input.py:72] Dumping input data for V1 LLM engine (v0.19.0) with config: model='Qwen/Qwen2.5-7B-Instruct', speculative_config=None, tokenizer='Qwen/Qwen2.5-7B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=32768, download_dir=None, load_format=auto, tensor_parallel_size=2, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=Qwen/Qwen2.5-7B-Instruct, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '/home/claude/.cache/vllm/torch_compile_cache/7156a46758', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'splitting_ops': ['vllm::unified_attention', 'vllm::unified_attention_with_output', 'vllm::unified_mla_attention', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::linear_attention', 'vllm::plamo2_mamba_mixer', 'vllm::gdn_attention_core', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::kda_attention', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_images_per_batch': 0, 'compile_sizes': [], 'compile_ranges_endpoints': [4096], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': True}, 'max_cudagraph_capture_size': 32, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': '/home/claude/.cache/vllm/torch_compile_cache/7156a46758/rank_0_0/backbone', 'fast_moe_cold_start': True, 'static_all_moe_layers': []}, 
+  what():  [PG ID 3 PG GUID 4 Rank 0] Process group watchdog thread terminated with exception: [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=404, OpType=_ALLGATHER_BASE, NumelIn=1140480, NumelOut=2280960, Timeout(ms)=600000) ran for 600053 milliseconds before timing out.
+Exception raised from checkTimeout at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:691 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7f6f34d72fdd in /home/claude/grpo-venv/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: c10d::ProcessGroupNCCL::WorkNCCL::checkTimeout(std::optional<std::chrono::duration<long, std::ratio<1l, 1000l> > >) + 0x26a (0x7f6e18ebcd7a in /home/claude/grpo-venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: c10d::ProcessGroupNCCL::Watchdog::runLoop() + 0x16a1 (0x7f6e18ec1261 in /home/claude/grpo-venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #3: c10d::ProcessGroupNCCL::Watchdog::run() + 0x105 (0x7f6e18ec25a5 in /home/claude/grpo-venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #4: <unknown function> + 0xd44a3 (0x7f6f3813c4a3 in /lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #5: <unknown function> + 0x891f5 (0x7f6f3ab4d1f5 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #6: <unknown function> + 0x1098dc (0x7f6f3abcd8dc in /lib/x86_64-linux-gnu/libc.so.6)
+
+Exception raised from run at /pytorch/torch/csrc/distributed/c10d/ProcessGroupNCCL.cpp:2099 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7f6f34d72fdd in /home/claude/grpo-venv/lib/python3.11/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x9bbbc8 (0x7f6e18728bc8 in /home/claude/grpo-venv/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so)
+frame #2: <unknown function> + 0xd44a3 (0x7f6f3813c4a3 in /lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #3: <unknown function> + 0x891f5 (0x7f6f3ab4d1f5 in /lib/x86_64-linux-gnu/libc.so.6)
+frame #4: <unknown function> + 0x1098dc (0x7f6f3abcd8dc in /lib/x86_64-linux-gnu/libc.so.6)
+
+/usr/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked shared_memory objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+W0405 03:52:42.486000 4973 torch/distributed/elastic/multiprocessing/api.py:1010] Sending process 5072 closing signal SIGTERM
+E0405 03:52:43.001000 4973 torch/distributed/elastic/multiprocessing/api.py:984] failed (exitcode: -6) local_rank: 0 (pid: 5071) of binary: /home/claude/grpo-venv/bin/python3.11
+Traceback (most recent call last):
+  File "/home/claude/grpo-venv/bin/accelerate", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/claude/grpo-venv/lib/python3.11/site-packages/accelerate/commands/accelerate_cli.py", line 50, in main
+    args.func(args)
+  File "/home/claude/grpo-venv/lib/python3.11/site-packages/accelerate/commands/launch.py", line 1396, in launch_command
+    multi_gpu_launcher(args)
+  File "/home/claude/grpo-venv/lib/python3.11/site-packages/accelerate/commands/launch.py", line 1023, in multi_gpu_launcher
+    distrib_run.run(args)
+  File "/home/claude/grpo-venv/lib/python3.11/site-packages/torch/distributed/run.py", line 982, in run
+    elastic_launch(
+  File "/home/claude/grpo-venv/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 170, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/grpo-venv/lib/python3.11/site-packages/torch/distributed/launcher/api.py", line 317, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+scripts/train_rho_sweep.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2026-04-05_03:52:43
+  host      : job-62e8dc8de393-20260403183930-notebook-task-0
+  rank      : 1 (local_rank: 1)
+  exitcode  : -15 (pid: 5072)
+  error_file: <N/A>
+  traceback : Signal 15 (SIGTERM) received by PID 5072
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2026-04-05_03:52:42
+  host      : job-62e8dc8de393-20260403183930-notebook-task-0
+  rank      : 0 (local_rank: 0)
+  exitcode  : -6 (pid: 5071)
+  error_file: <N/A>
+  traceback : Signal 6 (SIGABRT) received by PID 5071
+============================================================

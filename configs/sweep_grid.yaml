@@ -22,7 +22,7 @@ training:
   save_steps: 200
   num_generations: 4
   max_prompt_length: 256
-  max_completion_length: 256
+  max_completion_length: 512
   gradient_checkpointing: true
 
 lora:
