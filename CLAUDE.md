@@ -95,12 +95,3 @@ python scripts/eval_phase_point.py --eval_math --benchmarks gsm8k math
 - `QUICK=1` 或 `--quick` 可切换 quick 模式（缩小网格）
 - Phase 8 (27B) 仅在非 quick 模式下运行
 
-## Remote server
-
-<!-- TODO: 请补充此项目的主服务器信息 -->
-
-- SSH: `ssh YOUR_SERVER`
-- GPU: 待确认
-- Activate: `source .venv/bin/activate`
-- Code dir: 待确认
-- Background: `screen -dmS grpo bash -c '...'`

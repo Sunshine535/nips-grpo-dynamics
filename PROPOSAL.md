@@ -1,68 +1,86 @@
-# GRPO Dynamics: Phase Diagrams and Zero-Score Gradient Reshaping for Stable RL Post-Training
+# Metastable Training Dynamics in GRPO: Seed-Resolved Basin Analysis and Transient Rescue
 
 ## One-Sentence Summary
 
-We provide the first systematic characterization of GRPO training stability through phase diagrams over positive/negative signal balance, revealing a zero-score collapse zone and proposing four gradient reshaping strategies that recover stable training.
+We demonstrate that GRPO training collapse reflects structured seed variance with basin-like dynamics — detectable at step 0 from gradient subspace geometry, characterizable via Binder cumulant order parameters, and rescuable via transient hyperparameter pulses that produce permanent escape — validated across Qwen2.5-7B, Qwen3-8B, and Qwen3.5-9B.
 
 ## Problem
 
-Group Relative Policy Optimization (GRPO) is the dominant RL algorithm for LLM post-training (DeepSeek-R1, Qwen). However, practitioners observe unstable training: reward collapses, KL divergence spikes, and inconsistent final performance depending on hyperparameters. Two specific pathologies are poorly understood:
+GRPO exhibits extreme seed variance at certain hyperparameter settings: under identical ρ=1.0 on Qwen2.5-7B, three seeds yield 0.5%, 0.0%, and 89.0% accuracy. This is not Gaussian noise — it is a structured, multi-modal distribution suggesting competing basins in optimization space.
 
-1. **Signal imbalance**: The relative weighting of positive (correct) vs negative (incorrect) completions in the policy gradient is never explicitly controlled, leading to gradient domination by one signal type.
-2. **Zero-score collapse**: When all completions in a GRPO group score 0, the normalized advantage is zero everywhere, producing zero gradient signal—wasting compute and creating dead zones in training.
+40+ GRPO papers (2025-2026) propose fixes (DAPO, GSPO, GTPO, etc.) without asking: **why do some seeds collapse while others converge under identical settings?** And critically: **can we predict and rescue the failing seeds?**
 
 ## Approach
 
-### Track 1: Phase Diagram Analysis
+### Contribution 1: Seed-Resolved Basin Analysis
 
-We introduce two hyperparameters: α (positive signal ratio) and β (negative signal weight), and sweep a grid of 45+ configurations × 3 seeds on GSM8K/MATH with Qwen3.5-9B. For each (α, β) point, we:
-- Train for 2 epochs with the modified GRPO loss
-- Evaluate on GSM8K and MATH test sets
-- Record per-step reward, KL, loss, and gradient norms
+We apply statistical mechanics diagnostics to dense ρ-sweeps (≥20 seeds per condition):
+- **Binder cumulant** U₄ = 1 - ⟨R⁴⟩/(3⟨R²⟩²) identifies the ρ range where outcomes become multi-modal (U₄ dip below Gaussian reference 2/3)
+- **Susceptibility** χ = N(⟨R²⟩ - ⟨R⟩²) peaks at the boundary between unimodal and multi-modal regimes
+- **Residence time analysis**: for seeds near the boundary, measure how long rewards stay in each basin before committing — evidence of genuine metastability vs early divergence
 
-From the sweep, we construct:
-- **Accuracy heatmap**: identify optimal (α, β) regions
-- **Phase boundaries**: gradient magnitude analysis to detect transition zones
-- **Stability map**: cross-seed variance to identify reliable vs chaotic regions
-- **Pareto frontier**: accuracy vs effective negative pressure tradeoff
+Key: We do NOT claim phase transitions or universality. We use these tools as sensitive diagnostics for structured variance.
 
-### Track 2: Zero-Score Gradient Reshaping
+### Contribution 2: Step-0 Trainability Prediction
 
-We implement four strategies to handle zero-score groups:
-1. **Clip**: Scale zero-score gradients by a small factor (0.1×) to maintain signal
-2. **Temperature**: Divide zero-score advantages by a boost factor to encourage exploration
-3. **Curriculum**: Gradually include zero-score samples over warmup steps
-4. **Relabel**: Assign small positive reward (ε=0.01) to zero-score samples
+After the initial rollout (step 0), compute:
+1. **Gradient subspace alignment** S₀ = cos(g⁺, g⁻) between mean positive-reward and negative-reward gradient directions
+2. **Initial success diversity** D₀ = entropy of per-group success counts
+3. **Gradient magnitude ratio** M₀ = ‖g⁺‖/‖g⁻‖
 
-Each strategy is evaluated across 3 hyperparameter settings × 2 seeds, with gradient analysis diagnostics comparing zero-score vs non-zero-score gradient directions.
+These features are available from a single rollout before any parameter update. We train a binary classifier (converge vs collapse) on Qwen2.5-7B (≥180 labeled runs), validate on Qwen3-8B and Qwen3.5-9B.
 
-### Integration
+Must beat trivial baselines: (a) ρ alone, (b) initial reward mean, (c) initial entropy.
 
-We show that zero-score collapse corresponds to a specific region in the phase diagram (low α, high β), and that the reshaping strategies effectively expand the stable training region.
+### Contribution 3: Transient Rescue
+
+The killer experiment (per reviewer guidance): take collapsing seeds at near-critical ρ, apply a **transient** ρ or λ_KL pulse for K steps (K ∈ {5, 10, 20}), then **revert to original hyperparameters**. If the seed permanently escapes to the convergent basin after the pulse, this is genuine basin escape, not mere retuning.
+
+Measure:
+- **Rescue probability** P_rescue(t, K, Δρ): probability of permanent escape as function of intervention time t, duration K, and magnitude Δρ
+- **Irreversibility point** t_irrev: the step after which no transient pulse rescues
+- **Minimum effective pulse**: smallest Δρ × K product that achieves escape
 
 ## Experiments
 
-| Experiment | Details |
-|------------|---------|
-| Phase diagram sweep | 9α × 5β × 3 seeds = 135 training runs |
-| Zero-score strategies | 4 strategies × 3 configs × 2 seeds = 24 runs |
-| Curriculum comparison | 4 schedules (anneal-pos, anneal-neg, cosine, static) |
-| Gradient diagnostics | Per-step gradient norms, cosine similarity, norm ratios |
-| 27B validation | Best configurations validated on Qwen3.5-27B |
+| Experiment | Model | Runs | Seeds | GPU-hours |
+|------------|-------|------|-------|-----------|
+| Dense ρ-sweep (9 ρ values) | Qwen2.5-7B | 180 | 20 × 9ρ | ~360 |
+| Dense ρ-sweep (9 ρ values) | Qwen3-8B | 180 | 20 × 9ρ | ~360 |
+| Dense ρ-sweep (9 ρ values) | Qwen3.5-9B | 90 | 10 × 9ρ | ~180 |
+| Step-0 probes | All models | 450 | from sweeps | ~20 |
+| Transient rescue | Qwen2.5-7B | 120 | 3 collapsed × 8t × 5pulse | ~60 |
+| Transient rescue | Qwen3-8B | 120 | 3 collapsed × 8t × 5pulse | ~60 |
+| **Total** | | | | **~1040** |
 
 ## Benchmarks
 
-- **GSM8K** (grade school math, 1319 test problems)
-- **MATH** (competition math, 5000 test problems)
+- GSM8K (1319 test) — primary
+- MATH (5000 test) — secondary
 
 ## Expected Contributions
 
-1. First phase diagram characterization of GRPO signal balance
-2. Identification of zero-score collapse as a distinct failure mode
-3. Four practical gradient reshaping strategies with theoretical motivation
-4. Curriculum strategies for dynamic α/β scheduling
-5. Practical guidelines for stable GRPO training
+1. Dense seed-resolved sweep (20 seeds) revealing structured multi-modal outcome distributions at near-critical ρ, characterized by Binder cumulant diagnostics
+2. Step-0 trainability predictor from gradient geometry that beats trivial baselines — practical tool for avoiding wasted compute
+3. Transient rescue protocol demonstrating genuine basin escape (not retuning) with measured irreversibility points
+4. Cross-model comparison showing how basin structure shifts between Qwen2.5-7B, Qwen3-8B, and Qwen3.5-9B
 
-## NeurIPS Justification
+## Key Differentiators
 
-Combines rigorous empirical analysis (phase diagrams) with practical algorithmic contributions (reshaping strategies). Directly relevant to the growing community working on RL post-training for reasoning LLMs.
+| Prior work | What they do | What we add |
+|------------|-------------|-------------|
+| Mroueh 2503.06639 | Aggregate dynamics, fixed points | Seed-resolved basin analysis, individual fate prediction |
+| Grokking FSS (2603.24746) | Binder cumulant for grokking | Different phenomenon, we use U₄ as diagnostic not as universality claim |
+| Kramers CL (2604.04154) | Kramers for continual learning | We do transient rescue (pulse + revert), not permanent barrier modification |
+| GAC (2603.01501) | Gradient cosine during training | We predict at step 0, before any updates |
+| All variant papers | Fix collapse by changing algorithm | We predict and rescue within vanilla GRPO |
+
+## Risks and Mitigations
+
+| Risk | Mitigation |
+|------|-----------|
+| Metastability is just noise | 20 seeds gives statistical power; residence time analysis distinguishes |
+| Step-0 predictor is trivial proxy | Must beat ρ + initial_reward + entropy baselines |
+| Transient rescue = retuning | Revert to original params after pulse; permanent escape is the test |
+| Only Qwen family | Include Qwen3 (different architecture/training) as minimal cross-family |
+| 1040 GPU-hours too much | Qwen3.5 reduced to 10 seeds; prioritize transient rescue on 2 models |
