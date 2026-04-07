@@ -1,0 +1,71 @@
+# ============================================================
+# FULL EXPERIMENT PLAN — NeurIPS Best Paper Standard
+# Every configuration: ≥5 seeds, critical points: 10 seeds
+# ============================================================
+
+experiment_1_stability_landscape:
+  description: "Core ρ sweep on Qwen3.5-9B with GSM8K"
+  model: "Qwen/Qwen3.5-9B"
+  dataset: "openai/gsm8k"
+  training_steps: 200
+  hardware: "2×H100 80GB DDP"
+  
+  # 9 ρ values, critical points get 10 seeds, others get 5
+  sweep:
+    rho_values:
+      - {rho: 0.1, seeds: [42,43,44,45,46], n: 5, priority: "low"}
+      - {rho: 0.3, seeds: [42,43,44,45,46], n: 5, priority: "medium"}
+      - {rho: 0.5, seeds: [42,43,44,45,46], n: 5, priority: "medium"}
+      - {rho: 0.7, seeds: [42,43,44,45,46,47,48,49,50,51], n: 10, priority: "critical_boundary"}
+      - {rho: 1.0, seeds: [42,43,44,45,46,47,48,49,50,51], n: 10, priority: "critical_vanilla"}
+      - {rho: 1.5, seeds: [42,43,44,45,46], n: 5, priority: "medium"}
+      - {rho: 2.0, seeds: [42,43,44,45,46], n: 5, priority: "medium"}
+      - {rho: 3.0, seeds: [42,43,44,45,46,47,48,49,50,51], n: 10, priority: "critical_optimal"}
+      - {rho: 5.0, seeds: [42,43,44,45,46], n: 5, priority: "medium"}
+    total_runs: 65
+    estimated_time_per_run: "92 min (2×H100 DDP)"
+    estimated_total: "~100 GPU-hours"
+
+experiment_2_grpo_variants:
+  description: "DAPO/GSPO/GTPO comparison at critical ρ values"
+  variants: ["vanilla", "dapo", "gspo", "gtpo"]
+  rho_values: [1.0, 3.0]
+  seeds: [42, 43, 44, 45, 46]  # 5 seeds per variant×ρ
+  total_runs: 40  # 4 variants × 2 ρ × 5 seeds
+  estimated_total: "~61 GPU-hours"
+
+experiment_3_long_horizon:
+  description: "600-step training to verify short-horizon findings"
+  rho_values: [0.7, 1.0, 3.0]
+  seeds: [42, 43, 44, 45, 46]  # 5 seeds each
+  training_steps: 600
+  total_runs: 15
+  estimated_total: "~69 GPU-hours"
+
+experiment_4_confounder:
+  description: "Group size G and KL coefficient ablation"
+  conditions:
+    - {param: "G", values: [2, 4, 8], rho: [1.0, 3.0], seeds: [42,43,44,45,46]}
+    - {param: "kl_coef", values: [0.01, 0.05, 0.2], rho: [1.0, 3.0], seeds: [42,43,44,45,46]}
+  total_runs: 60  # (3G × 2ρ + 3kl × 2ρ) × 5 seeds
+  estimated_total: "~92 GPU-hours"
+
+experiment_5_evaluation:
+  description: "GSM8K test accuracy on all checkpoints"
+  eval_samples: 500
+  confidence_intervals: true
+  
+experiment_6_synthetic_validation:
+  description: "Theory validation under exact Bernoulli assumptions"
+  n_groups: 10000
+  completed: true
+  result: "R²=0.994, regime classification 99.8%"
+
+total_gpu_hours: "~322 GPU-hours"
+total_runs: "~180"
+estimated_wall_time: "~161 hours on 2×H100 (~6.7 days)"
+
+statistical_requirements:
+  minimum_seeds_per_condition: 5
+  critical_conditions_seeds: 10
+  reporting: "mean ± std, 95% CI (bootstrap), failure rate with Clopper-Pearson CI"

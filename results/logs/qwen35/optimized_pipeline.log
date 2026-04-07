@@ -30,3 +30,37 @@ OK)
 <<< [15:17] rho3.00_seed43 done (results/qwen35/sweep_coarse/rho3.00_seed43/training_metrics.json
 OK)
 >>> [15:17] rho3.00_seed44 (2xH100 DDP)
+2026-04-06 17:01:09,759 [INFO] train_rho_sweep: Training complete: rho=3.00, seed=44
+[rank0]:[W406 17:01:10.036213328 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [17:01] rho3.00_seed44 done (results/qwen35/sweep_coarse/rho3.00_seed44/training_metrics.json
+OK)
+>>> [17:01] rho0.70_seed42 (2xH100 DDP)
+2026-04-06 18:24:25,784 [INFO] train_rho_sweep: Training complete: rho=0.70, seed=42
+[rank0]:[W406 18:24:26.035382326 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [18:24] rho0.70_seed42 done (results/qwen35/sweep_coarse/rho0.70_seed42/training_metrics.json
+OK)
+>>> [18:24] rho0.70_seed43 (2xH100 DDP)
+2026-04-06 19:57:34,352 [INFO] train_rho_sweep: Training complete: rho=0.70, seed=43
+[rank0]:[W406 19:57:34.688518516 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [19:57] rho0.70_seed43 done (results/qwen35/sweep_coarse/rho0.70_seed43/training_metrics.json
+OK)
+>>> [19:57] rho0.70_seed44 (2xH100 DDP)
+2026-04-06 21:41:00,569 [INFO] train_rho_sweep: Training complete: rho=0.70, seed=44
+[rank0]:[W406 21:41:01.841331453 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [21:41] rho0.70_seed44 done (results/qwen35/sweep_coarse/rho0.70_seed44/training_metrics.json
+OK)
+
+>>> P2: GRPO Variant comparison (DAPO/GSPO/GTPO at ρ=1.0 and ρ=3.0)
+>>> [21:41] dapo_rho1.0_seed42 (2xH100 DDP)
+2026-04-06 23:11:32,087 [INFO] train_grpo_variants: Training complete: variant=dapo, rho=1.00, seed=42, steps=200
+[rank0]:[W406 23:11:32.403151689 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [23:11] dapo_rho1.0_seed42 done (results/qwen35/variants/dapo_rho1.0_seed42/training_metrics.json
+OK)
+>>> [23:11] dapo_rho1.0_seed43 (2xH100 DDP)
+2026-04-07 00:23:35,382 [INFO] train_grpo_variants: Training complete: variant=dapo, rho=1.00, seed=43, steps=200
+[rank0]:[W407 00:23:35.646635521 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+<<< [00:23] dapo_rho1.0_seed43 done (results/qwen35/variants/dapo_rho1.0_seed43/training_metrics.json
+OK)
+>>> [00:23] dapo_rho3.0_seed42 (2xH100 DDP)
+tokenizer config file saved in results/qwen35/variants/dapo_rho3.0_seed42/tokenizer_config.json
+2026-04-07 02:10:03,790 [INFO] train_grpo_variants: Training complete: variant=dapo, rho=3.00, seed=42, steps=200
