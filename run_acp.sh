@@ -21,7 +21,7 @@ export MODEL_27B="${MODEL_27B:-Qwen/Qwen3.5-27B}"
 
 # === Environment ===
 export HF_HOME="${DATA_DIR}/hf_cache"
-export HF_ENDPOINT="${HF_ENDPOINT:-https://hf-mirror.com}"
+# HF_ENDPOINT removed (use default huggingface.co)
 export TRANSFORMERS_CACHE="${HF_HOME}/hub"
 export TOKENIZERS_PARALLELISM=false
 export NCCL_P2P_DISABLE="${NCCL_P2P_DISABLE:-0}"
