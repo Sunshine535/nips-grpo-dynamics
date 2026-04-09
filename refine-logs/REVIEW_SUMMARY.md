@@ -1,34 +1,34 @@
-# Review Summary
+# Review Summary — CSD Direction
 
-**Problem**: GRPO signal balance stability under binary rewards
-**Initial Approach**: Phase diagrams of (α,β) space + zero-score gradient reshaping
-**Date**: 2026-03-29
-**Rounds**: 4 / 5
-**Final Score**: 9.1 / 10
-**Final Verdict**: READY
+**Problem**: GRPO training instability → RLVR is Contrastive Self-Distillation
+**Date**: 2026-04-09
 
-## Problem Anchor
-GRPO is the dominant RL post-training algorithm for LLM reasoning, yet practitioners lack principled guidance for the positive/negative signal balance. Training has hidden stability regimes. No theory maps or navigates these.
+## Review History
 
-## Round-by-Round Resolution Log
+### v1: Stability Analysis (2026-03-29 → 2026-04-04)
+- 4 rounds GPT-5.4 refinement: 4.5 → 6.5 → 8.1 → 9.1/10
+- Result: READY for submission as scoped stability paper
 
-| Round | Main Reviewer Concerns | What This Round Simplified / Modernized | Solved? | Remaining Risk |
-|-------|-------------------------|------------------------------------------|---------|----------------|
-| 1 | (α,β) may collapse to 1D; theory needs m/G; "phase transition" too strong; V_pos/V_zero not operational; AdaBalance second headline; budget | Reparameterized to ρ; theory on m/G; "stability map"; trainer telemetry; AdaBalance demoted; two-stage protocol | yes | Theory specifics still vague |
-| 2 | P(m) insufficient for Var; upper bound needs λ_KL/ε; collapse p_0>0.8 alone too weak; E[∇L] preservation not proved | Explicit assumptions A1-A3; split Theorem/Proposition; joint collapse conditions; narrowed to binary rewards | yes | E[∇L] claim; overclaiming; i.i.d. robustness |
-| 3 | ρ* claim wrong for original GRPO; "stability law" overclaimed; no i.i.d. violation test | Corrected to L_ρ family; "stability analysis"; added robustness Exp 3; K/τ acknowledged as hyperparams | yes | Non-blocking cosmetics |
-| 4 | None blocking | — | — | Prop 1 labeling; 27B framing; GSM8K subset definition |
+### v1 Nightmare Review (2026-04-07): 3/10
+- 5 FATAL: Theory obvious, stats thin, Kramers metaphor, models all Qwen, not proven metastable
+- Pivoted to MetaGRPO (basin analysis + step-0 prediction + transient rescue)
+- MetaGRPO estimated ceiling: 7-8/10 — not enough for best paper
 
-## Overall Evolution
-- **Method became more concrete**: From vague (α,β) theory to exact modified GRPO objective with ρ placement
-- **Dominant contribution became more focused**: From "phase diagram + theory + navigator" to "stability analysis (theorems) + derived controller (corollary)"
-- **Unnecessary complexity removed**: 2D → 1D parameterization, gradient measurement → trainer telemetry, two headlines → one theorem + corollary
-- **Modern leverage**: Appropriately uses current GRPO setting; no forced trendy components
-- **Drift avoided**: Stayed on signal balance understanding throughout
+### v2: CSD Direction (2026-04-09)
+- Full re-ideation: 12 literature searches, 60+ papers, mathematical derivation
+- Core theorem: ∇L_GRPO = √(p(1-p))·[∇KL(τ⁻‖π) - ρ·∇KL(τ⁺‖π)]
+- Novelty check: 8/10 (no prior proof of CSD equivalence)
 
-## Final Status
-- Anchor status: preserved
-- Focus status: tight
-- Modernity status: appropriately frontier-aware
-- Strongest parts: Clean theory under explicit assumptions, practical controller as corollary, honest scope
-- Remaining weaknesses: Proposition 1 is approximate; theory limited to binary rewards
+### v2 Self-Nightmare Review: 5/10
+- F1: Equivalence may be trivially obvious → Added 3 quantitative predictions
+- F2: Capacity bound needs formal proof → Theorem 2 with G-dependence
+- F3: CSDPO components ad hoc → Formal derivation from CSD for each component
+- F4: Binary-only scope → Extension to continuous rewards (Remark 1)
+- F5: Need surprising prediction → Q_CSD collapse predictor, variant performance ranking
+- S6: Must beat SRPO → Included as primary baseline
+- S7: Unification must be predictive → Regime-specific predictions table
+- S8: Seed variance model → Formal stochastic τ⁺ model
+
+### v2 Refined (post-nightmare): estimated 7-8/10
+- If all experiments pass → 8-9/10 (theory + method + predictions)
+- If CSDPO doesn't beat SRPO but theory holds → 7/10 (strong theory paper)

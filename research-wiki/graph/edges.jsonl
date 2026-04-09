@@ -1,0 +1,12 @@
+{"from": "idea:csd-equivalence", "to": "paper:srpo2026", "type": "inspired_by", "evidence": "SRPO combines GRPO+SDPO; CSD proves they're the same"}
+{"from": "idea:csd-equivalence", "to": "paper:clipo2026", "type": "inspired_by", "evidence": "CLIPO adds contrastive; CSD proves GRPO is already contrastive"}
+{"from": "idea:csd-equivalence", "to": "paper:rlvr_limit2025", "type": "inspired_by", "evidence": "BPR shows capacity bound; CSD provides theoretical explanation"}
+{"from": "idea:csd-equivalence", "to": "paper:sdpo2026", "type": "inspired_by", "evidence": "SDPO proposes distillation as RL alternative; CSD proves RL IS distillation"}
+{"from": "idea:csd-equivalence", "to": "paper:lld2025", "type": "inspired_by", "evidence": "LLD identifies collapse mechanism; CSD explains as teacher degradation"}
+{"from": "paper:srpo2026", "to": "paper:sdpo2026", "type": "extends", "evidence": "SRPO routes samples between GRPO and SDPO"}
+{"from": "paper:srpo2026", "to": "paper:dapo2025", "type": "extends", "evidence": "SRPO builds on DAPO's dynamic sampling"}
+{"from": "paper:clipo2026", "to": "paper:dapo2025", "type": "extends", "evidence": "CLIPO adds contrastive head to GRPO/DAPO"}
+{"from": "paper:vojnovic2026", "to": "paper:ustat2026", "type": "extends", "evidence": "Both analyze GRPO theory from different angles"}
+{"from": "paper:rlsd2026", "to": "paper:sdpo2026", "type": "extends", "evidence": "RLSD combines SDPO teacher with RLVR rewards"}
+{"from": "idea:metagrpo-v1", "to": "paper:lld2025", "type": "inspired_by", "evidence": "Basin dynamics motivated by collapse observation"}
+{"from": "idea:stability-v1", "to": "idea:csd-equivalence", "type": "supersedes", "evidence": "CSD gives optimal ρ from distillation theory, not just variance"}
