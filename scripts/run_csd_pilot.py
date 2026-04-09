@@ -35,6 +35,9 @@ from peft import LoraConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.torch_compat import apply_torch_compat_patch
+apply_torch_compat_patch()
+
 from src.rho_grpo import build_gsm8k_binary_reward_function
 from src.rho_grpo_trainer import RhoGRPOTrainer, AdaBalanceGRPOTrainer, RhoStabilityCallback
 from src.adabalance import AdaBalanceController, AdaBalanceConfig
