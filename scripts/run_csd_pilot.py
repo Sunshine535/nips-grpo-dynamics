@@ -54,13 +54,17 @@ DEFAULT_SEEDS_P3 = 5 if QUICK else 10
 
 def parse_args():
     p = argparse.ArgumentParser(description="CSD Pilot Experiments")
-    p.add_argument("--pilot", type=str, default="all", choices=["1", "2", "3", "all"])
+    p.add_argument("--pilot", type=str, default="all",
+                   choices=["1", "2", "3", "all",
+                            "1_single", "2_single", "3_single", "3_analyze"])
     p.add_argument("--model", type=str, default="Qwen/Qwen2.5-7B-Instruct")
     p.add_argument("--config", type=str, default="configs/rho_sweep.yaml")
     p.add_argument("--output_dir", type=str, default="results/csd_pilot")
     p.add_argument("--max_steps", type=int, default=DEFAULT_MAX_STEPS)
     p.add_argument("--seeds", type=int, default=None)
+    p.add_argument("--seed_start", type=int, default=42, help="Starting seed for single-run mode")
     p.add_argument("--rho", type=float, default=1.0, help="ρ for Pilot 1 and 3")
+    p.add_argument("--use_adq", action="store_true", help="Use ADQ (adaptive ρ) for single run")
     p.add_argument("--use_vllm", action="store_true")
     return p.parse_args()
 
@@ -418,6 +422,37 @@ def main():
     logger.info("CSD Pilot — model=%s, pilot=%s, max_steps=%d",
                 args.model, args.pilot, args.max_steps)
 
+    # Single-run modes (called by run_csd_pilot.sh for multi-GPU parallelism)
+    if args.pilot == "1_single":
+        run_single_training(
+            args.model, args.config, seed=args.seed_start, rho=args.rho,
+            max_steps=args.max_steps, output_dir=args.output_dir,
+            use_vllm=args.use_vllm,
+        )
+        return
+
+    if args.pilot == "2_single":
+        run_single_training(
+            args.model, args.config, seed=args.seed_start, rho=args.rho,
+            max_steps=args.max_steps, output_dir=args.output_dir,
+            use_adq=args.use_adq, use_vllm=args.use_vllm,
+        )
+        return
+
+    if args.pilot == "3_single":
+        run_single_training(
+            args.model, args.config, seed=args.seed_start, rho=args.rho,
+            max_steps=args.max_steps, output_dir=args.output_dir,
+            use_vllm=args.use_vllm,
+        )
+        return
+
+    if args.pilot == "3_analyze":
+        # Just run the analysis part of pilot 3 (called after parallel runs)
+        pilot3_qcsd_predictor(args)
+        return
+
+    # Full pilot modes (sequential, used when running without shell parallelism)
     if args.pilot in ("1", "all"):
         pilot1_csd_verification(args)
 
