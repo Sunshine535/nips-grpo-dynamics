@@ -8,8 +8,8 @@ Seed-resolved basin analysis, step-0 trainability prediction, and transient resc
 # 1. Clone and setup
 git clone <REPO_URL>
 cd nips-grpo-dynamics
-bash setup.sh              # conda env 'grpo-dynamics' + Python 3.11 + PyTorch (CUDA 12.8)
-conda activate grpo-dynamics
+bash setup.sh              # venv + PyTorch (CUDA 12.8) + all deps
+source .venv/bin/activate
 
 # 2. Run experiments (auto-detects all GPUs)
 bash run.sh
@@ -20,12 +20,12 @@ QUICK=1 bash run.sh
 
 ## Environment
 
-- Python 3.11 (conda)
+- Python >= 3.10
 - PyTorch >= 2.4 (CUDA 12.8)
 - Dependencies: `transformers`, `datasets`, `accelerate`, `trl`, `peft`, `wandb`
 - Optional: `flash-attn`
 
-`setup.sh` handles everything: creates conda env, installs PyTorch with CUDA 12.8, and verifies GPU detection.
+`setup.sh` handles everything: creates venv, installs PyTorch with CUDA 12.8, and verifies GPU detection.
 
 ## GPU Auto-Detection
 
