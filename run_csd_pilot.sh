@@ -29,7 +29,7 @@ else
     exit 1
 fi
 
-MODEL="${MODEL:-Qwen/Qwen2.5-7B-Instruct}"
+MODEL="${MODEL:-Qwen/Qwen3.5-9B}"
 PILOT="${1:-all}"
 MAX_STEPS="${MAX_STEPS:-200}"
 OUTPUT="results/csd_pilot"
@@ -119,18 +119,22 @@ run_pilot2() {
     local pids=()
     local gpu_idx=0
 
-    # Phase A: constant ρ=1.0 runs (parallel across GPUs)
-    echo "  --- Phase A: constant ρ=1.0 ($n_seeds seeds) ---"
+    # Auto-select critical ρ based on model
+    local CRITICAL_RHO="${CRITICAL_RHO:-0.7}"
+    echo "  Critical ρ=$CRITICAL_RHO (set CRITICAL_RHO to override)"
+
+    # Phase A: constant ρ runs (parallel across GPUs)
+    echo "  --- Phase A: constant ρ=$CRITICAL_RHO ($n_seeds seeds) ---"
     for ((s=42; s<42+n_seeds; s++)); do
-        local run_dir="$P2_DIR/rho1.00_seed${s}"
+        local run_dir="$P2_DIR/rho${CRITICAL_RHO}_seed${s}"
         if [ -f "$run_dir/pilot_results.json" ]; then
-            echo "  [skip] const ρ=1.0 seed=$s already done"
+            echo "  [skip] const ρ=$CRITICAL_RHO seed=$s already done"
             continue
         fi
-        echo "  [launch] const ρ=1.0 seed=$s → GPU $(get_gpu_id $gpu_idx)"
+        echo "  [launch] const ρ=$CRITICAL_RHO seed=$s → GPU $(get_gpu_id $gpu_idx)"
         CUDA_VISIBLE_DEVICES=$(get_gpu_id $gpu_idx) python3 scripts/run_csd_pilot.py \
             --pilot 2_single --model "$MODEL" --max_steps "$MAX_STEPS" \
-            --output_dir "$P2_DIR" --rho 1.0 --seeds 1 --seed_start "$s" \
+            --output_dir "$P2_DIR" --rho "$CRITICAL_RHO" --seeds 1 --seed_start "$s" \
             $VLLM_FLAG > "$P2_DIR/log_const_seed${s}.txt" 2>&1 &
         pids+=($!)
         gpu_idx=$(( (gpu_idx + 1) % NUM_GPUS ))
@@ -147,7 +151,7 @@ run_pilot2() {
     # Phase B: ADQ runs (parallel across GPUs)
     echo "  --- Phase B: ADQ ($n_seeds seeds) ---"
     for ((s=42; s<42+n_seeds; s++)); do
-        local run_dir="$P2_DIR/rho1.00_seed${s}_adq"
+        local run_dir="$P2_DIR/rho${CRITICAL_RHO}_seed${s}_adq"
         if [ -f "$run_dir/pilot_results.json" ]; then
             echo "  [skip] ADQ seed=$s already done"
             continue
@@ -155,7 +159,7 @@ run_pilot2() {
         echo "  [launch] ADQ seed=$s → GPU $(get_gpu_id $gpu_idx)"
         CUDA_VISIBLE_DEVICES=$(get_gpu_id $gpu_idx) python3 scripts/run_csd_pilot.py \
             --pilot 2_single --model "$MODEL" --max_steps "$MAX_STEPS" \
-            --output_dir "$P2_DIR" --rho 1.0 --seeds 1 --seed_start "$s" --use_adq \
+            --output_dir "$P2_DIR" --rho "$CRITICAL_RHO" --seeds 1 --seed_start "$s" --use_adq \
             $VLLM_FLAG > "$P2_DIR/log_adq_seed${s}.txt" 2>&1 &
         pids+=($!)
         gpu_idx=$(( (gpu_idx + 1) % NUM_GPUS ))
