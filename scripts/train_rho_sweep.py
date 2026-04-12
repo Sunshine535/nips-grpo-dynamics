@@ -81,11 +81,8 @@ def extract_gsm8k_answer(text: str) -> str:
 def format_gsm8k_prompt(example):
     return {
         "prompt": [
-            {"role": "user", "content": (
-                f"Solve the following math problem step by step. "
-                f"Put your final numerical answer after ####.\n\n"
-                f"Question: {example['question']}"
-            )},
+            {"role": "system", "content": "You are a math tutor. Solve problems step by step. Write your final numerical answer after ####. Do not use <think> tags."},
+            {"role": "user", "content": f"Question: {example['question']}"},
         ],
         "answer": extract_gsm8k_answer(example["answer"]),
     }

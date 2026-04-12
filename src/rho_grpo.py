@@ -110,9 +110,11 @@ def compute_rho_grpo_loss(
 
 def build_gsm8k_binary_reward_function():
     import re
+    # Strip Qwen3/3.5 thinking blocks: <think>...</think>
+    _think_pattern = re.compile(r"<think>.*?</think>", re.DOTALL)
     # Match "#### <number>" with optional text between #### and the number
     _pattern = re.compile(r"####\s*(?:.*?)(-?\d[\d,]*\.?\d*)")
-    # Fallback: last number in the text
+    # Fallback: last number in the text (after stripping think blocks)
     _fallback = re.compile(r"(-?\d[\d,]*\.?\d*)")
 
     def reward_fn(completions, answer, **kwargs):
@@ -125,12 +127,16 @@ def build_gsm8k_binary_reward_function():
             else:
                 text = str(completion)
 
-            match = _pattern.search(text)
+            # Strip thinking blocks for answer extraction
+            text_clean = _think_pattern.sub("", text).strip()
+
+            # Try #### pattern first (on both original and cleaned text)
+            match = _pattern.search(text) or _pattern.search(text_clean)
             if match:
                 pred = match.group(1).replace(",", "")
             else:
-                # Fallback: last number in text
-                nums = _fallback.findall(text)
+                # Fallback: last number in cleaned text (skip think block numbers)
+                nums = _fallback.findall(text_clean)
                 pred = nums[-1].replace(",", "") if nums else ""
 
             gold_clean = str(gold).strip()
