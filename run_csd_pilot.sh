@@ -32,7 +32,7 @@ export TOKENIZERS_PARALLELISM=false
 mkdir -p "$HF_HOME"
 echo "HF_HOME: $HF_HOME"
 
-MODEL="${MODEL:-Qwen/Qwen3.5-9B}"
+MODEL="${MODEL:-Qwen/Qwen3-8B}"
 PILOT="${1:-all}"
 MAX_STEPS="${MAX_STEPS:-200}"
 CRITICAL_RHO="${CRITICAL_RHO:-0.7}"
