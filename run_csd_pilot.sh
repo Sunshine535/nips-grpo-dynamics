@@ -26,8 +26,8 @@ else
     exit 1
 fi
 
-# --- HF cache: shared across projects in parent dir ---
-export HF_HOME="${HF_HOME:-$(dirname "$(pwd)")/.cache/hf}"
+# --- HF cache: use shared cache directory ---
+export HF_HOME="/ytech_m2v4_hdd/mengzijie/.cache/hf"
 export TOKENIZERS_PARALLELISM=false
 mkdir -p "$HF_HOME"
 echo "HF_HOME: $HF_HOME"
