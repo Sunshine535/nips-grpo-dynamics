@@ -43,78 +43,109 @@ Under binary verifiable rewards, the GRPO policy gradient decomposes exactly int
 
 ### Theorem 1 (CSD Equivalence)
 
-**Statement.** Let π_θ be trained by GRPO with binary rewards. For a prompt x with group success rate p = n⁺/G, define:
-- τ⁺ = Uniform({y_i : r_i = 1}) — empirical correct distribution
-- τ⁻ = Uniform({y_j : r_j = 0}) — empirical incorrect distribution
+**Statement.** Let π_θ be a policy optimized by GRPO with binary rewards r_i ∈ {0,1} and sequence-level advantage normalization. For a non-degenerate group (0 < p < 1, where p = n⁺/G), define:
+- τ⁺ = Uniform({y_i : r_i = 1}) — empirical correct distribution (fixed w.r.t. θ)
+- τ⁻ = Uniform({y_j : r_j = 0}) — empirical incorrect distribution (fixed w.r.t. θ)
 
-Then the GRPO gradient decomposes as:
+Then the per-prompt GRPO gradient decomposes as:
 
-∇_θ L_GRPO(x) = √(p(1-p)) · [∇_θ KL(τ⁻ ‖ π_θ) − ρ · ∇_θ KL(τ⁺ ‖ π_θ)]
+**(a) Standard GRPO (ρ=1):**
+∇_θ L_GRPO(x) = √(p(1-p)) · [∇_θ KL(τ⁻ ‖ π_θ) − ∇_θ KL(τ⁺ ‖ π_θ)]
 
-where ρ is the positive signal weight.
+**(b) ρ-weighted GRPO (our extension):**
+∇_θ L_ρ(x) = (2/(ρ+1)) · √(p(1-p)) · [∇_θ KL(τ⁻ ‖ π_θ) − ρ · ∇_θ KL(τ⁺ ‖ π_θ)]
+
+For degenerate groups (p ∈ {0, 1}), σ = 0 and the gradient is zero — this is the CSD "zero-success trap."
 
 **Proof.**
-1. Binary advantages: A⁺ = (1−p)/√(p(1−p)) = √((1−p)/p), A⁻ = −√(p/(1−p))
-2. Partition gradient: ∇L = (1/G)[n⁺·A⁺·𝔼_{τ⁺}[∇log π] + n⁻·A⁻·𝔼_{τ⁻}[∇log π]]
-3. Substitute n⁺ = pG, n⁻ = (1−p)G and simplify
-4. Recognize 𝔼_τ[∇_θ log π_θ] = −∇_θ KL(τ ‖ π_θ) + const
-5. Factor √(p(1−p)) to obtain the CSD form □
 
-**Interpretation:** GRPO simultaneously:
-- **Self-distills** (minimizes KL(τ⁺‖π)): pulls policy toward own correct responses
-- **Anti-distills** (maximizes KL(τ⁻‖π)): pushes policy from incorrect responses
+Step 1 (Advantages). Under binary rewards with group mean μ = p and std σ = √(p(1-p)):
+
+  A⁺ = (1−p)/σ = √((1−p)/p),    A⁻ = −p/σ = −√(p/(1−p))
+
+Step 2 (Partition). The GRPO gradient is ∇L = (1/G)Σᵢ Aᵢ ∇_θ log π_θ(yᵢ|x). Partitioning by reward:
+
+  ∇L = (1/G)[n⁺ A⁺ · 𝔼_{τ⁺}[∇log π] + n⁻ A⁻ · 𝔼_{τ⁻}[∇log π]]
+
+where 𝔼_{τ⁺}[f] = (1/n⁺)Σ_{i:rᵢ=1} f(yᵢ) is the empirical average over correct responses.
+
+Step 3 (Simplify). Substituting n⁺ = pG, n⁻ = (1−p)G:
+
+  p · √((1−p)/p) = √(p(1−p)),    (1−p) · √(p/(1−p)) = √(p(1−p))
+
+Therefore: ∇L = √(p(1−p)) · [𝔼_{τ⁺}[∇log π] − 𝔼_{τ⁻}[∇log π]]
+
+Step 4 (KL identity). Since τ⁺ does not depend on θ (it is the empirical distribution over a fixed set of sampled responses):
+
+  ∇_θ KL(τ⁺ ‖ π_θ) = ∇_θ [−H(τ⁺) − 𝔼_{τ⁺}[log π_θ]] = −𝔼_{τ⁺}[∇_θ log π_θ]
+
+  ⟹ 𝔼_{τ⁺}[∇log π] = −∇_θ KL(τ⁺ ‖ π_θ)
+
+(analogously for τ⁻). Substituting:
+
+  ∇L = √(p(1−p)) · [−∇KL(τ⁺‖π) + ∇KL(τ⁻‖π)]
+     = √(p(1−p)) · [∇KL(τ⁻‖π) − ∇KL(τ⁺‖π)]  □
+
+**Interpretation:** GRPO gradient ascent simultaneously:
+- **Self-distills** (decreases KL(τ⁺‖π)): pulls policy toward own correct responses
+- **Anti-distills** (increases KL(τ⁻‖π)): pushes policy from incorrect responses
 - **Signal strength** ∝ √(p(1−p)): maximum at p=0.5, zero at p∈{0,1}
 
-### Extension to Continuous Rewards (Remark 1)
+**Note on scope:** The decomposition is exact for sequence-level advantage normalization. Token-level normalization (as in some TRL configurations) introduces per-token weighting that breaks the uniform τ⁺ assumption.
 
-For continuous rewards r_i ∈ [0,1], define τ_r(y) ∝ r(y) · π_θ(y|x) (reward-reweighted policy). The GRPO gradient has the form:
+### Remark 1 (Continuous Reward Analogy)
 
-∇L ≈ (1/σ_r) · [∇_θ KL(τ_{1-r} ‖ π_θ) − ∇_θ KL(τ_r ‖ π_θ)]
+For continuous rewards r_i ∈ [0,1], the binary partition into τ⁺/τ⁻ does not apply. However, the GRPO gradient can be written as a weighted score function estimator:
 
-Binary is a special case where τ_r collapses to τ⁺. The CSD structure persists for any bounded reward.
+∇L = (1/Gσ_r) Σᵢ (rᵢ − μ_r) ∇log π(yᵢ|x)
 
-### Theorem 2 (CSD Capacity Bound)
+which can be interpreted as distillation from a reward-weighted distribution τ_w(y) ∝ (r(y) − μ_r) over the sample. This **motivates** (but does not prove) a CSD-like interpretation for continuous rewards. The exact KL decomposition is specific to binary rewards.
 
-**Statement.** Let π₀ be the base policy and π_T the policy after T steps of GRPO with group size G. Then:
+### Empirical Prediction 1 (Capacity Bound)
 
-𝔼[acc(π_T)] ≤ pass@G_eff(π₀)
+**Statement (informal).** The accuracy of a GRPO-trained policy π_T is empirically bounded by the base model's pass@k for sufficiently large k. Specifically, we predict:
 
-where G_eff = G · T_eff is the effective sample count (G per step × effective training horizon), and pass@k is the probability that at least one of k independent samples from π₀ is correct.
+acc(π_T) ≲ pass@k(π₀) for k proportional to G · T_eff
 
-**Proof sketch.**
-1. By CSD, π_T distills from τ⁺_t ⊆ supp(π_t) at each step t
-2. τ⁺_t consists of responses that π_t generates correctly — these are already in π₀'s support (RL doesn't add new capabilities, by NeurIPS 2025 BPR)
-3. The distillation concentrates mass on correct responses but cannot create new ones
-4. The effective exploration is bounded by cumulative sampling: T × G rollouts from evolving π_t
-5. Upper bound: pass@(G·T_eff) from the initial policy π₀ □
+**Motivation from CSD:** At each step, GRPO distills from τ⁺_t — the model's own correct responses. Self-distillation concentrates probability mass on existing correct reasoning paths but cannot create fundamentally new ones. This is consistent with the empirical finding of [NeurIPS 2025 BPR] that RLVR does not expand the reasoning boundary.
 
-**Non-trivial prediction:** Increasing group size G raises the capacity ceiling (more diverse τ⁺), but with diminishing returns: ∂²pass@G/∂G² < 0. This predicts that G has an optimal value beyond which compute is wasted.
+**Testable:** Compare acc(π_T) against pass@k(π₀) curves. The bound should be tight for large G.
 
-### Theorem 3 (Closed-Form Optimal ρ)
+**Status:** Empirical prediction, not a formal theorem. A rigorous proof would require assumptions about distributional stability under policy updates.
 
-**Statement.** The optimal ρ that minimizes the gradient variance Var(∇L_CSD) is:
+### Theorem 2 (Closed-Form Optimal ρ)
 
-ρ* = Cov(g⁺, g⁻) / Var(g⁺)
+**Statement.** Let g⁺ = ∇_θ KL(τ⁺‖π_θ) and g⁻ = ∇_θ KL(τ⁻‖π_θ) be treated as random vectors (randomness from group sampling) with E[‖g⁺‖²] < ∞ and Var_s(g⁺) := E[‖g⁺‖²] − ‖E[g⁺]‖² > 0. Define scalar Cov_s(g⁺,g⁻) := E[⟨g⁺ − E[g⁺], g⁻ − E[g⁻]⟩] (scalar covariance via inner product). Then:
 
-where g⁺ = ∇_θ KL(τ⁺‖π) and g⁻ = ∇_θ KL(τ⁻‖π) are the distillation and anti-distillation gradient components.
+ρ* = argmin_{ρ>0} E[‖∇L_ρ − E[∇L_ρ]‖²] = Cov_s(g⁺, g⁻) / Var_s(g⁺)
 
-**Proof.** Var(∇L_CSD) = p(1−p)·[ρ²·Var(g⁺) + Var(g⁻) − 2ρ·Cov(g⁺,g⁻)]. Take ∂/∂ρ = 0 and solve. □
+**Proof.** The ρ-weighted CSD gradient is ∇L_ρ ∝ ρ·g⁺ + g⁻ (up to sign and p-dependent scaling). Its variance (expected squared deviation from mean) is:
 
-**Quantitative prediction:** ρ* is NOT constant — it adapts to the current distillation quality. When g⁺ and g⁻ are highly correlated (good alignment), ρ* is high. When poorly correlated (conflicting signals), ρ* is low. This gives a CLOSED-FORM adaptive schedule derived from CSD.
+  V(ρ) = ρ² Var_s(g⁺) + Var_s(g⁻) + 2ρ Cov_s(g⁺, g⁻)
 
-### Proposition 1 (CSD Collapse Predictor)
+(where the cross-term sign follows from ∇L_ρ ∝ −ρ·g⁺ + g⁻, giving +2ρ·Cov for the mixed term). Setting dV/dρ = 2ρ·Var_s(g⁺) + 2·Cov_s(g⁺,g⁻) = 0:
 
-**Statement.** Define the CSD quality metric at step t:
+  ρ* = −Cov_s(g⁺, g⁻) / Var_s(g⁺)
 
-Q_CSD(t) = H(τ⁺_t) · (n⁺_t / G) · cos(g⁺_t, g⁻_t)
+The sign convention depends on whether CSD is written as (g⁻ − ρg⁺) or (ρg⁺ − g⁻). Under the convention ∇L_ρ ∝ (g⁻ − ρg⁺), we expect Cov_s < 0 (g⁺ and g⁻ point in opposite directions), giving ρ* > 0.
 
-where H(τ⁺) is the entropy of the correct response distribution, n⁺/G is the success rate, and cos(g⁺, g⁻) measures gradient alignment.
+d²V/dρ² = 2·Var_s(g⁺) > 0, confirming this is a minimum. □
 
-Then P(collapse | step t) is monotonically decreasing in Q_CSD(t).
+**Note:** This formula is evaluated at the current θ and does not account for how ρ affects future training dynamics. The online implementation uses EMA estimates of Var_s and Cov_s.
 
-**Prediction:** Q_CSD is computable from a single training step's data. If Q_CSD < Q_crit (model-dependent threshold), the run will collapse. This enables step-0 collapse prediction.
+### Empirical Hypothesis 1 (CSD Quality Predictor)
 
-**Why standard GRPO analysis can't predict this:** Standard analysis uses gradient variance magnitude. CSD uses gradient DIRECTION and teacher QUALITY. The latter captures the distillation-specific failure mode (poor teacher → bad distillation → collapse) that variance alone misses.
+**Definition.** The CSD quality metric at step t:
+
+Q_CSD(t) = H(τ⁺_t) · (n⁺_t / G)
+
+where H(τ⁺) is the entropy of the correct response distribution and n⁺/G is the group success rate.
+
+**Hypothesis:** Early-training Q_CSD (e.g., averaged over steps 0-5) is predictive of eventual training collapse. Higher Q_CSD indicates a more diverse, reliable distillation target and should correlate with convergence.
+
+**Motivation from CSD:** When Q_CSD is low, the self-distillation target τ⁺ is either absent (n⁺=0, zero-success trap) or narrow (low entropy, all correct responses are nearly identical). Both conditions lead to poor or degenerate gradients. Standard GRPO analysis uses gradient variance magnitude, which does not distinguish between "high variance from diverse good solutions" (benign) and "high variance from noisy bad solutions" (harmful). Q_CSD captures this distinction.
+
+**Status:** Empirical hypothesis. Validation requires computing AUROC of Q_CSD as a collapse predictor across multiple seeds and comparing against gradient-variance baseline.
 
 ---
 
