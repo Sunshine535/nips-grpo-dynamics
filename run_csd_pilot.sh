@@ -32,10 +32,19 @@ export TOKENIZERS_PARALLELISM=false
 mkdir -p "$HF_HOME"
 echo "HF_HOME: $HF_HOME"
 
-MODEL="${MODEL:-Qwen/Qwen3.5-9B}"
+# Primary: Qwen2.5-7B-Instruct (known collapse at ρ=1.0, validated baseline)
+# Secondary: Qwen/Qwen3.5-9B (latest model, for scaling verification)
+MODEL="${MODEL:-Qwen/Qwen2.5-7B-Instruct}"
 PILOT="${1:-all}"
 MAX_STEPS="${MAX_STEPS:-200}"
-CRITICAL_RHO="${CRITICAL_RHO:-0.7}"
+# Auto-select critical ρ based on model
+# Qwen2.5-7B-Instruct: ρ=1.0 has 50% collapse (validated)
+# Qwen3.5-9B: ρ=0.7 has 33% collapse (preliminary)
+if [[ "$MODEL" == *"Qwen2.5"* ]]; then
+    CRITICAL_RHO="${CRITICAL_RHO:-1.0}"
+else
+    CRITICAL_RHO="${CRITICAL_RHO:-0.7}"
+fi
 OUTPUT="results/csd_pilot"
 
 if [ "${QUICK:-0}" = "1" ]; then

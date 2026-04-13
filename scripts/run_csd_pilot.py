@@ -8,15 +8,15 @@ Pilot 3: Q_CSD Collapse Predictor — dense seeds at ρ=1.0, compare AUROC
 
 Usage:
   # Run all 3 pilots sequentially on a single GPU
-  python scripts/run_csd_pilot.py --pilot all --model Qwen/Qwen3.5-9B
+  python scripts/run_csd_pilot.py --pilot all --model Qwen/Qwen2.5-7B-Instruct
 
   # Run specific pilot
-  python scripts/run_csd_pilot.py --pilot 1 --model Qwen/Qwen3.5-9B
-  python scripts/run_csd_pilot.py --pilot 2 --model Qwen/Qwen3.5-9B --seeds 5
-  python scripts/run_csd_pilot.py --pilot 3 --model Qwen/Qwen3.5-9B --seeds 10
+  python scripts/run_csd_pilot.py --pilot 1 --model Qwen/Qwen2.5-7B-Instruct
+  python scripts/run_csd_pilot.py --pilot 2 --model Qwen/Qwen2.5-7B-Instruct --seeds 5
+  python scripts/run_csd_pilot.py --pilot 3 --model Qwen/Qwen2.5-7B-Instruct --seeds 10
 
   # Quick test (fewer steps)
-  QUICK=1 python scripts/run_csd_pilot.py --pilot all --model Qwen/Qwen3.5-9B
+  QUICK=1 python scripts/run_csd_pilot.py --pilot all --model Qwen/Qwen2.5-7B-Instruct
 """
 
 import argparse
@@ -60,7 +60,7 @@ def parse_args():
     p.add_argument("--pilot", type=str, default="all",
                    choices=["1", "2", "3", "all",
                             "1_single", "2_single", "3_single", "3_analyze"])
-    p.add_argument("--model", type=str, default="Qwen/Qwen3.5-9B")
+    p.add_argument("--model", type=str, default="Qwen/Qwen2.5-7B-Instruct")
     p.add_argument("--config", type=str, default="configs/rho_sweep.yaml")
     p.add_argument("--output_dir", type=str, default="results/csd_pilot")
     p.add_argument("--max_steps", type=int, default=DEFAULT_MAX_STEPS)
