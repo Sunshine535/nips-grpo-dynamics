@@ -5,7 +5,7 @@
 #   GitHub: https://ghfast.top/ (前缀到原 github URL)
 #   HuggingFace: https://hf-mirror.com
 #
-# 用法（在下载容器 /openbayes/input/input0 执行）:
+# 用法（在下载容器当前目录执行）:
 #   # git clone 用代理:
 #   git clone https://ghfast.top/https://github.com/Sunshine535/nips-grpo-dynamics.git
 #   cd nips-grpo-dynamics
