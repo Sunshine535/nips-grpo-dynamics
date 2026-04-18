@@ -1,0 +1,26 @@
+{
+  "round": 4,
+  "threadId": "019da299-744b-7ac0-a0a6-3a217f5f8ed1",
+  "status": "completed",
+  "difficulty": "nightmare",
+  "last_score": 5.0,
+  "last_verdict": "almost",
+  "score_progression": [
+    {"round": 1, "score": 2, "verdict": "not ready"},
+    {"round": 2, "score": 4, "verdict": "not ready"},
+    {"round": 3, "score": 4, "verdict": "not ready"},
+    {"round": 4, "score": 5, "verdict": "almost"}
+  ],
+  "pending_experiments": [
+    "V14 Qwen3.5-9B/GSM8K ADQ run with rho(t) trajectory",
+    "3-seed sweep at rho in {0.7, 1.0, 3.0}"
+  ],
+  "termination_reason": "max_rounds_reached_compute_gated",
+  "theory_gate_cleared": true,
+  "compute_gates_remaining": [
+    {"name": "Gate 1: Real-model ADQ run", "effort_gpu_days": 0.5, "blocking": true},
+    {"name": "Gate 2: 3-seed confirmatory sweep", "effort_gpu_days": 1.5, "blocking": true},
+    {"name": "Gate 3: Matched-compute baselines", "effort_gpu_days": 5.0, "blocking": false}
+  ],
+  "timestamp": "2026-04-19T23:59:00"
+}

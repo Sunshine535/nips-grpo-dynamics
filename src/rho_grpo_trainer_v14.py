@@ -64,10 +64,16 @@ class RhoGRPOTrainerV14(GRPOTrainer):
     ) -> torch.Tensor:
         """Apply ρ-asymmetric weighting to pre-computed advantages.
 
-        When ``completion_ids`` is provided, we also compute the canonical
-        Q_CSD := H_norm(τ⁺) · (n⁺/G) collapse predictor, where H_norm is the
-        entropy of the empirical correct-response distribution divided by
-        log(n⁺). Without ``completion_ids`` we fall back to H_norm=1 (upper bound).
+        When ``completion_ids`` is provided (normal training path), we also
+        compute the canonical per-group Q_CSD := H_norm(τ⁺) · (n⁺/G) collapse
+        predictor, where H_norm is the entropy of the empirical correct-response
+        distribution divided by log(n⁺), and aggregate it as the batch mean.
+
+        Without ``completion_ids`` we cannot distinguish distinct correct
+        responses from duplicates, so ``h_norm_pos`` is set to 0 and ``q_csd``
+        becomes 0 for that step. Callers that want the optimistic upper bound
+        (``H_norm = 1 ⇒ q_csd = n⁺/(B·G)``) should use
+        :func:`src.csd_logging.compute_step0_qcsd` without completions instead.
         """
         pos_mask = advantages > 0
         neg_mask = advantages < 0

@@ -166,7 +166,7 @@ NOTE: An earlier draft included a `cos(g⁺, g⁻)` third factor; we retract it 
 
 ## Method: ADQ (Adaptive ρ from CSD Variance Minimization)
 
-**Scope (honest):** The CSDPO four-component proposal in our earlier drafts (EA / QW / ADQ / GCR) is **NOT the method we evaluate in this paper**. We retain only the ONE component that is (a) directly derived from Theorem 2, (b) implemented and tested end-to-end, and (c) shown to have measurable effect on training:
+**Scope (honest):** The CSDPO four-component proposal in our earlier drafts (EA / QW / ADQ / GCR) is **NOT the method we evaluate in this paper**. We retain only the ONE component that is (a) directly derived from Theorem 2 and (b) implemented with a CPU-side shape smoke test (10 tests, `tests/test_v14_shapes.py`). A real-model V14 ADQ training run showing `ρ(t)` trajectory on Qwen3.5-9B/GSM8K is pending (compute-gated, not method-gated):
 
 **ADQ (Adaptive ρ from CSD)**:
 - Online estimate of Var_s(g⁺) and Cov_s(g⁺, g⁻) via EMA over training steps

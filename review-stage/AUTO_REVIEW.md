@@ -126,3 +126,109 @@
    - `test_step0_qcsd_bounded` (step-0 utility invariant under B=3)
    All 10 pass on CPU (1.66s).
 4. **Still deferred**: real-model V14 ADQ training run (GPU required, out of cycle); 3-seed statistical confirmation sweep (same).
+
+---
+
+## Round 4 (2026-04-19, FINAL — MAX_ROUNDS reached)
+
+### Assessment (Summary)
+- **Score: 5/10** (up from 4/10)
+- **Verdict: ALMOST**
+- **Reviewer ruling**: "mostly compute-gated, not theory-gated" — remaining
+  blockers are (i) one real Qwen3.5-9B V14 ADQ run with saved `ρ(t)` and
+  (ii) a 3-seed sweep on `ρ ∈ {0.7, 1.0, 3.0}`, plus two hours-level prose
+  fixes. No outstanding theorem defects or controller-design flaws.
+
+### Final-round reviewer findings
+1. FINAL_PROPOSAL.md:169 still said ADQ is "implemented and tested
+   end-to-end" and "shown to have measurable effect on training," which
+   contradicts the rest of the file that says the real-model run is pending.
+2. `_apply_rho_weighting` docstring said the no-`completion_ids` branch
+   falls back to `H_norm=1` upper bound, but implementation returned 0.
+3. ADQ remains unvalidated end-to-end on real model (compute-gated).
+4. ρ sweep remains single-seed (compute-gated).
+
+### Actions taken in Round 4 (commit pending)
+1. Rewrote FINAL_PROPOSAL.md:169 to honestly describe the scope: ADQ is
+   "implemented with a CPU-side shape smoke test (10 tests), real-model
+   V14 ADQ training run showing ρ(t) trajectory on Qwen3.5-9B/GSM8K is
+   pending (compute-gated, not method-gated)."
+2. Rewrote `_apply_rho_weighting` docstring to state the actual behavior:
+   without completions we set `h_norm_pos=0, q_csd=0`, and point callers
+   that want the upper bound to `compute_step0_qcsd` without completions.
+3. Tests re-run post-cleanup: `10 passed in 1.00s`.
+
+### Items explicitly deferred to post-loop (human-driven GPU work)
+- **Gate 1** (0.5-1 GPU day): one V14 Qwen3.5-9B/GSM8K ADQ run with
+  saved `ρ` trajectory, final eval, sanity plot. Until this exists, ADQ
+  cannot be called "validated."
+- **Gate 2** (1-2 GPU days): 3-seed sweep at `ρ ∈ {0.7, 1.0, 3.0}` to
+  turn the single-seed upward tendency into a CI-backed claim.
+- **Gate 3** (3-7 GPU days, optional): matched-compute DAPO/GTPO baselines.
+  Only required if the paper's scope broadens beyond the current narrow
+  "binary-reward GRPO on GSM8K" framing.
+
+---
+
+## Score Progression
+
+| Round | Score | Verdict | Status gate |
+|-------|-------|---------|-------------|
+| 1 | 2/10 | not ready | V14 dim bug + false result provenance + sign inconsistency + over-claimed impl |
+| 2 | 4/10 | not ready | stale overclaims + Q_CSD code/text mismatch + no smoke test |
+| 3 | 4/10 | not ready | Q_CSD batch-bug + monotonic wording + tests single-group-only |
+| 4 | 5/10 | almost | compute-gated (real ADQ run + multi-seed sweep pending) |
+
+## Loop Termination
+
+- Max rounds (4) reached.
+- Not accepted by POSITIVE_THRESHOLD (score < 6 and verdict not in {accept, sufficient, ready}).
+- Verdict "almost" + "compute-gated" ruling indicates the paper is
+  **no longer blocked on theory or implementation** within the scope of
+  what autonomous fixes can reach.
+- Next step: human-driven GPU work on Gates 1 and 2 above. After those,
+  a single follow-up review should close the remaining gap.
+
+---
+
+## Method Description
+
+The method is **ADQ (Adaptive ρ from CSD Variance Minimization)**, a
+drop-in replacement for the fixed ρ hyperparameter in ρ-weighted GRPO
+training with binary verifiable rewards.
+
+**Theoretical anchor.** For binary rewards with sequence-level advantage
+normalization, the per-prompt GRPO gradient admits the estimator-level
+identity (Theorem 1):
+```
+∇L_GRPO(x) = √(p(1−p)) · [∇KL(τ⁻‖π_θ) − ρ · ∇KL(τ⁺‖π_θ)]
+```
+where τ⁺/τ⁻ are empirical uniform distributions over correct/incorrect
+responses in the group, p = n⁺/G is the per-group success rate, and ρ
+is the positive-signal weight. Variance-minimizing choice of ρ
+(Theorem 2):
+```
+ρ* = Cov_s(g⁺, g⁻) / Var_s(g⁺)
+```
+with g⁺ := ∇KL(τ⁺‖π), g⁻ := ∇KL(τ⁻‖π).
+
+**Pipeline.** The trainer `RhoGRPOTrainerV14` (src/rho_grpo_trainer_v14.py)
+reimplements TRL 0.14's `compute_loss` so that:
+1. Standard GRPO forward/reward/advantage computation produces
+   per-response advantages of shape (B·G,).
+2. The AdaBalance controller (src/adabalance.py) consumes rewards +
+   advantages, updates EMA estimates of `V_plus = Var_s(g⁺)` and
+   `C_pG = −Cov_s(g⁺, g⁻)` (binomial-variance proxy), and emits a
+   new `ρ_t = clip(−C_pG/V_plus, [ρ_min, ρ_max])`.
+3. Advantages are ρ-reweighted: positive advantages scale by
+   `2ρ/(ρ+1)`, negative by `2/(ρ+1)`.
+4. The canonical per-group Q_CSD = H_norm(τ⁺) · (n⁺/G) is computed
+   inside the same step from completion-hash entropy and stored in
+   `_rho_step_stats` alongside `h_norm_pos`, `availability`, and the
+   per-group list, for post-hoc collapse-prediction analysis.
+
+**Scope.** The reframing is estimator-level (one gradient step). No claim
+of learning-dynamics equivalence between GRPO and literal
+self-distillation. Experimental evidence in this paper is limited to
+Qwen3.5-9B / GSM8K / LoRA / TRL 0.14 with binary rewards. ADQ is
+compute-gated on a real-model validation run; all other pieces ship.
