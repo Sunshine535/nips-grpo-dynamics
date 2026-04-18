@@ -88,30 +88,48 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         n_deg = int((advantages == 0).sum().item())
 
         # Canonical Q_CSD = H_norm(τ⁺) · (n⁺/G) per FINAL_PROPOSAL.md §"Empirical Hypothesis 1".
-        # τ⁺ := empirical uniform distribution over correct responses in the group.
-        # Collapse to hash-space to count duplicates.
+        # τ⁺ is a *per-group* object (group = G consecutive rows). For a batch of
+        # B groups we compute Q_CSD_b per group and average, so batch Q_CSD ∈ [0, 1].
         G = max(self._ada_group_size, 1)
-        if n_pos >= 2 and completion_ids is not None:
-            pos_completions = completion_ids[pos_mask]
-            if completion_mask is not None:
-                lengths = completion_mask[pos_mask].sum(dim=1).tolist()
+        n_total = advantages.shape[0]
+        n_groups = n_total // G
+        q_csd_per_group = []
+        h_norm_per_group = []
+        avail_per_group = []
+        for b in range(n_groups):
+            sl = slice(b * G, (b + 1) * G)
+            grp_adv = advantages[sl]
+            grp_pos_mask = grp_adv > 0
+            n_pos_b = int(grp_pos_mask.sum().item())
+            avail_b = n_pos_b / G  # ∈ [0, 1] by construction
+            if n_pos_b >= 2 and completion_ids is not None:
+                grp_completions = completion_ids[sl][grp_pos_mask]
+                if completion_mask is not None:
+                    lengths = completion_mask[sl][grp_pos_mask].sum(dim=1).tolist()
+                else:
+                    lengths = [grp_completions.size(1)] * grp_completions.size(0)
+                hashes = [
+                    hash(tuple(row[:int(L)].tolist()))
+                    for row, L in zip(grp_completions, lengths)
+                ]
+                _, counts = np.unique(hashes, return_counts=True)
+                probs = counts / counts.sum()
+                entropy = float(-(probs * np.log(probs)).sum())
+                h_norm_b = entropy / float(np.log(n_pos_b))
             else:
-                lengths = [pos_completions.size(1)] * pos_completions.size(0)
-            hashes = []
-            for row, L in zip(pos_completions, lengths):
-                L = int(L)
-                hashes.append(hash(tuple(row[:L].tolist())))
-            unique, counts = np.unique(hashes, return_counts=True)
-            probs = counts / counts.sum()
-            entropy = float(-(probs * np.log(probs)).sum())
-            h_norm_pos = entropy / float(np.log(n_pos)) if n_pos > 1 else 0.0
-        elif n_pos == 1:
-            h_norm_pos = 0.0  # single correct response → degenerate τ⁺
+                h_norm_b = 0.0
+            q_csd_per_group.append(h_norm_b * avail_b)
+            h_norm_per_group.append(h_norm_b)
+            avail_per_group.append(avail_b)
+
+        if n_groups > 0:
+            h_norm_pos = float(np.mean(h_norm_per_group))
+            availability = float(np.mean(avail_per_group))
+            q_csd = float(np.mean(q_csd_per_group))
         else:
             h_norm_pos = 0.0
-
-        availability = n_pos / G
-        q_csd = h_norm_pos * availability
+            availability = 0.0
+            q_csd = 0.0
 
         self._rho_step_stats.append({
             "step": step,
@@ -119,6 +137,7 @@ class RhoGRPOTrainerV14(GRPOTrainer):
             "n_positive": n_pos,
             "n_negative": n_neg,
             "n_degenerate": n_deg,
+            "n_groups": n_groups,
             "mean_pos_adv": float(advantages[pos_mask].mean()) if n_pos > 0 else 0.0,
             "mean_neg_adv": float(advantages[neg_mask].mean()) if n_neg > 0 else 0.0,
             "normalized_pos_weight": norm_pos_w,
@@ -126,6 +145,7 @@ class RhoGRPOTrainerV14(GRPOTrainer):
             "h_norm_pos": h_norm_pos,
             "availability": availability,
             "q_csd": q_csd,
+            "q_csd_per_group": q_csd_per_group,
         })
 
         return weighted

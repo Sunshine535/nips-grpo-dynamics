@@ -83,7 +83,7 @@ Path: `results/rho_sweep/`
 | 2.5 | 24.0% |
 | **3.0** | **26.0%** |
 
-**Monotonic trend**: higher ρ → higher accuracy on this model/dataset. This validates CSD theoretical prediction that stronger distillation signal (high ρ) should help when task is hard (Qwen3.5-9B base GSM8K is low-accuracy).
+**Upward tendency, NOT monotonic**: higher ρ generally yields higher accuracy on this model/dataset, but the sweep has local dips at ρ=0.7 (18.5%) and ρ=1.5 (21.0%). Treat as exploratory single-seed evidence consistent with CSD's prediction that a stronger distillation signal helps on hard tasks; statistical validation requires ≥3 seeds.
 
 ### Stage 4: Fix Implementation (not yet tested)
 - Created `src/rho_grpo_trainer_v14.py` — rewrites `compute_loss` for TRL 0.14 (computes advantages inline, then applies ρ weighting + feeds AdaBalance)
@@ -101,7 +101,7 @@ Path: `results/rho_sweep/`
 
 ## Pre-Registered Hypotheses from CSD Theory
 
-- **H1**: Higher ρ → higher accuracy (validated by sweep: ρ=0.3→21%, ρ=3.0→26%, monotonic)
+- **H1**: Higher ρ → higher accuracy (partially supported by single-seed sweep: ρ=0.3→21%, ρ=3.0→26%, upward tendency with local dips at ρ=0.7 and ρ=1.5; multi-seed confirmation deferred)
 - **H2**: ADQ should reach final ρ* close to sweep-optimal ρ (ρ=3.0 region)
 - **H3**: ADQ with correct initialization should outperform fixed ρ=1.0 baseline
 - **H4**: Q_CSD early-training signal predicts final accuracy
@@ -122,4 +122,4 @@ Given the current evidence:
 1. Is the CSD theoretical framework sound enough for NeurIPS?
 2. The ADQ controller hasn't been validated end-to-end — is that fatal?
 3. What minimum experimental set would make this publishable?
-4. Does the ρ=monotonic result support or weaken CSD's central story?
+4. Does the single-seed upward-tendency-with-dips ρ result support or weaken CSD's central story?

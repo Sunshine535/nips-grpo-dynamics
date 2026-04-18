@@ -75,8 +75,54 @@
 
 ### Actions Taken in Round 1 (Phase C fixes)
 
-1. **V14 trainer dimensional bug** — fixing...
-2. **Theorem 3 sign** — fixing in FINAL_PROPOSAL.md
-3. **Q_CSD unified definition** — pick one, update all references
-4. **Honest scope downgrade** — retitle, mark EA/QW/GCR as not implemented
-5. **Sync remote results to git** — so Codex can actually verify them
+1. **V14 trainer dimensional bug** — fixed: `rewards_per_func` now allocated at `n_total = len(completions)` (B·G rows) in `src/rho_grpo_trainer_v14.py`.
+2. **Theorem 2 sign** — rewrote the proof cleanly in `refine-logs/FINAL_PROPOSAL.md` with explicit convention; added code-theorem `C_pG` mapping note.
+3. **Q_CSD unified definition** — adopted `Q_CSD := H_norm(τ⁺) · (n⁺/G)` as canonical; retracted the earlier `cos(g⁺,g⁻)` factor with justification.
+4. **Honest scope downgrade** — retitled paper to "Binary-Reward GRPO Admits a CSD Decomposition: A Variance-Minimizing ρ Controller for Qwen3.5-9B on GSM8K"; explicitly marked EA/QW/GCR as not implemented.
+5. **Sync remote results to git** — `results/rho_sweep/*/eval.json` committed for reviewer verification.
+
+---
+
+## Round 2 (2026-04-19)
+
+### Assessment (Summary)
+- **Score: 4/10** (up from 2/10)
+- **Verdict: NOT READY**
+
+### Key Critical Findings (Round 2)
+1. Theorem 2 proof still had a stale "Wait—" artifact.
+2. Middle/end of `FINAL_PROPOSAL.md` still contained old grand thesis claims (Predictive Power of CSD, Unification of 50+ Variants, CSDPO eliminates collapse), inconsistent with the scoped top-of-file.
+3. Q_CSD definition now unified in the paper, but the code (`csd_logging.py:82`) still computed a different proxy.
+4. No V14 smoke test.
+
+### Actions Taken in Round 2 (commit `98c23a2`)
+1. **Q_CSD code alignment**: `src/rho_grpo_trainer_v14.py::_apply_rho_weighting` now computes `H_norm(τ⁺)` from completion-hash entropy and stores it in `_rho_step_stats`; `src/csd_logging.py` just reads the trainer's value.
+2. **Stale overclaims purged**: rewrote `FINAL_PROPOSAL.md` §§"Predictive Power"/"Unification"/"Risks"/"Narrative" as scoped scope-boundary + deferred-future-work sections.
+3. **Sign convention documented in code**: `src/stability_analysis.py::compute_rho_star` docstring explains the `C_pG = -Cov_s` mapping.
+4. **V14 shape smoke test added**: `tests/test_v14_shapes.py` (5 tests: ρ-weighting on B·G advantages, Q_CSD canonical/degenerate/single cases, regression guard for `rewards_per_func` B·G allocation). All pass on CPU (1.43s).
+
+---
+
+## Round 3 (2026-04-19)
+
+### Assessment (Summary)
+- **Score: 4/10** (unchanged — reviewer pointed to a fresh bug introduced by the Round 2 fix)
+- **Verdict: NOT READY**
+
+### Key Critical Findings (Round 3)
+1. **Q_CSD batch-level bug**: with B > 1, `availability = n_pos / G` uses the *group* size, not the batch size → Q_CSD can exceed 1.0 (reviewer reproduced `availability=1.5, q_csd=1.5`). The paper claims `Q_CSD ∈ [0, 1]`.
+2. "Monotonic accuracy-vs-ρ" wording still appeared in prose while the committed sweep has dips at ρ=0.7 (18.5%) and ρ=1.5 (21.0%).
+3. ADQ still unvalidated end-to-end (no real Qwen3.5-9B V14 training run with ρ trajectory). Smoke test is not method validation.
+4. New tests only cover B=1 single-group cases; that is exactly why the batch-normalization bug slipped through.
+
+### Actions Taken in Round 3 (commit pending)
+1. **Q_CSD per-group averaging**: `_apply_rho_weighting` now slices `advantages`, `completion_ids`, `completion_mask` into B groups of G, computes `Q_CSD_b = H_norm(τ⁺_b) · (n⁺_b / G)` per group, and stores both the per-group list and the batch average. Each `avail_b = n⁺_b / G ∈ [0, 1]`, so the batch average is bounded in `[0, 1]` by construction. `src/csd_logging.py::compute_step0_qcsd` gets the same per-group treatment.
+2. **"Monotonic" language removed**: `FINAL_PROPOSAL.md` lines 9, 13, 214, 224 and `review-stage/RESEARCH_SUMMARY.md` lines 86, 104, 125 rewritten to "single-seed upward tendency with local dips at ρ∈{0.7, 1.5}".
+3. **Tests expanded**: `tests/test_v14_shapes.py` now has 10 tests including `TestV14BatchInvariants` class:
+   - `test_q_csd_bounded_by_one_multi_group` (B=2, all correct, distinct → Q_CSD=1.0 exactly)
+   - `test_q_csd_mixed_groups_averages` (B=2, mixed → Q_CSD=0.375)
+   - `test_q_csd_invariant_under_random_batches` (fuzz 100 random batches, assert ∈ [0,1])
+   - `test_trainer_and_step0_qcsd_agree` (trainer ↔ step-0 utility must return the same value on the same data)
+   - `test_step0_qcsd_bounded` (step-0 utility invariant under B=3)
+   All 10 pass on CPU (1.66s).
+4. **Still deferred**: real-model V14 ADQ training run (GPU required, out of cycle); 3-seed statistical confirmation sweep (same).

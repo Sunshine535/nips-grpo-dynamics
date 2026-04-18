@@ -149,3 +149,93 @@ class TestV14Shapes:
             "regression: rewards_per_func no longer uses B*G rows"
         assert "rewards_per_func = torch.zeros(n_total," in text, \
             "regression: rewards_per_func shape regressed"
+
+
+class TestV14BatchInvariants:
+    """Round 3 reviewer: Q_CSD must satisfy [0, 1] in the batch setting (B > 1)."""
+
+    def test_q_csd_bounded_by_one_multi_group(self):
+        """With B=2 groups of G=4 (8 rows), all correct → Q_CSD must not exceed 1."""
+        G = 4
+        stub = _make_stub(group_size=G)
+        advantages = torch.ones(8)  # every row positive
+        completion_ids = torch.arange(1, 41).reshape(8, 5)  # all distinct
+        completion_mask = torch.ones(8, 5, dtype=torch.long)
+        stub._apply_rho_weighting(advantages, completion_ids, completion_mask)
+        stats = stub._rho_step_stats[-1]
+        # Per-group: avail=1.0, H_norm=1.0, Q_CSD_group=1.0 for each of 2 groups
+        assert stats["n_groups"] == 2
+        assert stats["availability"] == pytest.approx(1.0)
+        assert stats["h_norm_pos"] == pytest.approx(1.0)
+        assert stats["q_csd"] == pytest.approx(1.0)
+        assert stats["q_csd"] <= 1.0 + 1e-9
+        for q in stats["q_csd_per_group"]:
+            assert 0.0 <= q <= 1.0 + 1e-9
+
+    def test_q_csd_mixed_groups_averages(self):
+        """Group 1: 3 distinct correct (Q=0.75). Group 2: 1 correct → Q=0. Batch Q=0.375."""
+        G = 4
+        stub = _make_stub(group_size=G)
+        advantages = torch.tensor([1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0, -1.0])
+        completion_ids = torch.tensor([
+            [1, 2, 3, 0, 0], [4, 5, 6, 0, 0], [7, 8, 9, 0, 0], [0, 0, 0, 0, 0],
+            [10, 11, 12, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0],
+        ])
+        completion_mask = torch.ones(8, 5, dtype=torch.long)
+        stub._apply_rho_weighting(advantages, completion_ids, completion_mask)
+        stats = stub._rho_step_stats[-1]
+        # Group 0: n⁺=3 distinct → H_norm=1, avail=3/4 → Q=0.75
+        # Group 1: n⁺=1 → H_norm=0 → Q=0
+        assert stats["q_csd_per_group"][0] == pytest.approx(0.75)
+        assert stats["q_csd_per_group"][1] == pytest.approx(0.0)
+        assert stats["q_csd"] == pytest.approx(0.375)
+
+    def test_q_csd_invariant_under_random_batches(self):
+        """Fuzz: 100 random batches, Q_CSD ∈ [0, 1] must hold."""
+        G = 4
+        rng = np.random.default_rng(0)
+        stub = _make_stub(group_size=G)
+        for _ in range(100):
+            B = int(rng.integers(1, 5))
+            n = B * G
+            advantages = torch.tensor(
+                rng.choice([-1.0, 1.0], size=n).astype(np.float32)
+            )
+            completion_ids = torch.randint(0, 50, (n, 6))
+            completion_mask = torch.ones(n, 6, dtype=torch.long)
+            stub._apply_rho_weighting(advantages, completion_ids, completion_mask)
+            stats = stub._rho_step_stats[-1]
+            assert 0.0 <= stats["q_csd"] <= 1.0 + 1e-9, stats
+
+    def test_trainer_and_step0_qcsd_agree(self):
+        """Trainer-side Q_CSD and compute_step0_qcsd must agree on the same data."""
+        from src.csd_logging import compute_step0_qcsd
+        G = 4
+        stub = _make_stub(group_size=G)
+        advantages = torch.tensor([1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0, -1.0])
+        completion_ids = torch.tensor([
+            [1, 2, 3, 0], [4, 5, 6, 0], [7, 8, 9, 0], [0, 0, 0, 0],
+            [0, 0, 0, 0], [10, 11, 12, 0], [0, 0, 0, 0], [0, 0, 0, 0],
+        ])
+        completion_mask = torch.ones(8, 4, dtype=torch.long)
+        stub._apply_rho_weighting(advantages, completion_ids, completion_mask)
+        trainer_q = stub._rho_step_stats[-1]["q_csd"]
+
+        rewards_np = np.where(advantages.numpy() > 0, 1.0, 0.0)
+        step0_q = compute_step0_qcsd(rewards_np, G, completion_ids.numpy())
+        assert trainer_q == pytest.approx(step0_q, abs=1e-6), \
+            f"trainer Q_CSD={trainer_q} vs. step-0 Q_CSD={step0_q}"
+
+    def test_step0_qcsd_bounded(self):
+        """compute_step0_qcsd must also respect [0, 1] under B > 1."""
+        from src.csd_logging import compute_step0_qcsd
+        G = 4
+        rewards = np.ones(12)  # 3 groups × 4 responses, all correct
+        completion_ids = np.arange(12 * 5).reshape(12, 5)  # all distinct
+        q = compute_step0_qcsd(rewards, G, completion_ids)
+        assert 0.0 <= q <= 1.0 + 1e-9
+        assert q == pytest.approx(1.0)
+
+        # No completion_ids → H_norm=1 upper bound; with all correct it should be 1.0 exactly
+        q_ub = compute_step0_qcsd(rewards, G, None)
+        assert q_ub == pytest.approx(1.0)

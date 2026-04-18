@@ -144,21 +144,37 @@ def compute_step0_qcsd(
 ) -> float:
     """Compute canonical Q_CSD = H_norm(τ⁺) · (n⁺/G) from step-0 rollouts.
 
-    If ``completion_ids`` is supplied, H_norm(τ⁺) is computed from the entropy
-    of the empirical correct-response distribution; otherwise we return the
-    optimistic upper bound (H_norm=1 → Q_CSD = n⁺/G).
+    τ⁺ is a *per-group* object. For a batch of B·G rewards (B groups of
+    G consecutive rollouts) we compute Q_CSD per group and average, so the
+    returned value is bounded in [0, 1].
+
+    If ``completion_ids`` is supplied, H_norm(τ⁺) is computed from the
+    entropy of the empirical correct-response distribution; otherwise we
+    return the optimistic upper bound (H_norm = 1 ⇒ Q_CSD = n⁺/G).
     """
     rewards = np.asarray(rewards)
-    n_pos = int((rewards > 0).sum())
-    availability = n_pos / max(group_size, 1)
-    if n_pos < 2:
+    G = max(group_size, 1)
+    n_total = len(rewards)
+    n_groups = n_total // G
+    if n_groups == 0:
         return 0.0
-    if completion_ids is None:
-        return availability  # upper bound (H_norm = 1)
-    pos_rows = completion_ids[np.asarray(rewards) > 0]
-    hashes = [hash(tuple(row.tolist())) for row in pos_rows]
-    _, counts = np.unique(hashes, return_counts=True)
-    probs = counts / counts.sum()
-    entropy = float(-(probs * np.log(probs)).sum())
-    h_norm = entropy / float(np.log(n_pos)) if n_pos > 1 else 0.0
-    return h_norm * availability
+    per_group = []
+    for b in range(n_groups):
+        sl = slice(b * G, (b + 1) * G)
+        r_b = rewards[sl]
+        n_pos_b = int((r_b > 0).sum())
+        avail_b = n_pos_b / G  # ∈ [0, 1]
+        if n_pos_b < 2:
+            per_group.append(0.0)
+            continue
+        if completion_ids is None:
+            per_group.append(avail_b)  # upper bound (H_norm = 1)
+            continue
+        pos_rows = np.asarray(completion_ids)[sl][r_b > 0]
+        hashes = [hash(tuple(row.tolist())) for row in pos_rows]
+        _, counts = np.unique(hashes, return_counts=True)
+        probs = counts / counts.sum()
+        entropy = float(-(probs * np.log(probs)).sum())
+        h_norm = entropy / float(np.log(n_pos_b))
+        per_group.append(h_norm * avail_b)
+    return float(np.mean(per_group))
