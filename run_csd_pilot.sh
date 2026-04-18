@@ -18,18 +18,30 @@ cd "$(dirname "$0")"
 source scripts/gpu_utils.sh
 auto_setup
 
-# Activate venv
+# Activate venv (or use base env)
 if [ -f .venv/bin/activate ]; then
     source .venv/bin/activate
 else
-    echo "ERROR: .venv not found. Run: bash setup.sh"
-    exit 1
+    echo "Using base env (.venv not found)"
 fi
 
-# --- HF cache: use shared cache directory ---
-export HF_HOME="/ytech_m2v4_hdd/mengzijie/.cache/hf"
+# --- HF cache: auto-detect and FORCE override any existing HF_HOME env var ---
+if [ -d /openbayes/input/input0/hub ]; then
+    export HF_HOME="/openbayes/input/input0"
+elif [ -d /ytech_m2v4_hdd/mengzijie/.cache/hf/hub ]; then
+    export HF_HOME="/ytech_m2v4_hdd/mengzijie/.cache/hf"
+fi
+export HF_HUB_CACHE="$HF_HOME/hub"
+export HF_DATASETS_CACHE="$HF_HOME/datasets"
+export TRANSFORMERS_CACHE="$HF_HOME/hub"
+export HF_ENDPOINT="${HF_ENDPOINT:-https://hf-mirror.com}"
+export HF_HUB_ENABLE_HF_TRANSFER="${HF_HUB_ENABLE_HF_TRANSFER:-0}"
 export TOKENIZERS_PARALLELISM=false
-mkdir -p "$HF_HOME"
+# Offline mode — prevent hangs on no-internet servers
+export HF_HUB_OFFLINE="${HF_HUB_OFFLINE:-1}"
+export TRANSFORMERS_OFFLINE="${TRANSFORMERS_OFFLINE:-1}"
+export HF_DATASETS_OFFLINE="${HF_DATASETS_OFFLINE:-1}"
+mkdir -p "$HF_HOME" "$HF_HUB_CACHE" "$HF_DATASETS_CACHE"
 echo "HF_HOME: $HF_HOME"
 
 # Primary: Qwen2.5-7B-Instruct (known collapse at ρ=1.0, validated baseline)
@@ -128,58 +140,56 @@ run_pilot2() {
     local P2_DIR="$OUTPUT/pilot2_adq_collapse"
     mkdir -p "$P2_DIR"
 
-    local n_seeds="${SEEDS_P2:-5}"
-    [ "${QUICK:-0}" = "1" ] && n_seeds=3
+    # 默认用满所有 GPU: 一半跑 constant, 一半跑 ADQ
+    local half=$(( NUM_GPUS / 2 ))
+    local n_seeds="${SEEDS_P2:-$half}"
+    [ "${QUICK:-0}" = "1" ] && n_seeds="${SEEDS_P2:-$half}"
 
     local rho_fmt=$(printf "%.2f" "$CRITICAL_RHO")
-    echo "  Critical ρ=$CRITICAL_RHO, seeds=$n_seeds"
+    echo "  Critical ρ=$CRITICAL_RHO, seeds=$n_seeds (per phase)"
+    echo "  Parallel: $(( n_seeds * 2 )) runs on $NUM_GPUS GPUs"
 
-    # Phase A: constant ρ
-    echo "  --- Phase A: constant ρ=$CRITICAL_RHO ---"
+    # Phase A + B 并行启动（constant 占 GPU 0..half-1, ADQ 占 half..NUM_GPUS-1）
     local pids=()
-    local gpu_idx=0
-    for ((s=42; s<42+n_seeds; s++)); do
+
+    # Phase A: constant ρ on first half GPUs
+    echo "  --- Launching Phase A (constant) on GPU 0..$((half-1)) ---"
+    for ((i=0; i<n_seeds; i++)); do
+        local s=$(( 42 + i ))
+        local gpu=$(( i % half ))
         local run_dir="$P2_DIR/rho${rho_fmt}_seed${s}"
         if [ -f "$run_dir/pilot_results.json" ]; then
             echo "  [skip] const seed=$s already done"
             continue
         fi
-        echo "  [launch] const ρ=$CRITICAL_RHO seed=$s → GPU $(get_gpu_id $gpu_idx)"
-        run_one $gpu_idx "$P2_DIR/log_const_seed${s}.txt" \
+        echo "  [launch] const seed=$s → GPU $(get_gpu_id $gpu)"
+        run_one $gpu "$P2_DIR/log_const_seed${s}.txt" \
             --pilot 2_single --model "$MODEL" --max_steps "$MAX_STEPS" \
             --output_dir "$P2_DIR" --rho "$CRITICAL_RHO" --seed_start "$s" \
             $VLLM_FLAG &
         pids+=($!)
-        gpu_idx=$(( (gpu_idx + 1) % NUM_GPUS ))
-        if [ ${#pids[@]} -ge "$NUM_GPUS" ]; then
-            wait "${pids[0]}" || true
-            pids=("${pids[@]:1}")
-        fi
     done
-    for pid in "${pids[@]}"; do wait "$pid" || true; done
 
-    # Phase B: ADQ
-    echo "  --- Phase B: ADQ ---"
-    pids=()
-    gpu_idx=0
-    for ((s=42; s<42+n_seeds; s++)); do
+    # Phase B: ADQ on second half GPUs
+    echo "  --- Launching Phase B (ADQ) on GPU $half..$((NUM_GPUS-1)) ---"
+    for ((i=0; i<n_seeds; i++)); do
+        local s=$(( 42 + i ))
+        local gpu=$(( half + (i % half) ))
         local run_dir="$P2_DIR/rho${rho_fmt}_seed${s}_adq"
         if [ -f "$run_dir/pilot_results.json" ]; then
             echo "  [skip] ADQ seed=$s already done"
             continue
         fi
-        echo "  [launch] ADQ seed=$s → GPU $(get_gpu_id $gpu_idx)"
-        run_one $gpu_idx "$P2_DIR/log_adq_seed${s}.txt" \
+        echo "  [launch] ADQ seed=$s → GPU $(get_gpu_id $gpu)"
+        run_one $gpu "$P2_DIR/log_adq_seed${s}.txt" \
             --pilot 2_single --model "$MODEL" --max_steps "$MAX_STEPS" \
             --output_dir "$P2_DIR" --rho "$CRITICAL_RHO" --seed_start "$s" --use_adq \
             $VLLM_FLAG &
         pids+=($!)
-        gpu_idx=$(( (gpu_idx + 1) % NUM_GPUS ))
-        if [ ${#pids[@]} -ge "$NUM_GPUS" ]; then
-            wait "${pids[0]}" || true
-            pids=("${pids[@]:1}")
-        fi
     done
+
+    # Wait for all parallel jobs
+    echo "  --- Waiting for ${#pids[@]} parallel runs ---"
     for pid in "${pids[@]}"; do wait "$pid" || true; done
 
     # Summary: glob all pilot_results.json, regardless of rho format

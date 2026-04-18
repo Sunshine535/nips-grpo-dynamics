@@ -22,11 +22,12 @@ _patched = False
 
 
 def apply_torch_compat_patch():
-    """Patch torch.distributed.fsdp to provide FSDPModule stub if missing."""
+    """Patch torch.distributed.fsdp + vllm.distributed.utils for cross-version support."""
     global _patched
     if _patched:
         return
 
+    # --- FSDPModule stub for PyTorch < 2.6 ---
     try:
         from torch.distributed.fsdp import FSDPModule  # noqa: F401
         logger.debug("FSDPModule available natively (PyTorch >= 2.6)")
@@ -34,22 +35,34 @@ def apply_torch_compat_patch():
         import torch
         import torch.distributed.fsdp as fsdp_module
 
-        # Create a dummy FSDPModule class
         class FSDPModule(torch.nn.Module):
             """Stub for PyTorch < 2.6 compatibility."""
             pass
 
-        # Inject into the fsdp module
         fsdp_module.FSDPModule = FSDPModule
-
-        # Also patch the specific import path TRL uses
         if hasattr(fsdp_module, '__all__'):
             if 'FSDPModule' not in fsdp_module.__all__:
                 fsdp_module.__all__.append('FSDPModule')
+        logger.info("Patched torch.distributed.fsdp.FSDPModule stub (PyTorch %s)", torch.__version__)
 
-        logger.info(
-            "Patched torch.distributed.fsdp.FSDPModule stub "
-            "(PyTorch %s < 2.6, FSDP2 not available)", torch.__version__
-        )
+    # --- StatelessProcessGroup stub for vllm < 0.7 ---
+    try:
+        from vllm.distributed.utils import StatelessProcessGroup  # noqa: F401
+        logger.debug("vllm StatelessProcessGroup available")
+    except (ImportError, Exception):
+        try:
+            import vllm.distributed.utils as vllm_utils
+
+            class StatelessProcessGroup:
+                """Stub for vllm < 0.7 compatibility. Not functional — only for import."""
+                def __init__(self, *a, **kw):
+                    raise RuntimeError("StatelessProcessGroup stub — install vllm>=0.7 for actual use")
+
+            vllm_utils.StatelessProcessGroup = StatelessProcessGroup
+            logger.info("Patched vllm.distributed.utils.StatelessProcessGroup stub")
+        except ImportError:
+            # vllm not installed — DON'T inject fake (breaks trl's _is_package_available check).
+            # Just leave it; trl 0.15.x handles missing vllm gracefully via OptionalDependency.
+            logger.info("vllm not installed; trl will use its OptionalDependency path")
 
     _patched = True

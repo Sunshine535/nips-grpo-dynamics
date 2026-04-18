@@ -27,6 +27,19 @@ import sys
 import time
 from pathlib import Path
 
+# Offline + cache config for openbayes/tju-hpc (no internet)
+os.environ.setdefault('HF_HUB_OFFLINE', '1')
+os.environ.setdefault('TRANSFORMERS_OFFLINE', '1')
+os.environ.setdefault('HF_DATASETS_OFFLINE', '1')
+if os.path.isdir('/openbayes/input/input0/hub'):
+    os.environ.setdefault('HF_HOME', '/openbayes/input/input0')
+    os.environ.setdefault('HF_HUB_CACHE', '/openbayes/input/input0/hub')
+    os.environ.setdefault('HF_DATASETS_CACHE', '/openbayes/input/input0/datasets')
+    os.environ.setdefault('TRANSFORMERS_CACHE', '/openbayes/input/input0/hub')
+elif os.path.isdir('/ytech_m2v4_hdd/mengzijie/.cache/hf'):
+    os.environ.setdefault('HF_HOME', '/ytech_m2v4_hdd/mengzijie/.cache/hf')
+os.environ.setdefault('TOKENIZERS_PARALLELISM', 'false')
+
 import numpy as np
 import torch
 import yaml
@@ -90,14 +103,30 @@ def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, us
     import re
     _pattern = re.compile(r"####\s*(-?[\d,]+\.?\d*)")
 
+    # Test if tokenizer supports enable_thinking=False (Qwen3.5 does)
+    _supports_thinking_toggle = False
+    try:
+        test_msgs = [{"role": "user", "content": "test"}]
+        tokenizer.apply_chat_template(test_msgs, add_generation_prompt=True, tokenize=False, enable_thinking=False)
+        _supports_thinking_toggle = True
+        logger.info("Tokenizer supports enable_thinking=False (Qwen3/3.5 thinking mode disabled)")
+    except TypeError:
+        logger.info("Tokenizer does not support enable_thinking param (standard model)")
+
     def format_prompt(example):
         answer_match = _pattern.search(example["answer"])
         answer = answer_match.group(1).replace(",", "") if answer_match else ""
+        msgs = [
+            {"role": "system", "content": "You are a math tutor. Solve problems step by step. Write your final numerical answer after ####."},
+            {"role": "user", "content": f"Question: {example['question']}"},
+        ]
+        # Pre-render prompt string to bypass TRL's default template call (which would enable thinking)
+        kwargs = {"add_generation_prompt": True, "tokenize": False}
+        if _supports_thinking_toggle:
+            kwargs["enable_thinking"] = False
+        prompt_str = tokenizer.apply_chat_template(msgs, **kwargs)
         return {
-            "prompt": [
-                {"role": "system", "content": "You are a math tutor. Solve problems step by step. Write your final numerical answer after ####. Do not use <think> tags."},
-                {"role": "user", "content": f"Question: {example['question']}"},
-            ],
+            "prompt": prompt_str,
             "answer": answer,
         }
 
@@ -125,7 +154,9 @@ def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, us
         weight_decay=tcfg["weight_decay"],
         max_grad_norm=tcfg["max_grad_norm"],
         bf16=tcfg["bf16"],
-        gradient_checkpointing=tcfg.get("gradient_checkpointing", True),
+        # CRITICAL: gradient_checkpointing=True corrupts rollout in TRL 0.14
+        # → token loops (ToToTo). Always disable for GRPO with this stack.
+        gradient_checkpointing=False,
         logging_steps=max(1, tcfg["logging_steps"]),
         save_steps=max_steps + 1,  # Don't save checkpoints in pilot
         save_total_limit=1,
@@ -143,13 +174,18 @@ def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, us
         import flash_attn  # noqa: F401
         attn_impl = "flash_attention_2"
     except ImportError:
-        attn_impl = "sdpa"
+        # SDPA breaks on PyTorch 2.4 + transformers 5.x Qwen3.5 (non-contiguous bias)
+        attn_impl = "eager"
 
     model = AutoModelForCausalLM.from_pretrained(
         model_name, torch_dtype=torch.bfloat16,
         attn_implementation=attn_impl, trust_remote_code=True, device_map=None,
     )
     patch_model_instance(model)
+
+    # Compat: TRL 0.14 expects `warnings_issued` dict (transformers 4.x) — stub for transformers 5.x
+    if not hasattr(model, 'warnings_issued'):
+        model.warnings_issued = {}
 
     lora_cfg = cfg.get("lora", {})
     peft_config = LoraConfig(
@@ -181,26 +217,27 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
     reward_fn = build_gsm8k_binary_reward_function()
     rope_cb = ClearRopeDeltasCallback()
 
+    # Use V14 trainer (compatible with TRL 0.14's inline-advantage compute_loss)
+    from src.rho_grpo_trainer_v14 import RhoGRPOTrainerV14
+    controller = None
     if use_adq:
         ada_config = AdaBalanceConfig(
             K=10, tau=0.15, rho_init=rho, warmup_steps=10,
             rho_min_floor=0.3, rho_max_ceil=10.0,
         )
         controller = AdaBalanceController(ada_config)
-        trainer = AdaBalanceGRPOTrainer(
-            model=model, args=training_config, train_dataset=dataset,
-            processing_class=tokenizer, reward_funcs=reward_fn,
-            peft_config=peft_config, rho=rho, controller=controller,
-            group_size=G, kl_coef=kl_coef, clip_range=clip_range,
-            callbacks=[rope_cb],
-        )
-    else:
-        trainer = RhoGRPOTrainer(
-            model=model, args=training_config, train_dataset=dataset,
-            processing_class=tokenizer, reward_funcs=reward_fn,
-            peft_config=peft_config, rho=rho,
-            callbacks=[rope_cb],
-        )
+
+    trainer = RhoGRPOTrainerV14(
+        model=model, args=training_config, train_dataset=dataset,
+        processing_class=tokenizer, reward_funcs=reward_fn,
+        peft_config=peft_config,
+        rho=rho,
+        controller=controller,
+        group_size_for_ada=G,
+        ada_kl_coef=kl_coef,
+        ada_clip_range=clip_range,
+        callbacks=[rope_cb],
+    )
 
     # Add CSD logging
     csd_cb = CSDLoggingCallback(group_size=G)

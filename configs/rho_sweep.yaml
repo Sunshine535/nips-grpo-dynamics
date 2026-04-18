@@ -11,17 +11,17 @@ model:
 training:
   num_train_epochs: 2
   per_device_train_batch_size: 2
-  gradient_accumulation_steps: 4
+  gradient_accumulation_steps: 2
   learning_rate: 1.0e-4
   warmup_ratio: 0.05
   weight_decay: 0.01
   max_grad_norm: 1.0
   bf16: true
-  logging_steps: 5
+  logging_steps: 1
   save_steps: 100
-  num_generations: 4
+  num_generations: 2
   max_prompt_length: 256
-  max_completion_length: 512
+  max_completion_length: 256
   gradient_checkpointing: true
   kl_coef: 0.05
   clip_range: 0.2

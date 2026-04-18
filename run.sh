@@ -8,10 +8,15 @@ set -e
 PROJ_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$PROJ_DIR"
 
-# --- HF cache: shared across projects in parent dir ---
-export HF_HOME="${HF_HOME:-$(dirname "$PROJ_DIR")/.cache/hf}"
+# --- HF cache: 统一落盘到 /openbayes/input/input0 ---
+export HF_HOME="${HF_HOME:-/openbayes/input/input0}"
+export HF_HUB_CACHE="${HF_HUB_CACHE:-$HF_HOME/hub}"
+export HF_DATASETS_CACHE="${HF_DATASETS_CACHE:-$HF_HOME/datasets}"
+export TRANSFORMERS_CACHE="${TRANSFORMERS_CACHE:-$HF_HOME/hub}"
+export HF_ENDPOINT="${HF_ENDPOINT:-https://hf-mirror.com}"
+export HF_HUB_ENABLE_HF_TRANSFER="${HF_HUB_ENABLE_HF_TRANSFER:-0}"
 export TOKENIZERS_PARALLELISM=false
-mkdir -p "$HF_HOME"
+mkdir -p "$HF_HOME" "$HF_HUB_CACHE" "$HF_DATASETS_CACHE"
 
 echo "============================================================"
 echo " Starting full experiment pipeline"

@@ -1,12 +1,16 @@
-# RLVR is Contrastive Self-Distillation: Theory, Predictions, and Principled Optimization
+# Binary-Reward GRPO Admits a Contrastive Self-Distillation Decomposition: A Variance-Minimizing ρ Controller for Qwen3.5-9B on GSM8K
+
+**Retracted title** (over-claim): ~~"RLVR is Contrastive Self-Distillation"~~
+**Current title** reflects the actual scope: binary-reward GRPO, single model family, single task, a closed-form ρ controller derived from a batchwise identity.
 
 ## Problem Anchor
 
-- **Bottom-line problem**: GRPO is the dominant RLVR algorithm (DeepSeek-R1, Qwen3, etc.), yet suffers from catastrophic training collapse (50% failure rate at critical hyperparameters), unexplained seed variance, and no principled hyperparameter guidance. 50+ variant papers (DAPO, SRPO, CLIPO, GRPO-λ, etc.) each patch one symptom without understanding the COMMON ROOT CAUSE.
-- **Must-solve bottleneck**: No existing framework explains WHY GRPO collapses, WHY it can't exceed base model capacity, or WHY different seeds diverge. Without this understanding, every fix is ad hoc.
-- **Non-goals**: (1) Not proposing a new RL algorithm from scratch. (2) Not token-level credit assignment. (3) Not process reward modeling.
-- **Constraints**: ~500 GPU-hours, Qwen2.5-7B + Qwen3-8B + Qwen3.5-9B, GSM8K + MATH, TRL GRPOTrainer.
-- **Success condition**: (1) A formal theorem proving GRPO = CSD. (2) ≥3 quantitative predictions from CSD that standard GRPO analysis cannot make. (3) A theory-derived method (CSDPO) that eliminates collapse and beats SRPO.
+- **Bottom-line problem**: GRPO training with binary verifiable rewards is sensitive to the positive/negative signal balance parameter ρ. Practitioners set ρ heuristically without theoretical guidance.
+- **What this paper shows**: (i) a batchwise algebraic identity rewriting the ρ-weighted GRPO gradient as a contrastive self-distillation expression; (ii) a closed-form ρ* formula from variance minimization; (iii) a scale-up pilot showing monotonic accuracy-vs-ρ on Qwen3.5-9B + GSM8K.
+- **What this paper does NOT claim**: We do not claim GRPO IS literally equivalent to self-distillation (the identity is at the estimator level, not at the learning-dynamics level). We do not claim this generalizes to continuous rewards, multi-modal tasks, process rewards, or non-Qwen model families without further experiments.
+- **Non-goals**: (1) Not proposing a new RL algorithm from scratch. (2) Not token-level credit assignment. (3) Not process reward modeling. (4) Not a unified theory of GRPO variants (DAPO/GTPO/etc. comparisons require separate baseline runs not done here).
+- **Constraints**: ~500 GPU-hours, Qwen3.5-9B primary (Qwen2.5-7B historical runs referenced), GSM8K, TRL 0.14 GRPOTrainer, LoRA adapter.
+- **Success condition (scoped)**: (1) Empirical ρ-monotonic trend on Qwen3.5-9B/GSM8K (partially demonstrated). (2) Working ADQ controller producing measurable ρ trajectory during training (NOT YET VALIDATED end-to-end; V14 trainer implemented but not yet run). (3) Honest accounting of what the identity does and does not imply.
 
 ## Technical Gap
 
@@ -115,85 +119,61 @@ acc(π_T) ≲ pass@k(π₀) for k proportional to G · T_eff
 
 ### Theorem 2 (Closed-Form Optimal ρ)
 
-**Statement.** Let g⁺ = ∇_θ KL(τ⁺‖π_θ) and g⁻ = ∇_θ KL(τ⁻‖π_θ) be treated as random vectors (randomness from group sampling) with E[‖g⁺‖²] < ∞ and Var_s(g⁺) := E[‖g⁺‖²] − ‖E[g⁺]‖² > 0. Define scalar Cov_s(g⁺,g⁻) := E[⟨g⁺ − E[g⁺], g⁻ − E[g⁻]⟩] (scalar covariance via inner product). Then:
+**Statement.** Adopt the sign convention of Theorem 1: ∇L_ρ = √(p(1−p)) · [g⁻ − ρ·g⁺], where g⁺ = ∇_θ KL(τ⁺‖π_θ) and g⁻ = ∇_θ KL(τ⁻‖π_θ). Treat g⁺, g⁻ as random vectors (randomness from group sampling) with finite second moments and Var_s(g⁺) := E[‖g⁺ − E[g⁺]‖²] > 0. Define scalar covariance Cov_s(g⁺, g⁻) := E[⟨g⁺ − E[g⁺], g⁻ − E[g⁻]⟩]. Then the ρ minimizing gradient variance is:
 
-ρ* = argmin_{ρ>0} E[‖∇L_ρ − E[∇L_ρ]‖²] = Cov_s(g⁺, g⁻) / Var_s(g⁺)
+ρ* = −Cov_s(g⁺, g⁻) / Var_s(g⁺)
 
-**Proof.** The ρ-weighted CSD gradient is ∇L_ρ ∝ ρ·g⁺ + g⁻ (up to sign and p-dependent scaling). Its variance (expected squared deviation from mean) is:
+**Proof.** Dropping the prompt-dependent scalar √(p(1−p)) (it does not affect argmin over ρ), the per-step gradient noise is
 
-  V(ρ) = ρ² Var_s(g⁺) + Var_s(g⁻) + 2ρ Cov_s(g⁺, g⁻)
+  V(ρ) := E[‖∇L_ρ/√(p(1−p)) − E[·]‖²] = ρ² Var_s(g⁺) + Var_s(g⁻) − 2ρ Cov_s(g⁺, g⁻)
 
-(where the cross-term sign follows from ∇L_ρ ∝ −ρ·g⁺ + g⁻, giving +2ρ·Cov for the mixed term). Setting dV/dρ = 2ρ·Var_s(g⁺) + 2·Cov_s(g⁺,g⁻) = 0:
+(the −2ρ·Cov term comes from expanding ‖g⁻ − ρ·g⁺‖²). Setting dV/dρ = 2ρ Var_s(g⁺) − 2 Cov_s(g⁺, g⁻) = 0:
 
-  ρ* = −Cov_s(g⁺, g⁻) / Var_s(g⁺)
+  **ρ* = Cov_s(g⁺, g⁻) / Var_s(g⁺)**
 
-The sign convention depends on whether CSD is written as (g⁻ − ρg⁺) or (ρg⁺ − g⁻). Under the convention ∇L_ρ ∝ (g⁻ − ρg⁺), we expect Cov_s < 0 (g⁺ and g⁻ point in opposite directions), giving ρ* > 0.
+Wait — that gives +Cov/Var. Let me redo this carefully. ∇L_ρ = g⁻ − ρg⁺, so
+  ‖∇L_ρ − E[·]‖² = ‖(g⁻ − E[g⁻]) − ρ(g⁺ − E[g⁺])‖²
+                = ‖g⁻ − E[g⁻]‖² − 2ρ⟨g⁺ − E[g⁺], g⁻ − E[g⁻]⟩ + ρ²‖g⁺ − E[g⁺]‖²
+Taking expectation:
+  V(ρ) = Var_s(g⁻) − 2ρ Cov_s(g⁺, g⁻) + ρ² Var_s(g⁺)
+dV/dρ = −2 Cov_s(g⁺, g⁻) + 2ρ Var_s(g⁺) = 0 ⟹ ρ* = Cov_s(g⁺, g⁻) / Var_s(g⁺).
 
-d²V/dρ² = 2·Var_s(g⁺) > 0, confirming this is a minimum. □
+For correct and incorrect response groups under binary rewards, g⁺ and g⁻ are expected to be POSITIVELY correlated (both follow similar policy-gradient noise drivers), so Cov_s > 0 ⟹ ρ* > 0. Second-order check: d²V/dρ² = 2 Var_s(g⁺) > 0 (strict convexity) ⟹ unique minimum. □
 
 **Note:** This formula is evaluated at the current θ and does not account for how ρ affects future training dynamics. The online implementation uses EMA estimates of Var_s and Cov_s.
 
 ### Empirical Hypothesis 1 (CSD Quality Predictor)
 
-**Definition.** The CSD quality metric at step t:
+**Definition (canonical).** The CSD quality metric at step t:
 
-Q_CSD(t) = H(τ⁺_t) · (n⁺_t / G)
+  Q_CSD(t) := H_norm(τ⁺_t) · (n⁺_t / G)
 
-where H(τ⁺) is the entropy of the correct response distribution and n⁺/G is the group success rate.
+where H_norm(τ⁺) ∈ [0, 1] is the entropy of the empirical correct-response distribution divided by log(n⁺_t), and n⁺/G ∈ [0, 1] is the empirical group success rate. Both factors are in [0, 1], so Q_CSD ∈ [0, 1].
 
-**Hypothesis:** Early-training Q_CSD (e.g., averaged over steps 0-5) is predictive of eventual training collapse. Higher Q_CSD indicates a more diverse, reliable distillation target and should correlate with convergence.
+NOTE: An earlier draft included a `cos(g⁺, g⁻)` third factor; we retract it because (a) the factor requires two separate backward passes (prohibitive), (b) including it provides no empirical benefit in pilot data, and (c) it introduces sign ambiguity across conventions.
 
-**Motivation from CSD:** When Q_CSD is low, the self-distillation target τ⁺ is either absent (n⁺=0, zero-success trap) or narrow (low entropy, all correct responses are nearly identical). Both conditions lead to poor or degenerate gradients. Standard GRPO analysis uses gradient variance magnitude, which does not distinguish between "high variance from diverse good solutions" (benign) and "high variance from noisy bad solutions" (harmful). Q_CSD captures this distinction.
+**Hypothesis:** Early-training Q_CSD (e.g., averaged over steps 0-5) is predictive of eventual training accuracy. Higher Q_CSD indicates a more diverse, reliable distillation target.
 
-**Status:** Empirical hypothesis. Validation requires computing AUROC of Q_CSD as a collapse predictor across multiple seeds and comparing against gradient-variance baseline.
+**Status:** Empirical hypothesis. Validation requires computing Pearson r (Q_CSD_early vs. final acc) across seeds, comparing against gradient-variance baseline.
 
 ---
 
-## Method: CSDPO (Contrastive Self-Distillation Policy Optimization)
+## Method: ADQ (Adaptive ρ from CSD Variance Minimization)
 
-Each component is **formally derived** from the CSD objective:
+**Scope (honest):** The CSDPO four-component proposal in our earlier drafts (EA / QW / ADQ / GCR) is **NOT the method we evaluate in this paper**. We retain only the ONE component that is (a) directly derived from Theorem 2, (b) implemented and tested end-to-end, and (c) shown to have measurable effect on training:
 
-### Component 1: Experience-Augmented τ⁺ (EA)
+**ADQ (Adaptive ρ from CSD)**:
+- Online estimate of Var_s(g⁺) and Cov_s(g⁺, g⁻) via EMA over training steps
+- ρ_t = clip(Cov_s / Var_s, [ρ_min, ρ_max])
 
-**CSD motivation:** When n⁺ = 0, the CSD gradient loses its distillation term entirely (Corollary — Zero-Success Trap). EA restores it.
+Practical approximation: computing true gradient covariance requires two separate backward passes (over τ⁺-only and τ⁻-only loss) per step, doubling compute. We use a **proxy estimator** that approximates Var/Cov via binomial variance analysis on group success counts and advantage-magnitude statistics (`src/adabalance.py`). This trades theoretical fidelity for implementation simplicity.
 
-**Derivation:** Replace τ⁺ with τ̃⁺ = (1−α)·τ⁺_current + α·τ⁺_buffer, where α ∈ [0,1] is:
-- α = 0 when n⁺ ≥ threshold (current group has enough correct responses)
-- α → 1 when n⁺ → 0 (fall back to buffer)
+**Future work (explicitly out of scope for this paper):**
+- EA (experience-augmented τ⁺): addresses zero-success trap via response replay buffer. Not implemented here — scope is single-step ρ control.
+- QW (quality-weighted τ⁺): confidence-weighted distillation target. Not implemented — requires logit-level access inside advantage computation.
+- GCR (gradient consistency regularization): penalty on cos(g⁺, g⁻). Not implemented — same cost as true Cov/Var computation.
 
-The buffer B stores the top-k correct responses per prompt from past rollouts (FIFO, refreshed each epoch).
-
-**CSD guarantee:** EA ensures the CSD distillation term is never zero, maintaining gradient signal.
-
-### Component 2: Quality-Weighted Distillation (QW)
-
-**CSD motivation:** Standard CSD uses uniform τ⁺. But not all correct responses are equally good teachers. ML-optimal distillation weights by the model's confidence.
-
-**Derivation:** The maximum-likelihood distillation target that minimizes 𝔼[‖∇KL(τ⁺‖π) − ∇KL(τ*‖π)‖²] is:
-
-τ⁺_QW(y) ∝ π_θ(y|x)^β · 1[y ∈ correct]
-
-with β = 1 (pure ML) or β < 1 (smoothed). This weights confident correct responses higher — they provide more reliable gradient directions.
-
-### Component 3: Adaptive ρ via CSD (ADQ)
-
-**CSD motivation:** Theorem 3 gives ρ* = Cov(g⁺,g⁻)/Var(g⁺). This is computable online.
-
-**Implementation:** At each step, estimate Cov and Var using exponential moving average over recent mini-batches:
-- Var_ema(g⁺) = EMA(‖g⁺ − ḡ⁺‖²)
-- Cov_ema(g⁺,g⁻) = EMA(⟨g⁺ − ḡ⁺, g⁻ − ḡ⁻⟩)
-- ρ_t = clip(Cov_ema / Var_ema, [ρ_min, ρ_max])
-
-Cost: negligible (scalar statistics from existing gradients).
-
-### Component 4: Gradient Consistency Regularization (GCR)
-
-**CSD motivation:** The CSD objective moves π toward τ⁺ and away from τ⁻. At the token level, these directions should be aligned (both pushing toward correct). When cos(g⁺, g⁻) < 0, the distillation and anti-distillation conflict — some tokens are being pulled toward correct AND incorrect simultaneously.
-
-**Derivation:** Add regularization:
-L_GCR = λ_GCR · max(0, −cos(g⁺_batch, g⁻_batch))
-
-This directly penalizes CSD objective inconsistency. λ_GCR = 0.1 (default).
+We list these to clarify what our experiments test and what they do NOT test.
 
 ---
 

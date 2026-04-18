@@ -1,0 +1,8 @@
+{
+  "rho": 0.7,
+  "seed": 42,
+  "use_adq": false,
+  "max_steps": 100,
+  "elapsed_sec": 3491.6,
+  "model": "Qwen/Qwen3.5-9B"
+}
