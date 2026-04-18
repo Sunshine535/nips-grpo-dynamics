@@ -7,7 +7,9 @@ Tracks the CSD components predicted by Theorem 1:
 Logs per-step:
   - p (group success rate), n⁺, n⁻
   - CSD signal strength: √(p(1-p))
-  - Q_CSD collapse predictor: diversity(τ⁺) · (n⁺/G) · advantage_alignment
+  - Q_CSD canonical: H_norm(τ⁺) · (n⁺/G) — computed inside the trainer
+    where completion_ids are available; this callback reads it from
+    trainer._rho_step_stats[-1]["q_csd"].
   - Collapse label (for post-hoc AUROC analysis)
 """
 
@@ -79,26 +81,13 @@ class CSDLoggingCallback(TrainerCallback):
         balance_ratio = (distill_strength / max(anti_distill_strength, 1e-8)
                          if anti_distill_strength > 0 else float('inf'))
 
-        # --- Q_CSD Collapse Predictor (Proposition 1) ---
-        # Approximation without gradient cosine:
-        # Q_CSD ≈ diversity(τ⁺) · availability(τ⁺) · signal_quality
-        #
-        # diversity: use std of per-group success counts as proxy
-        # availability: n⁺/G (fraction of correct responses)
-        # signal: csd_signal itself (√(p(1-p)))
-
-        # Compute per-group stats if we have enough data
-        n_groups = n_total // G if G > 0 else 1
-        availability = n_pos / max(n_total, 1)
-
-        # Diversity proxy: how varied are success rates across groups?
-        # Higher diversity = better τ⁺ (more diverse correct responses)
-        # We approximate using p * (1-p) / max(n_groups, 1) which is the variance
-        # of a binomial. More precise computation would need per-group data.
-        diversity_proxy = min(1.0, 4 * p * (1 - p))  # Normalized to [0,1], max at p=0.5
-
-        # Q_CSD: product of three terms
-        q_csd = diversity_proxy * availability * csd_signal
+        # --- Q_CSD Collapse Predictor (canonical) ---
+        # Q_CSD := H_norm(τ⁺) · (n⁺/G), per FINAL_PROPOSAL.md §"Empirical Hypothesis 1".
+        # The trainer computes this inside _apply_rho_weighting where completion_ids
+        # are available; we read it here.
+        q_csd = float(latest.get("q_csd", 0.0))
+        h_norm_pos = float(latest.get("h_norm_pos", 0.0))
+        availability = float(latest.get("availability", n_pos / max(G, 1)))
 
         # --- Collapse Detection ---
         reward_mean = logs.get("reward/mean", logs.get("reward_mean", 0))
@@ -128,9 +117,9 @@ class CSDLoggingCallback(TrainerCallback):
             "distill_strength": round(distill_strength, 6),
             "anti_distill_strength": round(anti_distill_strength, 6),
             "balance_ratio": round(min(balance_ratio, 100), 4),
-            # CSD Proposition 1
+            # Q_CSD (canonical): H_norm(τ⁺) · (n⁺/G)
             "q_csd": round(q_csd, 6),
-            "diversity_proxy": round(diversity_proxy, 4),
+            "h_norm_pos": round(h_norm_pos, 4),
             "availability": round(availability, 4),
             # Collapse
             "is_collapsed": is_collapsed,
@@ -148,12 +137,28 @@ class CSDLoggingCallback(TrainerCallback):
         logs["csd/is_collapsed"] = int(is_collapsed)
 
 
-def compute_step0_qcsd(rewards: np.ndarray, group_size: int) -> float:
-    """Compute Q_CSD from step-0 rollout rewards for collapse prediction."""
-    n_total = len(rewards)
+def compute_step0_qcsd(
+    rewards: np.ndarray,
+    group_size: int,
+    completion_ids: "np.ndarray | None" = None,
+) -> float:
+    """Compute canonical Q_CSD = H_norm(τ⁺) · (n⁺/G) from step-0 rollouts.
+
+    If ``completion_ids`` is supplied, H_norm(τ⁺) is computed from the entropy
+    of the empirical correct-response distribution; otherwise we return the
+    optimistic upper bound (H_norm=1 → Q_CSD = n⁺/G).
+    """
+    rewards = np.asarray(rewards)
     n_pos = int((rewards > 0).sum())
-    p = n_pos / max(n_total, 1)
-    csd_signal = math.sqrt(max(p * (1 - p), 0))
-    availability = n_pos / max(n_total, 1)
-    diversity_proxy = min(1.0, 4 * p * (1 - p))
-    return diversity_proxy * availability * csd_signal
+    availability = n_pos / max(group_size, 1)
+    if n_pos < 2:
+        return 0.0
+    if completion_ids is None:
+        return availability  # upper bound (H_norm = 1)
+    pos_rows = completion_ids[np.asarray(rewards) > 0]
+    hashes = [hash(tuple(row.tolist())) for row in pos_rows]
+    _, counts = np.unique(hashes, return_counts=True)
+    probs = counts / counts.sum()
+    entropy = float(-(probs * np.log(probs)).sum())
+    h_norm = entropy / float(np.log(n_pos)) if n_pos > 1 else 0.0
+    return h_norm * availability

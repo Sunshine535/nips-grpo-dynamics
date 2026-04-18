@@ -68,6 +68,15 @@ def compute_rho_min(V_minus: float, C_pG: float) -> float:
 
 
 def compute_rho_star(V_plus: float, C_pG: float) -> float:
+    """Closed-form ρ* = Cov_s(g⁺,g⁻) / Var_s(g⁺) from FINAL_PROPOSAL.md Theorem 2.
+
+    Sign convention note (code ↔ theorem mapping):
+      * Theorem 2 defines ρ* := Cov_s(g⁺, g⁻) / Var_s(g⁺).
+      * This module's C_pG (stability_analysis.compute_advantage_variance_components)
+        accumulates the *negated* binomial cross term, so C_pG = -Cov_s(g⁺,g⁻).
+      * Therefore  ρ* = -C_pG / V_plus  in code — the output still equals
+        +Cov_s/Var_s as defined in the theorem.
+    """
     if V_plus < 1e-12:
         return 1.0
     return -C_pG / V_plus

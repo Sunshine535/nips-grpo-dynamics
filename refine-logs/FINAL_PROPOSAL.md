@@ -25,15 +25,22 @@
 
 **GAP: No one has proven GRPO's gradient IS a contrastive self-distillation objective, nor used this to derive quantitative predictions or principled optimization.**
 
-## Method Thesis
+## Method Thesis (scoped)
 
-Under binary verifiable rewards, the GRPO policy gradient decomposes exactly into a contrastive self-distillation (CSD) objective: descend KL toward own correct responses, ascend KL from incorrect responses. This is not notation — it yields closed-form optimal ρ, formal capacity bounds, quantitative collapse predictors, and a principled algorithm (CSDPO) that eliminates training collapse.
+Under binary verifiable rewards and sequence-level advantage normalization, the ρ-weighted GRPO policy gradient admits an **estimator-level algebraic decomposition** (Theorem 1): the gradient direction reduces to a signed combination of ∇_θ KL(τ⁺‖π) and ∇_θ KL(τ⁻‖π) for empirical in-group distributions τ⁺ (correct), τ⁻ (incorrect). This identity motivates a variance-minimizing choice of ρ (Theorem 2) and an adaptive controller (ADQ) that estimates the relevant statistics online.
 
-## Contribution Focus
+**What we do NOT claim:** The identity is at the per-step gradient-estimator level, NOT at the learning-dynamics level. It does not prove "GRPO IS self-distillation" as a training process; it only rewrites a single-step gradient. Whether this rewriting leads to better training is an empirical question, partially explored below.
 
-- **Dominant contribution**: CSD Equivalence Theorem + 3 quantitative predictions (optimal ρ, capacity bound, collapse predictor) that standard GRPO analysis cannot make
-- **Supporting contribution**: CSDPO — theory-derived algorithm that eliminates collapse and beats SRPO
-- **Explicitly rejected complexity**: No process rewards, no external teacher, no architectural changes
+## Contribution Focus (honest)
+
+- **Primary contribution**: Estimator-level decomposition (Theorem 1) + closed-form ρ* (Theorem 2) + ADQ controller (implementation + smoke test, Qwen3.5-9B/GSM8K only).
+- **Secondary contribution**: Empirical accuracy-vs-ρ profile on Qwen3.5-9B/GSM8K (8 ρ values, 1 seed each — exploratory, NOT confidence-interval-backed).
+- **Explicitly deferred to future work**: Multi-model-family validation; continuous reward extension; baseline comparisons (DAPO/GTPO/CLIPO/SRPO); EA/QW/GCR components.
+- **Known weaknesses** (stated up front, not hidden):
+  1. Single-seed sweep limits statistical claims.
+  2. Only one model × one task × one reward type.
+  3. ADQ end-to-end validation pending (V14 trainer written, smoke test in progress).
+  4. No direct comparison with strong GRPO variants (DAPO/etc.) on matched compute.
 
 ---
 
@@ -119,28 +126,27 @@ acc(π_T) ≲ pass@k(π₀) for k proportional to G · T_eff
 
 ### Theorem 2 (Closed-Form Optimal ρ)
 
-**Statement.** Adopt the sign convention of Theorem 1: ∇L_ρ = √(p(1−p)) · [g⁻ − ρ·g⁺], where g⁺ = ∇_θ KL(τ⁺‖π_θ) and g⁻ = ∇_θ KL(τ⁻‖π_θ). Treat g⁺, g⁻ as random vectors (randomness from group sampling) with finite second moments and Var_s(g⁺) := E[‖g⁺ − E[g⁺]‖²] > 0. Define scalar covariance Cov_s(g⁺, g⁻) := E[⟨g⁺ − E[g⁺], g⁻ − E[g⁻]⟩]. Then the ρ minimizing gradient variance is:
+**Convention.** Following Theorem 1: ∇L_ρ = √(p(1−p)) · [g⁻ − ρ·g⁺], where g⁺ = ∇_θ KL(τ⁺‖π_θ) and g⁻ = ∇_θ KL(τ⁻‖π_θ).
 
-ρ* = −Cov_s(g⁺, g⁻) / Var_s(g⁺)
+**Statement.** Treat g⁺, g⁻ as random vectors (randomness from group sampling) with finite second moments and Var_s(g⁺) := E[‖g⁺ − E[g⁺]‖²] > 0. Define scalar covariance Cov_s(g⁺, g⁻) := E[⟨g⁺ − E[g⁺], g⁻ − E[g⁻]⟩]. Then:
 
-**Proof.** Dropping the prompt-dependent scalar √(p(1−p)) (it does not affect argmin over ρ), the per-step gradient noise is
+$$\rho^* = \mathrm{Cov}_s(g^+, g^-) / \mathrm{Var}_s(g^+)$$
 
-  V(ρ) := E[‖∇L_ρ/√(p(1−p)) − E[·]‖²] = ρ² Var_s(g⁺) + Var_s(g⁻) − 2ρ Cov_s(g⁺, g⁻)
+**Proof.** Drop the prompt-dependent scalar √(p(1−p)) (does not affect argmin over ρ). Let Δg⁺ := g⁺ − E[g⁺] and Δg⁻ := g⁻ − E[g⁻]. Then:
 
-(the −2ρ·Cov term comes from expanding ‖g⁻ − ρ·g⁺‖²). Setting dV/dρ = 2ρ Var_s(g⁺) − 2 Cov_s(g⁺, g⁻) = 0:
+  ‖∇L_ρ − E[·]‖² = ‖Δg⁻ − ρ·Δg⁺‖² = ‖Δg⁻‖² − 2ρ ⟨Δg⁺, Δg⁻⟩ + ρ² ‖Δg⁺‖²
 
-  **ρ* = Cov_s(g⁺, g⁻) / Var_s(g⁺)**
-
-Wait — that gives +Cov/Var. Let me redo this carefully. ∇L_ρ = g⁻ − ρg⁺, so
-  ‖∇L_ρ − E[·]‖² = ‖(g⁻ − E[g⁻]) − ρ(g⁺ − E[g⁺])‖²
-                = ‖g⁻ − E[g⁻]‖² − 2ρ⟨g⁺ − E[g⁺], g⁻ − E[g⁻]⟩ + ρ²‖g⁺ − E[g⁺]‖²
 Taking expectation:
+
   V(ρ) = Var_s(g⁻) − 2ρ Cov_s(g⁺, g⁻) + ρ² Var_s(g⁺)
-dV/dρ = −2 Cov_s(g⁺, g⁻) + 2ρ Var_s(g⁺) = 0 ⟹ ρ* = Cov_s(g⁺, g⁻) / Var_s(g⁺).
 
-For correct and incorrect response groups under binary rewards, g⁺ and g⁻ are expected to be POSITIVELY correlated (both follow similar policy-gradient noise drivers), so Cov_s > 0 ⟹ ρ* > 0. Second-order check: d²V/dρ² = 2 Var_s(g⁺) > 0 (strict convexity) ⟹ unique minimum. □
+dV/dρ = 2ρ Var_s(g⁺) − 2 Cov_s(g⁺, g⁻) = 0 ⟹ ρ* = Cov_s(g⁺, g⁻) / Var_s(g⁺).
 
-**Note:** This formula is evaluated at the current θ and does not account for how ρ affects future training dynamics. The online implementation uses EMA estimates of Var_s and Cov_s.
+d²V/dρ² = 2 Var_s(g⁺) > 0 (strict convexity, unique minimum). Since g⁺ and g⁻ share policy-gradient noise drivers, we expect Cov_s(g⁺, g⁻) > 0 in practice, giving ρ* > 0. □
+
+**Code-theorem mapping.** Our code stores `C_pG` in `src/stability_analysis.py:compute_advantage_variance_components` using a different sign convention motivated by binomial variance decomposition of ρ-weighted advantages (legacy from earlier stability-analysis work). The mapping is: **Cov_s(g⁺, g⁻) as defined above = −C_pG in code**, and the code's `compute_rho_star(V_plus, C_pG) = −C_pG / V_plus` therefore equals +Cov_s / Var_s = ρ*. The two match (same ρ*) but the internal name `C_pG` ≠ Cov_s; this is documented in the docstring of `compute_rho_star`.
+
+**Note:** Formula is evaluated at current θ; does not account for ρ's effect on future training dynamics. Online implementation uses EMA estimates + a closed-form binomial proxy (see `src/adabalance.py`) rather than true gradient covariance (computing the latter requires two extra backward passes per step).
 
 ### Empirical Hypothesis 1 (CSD Quality Predictor)
 
@@ -177,65 +183,42 @@ We list these to clarify what our experiments test and what they do NOT test.
 
 ---
 
-## Predictive Power of CSD (Addressing F1, F5)
+## What the Identity Does NOT Prove (scope boundary)
 
-### Prediction 1: Collapse from τ⁺ quality (NOT from gradient variance)
+Because Theorem 1 is an estimator-level identity (per-step gradient rewrite), several natural extrapolations are **NOT implied by our result** and require separate empirical evidence. We list them to prevent overreading:
 
-Standard GRPO analysis predicts collapse from high gradient variance. CSD predicts collapse from low τ⁺ quality (H(τ⁺) low or n⁺ low). These make DIFFERENT predictions:
-- A run with high gradient variance but high H(τ⁺) should NOT collapse (CSD: good teacher absorbs variance)
-- A run with low gradient variance but low H(τ⁺) SHOULD collapse (CSD: poor teacher means bad distillation target)
-
-**Testable:** Compare AUROC of "gradient variance > threshold" vs "Q_CSD < threshold" for predicting collapse across seeds.
-
-### Prediction 2: Optimal G scales as 1/p for hard prompts
-
-CSD shows the distillation target τ⁺ needs at least ~3 diverse correct responses for stable training. For a prompt with success rate p, the expected n⁺ = G·p. So G_min ≈ 3/p. For hard prompts (p=0.1), G_min ≈ 30. For easy prompts (p=0.9), G_min ≈ 4.
-
-**Testable:** Vary G at different p levels. Show collapse rate follows CSD prediction.
-
-### Prediction 3: GRPO variant relative performance
-
-CSD predicts:
-- DAPO > GRPO when p < 0.3 (clip-higher increases effective n⁺)
-- SRPO > DAPO for long training (SDPO provides stable anti-distillation when g⁻ degrades)
-- CLIPO ≈ GRPO (adding contrastive is redundant — GRPO already is contrastive)
-- CSDPO > all (addresses root cause: τ⁺ quality)
-
-**Testable:** Run all variants head-to-head. Verify rank ordering matches CSD prediction.
+- **Learning-dynamics equivalence.** The decomposition rewrites one gradient step. It does not imply GRPO converges to the same fixed point as "literal" self-distillation from τ⁺, because τ⁺ changes with π_θ.
+- **Regime predictions for DAPO / GTPO / CLIPO / SRPO.** CSD motivates plausible hypotheses about when these variants should help, but we run **no matched-compute head-to-head comparison** and make no claim of measured superiority.
+- **Capacity bound (acc(π_T) ≤ pass@k).** This is discussed as an **empirical prediction** (Empirical Prediction 1 above), not a formal theorem of this paper. The NeurIPS 2025 BPR finding is cited as independent evidence.
+- **Collapse causality.** Q_CSD is proposed as an **empirical early-warning correlate**, not a proven cause of collapse. Validation requires AUROC on matched runs with/without collapse (not yet done end-to-end).
 
 ---
 
-## Unification of 50+ Variants (Addressing S7)
+## Deferred Directions (honest future work)
 
-| Variant | CSD Interpretation | Predicted Regime Where It Helps |
-|---------|-------------------|-------------------------------|
-| DAPO | Increases effective n⁺ via clip-higher (better τ⁺ diversity) + filters p=0/1 groups (zero-signal CSD terms) | Low p (hard prompts) |
-| SRPO | Replaces uniform anti-distillation with token-level SDPO (finer g⁻) | Long training (g⁻ degradation) |
-| CLIPO | Adds explicit contrastive loss (redundant with CSD structure) | Never (marginal at best) |
-| GRPO-λ | Modifies distillation weights via eligibility traces (temporal τ⁺ smoothing) | Multi-step reasoning |
-| GTPO | Entropy control on g⁻ direction (prevents anti-distillation overshoot) | High entropy collapse risk |
-| DaGRPO | Filters low-distinctiveness groups (removes noisy τ⁺/τ⁻ pairs) | Homogeneous prompt batches |
-| TR-GRPO | Down-weights low-prob tokens in g⁺ (quality-weights τ⁺ implicitly) | High per-token variance |
-| ESPO | Entropy-weighted importance sampling (adaptive CSD weighting) | Entropy-sensitive regimes |
-| GradReg | SAM-like flat minima search (CSD: prefer flat distillation basins) | Reward hacking regimes |
+These items are **outside this paper's evidence base**. We flag them to contextualize where CSD might go, not as contributions of this work:
 
-**Predictive test:** CSD predicts each variant helps ONLY in its predicted regime and is neutral/harmful outside it. Run each variant at p∈{0.1, 0.3, 0.5, 0.7, 0.9} and verify regime-specific advantage.
+- **Variant regime study**: Run DAPO / GTPO / CLIPO / SRPO / GRPO-λ / ESPO / etc. at matched compute across success-rate regimes p ∈ {0.1, 0.3, 0.5, 0.7, 0.9}. CSD motivates regime-specific hypotheses (e.g., DAPO's clip-higher increases effective n⁺ → helps low-p prompts), but without matched data we do not claim CSD predicts the observed ranking.
+- **Variant compatibility matrix**: Whether ADQ composes additively with DAPO-style filtering or substitutes for it.
+- **Cross-family validation**: Qwen3-8B / LLaMA-3-8B / Mistral-7B, to separate CSD effects from Qwen-specific tokenizer or pretraining artifacts.
+- **Continuous-reward extension**: Remark 1 motivates a τ_w(y) ∝ (r(y) − μ_r) distillation view; formalizing this is a separate project.
+- **EA / QW / GCR components**: see Method Section — deferred as described there.
 
 ---
 
-## Risks and Mitigations
+## Risks and Mitigations (scoped to what we claim)
 
-| Risk | Severity | Mitigation |
-|------|----------|-----------|
-| "CSD is obvious" | HIGH | Show 3+ quantitative predictions that REQUIRE CSD view |
-| CSDPO doesn't beat SRPO | HIGH | Ablation identifies which CSD component matters; even if method is equal, theory is the contribution |
-| Binary reward scope too narrow | MEDIUM | Include Remark 1 extension to continuous; show binary dominates RLVR practice |
-| Capacity bound is loose | MEDIUM | Show it's tight to within a constant factor on real data |
-| Q_CSD predictor fails | MEDIUM | Compare AUROC against baselines; even moderate AUROC validates CSD view |
-| All models are Qwen | LOW | Include Qwen3-8B (different architecture/training data from Qwen2.5) |
+| Risk to our actual claims | Severity | Mitigation in this paper |
+|---------------------------|----------|--------------------------|
+| Theorem 1 reframing seen as "just algebra" | HIGH | We explicitly call it an estimator-level identity, not a learning-dynamics theorem; the contribution is the closed-form ρ* and controller it enables |
+| ρ sweep monotonic trend is single-seed | HIGH | Report as exploratory evidence; the pre-registered statistical test is the ADQ vs. fixed-ρ comparison with sufficient seeds |
+| ADQ uses proxy estimator, not true Cov(g⁺,g⁻) | HIGH | Explicitly disclosed in §Method; we do NOT claim the shipped controller implements the exact Theorem 2 quantity |
+| Q_CSD predictor fails to beat a trivial (n⁺/G) baseline | MEDIUM | Pre-register the H_norm vs. n⁺/G ablation; negative result is reportable |
+| Single model × single task | HIGH | Title explicitly scopes to "Qwen3.5-9B on GSM8K"; cross-family validation listed as deferred work |
+| AdaBalance runs in archived logs never moved ρ | HIGH | Root cause identified (TRL 0.14 API mismatch in the old trainer); V14 trainer is the fix, gated on smoke test before any ADQ claim |
 
 ---
 
-## Paper Narrative (1 paragraph)
+## Paper Narrative (1 paragraph, scoped)
 
-Everyone assumes GRPO is reinforcement learning. We prove it's not — under binary rewards, the GRPO gradient is exactly a contrastive self-distillation objective that pulls the policy toward its own correct responses and pushes from incorrect ones. This one-theorem reframing explains three phenomena that puzzled the community: why RLVR can't exceed base model capacity (you can't distill knowledge you don't have), why training collapses at critical hyperparameters (the self-teacher degrades), and why 50+ GRPO variants all help in different ways (they're different distillation strategies). From the theorem we derive closed-form optimal ρ, a collapse predictor, and CSDPO — a principled algorithm that eliminates training collapse across three model families while adding zero computational overhead.
+Practitioners training LLMs with binary verifiable rewards (RLVR / GRPO) tune the positive/negative weight ρ by hand and occasionally see training collapse. We show that, under binary rewards and sequence-level advantage normalization, the ρ-weighted GRPO per-step gradient can be rewritten exactly as a weighted difference of KL gradients against the in-batch empirical correct and incorrect response distributions (Theorem 1). This algebraic identity yields a closed-form variance-minimizing choice of ρ (Theorem 2) and motivates an online controller (ADQ) that estimates the required statistics during training. As a pilot we report a monotonic accuracy-vs-ρ trend on Qwen3.5-9B / GSM8K (single-seed, exploratory) and implement ADQ end-to-end on TRL 0.14. We do not claim GRPO and self-distillation are learning-dynamics equivalent, nor that CSD subsumes DAPO / SRPO / CLIPO; those require matched-compute comparisons we do not run here. The contribution is a principled, implementable ρ controller plus an estimator-level reframing that makes ρ design a derivable choice rather than a hyperparameter search.

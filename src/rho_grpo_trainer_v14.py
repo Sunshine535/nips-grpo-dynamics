@@ -56,8 +56,19 @@ class RhoGRPOTrainerV14(GRPOTrainer):
     def rho(self, v):
         self._rho = v
 
-    def _apply_rho_weighting(self, advantages: torch.Tensor) -> torch.Tensor:
-        """Apply ρ-asymmetric weighting to pre-computed advantages."""
+    def _apply_rho_weighting(
+        self,
+        advantages: torch.Tensor,
+        completion_ids: Optional[torch.Tensor] = None,
+        completion_mask: Optional[torch.Tensor] = None,
+    ) -> torch.Tensor:
+        """Apply ρ-asymmetric weighting to pre-computed advantages.
+
+        When ``completion_ids`` is provided, we also compute the canonical
+        Q_CSD := H_norm(τ⁺) · (n⁺/G) collapse predictor, where H_norm is the
+        entropy of the empirical correct-response distribution divided by
+        log(n⁺). Without ``completion_ids`` we fall back to H_norm=1 (upper bound).
+        """
         pos_mask = advantages > 0
         neg_mask = advantages < 0
 
@@ -71,11 +82,37 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         weighted[pos_mask] = advantages[pos_mask] * norm_pos_w
         weighted[neg_mask] = advantages[neg_mask] * norm_neg_w
 
-        # Log stats
         step = self.state.global_step if self.state else 0
         n_pos = int(pos_mask.sum().item())
         n_neg = int(neg_mask.sum().item())
         n_deg = int((advantages == 0).sum().item())
+
+        # Canonical Q_CSD = H_norm(τ⁺) · (n⁺/G) per FINAL_PROPOSAL.md §"Empirical Hypothesis 1".
+        # τ⁺ := empirical uniform distribution over correct responses in the group.
+        # Collapse to hash-space to count duplicates.
+        G = max(self._ada_group_size, 1)
+        if n_pos >= 2 and completion_ids is not None:
+            pos_completions = completion_ids[pos_mask]
+            if completion_mask is not None:
+                lengths = completion_mask[pos_mask].sum(dim=1).tolist()
+            else:
+                lengths = [pos_completions.size(1)] * pos_completions.size(0)
+            hashes = []
+            for row, L in zip(pos_completions, lengths):
+                L = int(L)
+                hashes.append(hash(tuple(row[:L].tolist())))
+            unique, counts = np.unique(hashes, return_counts=True)
+            probs = counts / counts.sum()
+            entropy = float(-(probs * np.log(probs)).sum())
+            h_norm_pos = entropy / float(np.log(n_pos)) if n_pos > 1 else 0.0
+        elif n_pos == 1:
+            h_norm_pos = 0.0  # single correct response → degenerate τ⁺
+        else:
+            h_norm_pos = 0.0
+
+        availability = n_pos / G
+        q_csd = h_norm_pos * availability
+
         self._rho_step_stats.append({
             "step": step,
             "rho": self._rho,
@@ -86,6 +123,9 @@ class RhoGRPOTrainerV14(GRPOTrainer):
             "mean_neg_adv": float(advantages[neg_mask].mean()) if n_neg > 0 else 0.0,
             "normalized_pos_weight": norm_pos_w,
             "normalized_neg_weight": norm_neg_w,
+            "h_norm_pos": h_norm_pos,
+            "availability": availability,
+            "q_csd": q_csd,
         })
 
         return weighted
@@ -233,7 +273,7 @@ class RhoGRPOTrainerV14(GRPOTrainer):
 
         # ─── INJECT: ρ-asymmetric weighting + AdaBalance update ───
         self._update_adabalance(rewards, advantages)
-        advantages = self._apply_rho_weighting(advantages)
+        advantages = self._apply_rho_weighting(advantages, completion_ids, completion_mask)
 
         # ─── Loss ───
         per_token_loss = torch.exp(per_token_logps - per_token_logps.detach()) * advantages.unsqueeze(1)
