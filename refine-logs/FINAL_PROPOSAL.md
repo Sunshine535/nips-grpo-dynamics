@@ -221,4 +221,39 @@ These items are **outside this paper's evidence base**. We flag them to contextu
 
 ## Paper Narrative (1 paragraph, scoped)
 
-Practitioners training LLMs with binary verifiable rewards (RLVR / GRPO) tune the positive/negative weight ρ by hand and occasionally see training collapse. We show that, under binary rewards and sequence-level advantage normalization, the ρ-weighted GRPO per-step gradient can be rewritten exactly as a weighted difference of KL gradients against the in-batch empirical correct and incorrect response distributions (Theorem 1). This algebraic identity yields a closed-form variance-minimizing choice of ρ (Theorem 2) and motivates an online controller (ADQ) that estimates the required statistics during training. As a pilot we report a single-seed ρ-sweep on Qwen3.5-9B / GSM8K exhibiting an upward tendency at higher ρ (with local dips at ρ∈{0.7, 1.5}; we explicitly do NOT claim monotonicity) and ship a V14 TRL-0.14-compatible trainer for ADQ (CPU shape smoke test passes; real-model end-to-end run deferred to full-compute follow-up). We do not claim GRPO and self-distillation are learning-dynamics equivalent, nor that CSD subsumes DAPO / SRPO / CLIPO; those require matched-compute comparisons we do not run here. The contribution is a principled, implementable ρ controller plus an estimator-level reframing that makes ρ design a derivable choice rather than a hyperparameter search.
+Practitioners training LLMs with binary verifiable rewards (RLVR / GRPO) tune the positive/negative weight ρ by hand and occasionally see training collapse. We show that, under binary rewards and sequence-level advantage normalization, the ρ-weighted GRPO per-step gradient can be rewritten exactly as a weighted difference of KL gradients against the in-batch empirical correct and incorrect response distributions (Theorem 1). This algebraic identity yields a closed-form variance-minimizing choice of ρ (Theorem 2) and motivates an online controller (ADQ) that estimates the required statistics during training. We report 3-seed training + GSM8K test-accuracy numbers for {fixed ρ ∈ {0.7, 1.0, 3.0}, ADQ} on Qwen3.5-9B / GSM8K (Table 1) and verify end-to-end that ADQ's ρ moves non-trivially during training (std 0.572 over 400 recorded micro-steps, range [0.834, 2.505]). The empirical story is **mixed**: (i) fixed ρ = 0.7 outperforms fixed ρ = 1.0 by ~9 pp mean test accuracy (55.0 ± 7.2% vs. 45.7 ± 6.4%), motivating *some* mechanism for finding a non-default ρ; (ii) ADQ adapts ρ downward from 1.0 to ~0.85 on average — directionally correct — but lands at 47.7 ± 8.5% test accuracy, only ~2 pp above fixed ρ = 1.0 and below fixed ρ = 0.7 (not statistically significant at n=3). We interpret this honestly: ρ* from gradient variance is a valid variance-minimizing target but is not the test-accuracy-maximizing ρ for this specific setting; the decomposition is the contribution, the adaptive controller is a proof of concept. We do not claim GRPO and self-distillation are learning-dynamics equivalent, nor that CSD subsumes DAPO / SRPO / CLIPO; those require matched-compute comparisons we do not run here.
+
+---
+
+## Results (3-seed, Qwen3.5-9B / GSM8K, 200 steps, G=2, binary reward)
+
+**Table 1.** Test accuracy (GSM8K, n=100) across ρ configurations with 3 seeds each. Training reward = final-step mean on training rollouts.
+
+| Config | n | test acc mean ± std | per-seed test acc | final train reward mean ± std |
+|--------|---|--------------------|-------------------|-------------------------------|
+| fixed ρ = 0.70 | 3 | **55.0 ± 7.2%** | 47, 57, 61 | 0.750 ± 0.125 |
+| fixed ρ = 1.00 | 3 | 45.7 ± 6.4% | 41, 43, 53 | 0.708 ± 0.072 |
+| fixed ρ = 3.00 | 3 | 50.3 ± 5.9% | 46, 48, 57 | 0.625 ± 0.125 |
+| **ADQ (init ρ=1.0)** | 3 | 47.7 ± 8.5% | 39, 48, 56 | **0.667 ± 0.189** |
+
+Welch's t (ρ=0.70 vs. ρ=1.00, n=3 each): Δ = 9.3 pp, t ≈ 1.66, p > 0.05 (i.e., not statistically significant at α=0.05 with this seed count).
+
+**ρ(t) trajectory (Gate 1 ADQ, seed 42):** init 1.000 → final 0.845, min 0.834, max 2.505, std 0.572 over 400 controller updates. Figure available in `results/gates_1_2/rho_trajectory.png`. This is the first empirical confirmation on a real model that ADQ's online estimator produces non-trivial trajectories (prior archived AdaBalance runs stayed at ρ=1.0000 due to a TRL 0.14 API mismatch in the old trainer; V14 fixes that).
+
+**Q_CSD at G=2 is degenerate.** Because Q_CSD := H_norm(τ⁺) · (n⁺/G) requires n⁺ ≥ 2 for non-zero entropy, and G=2 constrains n⁺ ∈ {0,1,2}, the metric is 0 for all observed records in Table 1's runs (proof-of-concept runs at G=3 are in progress to test the predictor at G ≥ 3 where it is well-defined).
+
+---
+
+## What These Numbers Support and Do NOT Support
+
+**Support:**
+- The decomposition (Theorem 1) is a valid estimator-level identity; our trainer correctly implements the ρ-weighted form and AdaBalance successfully produces non-trivial ρ(t) trajectories on a real 9B model.
+- There is a non-trivial ρ-dependence of test accuracy across {0.7, 1.0, 3.0}: fixed ρ=0.7 beats fixed ρ=1.0 by ~9 pp mean, which *motivates* caring about ρ selection even if our specific controller doesn't capture the full gap.
+- Single-seed "ρ-monotonic upward" narrative from Round 1 of the auto-review-loop is **empirically false** at 3 seeds.
+
+**Do NOT support:**
+- "ADQ beats the best fixed ρ": our ADQ lands near fixed ρ=1.0, not near the fixed ρ=0.7 optimum.
+- "Q_CSD predicts collapse / generalization gap": at G=2 the metric is degenerate, so we have no signal to regress on.
+- Cross-family generalization: no offline cache for LLaMA / Mistral / Qwen-2.5 means we cannot report cross-family numbers in this version.
+
+**Honest tl;dr:** The paper's central theoretical contribution (Theorem 1 + closed-form ρ* + V14 trainer + working ADQ mechanism) is solid; the predicted ρ*-via-gradient-variance is not automatically the best test-accuracy ρ on this one setting. A stronger controller would need to target test accuracy, not gradient variance — this is a concrete direction for follow-up work.
