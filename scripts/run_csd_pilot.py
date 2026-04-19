@@ -269,16 +269,27 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
         "model": model_name,
     }
 
-    # Final reward from log history
+    # Final reward from log history. TRL 0.14 logs under the plain "reward"
+    # key (not "reward/mean"); fall back to "reward/mean" for older stacks.
     if trainer.state.log_history:
-        final_rewards = [l.get("reward/mean", None) for l in trainer.state.log_history if "reward/mean" in l]
+        reward_keys = ("reward", "reward/mean")
+        final_rewards = []
+        for l in trainer.state.log_history:
+            for k in reward_keys:
+                if k in l and l[k] is not None:
+                    try:
+                        final_rewards.append(float(l[k]))
+                    except (TypeError, ValueError):
+                        pass
+                    break
         if final_rewards:
             results["final_reward_mean"] = round(final_rewards[-1], 4)
             results["max_reward_mean"] = round(max(final_rewards), 4)
             # Collapse detection: reward stays below 0.1 in last 20% of training
             late_start = max(0, len(final_rewards) - len(final_rewards) // 5)
             late_rewards = final_rewards[late_start:]
-            results["collapsed"] = bool(np.mean(late_rewards) < 0.1) if late_rewards else False
+            results["collapsed"] = bool(float(np.mean(late_rewards)) < 0.1) if late_rewards else False
+            results["n_reward_logs"] = len(final_rewards)
 
     def _coerce(o):
         """Recursively cast numpy scalars/arrays to JSON-safe Python types."""

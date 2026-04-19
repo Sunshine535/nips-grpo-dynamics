@@ -76,7 +76,7 @@ launch() {
 # Gate 1: ADQ run (rho moves online)
 launch 0 "gate1_adq_seed42"  --pilot 2_single --rho 1.0 --seed_start 42 --use_adq
 
-# Gate 2: 3-seed fixed-rho sweep
+# Gate 2: 3-seed fixed-rho sweep (seeds 42, 43, 44 at each rho)
 launch 1 "gate2_rho0.70_seed42" --pilot 1_single --rho 0.7 --seed_start 42
 launch 2 "gate2_rho0.70_seed43" --pilot 1_single --rho 0.7 --seed_start 43
 launch 3 "gate2_rho0.70_seed44" --pilot 1_single --rho 0.7 --seed_start 44
@@ -87,10 +87,24 @@ launch 7 "gate2_rho3.00_seed43" --pilot 1_single --rho 3.0 --seed_start 43
 
 echo ""
 echo "All 8 primary jobs launched. Tail with: tail -F $OUTPUT/logs/*.log"
-echo "PIDs in $OUTPUT/logs/*.pid"
 echo ""
-echo "After any GPU frees up, launch the remaining run manually:"
-echo "  CUDA_VISIBLE_DEVICES=<free_gpu> python3 scripts/run_csd_pilot.py \\"
-echo "    --pilot 1_single --rho 3.0 --seed_start 44 \\"
-echo "    --config $CONFIG --output_dir $OUTPUT --max_steps $MAX_STEPS --model $MODEL \\"
-echo "    > $OUTPUT/logs/gate2_rho3.00_seed44.log 2>&1 &"
+echo "[queue] After any primary GPU frees, launching 9th: gate2_rho3.00_seed44"
+# Background queue-runner: grab the first PID that exits, reuse that GPU slot
+(
+  for i in 1 2 3 4 5 6 7 0; do
+    pid=$(cat "$OUTPUT/logs/$(ls $OUTPUT/logs/*.pid | sed -n ${i}p | xargs basename)" 2>/dev/null)
+    [ -z "$pid" ] && continue
+    while kill -0 "$pid" 2>/dev/null; do sleep 30; done
+    real_gpu=$(get_gpu_id "$i" 2>/dev/null || echo "$i")
+    tag="gate2_rho3.00_seed44"
+    log="$OUTPUT/logs/${tag}.log"
+    echo "[queue-runner] launching $tag on GPU $real_gpu at $(date +%H:%M)" >> "$OUTPUT/logs/queue-runner.log"
+    CUDA_VISIBLE_DEVICES="$real_gpu" nohup python3 scripts/run_csd_pilot.py \
+        --pilot 1_single --rho 3.0 --seed_start 44 \
+        --config "$CONFIG" --output_dir "$OUTPUT" \
+        --max_steps "$MAX_STEPS" --model "$MODEL" \
+        > "$log" 2>&1 &
+    echo $! > "$OUTPUT/logs/${tag}.pid"
+    break
+  done
+) > /dev/null 2>&1 &
