@@ -82,11 +82,16 @@ def parse_args():
     p.add_argument("--rho", type=float, default=1.0, help="ρ for Pilot 1 and 3")
     p.add_argument("--use_adq", action="store_true", help="Use ADQ (adaptive ρ) for single run")
     p.add_argument("--use_vllm", action="store_true")
+    p.add_argument("--dataset", type=str, default="gsm8k", choices=["gsm8k", "math500"],
+                   help="Dataset to train on")
     return p.parse_args()
 
 
-def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, use_vllm=False):
-    """Load dataset, model, tokenizer, and create GRPOConfig."""
+def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, use_vllm=False, dataset_name="gsm8k"):
+    """Load dataset, model, tokenizer, and create GRPOConfig.
+
+    dataset_name: "gsm8k" (default) or "math500".
+    """
     from trl import GRPOConfig
 
     with open(config_path) as f:
@@ -98,10 +103,23 @@ def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, us
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    dataset = load_dataset(cfg["dataset"]["name"], "main", split=cfg["dataset"]["split"])
+    if dataset_name == "gsm8k":
+        dataset = load_dataset(cfg["dataset"]["name"], "main", split=cfg["dataset"]["split"])
+    elif dataset_name == "math500":
+        # MATH-500 cached as datasets--HuggingFaceH4--MATH-500/snapshots/*/test.jsonl
+        import glob, json as _json
+        ds_paths = glob.glob(os.environ.get("HF_HUB_CACHE", "/openbayes/input/input0/hub")
+                             + "/datasets--HuggingFaceH4--MATH-500/snapshots/*/test.jsonl")
+        assert ds_paths, f"MATH-500 test.jsonl not found"
+        from datasets import Dataset
+        rows = [_json.loads(l) for l in open(ds_paths[0])]
+        dataset = Dataset.from_list(rows)
+    else:
+        raise ValueError(f"unknown dataset {dataset_name}")
 
     import re
     _pattern = re.compile(r"####\s*(-?[\d,]+\.?\d*)")
+    _boxed = re.compile(r"\\boxed\{((?:[^{}]|\{[^{}]*\})*)\}")
 
     # Test if tokenizer supports enable_thinking=False (Qwen3.5 does)
     _supports_thinking_toggle = False
@@ -113,24 +131,37 @@ def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, us
     except TypeError:
         logger.info("Tokenizer does not support enable_thinking param (standard model)")
 
-    def format_prompt(example):
+    def format_prompt_gsm8k(example):
         answer_match = _pattern.search(example["answer"])
         answer = answer_match.group(1).replace(",", "") if answer_match else ""
         msgs = [
             {"role": "system", "content": "You are a math tutor. Solve problems step by step. Write your final numerical answer after ####."},
             {"role": "user", "content": f"Question: {example['question']}"},
         ]
-        # Pre-render prompt string to bypass TRL's default template call (which would enable thinking)
         kwargs = {"add_generation_prompt": True, "tokenize": False}
         if _supports_thinking_toggle:
             kwargs["enable_thinking"] = False
         prompt_str = tokenizer.apply_chat_template(msgs, **kwargs)
-        return {
-            "prompt": prompt_str,
-            "answer": answer,
-        }
+        return {"prompt": prompt_str, "answer": answer}
 
-    dataset = dataset.map(format_prompt, remove_columns=dataset.column_names)
+    def format_prompt_math500(example):
+        # MATH-500 fields: problem, level, type, solution, answer
+        gold_raw = example.get("answer") or ""
+        if not gold_raw and "solution" in example:
+            m = _boxed.search(example["solution"])
+            gold_raw = m.group(1) if m else ""
+        msgs = [
+            {"role": "system", "content": "You are a math tutor. Solve the problem step by step and put the final answer in \\boxed{}."},
+            {"role": "user", "content": example["problem"]},
+        ]
+        kwargs = {"add_generation_prompt": True, "tokenize": False}
+        if _supports_thinking_toggle:
+            kwargs["enable_thinking"] = False
+        prompt_str = tokenizer.apply_chat_template(msgs, **kwargs)
+        return {"prompt": prompt_str, "answer": str(gold_raw).strip()}
+
+    fmt = format_prompt_gsm8k if dataset_name == "gsm8k" else format_prompt_math500
+    dataset = dataset.map(fmt, remove_columns=dataset.column_names)
 
     vllm_kwargs = {}
     if use_vllm:
@@ -204,17 +235,21 @@ def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, us
 
 
 def run_single_training(model_name, config_path, seed, rho, max_steps, output_dir,
-                        use_adq=False, use_vllm=False):
+                        use_adq=False, use_vllm=False, dataset_name="gsm8k"):
     """Run a single training run with CSD logging."""
     run_dir = os.path.join(output_dir, f"rho{rho:.2f}_seed{seed}" + ("_adq" if use_adq else ""))
     os.makedirs(run_dir, exist_ok=True)
 
-    logger.info("=== Run: rho=%.2f, seed=%d, adq=%s ===", rho, seed, use_adq)
+    logger.info("=== Run: rho=%.2f, seed=%d, adq=%s, dataset=%s ===", rho, seed, use_adq, dataset_name)
 
     dataset, model, tokenizer, training_config, peft_config, G, kl_coef, clip_range = \
-        load_data_and_model(model_name, config_path, seed, max_steps, run_dir, use_vllm)
+        load_data_and_model(model_name, config_path, seed, max_steps, run_dir, use_vllm, dataset_name=dataset_name)
 
-    reward_fn = build_gsm8k_binary_reward_function()
+    if dataset_name == "math500":
+        from src.rho_grpo import build_math500_binary_reward_function
+        reward_fn = build_math500_binary_reward_function()
+    else:
+        reward_fn = build_gsm8k_binary_reward_function()
     rope_cb = ClearRopeDeltasCallback()
 
     # Use V14 trainer (compatible with TRL 0.14's inline-advantage compute_loss)
@@ -496,7 +531,7 @@ def main():
         run_single_training(
             args.model, args.config, seed=args.seed_start, rho=args.rho,
             max_steps=args.max_steps, output_dir=args.output_dir,
-            use_vllm=args.use_vllm,
+            use_vllm=args.use_vllm, dataset_name=args.dataset,
         )
         return
 

@@ -149,6 +149,65 @@ def build_gsm8k_binary_reward_function():
 build_rho_reward_function = build_gsm8k_binary_reward_function
 
 
+def build_math500_binary_reward_function():
+    """Binary reward for MATH-500: parse \\boxed{...} answer.
+
+    Compares numeric value (handles fractions, decimals) with gold; case- and
+    whitespace-insensitive string fallback.
+    """
+    import re
+    _think_pattern = re.compile(r"<think>.*?</think>", re.DOTALL)
+    # Match \boxed{...} with possibly nested braces (one level of nesting)
+    _boxed = re.compile(r"\\boxed\{((?:[^{}]|\{[^{}]*\})*)\}")
+    # Strip latex wrappers in extracted answer
+    _strip_latex = re.compile(r"\\(?:text|mathrm|mathit|mathbf)\{([^{}]*)\}")
+    _ws = re.compile(r"\s+")
+
+    def _normalize(s: str) -> str:
+        s = _strip_latex.sub(r"\1", s)
+        s = s.replace("\\,", "").replace("\\!", "").replace("\\;", "")
+        s = _ws.sub("", s)
+        s = s.replace("\\dfrac", "\\frac").replace("\\tfrac", "\\frac")
+        return s.lower()
+
+    def _to_number(s: str):
+        try:
+            return float(s.replace(",", ""))
+        except Exception:
+            pass
+        m = re.match(r"^-?\\frac\{(-?\d+(?:\.\d+)?)\}\{(-?\d+(?:\.\d+)?)\}$", s)
+        if m:
+            try:
+                return float(m.group(1)) / float(m.group(2))
+            except Exception:
+                return None
+        return None
+
+    def reward_fn(completions, answer, **kwargs):
+        rewards = []
+        for completion, gold in zip(completions, answer):
+            if isinstance(completion, list):
+                text = completion[0].get("content", "") if completion else ""
+            elif isinstance(completion, dict):
+                text = completion.get("content", str(completion))
+            else:
+                text = str(completion)
+            text_clean = _think_pattern.sub("", text).strip()
+            m = _boxed.search(text_clean) or _boxed.search(text)
+            pred_raw = m.group(1) if m else ""
+            pred_norm = _normalize(pred_raw)
+            gold_norm = _normalize(str(gold).strip())
+            ok = pred_norm == gold_norm
+            if not ok:
+                pn, gn = _to_number(pred_norm), _to_number(gold_norm)
+                if pn is not None and gn is not None and abs(pn - gn) < 1e-6:
+                    ok = True
+            rewards.append(1.0 if ok else 0.0)
+        return rewards
+
+    return reward_fn
+
+
 class RhoGRPOCallback(TrainerCallback):
     def __init__(self, rho: float, group_size: int = 4):
         self.rho = rho
