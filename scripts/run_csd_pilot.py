@@ -253,6 +253,15 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
     trainer.train()
     elapsed = time.time() - t0
 
+    # Save final LoRA adapter so downstream GSM8K eval has something to load.
+    # The pilot config disables checkpoint saving during training, so we save
+    # once here at the end.
+    try:
+        adapter_dir = os.path.join(run_dir, "checkpoint-final")
+        trainer.save_model(adapter_dir)
+    except Exception as e:
+        logger.exception("save_model failed: %s", e)
+
     # Save results
     results = {
         "rho": rho, "seed": seed, "use_adq": use_adq,
@@ -271,24 +280,34 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
             late_rewards = final_rewards[late_start:]
             results["collapsed"] = bool(np.mean(late_rewards) < 0.1) if late_rewards else False
 
-    with open(os.path.join(run_dir, "pilot_results.json"), "w") as f:
-        json.dump(results, f, indent=2)
+    def _coerce(o):
+        """Recursively cast numpy scalars/arrays to JSON-safe Python types."""
+        if isinstance(o, dict):
+            return {k: _coerce(v) for k, v in o.items()}
+        if isinstance(o, (list, tuple)):
+            return [_coerce(v) for v in o]
+        if isinstance(o, np.ndarray):
+            return _coerce(o.tolist())
+        if isinstance(o, np.generic):
+            return o.item()
+        return o
 
+    def _save_json(path, payload, label):
+        try:
+            with open(path, "w") as f:
+                json.dump(_coerce(payload), f, indent=2)
+        except Exception as e:  # never let one save kill the others
+            logger.exception("[%s] save failed: %s", label, e)
+
+    _save_json(os.path.join(run_dir, "pilot_results.json"),     results,                       "pilot_results")
     if csd_cb.csd_logs:
-        with open(os.path.join(run_dir, "csd_logs.json"), "w") as f:
-            json.dump(csd_cb.csd_logs, f, indent=2)
-
+        _save_json(os.path.join(run_dir, "csd_logs.json"),       csd_cb.csd_logs,               "csd_logs")
     if stability_cb.telemetry:
-        with open(os.path.join(run_dir, "stability_telemetry.json"), "w") as f:
-            json.dump(stability_cb.telemetry, f, indent=2)
-
+        _save_json(os.path.join(run_dir, "stability_telemetry.json"), stability_cb.telemetry,    "stability_telemetry")
     if trainer._rho_step_stats:
-        with open(os.path.join(run_dir, "rho_grpo_logs.json"), "w") as f:
-            json.dump(trainer._rho_step_stats, f, indent=2)
-
-    if hasattr(trainer, '_ada_telemetry') and trainer._ada_telemetry:
-        with open(os.path.join(run_dir, "ada_telemetry.json"), "w") as f:
-            json.dump(trainer._ada_telemetry, f, indent=2)
+        _save_json(os.path.join(run_dir, "rho_grpo_logs.json"),  trainer._rho_step_stats,       "rho_grpo_logs")
+    if hasattr(trainer, "_ada_telemetry") and trainer._ada_telemetry:
+        _save_json(os.path.join(run_dir, "ada_telemetry.json"),  trainer._ada_telemetry,        "ada_telemetry")
 
     # Clean up GPU memory
     del trainer, model

@@ -97,8 +97,8 @@ class CSDLoggingCallback(TrainerCallback):
         is_collapsed = False
         if step > 50 and len(self.reward_history) >= self.window:
             recent = list(self.reward_history)[-self.window:]
-            recent_mean = np.mean(recent)
-            is_collapsed = recent_mean < self.collapse_threshold
+            recent_mean = float(np.mean(recent))  # cast to Python float
+            is_collapsed = bool(recent_mean < self.collapse_threshold)  # numpy.bool_ → bool
 
         # --- Gradient variance (for comparison with Q_CSD) ---
         grad_norm = logs.get("grad_norm", 0)
