@@ -211,7 +211,13 @@ class RhoGRPOTrainerV14(GRPOTrainer):
             prompts_text, return_tensors="pt", padding=True,
             padding_side="left", add_special_tokens=False,
         )
-        prompt_inputs = super()._prepare_inputs(prompt_inputs)
+        # Manually move to accelerator device. The parent
+        # GRPOTrainer._prepare_inputs is the inline-rollout-and-advantage path
+        # which we are explicitly replacing here, so we must not call it.
+        prompt_inputs = {
+            k: (v.to(device) if isinstance(v, torch.Tensor) else v)
+            for k, v in prompt_inputs.items()
+        }
         if self.max_prompt_length is not None:
             prompt_inputs["input_ids"] = prompt_inputs["input_ids"][:, -self.max_prompt_length:]
             prompt_inputs["attention_mask"] = prompt_inputs["attention_mask"][:, -self.max_prompt_length:]
