@@ -46,6 +46,7 @@ class ASERTrainerV14(GRPOTrainer):
         replay_batch_size: int = 4,
         replay_warmup_steps: int = 50,
         success_threshold: float = 0.5,            # reward >= this → push to replay bank
+        pg_weight: float = 1.0,                    # 0.0 → pure RFT (bank-only, no GRPO gradient)
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -57,6 +58,7 @@ class ASERTrainerV14(GRPOTrainer):
         self.replay_batch_size = int(replay_batch_size)
         self.replay_warmup_steps = int(replay_warmup_steps)
         self.success_threshold = float(success_threshold)
+        self.pg_weight = float(pg_weight)
 
         self._aser_step_stats: list = []
 
@@ -248,7 +250,7 @@ class ASERTrainerV14(GRPOTrainer):
             loss_rep = self._compute_replay_loss(model, device)
         else:
             loss_rep = torch.tensor(0.0, device=device)
-        loss = loss_pg + self.lambda_rep * loss_rep
+        loss = self.pg_weight * loss_pg + self.lambda_rep * loss_rep
 
         # ─── Metrics (TRL-compatible) ───
         completion_length = self.accelerator.gather_for_metrics(completion_mask.sum(1)).float().mean().item()
@@ -271,6 +273,11 @@ class ASERTrainerV14(GRPOTrainer):
 
         # ─── step stats ───
         step = int(self.state.global_step) if self.state else 0
+        # Count duplicate prompt_ids in batch (adaptive-dup telemetry)
+        pid_counts = {}
+        for pid in group_prompt_ids:
+            pid_counts[pid] = pid_counts.get(pid, 0) + 1
+        batch_n_dup = sum(c - 1 for c in pid_counts.values() if c > 1)
         self._aser_step_stats.append({
             "step": step,
             "backbone": self.backbone_mode,
@@ -280,5 +287,7 @@ class ASERTrainerV14(GRPOTrainer):
             "replay_bank_prompts": int(self.replay_bank.n_prompts()) if self.replay_bank is not None else 0,
             "loss_pg": float(loss_pg.detach().item()),
             "loss_rep": float(loss_rep.detach().item()) if isinstance(loss_rep, torch.Tensor) else 0.0,
+            "pg_weight": self.pg_weight,
+            "batch_n_dup": batch_n_dup,
         })
         return loss

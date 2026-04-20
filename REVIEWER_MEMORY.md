@@ -1,6 +1,34 @@
 # Reviewer Memory (nightmare-mode persistent brain)
 
-## Round 1 — (pending external review after ASE-R MVP completes)
+## Round 1 — ASE-R MVP review complete — Score: 3/10 (not ready)
+Reviewer: Codex xhigh (Oracle MCP unavailable → fallback per `shared-references/reviewer-routing.md`)
+threadId: `019dacf3-5e9a-7a41-8097-e31278f80315`
+Date: 2026-04-21
+
+### Verdict summary
+**3/10, NOT ready**. Two fatal findings that invalidate the current result narrative:
+1. **Adaptive duplication never fires**: `int(batch_size * frac) = int(2 * 0.25) = 0`. So all 9 ASE-R "full MVP" runs reported in AUTO_REVIEW.md are actually "SPO + verified replay CE" — the `adaptive_dup` component did nothing. The "SPO+dup" ablation is literally "SPO" with different seeds.
+2. **Zero ASE-R artifacts committed**: 9 per-seed eval JSONs, replay bank dumps, and telemetry are not in `results/` — only live on the remote GPU. The 69.4% / 60.0% / 88.0% table is Markdown-only until synced.
+
+Other high-severity concerns:
+3. **Replay CE ≈ online RFT**: need matched-compute RFT control.
+4. **Stats asymmetry**: ASE-R at n=9 vs baselines at n=3 — MDE ≈ 18.5pp overall (observed 17.1pp) → borderline.
+5. **Stale docs**: root `FINAL_PROPOSAL.md` missing, README still says "Metastable Training Dynamics".
+
+### What's validated (green lights from Codex)
+- SPO EMA baseline actually persists across steps — not re-initialised per batch.
+- `prompt_id` is per-example dataset index (no batch-level mis-keying).
+- Replay CE is plain LM cross-entropy on verified successes only (no polluted buffer).
+- No eval-to-replay leakage path (train=GSM8K train, eval=GSM8K test).
+
+### Unresolved at end of Round 1
+- Does sampler-fix rerun change the numbers? (If dup matters, yes; if not, drop the claim entirely.)
+- Does matched-RFT control reach the same test accuracy? (If yes, novelty dead.)
+- Does the gap survive n=9 vs n=9 matched-seed baseline?
+
+---
+
+## Pre-Round 1 — Carryover suspicions (from earlier CSD/ADQ paper)
 
 ### Suspicions carried from earlier critique rounds (author-provided summary)
 - The repo has a long history of "left-brain fights right-brain" claims:

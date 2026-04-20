@@ -1,0 +1,3827 @@
+{
+  "2882": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "512": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3524": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4535": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3716": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4675": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2813": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2108": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4197": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 2
+  },
+  "3166": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3214": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 2
+  },
+  "5042": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "335": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6513": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3428": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5395": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "193": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "839": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 2
+  },
+  "5": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 2
+  },
+  "2161": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6490": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3944": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5929": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4478": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "74": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6682": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7362": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2585": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4649": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3503": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1884": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1947": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4286": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4210": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2941": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3622": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "1982": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "272": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4595": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3065": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5871": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5632": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2895": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4923": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2800": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4569": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4711": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6241": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1605": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1954": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6460": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6886": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5973": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "289": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1028": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2735": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "802": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2972": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4737": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3142": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4164": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4424": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6659": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2071": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "795": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5315": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "7142": {
+    "baseline": 0.19,
+    "success_ema": 0.19,
+    "seen": 2
+  },
+  "7218": {
+    "baseline": 0.14500000000000002,
+    "success_ema": 0.14500000000000002,
+    "seen": 2
+  },
+  "1859": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5727": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6927": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2743": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1790": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3858": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 2
+  },
+  "6096": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "902": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6333": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3413": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4953": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 2
+  },
+  "2892": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5528": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7146": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2345": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7201": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6331": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 2
+  },
+  "6635": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1957": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 2
+  },
+  "6628": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 2
+  },
+  "4548": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2142": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2924": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4363": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4631": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "328": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3964": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2557": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4609": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6387": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3239": {
+    "baseline": 0.19,
+    "success_ema": 0.19,
+    "seen": 3
+  },
+  "2131": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5981": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4254": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6550": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1809": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4967": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "933": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5139": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 2
+  },
+  "6893": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1696": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3111": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3976": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 2
+  },
+  "2073": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4944": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4571": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1222": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3636": {
+    "baseline": 0.045000000000000005,
+    "success_ema": 0.045000000000000005,
+    "seen": 2
+  },
+  "124": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1395": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4480": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5137": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6589": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 2
+  },
+  "6237": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "678": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "611": {
+    "baseline": 0.14500000000000002,
+    "success_ema": 0.14500000000000002,
+    "seen": 2
+  },
+  "2177": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4188": {
+    "baseline": 0.19,
+    "success_ema": 0.19,
+    "seen": 2
+  },
+  "6657": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5099": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4479": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3903": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6408": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6568": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3568": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2994": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6219": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "271": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4979": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2170": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7366": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5278": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4985": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4234": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5522": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7450": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3865": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5801": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5229": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6541": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2580": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6795": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "182": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4726": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1990": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1731": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2834": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3535": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7100": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5667": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1507": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1447": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3848": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1627": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1047": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "806": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1119": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5983": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6431": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4666": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2818": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4320": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "885": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2186": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5346": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1002": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3392": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "550": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3024": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "169": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2164": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "341": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1150": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1484": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6055": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4191": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6845": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4022": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1647": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6415": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6649": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4052": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4327": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3715": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4617": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4647": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "81": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5693": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "604": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1434": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6846": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1233": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4451": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2771": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5206": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7103": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "382": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7188": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5095": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "1921": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 2
+  },
+  "5834": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "501": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3102": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1008": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "181": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "725": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2479": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "441": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7202": {
+    "baseline": 0.045000000000000005,
+    "success_ema": 0.045000000000000005,
+    "seen": 2
+  },
+  "4488": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2520": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1958": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5018": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7343": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6013": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4381": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1238": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4505": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4749": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6245": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2237": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5070": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7031": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4676": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "661": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4611": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4024": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2807": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4559": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "427": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "938": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3387": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3421": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2897": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7426": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2480": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4622": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6916": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6223": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4007": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4896": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "1144": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "520": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4160": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "959": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7399": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 2
+  },
+  "3778": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5348": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6445": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3717": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6747": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "146": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3560": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6632": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4619": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4277": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6253": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "542": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6402": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6465": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2356": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6420": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5773": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4015": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4115": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "934": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6184": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2008": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2885": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6522": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2712": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1367": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3789": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "185": {
+    "baseline": 0.19,
+    "success_ema": 0.19,
+    "seen": 2
+  },
+  "4814": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "804": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5496": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3763": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3772": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2267": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5226": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4463": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5619": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5695": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5645": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "194": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4589": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 2
+  },
+  "1550": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6751": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5567": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2351": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "334": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6322": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2156": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4442": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3954": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3143": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "560": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5918": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6438": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "893": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4266": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5808": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4833": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4906": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3910": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4400": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6097": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6478": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2965": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4738": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2553": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3375": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6307": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5593": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "7341": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7358": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1678": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5999": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5181": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "749": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "841": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2498": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3318": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2725": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4415": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6850": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2950": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6972": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "891": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6686": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "763": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "7002": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5098": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6094": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3490": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2953": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "411": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2865": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4774": {
+    "baseline": 0.14500000000000002,
+    "success_ema": 0.14500000000000002,
+    "seen": 2
+  },
+  "7087": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "462": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3210": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5193": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6611": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2194": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2083": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1725": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2373": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1713": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3809": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6971": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5417": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6725": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6699": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2453": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3647": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6354": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3608": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2600": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7084": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5525": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "448": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1272": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4753": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3929": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "225": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3463": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7095": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3747": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4261": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 2
+  },
+  "3587": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5030": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6673": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7044": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2111": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2408": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2482": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1014": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1390": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3465": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2757": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4075": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3489": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4123": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4671": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4204": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2155": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2564": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4544": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "188": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4988": {
+    "baseline": 0.14,
+    "success_ema": 0.14,
+    "seen": 2
+  },
+  "5513": {
+    "baseline": 0.14500000000000002,
+    "success_ema": 0.14500000000000002,
+    "seen": 2
+  },
+  "7154": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3107": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "7010": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4871": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4827": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5708": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4872": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5651": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5111": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3783": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5054": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4573": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "1470": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5591": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5749": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3088": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6672": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 2
+  },
+  "350": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1487": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5021": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1486": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5110": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "638": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3972": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3367": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "493": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1838": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3782": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1441": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4898": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3259": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "36": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5115": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1139": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6088": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "596": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3187": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3148": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4090": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6077": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3728": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5159": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3057": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5985": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1003": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3280": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 2
+  },
+  "836": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "704": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6467": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3443": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3374": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "7291": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4509": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "854": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6978": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5056": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1432": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7402": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5448": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4084": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3897": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3598": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4885": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6788": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "767": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4296": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4142": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2682": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3543": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6135": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1610": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2591": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3253": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6944": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1085": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5838": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3994": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2728": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5324": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5319": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "858": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2068": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6479": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "759": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 2
+  },
+  "2925": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "243": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3232": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5117": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "666": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4927": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1836": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4225": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5276": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "1726": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4159": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2110": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5843": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7028": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6257": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2511": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4096": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4960": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "931": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4605": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "511": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2350": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5895": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1452": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3999": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5698": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1976": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3312": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5002": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3883": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "57": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4825": {
+    "baseline": 0.19,
+    "success_ema": 0.19,
+    "seen": 2
+  },
+  "7150": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3273": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4989": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1927": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5122": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4541": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3064": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6563": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6451": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "874": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2767": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "526": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1286": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4832": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "867": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6918": {
+    "baseline": 0.14,
+    "success_ema": 0.14,
+    "seen": 2
+  },
+  "7089": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1500": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "655": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1160": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4218": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "1377": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5888": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "1355": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "632": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1031": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3225": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7063": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2853": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "997": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3396": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2415": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4499": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5247": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1798": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5563": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2841": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6296": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "738": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5254": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2573": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "834": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "293": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1653": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6644": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4580": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1109": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2705": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "744": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6829": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2615": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6297": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5860": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5434": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3514": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4146": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4472": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4690": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6167": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6306": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5571": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "7378": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2884": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6533": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4270": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4255": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3485": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5225": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3597": {
+    "baseline": 0.19,
+    "success_ema": 0.19,
+    "seen": 2
+  },
+  "3572": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5539": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3384": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5961": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4019": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1595": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2674": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "401": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4912": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3510": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7382": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "828": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6335": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "1016": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "788": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6935": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2741": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3581": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6052": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7464": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "483": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2733": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6453": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6181": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1535": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6661": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5479": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3348": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3840": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6073": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4243": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3891": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5675": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4230": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "979": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1879": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1626": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "216": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4423": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4043": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2664": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1163": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5532": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1342": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6341": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2368": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "594": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "384": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6116": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6862": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7411": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2446": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "362": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "5258": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5057": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6985": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5483": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "51": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2098": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2823": {
+    "baseline": 0.19,
+    "success_ema": 0.19,
+    "seen": 2
+  },
+  "1574": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4550": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1761": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3025": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7389": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3036": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1094": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1658": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3665": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5047": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "282": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6524": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6075": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6667": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2470": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4936": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5484": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2454": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3455": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "907": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3462": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6910": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3426": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2846": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6199": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4077": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2103": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "371": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5931": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4628": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "5912": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5647": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7470": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4020": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1881": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2216": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3322": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "479": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7148": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "196": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3220": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1562": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6272": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3418": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3005": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "726": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2827": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5919": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7105": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5116": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7258": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5141": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2777": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3614": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7094": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "6851": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "555": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "536": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3876": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2185": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "527": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1329": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1677": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "1863": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3457": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "3871": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "6498": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1617": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2430": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "48": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "935": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4952": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "4623": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "97": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2057": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4369": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1744": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4360": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3052": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1755": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2723": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7465": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "314": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5295": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4804": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3397": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "2666": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6643": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4404": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7332": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "61": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "895": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "168": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "2547": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6486": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "398": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "1791": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6741": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6727": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4294": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7081": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5012": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "27": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "286": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "4543": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "4818": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "403": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "3141": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "7315": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "6251": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "3801": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "1564": {
+    "baseline": 0.05,
+    "success_ema": 0.05,
+    "seen": 1
+  },
+  "735": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "2271": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5530": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  },
+  "5208": {
+    "baseline": 0.0,
+    "success_ema": 0.0,
+    "seen": 1
+  },
+  "7267": {
+    "baseline": 0.1,
+    "success_ema": 0.1,
+    "seen": 1
+  }
+}

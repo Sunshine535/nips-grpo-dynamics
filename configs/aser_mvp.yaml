@@ -38,7 +38,7 @@ aser:
   alpha_baseline: 0.1             # EMA smoothing for SPO per-prompt baseline
   alpha_success: 0.1              # EMA smoothing for hardness estimator
   lambda_rep: 0.05                # weight of the replay CE loss
-  replay_batch_size: 4
+  replay_batch_size: 2    # lowered from 4 after Wave 10 OOM at step ~50 once replay CE kicks in
   replay_max_per_prompt: 2
   replay_warmup_steps: 50
   success_threshold: 0.5

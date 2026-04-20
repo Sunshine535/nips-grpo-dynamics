@@ -40,8 +40,15 @@ class AdaptiveDupBatchSampler(Sampler):
         n = len(self.dataset)
         while True:
             frac = self._current_dup_frac()
-            n_dup = int(self.batch_size * frac)
-            # Base: uniform random sample
+            # Probabilistic rounding — unbiased, so small batches still get duplicates.
+            # n_dup_expected = batch_size * frac; floor + Bernoulli on fractional part.
+            expected = self.batch_size * frac
+            base = int(expected)
+            residual = expected - base
+            n_dup = base + (1 if (residual > 0 and self.rng.random() < residual) else 0)
+            n_dup = min(n_dup, self.batch_size)
+            # Telemetry: record realised n_dup so downstream analysis can verify it fired.
+            self.last_n_dup = n_dup
             batch = [self.rng.randrange(n) for _ in range(self.batch_size)]
             if n_dup > 0:
                 hard = np.array([

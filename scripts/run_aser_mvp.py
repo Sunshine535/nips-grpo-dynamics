@@ -62,6 +62,8 @@ def parse_args():
     p.add_argument("--no-dup", action="store_true", help="disable adaptive duplication (Stage 1)")
     p.add_argument("--lambda-rep", type=float, default=None,
                    help="override config; set to 0 to disable replay CE")
+    p.add_argument("--pg-weight", type=float, default=1.0,
+                   help="multiplier on the GRPO policy-gradient loss. 0.0 → pure online RFT.")
     p.add_argument("--run-name", type=str, default=None)
     return p.parse_args()
 
@@ -73,6 +75,8 @@ def make_run_dir(args, cfg):
     lr = cfg["aser"]["lambda_rep"] if args.lambda_rep is None else args.lambda_rep
     if float(lr) == 0.0:
         parts.append("noreplay")
+    if float(args.pg_weight) == 0.0:
+        parts.append("nopg")
     name = args.run_name or ("aser_" + "_".join(parts))
     d = os.path.join(args.output_dir, name)
     os.makedirs(os.path.join(d, "logs"), exist_ok=True)
@@ -190,6 +194,7 @@ def main():
         replay_batch_size=acfg.get("replay_batch_size", 4),
         replay_warmup_steps=acfg.get("replay_warmup_steps", 50),
         success_threshold=acfg.get("success_threshold", 0.5),
+        pg_weight=args.pg_weight,
         callbacks=[rope_cb],
     )
 
@@ -232,6 +237,7 @@ def main():
         "backbone": args.backbone, "seed": args.seed,
         "no_dup": args.no_dup,
         "lambda_rep": acfg.get("lambda_rep"),
+        "pg_weight": args.pg_weight,
         "max_steps": args.max_steps,
         "elapsed_sec": round(elapsed, 1),
         "model": args.model,

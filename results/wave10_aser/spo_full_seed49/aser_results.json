@@ -1,0 +1,12 @@
+{
+  "backbone": "spo",
+  "seed": 49,
+  "no_dup": false,
+  "lambda_rep": 0.05,
+  "max_steps": 200,
+  "elapsed_sec": 7184.2,
+  "model": "Qwen/Qwen3.5-9B",
+  "final_reward_mean": 0.75,
+  "max_reward_mean": 1.0,
+  "n_reward_logs": 200
+}

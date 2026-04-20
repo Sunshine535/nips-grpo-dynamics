@@ -232,3 +232,134 @@ of learning-dynamics equivalence between GRPO and literal
 self-distillation. Experimental evidence in this paper is limited to
 Qwen3.5-9B / GSM8K / LoRA / TRL 0.14 with binary rewards. ADQ is
 compute-gated on a real-model validation run; all other pieces ship.
+
+---
+
+## Auto-Review-Loop Round 1 — ASE-R MVP (2026-04-21)
+
+**Difficulty**: nightmare
+**Reviewer**: oracle-pro requested → Oracle MCP unavailable → falling back to Codex xhigh
+**Fresh start**: previous loop (Rounds 1-4 on CSD decomposition paper, final score 5/10 "almost") was completed on 2026-04-19. New loop started after pivot to ASE-R MVP.
+
+### Method recap (ASE-R MVP)
+After 5 earlier rounds on the ρ-controller line plateaued at fixed ρ=0.70 = 52.3%, we pivoted to **ASE-R = Adaptive Support Expansion with Replay**:
+- Backbone: **SPO** (single-stream persistent per-prompt EMA baseline, replaces group-relative advantage → escapes G=2 degenerate-group pathology)
+- Adaptive rollouts: batch-level hard-prompt duplication (τ=2.0, 25 % duplicated, warmup 100 steps)
+- Verified replay CE: hash-deduped success trajectories (≤2 per prompt) → small SFT loss (λ_rep=0.05, batch_size=2, warmup 50 steps)
+
+All three components run inside `src/aser_trainer_v14.py` (3 Δ from V14).
+
+### Wave 10 experimental protocol
+- Qwen3.5-9B + LoRA r=64, GSM8K, 200 GRPO steps, G=2, binary reward
+- 9 seeds {42-44, 46-51} (seed 45 OOM on GPU 0 zombie process, excluded)
+- Full MVP (SPO + dup + replay) — the target method
+- Plus SPO-only (3 seeds) and SPO+dup (3 seeds) as ablations
+- Test eval: GSM8K test split, n=200 per adapter, per-question correctness saved, base Qwen3.5-9B baseline = 25.5 %
+
+### Main results (n=200 stratified test accuracy)
+
+**Table — overall test accuracy:**
+
+| Method                           | n seeds | overall (mean ± std) | vs fixed ρ=0.70 |
+|----------------------------------|---------|----------------------|------------------|
+| **ASE-R MVP (SPO + dup + replay)** | **9** | **69.4 ± 10.4%**    | **+17.1 pp**    |
+| SPO + adaptive dup (no replay)   | 3       | 47.7 ± 18.9%        | −4.6 pp         |
+| SPO only (no dup, no replay)     | 3       | 52.2 ± 11.0%        | ≈ tied          |
+| fixed ρ = 0.70 (prior baseline)  | 3       | 52.3 ± 7.5%         | —                |
+| Bandit-ρ (UCB1)                  | 3       | 50.2 ± 4.5%         | −2.1 pp         |
+| fixed ρ = 1.00                   | 3       | 48.5 ± 5.6%         | −3.8 pp         |
+| fixed ρ = 3.00                   | 3       | 48.3 ± 5.1%         | −4.0 pp         |
+| ADQ (proxy ρ*)                   | 3       | 46.8 ± 8.3%         | −5.5 pp         |
+| Dr. GRPO (published SOTA)        | 3       | 39.3 ± 4.0%         | −13.0 pp        |
+| exact-ρ*                         | 5       | 47.5%               | −4.8 pp         |
+| base Qwen3.5-9B                  | —       | 25.5%               | −26.8 pp        |
+
+Welch's t-test ASE-R MVP (n=9) vs fixed ρ=0.70 (n=3): t ≈ 3.08, df ≈ 5.7, p < 0.05.
+
+**Stratified (easy = base correct, 51/200; hard = base wrong, 149/200):**
+
+| Method               | easy (base✓) | hard (base✗) |
+|----------------------|--------------|--------------|
+| **ASE-R MVP (n=9)**  | **97.0 ± 1.7%** | **60.0 ± 14.1%** |
+| fixed ρ=0.70 (n=3)   | 94.1 ± 3.9%    | 38.0 ± 8.8%     |
+| ADQ (n=3)            | 93.5 ± 8.2%    | 30.9 ± 8.8%     |
+| base                 | 25.5%          | 0% (by def.)     |
+
+ASE-R MVP improves the **hard subset** by +22 pp over the best baseline — consistent with the earlier stratified-ρ finding that ρ choice matters most on base-model-incompetent questions.
+
+**Per-seed ASE-R MVP (n=200 each):** 72.5 / 65.0 / 59.5 / 88.0 / 70.0 / 82.0 / 66.0 / 67.0 / 54.5
+Even the **worst** ASE-R seed (s51 = 54.5%) is above fixed ρ=0.70's mean (52.3%).
+
+### Observations
+- Replay CE is doing real work: SPO-only mean 52.2% ≈ fixed ρ=0.70; adding replay takes it to 69.4% (+17pp).
+- Adaptive dup alone is unstable (SPO+dup std 18.9%, worse than SPO-only). It's the replay that stabilises the support set.
+- 4/9 ASE-R seeds train to reward=1.0; 3 more at 0.75-0.875; low-reward seeds (s44=0.5, s51=0.5) still exceed baseline on test.
+- One seed (s46) reached 88.0% test acc — highest we've ever seen on this setup; suggests a ceiling above 90% exists for Qwen3.5-9B/GSM8K with the right support.
+
+### Known caveats
+- One seed excluded (s45 OOM on zombie GPU); n=9 instead of n=10.
+- Variance still high (std 10.4) — 9 seeds is OK but not great for publication-grade CI.
+- Replay bank could leak learned patterns if the SPO baseline's own output set is cached; we store *verified* successes only, so in principle no train-set leakage to test-set; but the training reward saturating at 1.0 on 4/9 seeds warrants a cross-check that it's not overfitting.
+- Still only Qwen3.5-9B / GSM8K — no cross-family, no cross-dataset.
+
+### What we want the reviewer (Codex xhigh) to stress-test
+1. Is +17.1pp over the strongest ρ-controller baseline (and +44pp over base) at p<0.05 enough for NeurIPS-level claims?
+2. Is the replay-CE contribution indistinguishable from "rejection-sampling fine-tuning (RFT)"? If RFT alone would get similar numbers, ASE-R loses its novelty claim.
+3. Is the 88.0% outlier (s46) a single-seed artefact, or expected as training reward saturates?
+4. What specific control experiment would you run to tell apart "SPO + replay is the method" from "any SFT on verified successes works"?
+5. Does the hard-subset 60.0% (vs 38.0%) claim require n > 9 seeds?
+
+### Reviewer Raw Response (Codex xhigh — Oracle fallback)
+
+<details>
+<summary>Click to expand full Codex xhigh response</summary>
+
+**Score: 3/10** (NeurIPS best-paper = 9; accept = 7; almost = 5-6; not ready = <5)
+**Verdict: not ready**
+
+#### Verified claims (what the code/results actually support)
+- SPO really replaces group-std-normalized advantage with `rewards - baseline(prompt_id)`, and `dr_grpo` uses `rewards - group_mean`, both without std normalization (`src/aser_trainer_v14.py:191`).
+- The SPO EMA baseline persists across steps within a run; it is created once, then updated after advantage computation, not reinitialized per batch (`scripts/run_aser_mvp.py:173`, `src/prompt_stats.py:22`, `src/aser_trainer_v14.py:208`).
+- Replay CE is plain LM cross-entropy on banked successful prompt-completion pairs, and with the current GSM8K binary reward it only admits true successes (`reward >= 0.5` means `1.0` here) (`src/aser_trainer_v14.py:64,216`, `src/rho_grpo.py:111`).
+- `prompt_id` is per-example dataset index, not per batch, so the baseline/replay keys are at least conceptually per prompt (`scripts/run_aser_mvp.py:109`).
+- No direct eval-set-to-replay leakage path: training loads GSM8K `train`, eval loads `test` (`configs/aser_mvp.yaml:1`, `scripts/run_aser_mvp.py:97`, `scripts/eval_stratified.py:50`).
+
+#### Unverified or suspicious claims (with evidence)
+- **The committed "adaptive duplication" component is a no-op.** With `per_device_train_batch_size: 2` and `dup_frac: 0.25`, the sampler computes `n_dup = int(batch_size * frac) = int(0.5) = 0`. No hard-prompt duplicates are ever inserted. The claimed `SPO+dup` ablation is non-credible from this code/config pair (`configs/aser_mvp.yaml:10,35`, `src/adaptive_dup_sampler.py:32`).
+- **No committed Wave-10 ASE-R artifacts**: no `results/wave10_aser/...`, no `aser_results.json`, no `aser_step_stats.json`, no replay-bank dump, and no 9 per-seed 200-question eval JSONs. The 69.4/60.0/88.0 table exists only in `review-stage/AUTO_REVIEW.md:252`.
+- No committed ASE-R analysis script ingesting those 9 eval JSONs. The only stratified script aggregates the old `results/stratified_eval/*.json` baseline files, not ASE-R (`scripts/analyze_stratified.py:8`).
+- `λ_rep=0.05` replay is mechanically online RFT/SFT. Without a matched RFT control, the novelty claim is weak (`src/aser_trainer_v14.py:64`, `src/replay_bank.py:20`).
+- **ASE-R is not compute-matched to fixed-ρ baselines**: adds extra supervised gradient signal from step 50 onward (`src/aser_trainer_v14.py:69,247`, `configs/aser_mvp.yaml:40`).
+- Several claimed hyperparameters are not actually enforced: `eval_split` is dead, `clip_range` is unused in ASER loss, `max_prompt_length` / KL weight are not wired through by the launcher (`configs/aser_mvp.yaml:4,19`, `scripts/run_aser_mvp.py:149`, `src/aser_trainer_v14.py:124,240`).
+- **Taking the Markdown numbers at face value, this is not NeurIPS best-paper evidence.** Rough 80%-power MDEs under the claimed observed SDs are about 18.5pp overall and 24.7pp on the hard subset; the claimed effects are 17.1pp and 22pp. Borderline significance on one model/task is nowhere near enough (`review-stage/AUTO_REVIEW.md:263,281`).
+- Seed 46's 88.0% is ~2.5 SD above the other eight seeds. An outlier, not ceiling evidence, until independently replicated.
+- Repo narrative is stale: root `FINAL_PROPOSAL.md` is missing, proposal file is still the old ADQ/CSD paper, `README.md` is about "Metastable Training Dynamics in GRPO", not ASE-R.
+
+#### Ranked weaknesses (with MINIMUM fix for each)
+1. **[fatal]** Adaptive-dup ablation is invalid because duplication never fires under the committed config → fix: make duplication actually execute (`ceil`, probabilistic rounding, or larger microbatch), log realized duplicate count per step, and rerun SPO-only / SPO+dup / full-MVP on the same seeds.
+2. **[fatal]** Result provenance is broken for ASE-R → fix: commit all 9 Wave-10 run dirs plus the 9 raw 200-question eval JSONs, per-question correctness files, exact launch/eval commands, and enough replay-bank state to audit what was trained on.
+3. **[high]** Replay novelty is confounded with online RFT and extra compute → fix: add matched-token controls using the identical success buffer: `SPO only`, `SPO + online replay` (current), `offline RFT on same buffer`, and `pure SFT/RFT from same init on same buffer`.
+4. **[high]** Statistical story too thin for claimed gains → fix: rerun fixed-ρ baseline at `n=9`, use identical seed set for all ablations, pre-register the hard subset, and report robustness with and without seed 46.
+5. **[medium]** Documentation/config provenance is inconsistent → fix: write an actual ASE-R proposal, update `README`, wire or delete dead config fields, state where `λ_rep=0.05` was chosen if not on test.
+
+#### Memory update (for next round)
+- Committed ASE-R config makes adaptive duplication a no-op: `batch_size=2`, `dup_frac=0.25`, `int(2*0.25)=0`.
+- No committed Wave-10 ASE-R artifacts or 9 eval JSONs were found; current ASE-R table is Markdown-only.
+- Replay CE is effectively online self-generated RFT/SFT; matched-compute novelty control is mandatory.
+- No direct eval-to-replay leakage path was found; `prompt_id` is per-example and SPO baseline persists across steps.
+- Root proposal/README are stale and still mostly document the predecessor paper — credibility problem, not just housekeeping.
+
+</details>
+
+### Actions planned for Round 1 (no rebuttal — all findings accepted)
+
+No debate issued: both "fatal" findings are factually correct on visual inspection of `src/adaptive_dup_sampler.py:43` and `ls results/`. The three "high/medium" findings are also correct. Nothing to rebut.
+
+**Priority fixes (Round 1 → Round 2):**
+1. **Fix sampler bug**: change `n_dup = int(batch_size * frac)` to probabilistic rounding so `batch_size=2, dup_frac=0.25` yields `n_dup=1` with 50% probability (unbiased). Log realised `n_dup` per step.
+2. **Sync Wave-10 artifacts from remote** + commit 9 per-seed eval JSONs + replay-bank dumps.
+3. **Rewrite method framing**: since dup never fired in reported numbers, the validated claim is "**SPO + Verified Replay CE**", NOT "adaptive support expansion". Update `review-stage/AUTO_REVIEW.md` and draft a new proposal doc.
+4. **Launch matched-compute RFT control**: same success buffer, same token budget, no GRPO signal — if RFT alone reaches 69%, novelty collapses. If it doesn't, the KL-regularised replay + GRPO interaction is the story.
+5. **Boost fixed-ρ=0.70 baseline to n=9** or subsample ASE-R to n=3 from the same seed indices for like-for-like stats.
+6. **Patch stale docs**: delete/archive `refine-logs/FINAL_PROPOSAL.md`, rewrite `README.md`, wire or drop dead config fields.
+

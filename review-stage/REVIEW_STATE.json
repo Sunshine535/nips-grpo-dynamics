@@ -1,47 +1,31 @@
 {
-  "round": 4,
-  "threadId": "019da299-744b-7ac0-a0a6-3a217f5f8ed1",
-  "status": "completed_loop_post_gates_running",
+  "round": 1,
+  "threadId": "019dacf3-5e9a-7a41-8097-e31278f80315",
+  "status": "in_progress",
   "difficulty": "nightmare",
-  "last_score": 5.0,
-  "last_verdict": "almost",
+  "reviewer_backend": "codex-xhigh-fallback",
+  "last_score": 3.0,
+  "last_verdict": "not ready",
+  "fatal_findings": [
+    "adaptive_dup_never_fires_int_2_times_0.25_equals_0",
+    "zero_aser_result_artifacts_committed"
+  ],
+  "pending_experiments": [
+    "spo_replay_rerun_after_sampler_fix",
+    "rft_matched_compute_control",
+    "fixed_rho_070_boost_to_n9_seeds"
+  ],
+  "pending_fixes_done": [
+    "sampler_probabilistic_round_fix"
+  ],
+  "pending_fixes_todo": [
+    "sync_wave10_artifacts_from_remote",
+    "reframe_method_drop_dup_claim",
+    "patch_stale_docs_readme_proposal",
+    "wire_or_drop_dead_config_fields"
+  ],
   "score_progression": [
-    {"round": 1, "score": 2, "verdict": "not ready"},
-    {"round": 2, "score": 4, "verdict": "not ready"},
-    {"round": 3, "score": 4, "verdict": "not ready"},
-    {"round": 4, "score": 5, "verdict": "almost"}
+    {"round": 1, "score": 3, "verdict": "not ready"}
   ],
-  "post_loop_experiments": {
-    "launched_at": "2026-04-19T12:35:00",
-    "host": "tju-hpc via 100.79.226.56:43038",
-    "gpu_box": "8x A800-80GB",
-    "expected_completion": "2026-04-19T14:15:00 (~100 min)",
-    "launcher_script": "run_gates_1_2.sh",
-    "analyzer_script": "scripts/analyze_gates_1_2.py",
-    "parallel_jobs": [
-      {"gpu": 0, "tag": "gate1_adq_seed42",       "rho_init": 1.0, "use_adq": true,  "seed": 42},
-      {"gpu": 1, "tag": "gate2_rho0.70_seed42",   "rho": 0.7, "seed": 42},
-      {"gpu": 2, "tag": "gate2_rho0.70_seed43",   "rho": 0.7, "seed": 43},
-      {"gpu": 3, "tag": "gate2_rho0.70_seed44",   "rho": 0.7, "seed": 44},
-      {"gpu": 4, "tag": "gate2_rho1.00_seed43",   "rho": 1.0, "seed": 43},
-      {"gpu": 5, "tag": "gate2_rho1.00_seed44",   "rho": 1.0, "seed": 44},
-      {"gpu": 6, "tag": "gate2_rho3.00_seed42",   "rho": 3.0, "seed": 42},
-      {"gpu": 7, "tag": "gate2_rho3.00_seed43",   "rho": 3.0, "seed": 43}
-    ],
-    "queued_after_first_completion": [
-      {"tag": "gate2_rho3.00_seed44", "rho": 3.0, "seed": 44, "purpose": "complete the 3-seed coverage at rho=3.0"}
-    ],
-    "fixes_applied_to_make_runs_work": [
-      "src/rho_grpo_trainer_v14.py: drop super()._prepare_inputs (was the inline-rollout path); explicitly move tokenizer dict to accelerator.device. Without this, embed_tokens crashed with 'cuda:0 vs cpu' on input_ids."
-    ]
-  },
-  "pending_experiments": [],
-  "termination_reason": "max_rounds_reached_compute_gated",
-  "theory_gate_cleared": true,
-  "compute_gates_remaining": [
-    {"name": "Gate 1: Real-model ADQ run", "effort_gpu_days": 0.5, "status": "running"},
-    {"name": "Gate 2: 3-seed confirmatory sweep", "effort_gpu_days": 1.5, "status": "running"},
-    {"name": "Gate 3: Matched-compute baselines", "effort_gpu_days": 5.0, "status": "deferred"}
-  ],
-  "timestamp": "2026-04-19T12:50:00"
+  "timestamp": "2026-04-21T00:00:00"
 }
