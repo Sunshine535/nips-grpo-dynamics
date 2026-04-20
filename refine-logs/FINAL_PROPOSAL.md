@@ -3,6 +3,12 @@
 **Retracted title** (over-claim): ~~"RLVR is Contrastive Self-Distillation"~~
 **Current title** reflects the actual scope: binary-reward GRPO, single model family, single task, a closed-form ρ controller derived from a batchwise identity.
 
+> **See `RETRACTIONS.md` (repo root) for the single-source-of-truth
+> list of retracted claims (capacity-bound theorem, Q_CSD collapse
+> "law", "ADQ implements Theorem 2" wording, monotonic ρ story). This
+> file is post-retraction; any conflict is resolved in favour of
+> `RETRACTIONS.md`.**
+
 ## Problem Anchor
 
 - **Bottom-line problem**: GRPO training with binary verifiable rewards is sensitive to the positive/negative signal balance parameter ρ. Practitioners set ρ heuristically without theoretical guidance.

@@ -209,6 +209,14 @@ class AdaBalanceGRPOTrainer(RhoGRPOTrainer):
                         if non_degen_mask.any() else 0.5
                     )
                     success_counts = pos_counts.float()
+                    # AUDIT NOTE: the block below fabricates synthetic
+                    # success-count labels for degenerate groups from the
+                    # binomial `p_batch**G` / `(1-p_batch)**G` mixture. This
+                    # injects *non-observed* signal into `ada_controller.update`
+                    # and is a known confounder for any AdaBalance run that
+                    # encountered degenerate groups. V14 (`rho_grpo_trainer_v14.py`)
+                    # does NOT do this — it only uses real rewards. If you are
+                    # pushing paper-grade claims, use V14; see RETRACTIONS.md §3.
                     if is_degenerate.any():
                         all_success_prob = p_batch ** G
                         all_fail_prob = (1 - p_batch) ** G

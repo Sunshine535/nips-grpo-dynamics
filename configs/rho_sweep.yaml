@@ -22,7 +22,10 @@ training:
   num_generations: 2
   max_prompt_length: 256
   max_completion_length: 256
-  gradient_checkpointing: true
+  # NOTE: gradient_checkpointing=true corrupts rollouts in TRL 0.14 (see token-loop "ToToTo" bug);
+  # the pilot / V14 paths force this to False at runtime. Set explicitly to False here so any
+  # future trainer path does not silently re-introduce the known-bad setting.
+  gradient_checkpointing: false
   kl_coef: 0.05
   clip_range: 0.2
 

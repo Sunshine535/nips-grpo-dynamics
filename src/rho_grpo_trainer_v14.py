@@ -39,6 +39,7 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         bandit_controller=None,
         exact_controller=None,
         exact_update_every: int = 20,
+        advantage_variant: str = "grpo",   # "grpo" (std-norm, default) | "dr_grpo" (no std-norm)
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -55,6 +56,8 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         self.exact_controller = exact_controller
         self._exact_update_every = exact_update_every
         self._exact_telemetry = []
+        assert advantage_variant in ("grpo", "dr_grpo"), advantage_variant
+        self.advantage_variant = advantage_variant
         if self.bandit_controller is not None:
             # Let the bandit pick the initial ρ (random over the grid).
             self._rho = self.bandit_controller.initial_rho()
@@ -405,7 +408,14 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         std_grouped_rewards = rewards.view(-1, self.num_generations).std(dim=1)
         mean_grouped_rewards = mean_grouped_rewards.repeat_interleave(self.num_generations, dim=0)
         std_grouped_rewards = std_grouped_rewards.repeat_interleave(self.num_generations, dim=0)
-        advantages = (rewards - mean_grouped_rewards) / (std_grouped_rewards + 1e-4)
+        if self.advantage_variant == "dr_grpo":
+            # Dr. GRPO (Liu et al. 2025) — drop the /(std+eps) normalisation.
+            # Rationale: std-normalisation inflates the gradient of easy
+            # (low-variance) groups and compresses hard groups, which biases
+            # optimisation. Dr. GRPO reports this as a single-line fix.
+            advantages = rewards - mean_grouped_rewards
+        else:
+            advantages = (rewards - mean_grouped_rewards) / (std_grouped_rewards + 1e-4)
 
         # ─── INJECT: ρ-asymmetric weighting + controller updates ───
         self._update_adabalance(rewards, advantages)

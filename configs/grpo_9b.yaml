@@ -22,7 +22,8 @@ training:
   max_grad_norm: 1.0
   lr_scheduler_type: "cosine"
   bf16: true
-  gradient_checkpointing: true
+  # Forced False: gradient_checkpointing=true corrupts rollouts in TRL 0.14 (token-loop bug).
+  gradient_checkpointing: false
 
 grpo:
   num_generations: 4

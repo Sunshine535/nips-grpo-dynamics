@@ -95,6 +95,9 @@ def compute_rho_max(
         return float('inf')
 
     rho_max = (1.0 / clip_range) * (kl_coef / grad_pos_norm) * sigma_bar
+    # HEURISTIC: the `max(_, 5.0)` floor is hand-tuned to keep the controller
+    # from clipping too aggressively in early training; it is NOT a theorem-
+    # derived bound. Treat this as a stability *monitor* only. See RETRACTIONS.md §3.
     return max(rho_max, 5.0)
 
 

@@ -94,6 +94,9 @@ def parse_args():
                    help="Use exact-ρ* controller (per-group autograd.grad estimator)")
     p.add_argument("--exact_update_every", type=int, default=20,
                    help="How often (in main steps) to run the exact estimator")
+    p.add_argument("--advantage_variant", type=str, default="grpo",
+                   choices=["grpo", "dr_grpo"],
+                   help="Advantage normalisation: 'grpo' (default, std-norm) or 'dr_grpo' (Dr. GRPO, no std-norm)")
     return p.parse_args()
 
 
@@ -254,8 +257,13 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
                         use_adq=False, use_vllm=False, dataset_name="gsm8k",
                         group_size_override=None, max_completion_length_override=None,
                         use_bandit=False, use_exact_rho=False,
-                        exact_update_every=20):
+                        exact_update_every=20,
+                        advantage_variant="grpo"):
     """Run a single training run with CSD logging."""
+    if advantage_variant == "dr_grpo":
+        suffix_extra = "_drgrpo"
+    else:
+        suffix_extra = ""
     if use_exact_rho:
         suffix = "_exact"
     elif use_bandit:
@@ -266,7 +274,7 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
         suffix = ""
     if group_size_override:
         suffix = f"_G{group_size_override}" + suffix
-    run_dir = os.path.join(output_dir, f"rho{rho:.2f}_seed{seed}{suffix}")
+    run_dir = os.path.join(output_dir, f"rho{rho:.2f}_seed{seed}{suffix}{suffix_extra}")
     os.makedirs(run_dir, exist_ok=True)
 
     logger.info("=== Run: rho=%.2f, seed=%d, G=%s, adq=%s, dataset=%s ===",
@@ -321,6 +329,7 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
         bandit_controller=bandit_controller,
         exact_controller=exact_controller,
         exact_update_every=exact_update_every,
+        advantage_variant=advantage_variant,
         group_size_for_ada=G,
         ada_kl_coef=kl_coef,
         ada_clip_range=clip_range,
@@ -598,6 +607,7 @@ def main():
             use_bandit=args.use_bandit,
             use_exact_rho=args.use_exact_rho,
             exact_update_every=args.exact_update_every,
+            advantage_variant=args.advantage_variant,
         )
         return
 

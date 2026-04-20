@@ -1,5 +1,12 @@
 # CSD Research Summary — Auto Review Loop Round 1
 
+> **⚠ SUPERSEDED** — This file records the Round-1 narrative before the
+> audit. Claims here that contradict `RETRACTIONS.md` (repo root) are
+> retracted. Authoritative numbers live in
+> `refine-logs/FINAL_PROPOSAL.md §Results` (Wave 2+, 3-seed, n=200). The
+> single-seed ρ-sweep and "GRPO IS CSD" framing below are kept for audit
+> trail only.
+
 ## Target Venue
 NeurIPS 2026 best paper level (difficulty: nightmare)
 

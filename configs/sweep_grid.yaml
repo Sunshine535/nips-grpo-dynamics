@@ -23,7 +23,8 @@ training:
   num_generations: 4
   max_prompt_length: 256
   max_completion_length: 512
-  gradient_checkpointing: true
+  # Forced False: gradient_checkpointing=true corrupts rollouts in TRL 0.14 (token-loop bug).
+  gradient_checkpointing: false
 
 lora:
   r: 64
