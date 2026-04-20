@@ -1,0 +1,44 @@
+dataset:
+  name: "openai/gsm8k"
+  split: "train"
+  eval_split: "test"
+
+model:
+  name: "Qwen/Qwen3.5-9B"
+
+training:
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 2
+  learning_rate: 1.0e-4
+  warmup_ratio: 0.05
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  bf16: true
+  logging_steps: 1
+  num_generations: 2
+  max_prompt_length: 256
+  max_completion_length: 256
+  kl_coef: 0.04
+  clip_range: 0.2
+  # Forced False: gradient_checkpointing=True corrupts rollouts in TRL 0.14 (token-loop bug).
+  gradient_checkpointing: false
+
+lora:
+  r: 64
+  lora_alpha: 128
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+  lora_dropout: 0.05
+  task_type: "CAUSAL_LM"
+
+aser:
+  backbone: "spo"                 # "spo" or "dr_grpo"
+  dup_frac: 0.25                  # fraction of each batch replaced with hard-prompt duplicates
+  hardness_temp: 2.0              # softmax temperature over hardness scores
+  dup_warmup_steps: 100           # no duplication before this step
+  alpha_baseline: 0.1             # EMA smoothing for SPO per-prompt baseline
+  alpha_success: 0.1              # EMA smoothing for hardness estimator
+  lambda_rep: 0.05                # weight of the replay CE loss
+  replay_batch_size: 4
+  replay_max_per_prompt: 2
+  replay_warmup_steps: 50
+  success_threshold: 0.5
