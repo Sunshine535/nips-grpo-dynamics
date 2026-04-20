@@ -1,0 +1,136 @@
+{
+  "wave10_training_dynamics": {
+    "spo_full": {
+      "seed42": {
+        "final_reward": 1.0,
+        "last50_reward_mean": 0.775,
+        "mid_reward_mean": 0.53,
+        "max_bank_size": 1051,
+        "replay_loss_mean_post_warmup": 0.44329149852196376
+      },
+      "seed43": {
+        "final_reward": 1.0,
+        "last50_reward_mean": 0.735,
+        "mid_reward_mean": 0.355,
+        "max_bank_size": 644,
+        "replay_loss_mean_post_warmup": 0.2115131660675009
+      },
+      "seed44": {
+        "final_reward": 0.5,
+        "last50_reward_mean": 0.655,
+        "mid_reward_mean": 0.725,
+        "max_bank_size": 870,
+        "replay_loss_mean_post_warmup": 0.3804950672015548
+      },
+      "seed46": {
+        "final_reward": 1.0,
+        "last50_reward_mean": 0.88,
+        "mid_reward_mean": 0.72,
+        "max_bank_size": 1084,
+        "replay_loss_mean_post_warmup": 0.5247442530995856
+      },
+      "seed47": {
+        "final_reward": 1.0,
+        "last50_reward_mean": 0.725,
+        "mid_reward_mean": 0.24,
+        "max_bank_size": 810,
+        "replay_loss_mean_post_warmup": 0.2543100753178199
+      },
+      "seed48": {
+        "final_reward": 1.0,
+        "last50_reward_mean": 0.725,
+        "mid_reward_mean": 0.58,
+        "max_bank_size": 1034,
+        "replay_loss_mean_post_warmup": 0.5323886938641469
+      },
+      "seed49": {
+        "final_reward": 1.0,
+        "last50_reward_mean": 0.71,
+        "mid_reward_mean": 0.35,
+        "max_bank_size": 925,
+        "replay_loss_mean_post_warmup": 0.33099805330236753
+      },
+      "seed50": {
+        "final_reward": 1.0,
+        "last50_reward_mean": 0.745,
+        "mid_reward_mean": 0.445,
+        "max_bank_size": 766,
+        "replay_loss_mean_post_warmup": 0.3066194848095377
+      },
+      "seed51": {
+        "final_reward": 1.0,
+        "last50_reward_mean": 0.565,
+        "mid_reward_mean": 0.45,
+        "max_bank_size": 817,
+        "replay_loss_mean_post_warmup": 0.2347499306872487
+      }
+    },
+    "spo_only": {
+      "seed42": {
+        "final_reward": 0.75,
+        "last50_reward_mean": 0.565,
+        "mid_reward_mean": 0.345,
+        "max_bank_size": 626,
+        "replay_loss_mean_post_warmup": 0.0
+      },
+      "seed43": {
+        "final_reward": 0.5,
+        "last50_reward_mean": 0.6,
+        "mid_reward_mean": 0.345,
+        "max_bank_size": 814,
+        "replay_loss_mean_post_warmup": 0.0
+      },
+      "seed44": {
+        "final_reward": 0.25,
+        "last50_reward_mean": 0.44,
+        "mid_reward_mean": 0.31,
+        "max_bank_size": 642,
+        "replay_loss_mean_post_warmup": 0.0
+      }
+    },
+    "spo_dup": {
+      "seed42": {
+        "final_reward": 0.25,
+        "last50_reward_mean": 0.465,
+        "mid_reward_mean": 0.495,
+        "max_bank_size": 623,
+        "replay_loss_mean_post_warmup": 0.0
+      },
+      "seed43": {
+        "final_reward": 1.0,
+        "last50_reward_mean": 0.725,
+        "mid_reward_mean": 0.29,
+        "max_bank_size": 823,
+        "replay_loss_mean_post_warmup": 0.0
+      },
+      "seed44": {
+        "final_reward": 0.0,
+        "last50_reward_mean": 0.24,
+        "mid_reward_mean": 0.325,
+        "max_bank_size": 606,
+        "replay_loss_mean_post_warmup": 0.0
+      }
+    },
+    "spo_full_cross_seed": {
+      "n": 9,
+      "last50_reward_mean": 0.7238888888888889,
+      "last50_reward_std": 0.08495505347600645,
+      "mid_reward_mean": 0.4883333333333333,
+      "mid_reward_std": 0.1664894891577243
+    },
+    "spo_only_cross_seed": {
+      "n": 3,
+      "last50_reward_mean": 0.535,
+      "last50_reward_std": 0.08411301920630358,
+      "mid_reward_mean": 0.3333333333333333,
+      "mid_reward_std": 0.020207259421636887
+    },
+    "spo_dup_cross_seed": {
+      "n": 3,
+      "last50_reward_mean": 0.4766666666666666,
+      "last50_reward_std": 0.24271038983391982,
+      "mid_reward_mean": 0.36999999999999994,
+      "mid_reward_std": 0.10965856099730655
+    }
+  }
+}
