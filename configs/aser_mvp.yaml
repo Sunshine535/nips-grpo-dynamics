@@ -1,7 +1,9 @@
 dataset:
   name: "openai/gsm8k"
+  # train split is used for GRPO rollouts; eval is done separately by
+  # scripts/eval_stratified.py on GSM8K test. The launcher does NOT read
+  # eval_split, so we don't list it here.
   split: "train"
-  eval_split: "test"
 
 model:
   name: "Qwen/Qwen3.5-9B"
@@ -16,12 +18,12 @@ training:
   bf16: true
   logging_steps: 1
   num_generations: 2
-  max_prompt_length: 256
   max_completion_length: 256
-  kl_coef: 0.04
-  clip_range: 0.2
   # Forced False: gradient_checkpointing=True corrupts rollouts in TRL 0.14 (token-loop bug).
   gradient_checkpointing: false
+  # NOTE: clip_range / kl_coef / max_prompt_length are deliberately dropped.
+  # The ASE-R trainer does not use PPO clipping; KL uses TRL 0.14's default
+  # beta; max_prompt_length is handled inside the trainer via tokenizer.
 
 lora:
   r: 64

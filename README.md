@@ -1,6 +1,15 @@
-# Metastable Training Dynamics in GRPO
+# GRPO Dynamics — NeurIPS 2026 research repo
 
-Seed-resolved basin analysis, step-0 trainability prediction, and transient rescue for Group Relative Policy Optimization (GRPO).
+**Current focus** (2026-04-21): **SPO + Verified Replay CE** for stable
+binary-reward GRPO post-training at small group size. See
+[`PROPOSAL_SPO_REPLAY.md`](PROPOSAL_SPO_REPLAY.md) for the active
+proposal, [`review-stage/AUTO_REVIEW.md`](review-stage/AUTO_REVIEW.md)
+for the autonomous review log, and [`RETRACTIONS.md`](RETRACTIONS.md)
+for the single-source list of retracted claims.
+
+Previous directions (metastable-basin analysis, ρ-controller family,
+ADQ / exact-ρ\* / bandit-ρ, ASE-R with adaptive duplication) are
+retracted or superseded — see the dedicated files above.
 
 ## Quick Start
 
