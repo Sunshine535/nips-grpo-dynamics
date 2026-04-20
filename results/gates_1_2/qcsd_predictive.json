@@ -1,0 +1,131 @@
+{
+  "rows": [
+    {
+      "run": "rho0.70_seed42",
+      "acc": 0.47,
+      "train_reward": 0.625,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": false
+    },
+    {
+      "run": "rho0.70_seed43",
+      "acc": 0.57,
+      "train_reward": 0.875,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": false
+    },
+    {
+      "run": "rho0.70_seed44",
+      "acc": 0.61,
+      "train_reward": 0.75,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": false
+    },
+    {
+      "run": "rho1.00_seed42_adq",
+      "acc": 0.39,
+      "train_reward": 0.875,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": true
+    },
+    {
+      "run": "rho1.00_seed43",
+      "acc": 0.41,
+      "train_reward": 0.75,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": false
+    },
+    {
+      "run": "rho1.00_seed43_adq",
+      "acc": 0.48,
+      "train_reward": 0.5,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": true
+    },
+    {
+      "run": "rho1.00_seed44",
+      "acc": 0.53,
+      "train_reward": 0.75,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": false
+    },
+    {
+      "run": "rho3.00_seed43",
+      "acc": 0.48,
+      "train_reward": 0.5,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": false
+    },
+    {
+      "run": "rho3.00_seed44",
+      "acc": 0.46,
+      "train_reward": 0.625,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": false
+    },
+    {
+      "run": "rho1.00_seed44_adq",
+      "acc": 0.56,
+      "train_reward": 0.625,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": true
+    },
+    {
+      "run": "rho3.00_seed42",
+      "acc": 0.57,
+      "train_reward": 0.75,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": false
+    },
+    {
+      "run": "rho1.00_seed42",
+      "acc": 0.43,
+      "train_reward": 0.625,
+      "q_csd_mean": 0.0,
+      "q_csd_std": 0.0,
+      "q_csd_final": 0.0,
+      "p_mean": 0.5,
+      "is_adq": false
+    }
+  ],
+  "correlations": {
+    "q_csd_mean": null,
+    "q_csd_std": null,
+    "q_csd_final": null,
+    "p_mean": null,
+    "train_reward": 0.12895623967712055
+  }
+}

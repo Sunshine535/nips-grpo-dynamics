@@ -1,0 +1,12 @@
+{
+  "rho": 1.0,
+  "seed": 45,
+  "use_adq": true,
+  "max_steps": 200,
+  "elapsed_sec": 7098.7,
+  "model": "Qwen/Qwen3.5-9B",
+  "final_reward_mean": 0.5,
+  "max_reward_mean": 1.0,
+  "collapsed": false,
+  "n_reward_logs": 200
+}

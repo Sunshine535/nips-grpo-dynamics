@@ -1,0 +1,117 @@
+{
+  "runs": [
+    {
+      "run_dir": "results/gates_1_2/rho0.70_seed42"
+    },
+    {
+      "run_dir": "results/gates_1_2/rho0.70_seed43"
+    },
+    {
+      "run_dir": "results/gates_1_2/rho0.70_seed44"
+    },
+    {
+      "run_dir": "results/gates_1_2/rho1.00_seed42_adq"
+    },
+    {
+      "run_dir": "results/gates_1_2/rho1.00_seed43"
+    },
+    {
+      "run_dir": "results/gates_1_2/rho1.00_seed44"
+    },
+    {
+      "run_dir": "results/gates_1_2/rho3.00_seed42"
+    },
+    {
+      "run_dir": "results/gates_1_2/rho3.00_seed43"
+    }
+  ],
+  "gate1": {
+    "run_dir": "results/gates_1_2/rho1.00_seed42_adq",
+    "rho_trajectory_summary": {
+      "error": "ada_telemetry empty"
+    },
+    "final_reward_mean": null,
+    "accuracy": null
+  },
+  "gate2": {
+    "0.70": {
+      "n_seeds": 3,
+      "final_reward_mean": null,
+      "final_reward_std": null,
+      "max_reward_mean": null,
+      "accuracy_mean": null,
+      "accuracy_std": null,
+      "per_seed": [
+        {
+          "seed": 42,
+          "final_reward_mean": null,
+          "max_reward_mean": null,
+          "collapsed": null,
+          "accuracy": null
+        },
+        {
+          "seed": 43,
+          "final_reward_mean": null,
+          "max_reward_mean": null,
+          "collapsed": null,
+          "accuracy": null
+        },
+        {
+          "seed": 44,
+          "final_reward_mean": null,
+          "max_reward_mean": null,
+          "collapsed": null,
+          "accuracy": null
+        }
+      ]
+    },
+    "1.00": {
+      "n_seeds": 2,
+      "final_reward_mean": null,
+      "final_reward_std": null,
+      "max_reward_mean": null,
+      "accuracy_mean": null,
+      "accuracy_std": null,
+      "per_seed": [
+        {
+          "seed": 43,
+          "final_reward_mean": null,
+          "max_reward_mean": null,
+          "collapsed": null,
+          "accuracy": null
+        },
+        {
+          "seed": 44,
+          "final_reward_mean": null,
+          "max_reward_mean": null,
+          "collapsed": null,
+          "accuracy": null
+        }
+      ]
+    },
+    "3.00": {
+      "n_seeds": 2,
+      "final_reward_mean": null,
+      "final_reward_std": null,
+      "max_reward_mean": null,
+      "accuracy_mean": null,
+      "accuracy_std": null,
+      "per_seed": [
+        {
+          "seed": 42,
+          "final_reward_mean": null,
+          "max_reward_mean": null,
+          "collapsed": null,
+          "accuracy": null
+        },
+        {
+          "seed": 43,
+          "final_reward_mean": null,
+          "max_reward_mean": null,
+          "collapsed": null,
+          "accuracy": null
+        }
+      ]
+    }
+  }
+}

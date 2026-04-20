@@ -1,0 +1,7602 @@
+[
+  {
+    "step": 0,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 0,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 1,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 1,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 2,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 2,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 3,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 3,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 4,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 4,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 5,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 5,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 6,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 6,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 7,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 7,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 8,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 8,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 9,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 9,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 10,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 10,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 11,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 11,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 12,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 12,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 13,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 13,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 14,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 14,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 15,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 15,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 16,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 16,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 17,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 17,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 18,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 18,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 19,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 19,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 20,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 20,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 21,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 21,
+    "rho": 0.3,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 22,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 22,
+    "rho": 2.0,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 23,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 23,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 24,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 24,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 25,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 25,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 26,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 26,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 27,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 27,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 28,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 28,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 29,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 29,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 30,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 30,
+    "rho": 0.3,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 31,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 31,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 32,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 32,
+    "rho": 0.7,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 33,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 33,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 34,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 34,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 35,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 35,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 36,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 36,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 37,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 37,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 38,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 38,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 39,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 39,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 40,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 40,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 41,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 41,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 42,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 42,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 43,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 43,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 44,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 44,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 45,
+    "rho": 0.3,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 45,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 46,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 46,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 47,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 47,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 48,
+    "rho": 0.3,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 48,
+    "rho": 0.3,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 49,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 49,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 50,
+    "rho": 0.3,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 50,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 51,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 51,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 52,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 52,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 53,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 53,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 54,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 54,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 55,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 55,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 56,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 56,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 57,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 57,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 58,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 58,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 59,
+    "rho": 0.3,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 59,
+    "rho": 0.3,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 60,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 60,
+    "rho": 0.3,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 61,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 61,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 62,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 62,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 63,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 63,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 64,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 64,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 65,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 65,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 66,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 66,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 67,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 67,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 68,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 68,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 69,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 69,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 70,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 70,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 71,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 71,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 72,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 72,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 73,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 73,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 74,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 74,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 75,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 75,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 76,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 76,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 77,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 77,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 78,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 78,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 79,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 79,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 80,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 80,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 81,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 81,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 82,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 82,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 83,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 83,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 84,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 84,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 85,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 85,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 86,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 86,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 87,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 87,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 88,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 88,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 89,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 89,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 90,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 90,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 91,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 91,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 92,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 92,
+    "rho": 3.0,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 93,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 93,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 94,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 94,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 95,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 95,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 96,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 96,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 97,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 97,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 98,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 98,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 99,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 99,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 100,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 100,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 101,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 101,
+    "rho": 0.7,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 102,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 102,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 103,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 103,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 104,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 104,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 105,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 105,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 106,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 106,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 107,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 107,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 108,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 108,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 109,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 109,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 110,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 110,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 111,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 111,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 112,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 112,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 113,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 113,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 114,
+    "rho": 0.7,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 114,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 115,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 115,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 116,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 116,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 117,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 117,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 118,
+    "rho": 0.7,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 118,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 119,
+    "rho": 0.7,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 119,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 120,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 120,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 121,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 121,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 122,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 122,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 123,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 123,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 124,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 124,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 125,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 125,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 126,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 126,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 127,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 127,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 128,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 128,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 129,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 129,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 130,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 130,
+    "rho": 0.7,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 131,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 131,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 132,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 132,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 133,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 133,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 134,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 134,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 135,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 135,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 136,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 136,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 137,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 137,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 138,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 138,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 139,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 139,
+    "rho": 0.7,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 140,
+    "rho": 0.7,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 140,
+    "rho": 0.7,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.8235294117647058,
+    "normalized_neg_weight": 1.1764705882352942,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 141,
+    "rho": 0.3,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 141,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 142,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 142,
+    "rho": 3.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 143,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 143,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 144,
+    "rho": 3.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.5,
+    "normalized_neg_weight": 0.5,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 144,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 145,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 145,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 146,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 146,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 147,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 147,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 148,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 148,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 149,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 149,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 150,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 150,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 151,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 151,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 152,
+    "rho": 2.0,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 152,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 153,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 153,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 154,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 154,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 155,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 155,
+    "rho": 2.0,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 156,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 156,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 157,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 157,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 158,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 158,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 159,
+    "rho": 2.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 159,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 160,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 160,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 161,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 161,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 162,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 162,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 163,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 163,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 164,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 164,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 165,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 165,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 166,
+    "rho": 2.0,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 166,
+    "rho": 2.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.3333333333333333,
+    "normalized_neg_weight": 0.6666666666666666,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 167,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 167,
+    "rho": 0.3,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 0.46153846153846145,
+    "normalized_neg_weight": 1.5384615384615383,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 168,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 168,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 169,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 169,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 170,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 170,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 171,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 171,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 172,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 172,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 173,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 173,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 174,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 174,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 175,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 175,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 176,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 176,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 177,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 177,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 178,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 178,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 179,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 179,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 180,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 180,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 181,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 181,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 182,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 182,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 183,
+    "rho": 1.0,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 183,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 184,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 184,
+    "rho": 1.0,
+    "n_positive": 2,
+    "n_negative": 2,
+    "n_degenerate": 0,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.5,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 185,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 185,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 186,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 186,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 187,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 187,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 188,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 188,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 189,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 189,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 190,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 190,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 191,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 191,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 192,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 192,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 193,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 193,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 194,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 194,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 195,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 195,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 196,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 196,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 197,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 197,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 198,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 198,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 199,
+    "rho": 1.0,
+    "n_positive": 0,
+    "n_negative": 0,
+    "n_degenerate": 4,
+    "n_groups": 2,
+    "mean_pos_adv": 0.0,
+    "mean_neg_adv": 0.0,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.0,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "step": 199,
+    "rho": 1.0,
+    "n_positive": 1,
+    "n_negative": 1,
+    "n_degenerate": 2,
+    "n_groups": 2,
+    "mean_pos_adv": 0.7070068120956421,
+    "mean_neg_adv": -0.7070068120956421,
+    "normalized_pos_weight": 1.0,
+    "normalized_neg_weight": 1.0,
+    "h_norm_pos": 0.0,
+    "availability": 0.25,
+    "q_csd": 0.0,
+    "q_csd_per_group": [
+      0.0,
+      0.0
+    ]
+  }
+]

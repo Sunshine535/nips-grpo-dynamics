@@ -1,0 +1,12 @@
+# Gate 1 + Gate 2 Analysis Summary
+
+## Gate 1: V14 ADQ real-model run
+  ρ(t): init=1.000, final=0.845, min=0.834, max=2.505, std=0.572, nontrivial=True
+  ρ moved during training: YES
+  final reward mean: 0.875
+
+## Gate 2: 3-seed confirmatory sweep
+       ρ  n_seeds       final_reward         acc_mean±std
+    0.70        3        0.750±0.102                    —
+    1.00        3        0.750±0.000                    —
+    3.00        3        0.625±0.125                    —

@@ -1,0 +1,71 @@
+2026-04-19 13:40:36,420 [INFO] csd_pilot: CSD Pilot — model=Qwen/Qwen3.5-9B, pilot=1_single, max_steps=100
+2026-04-19 13:40:36,425 [INFO] csd_pilot: === Run: rho=0.70, seed=43, G=3, adq=False, dataset=gsm8k ===
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-04-19 13:40:37,912 [WARNING] datasets.load: Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /openbayes/input/input0/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Sun Apr 19 10:23:45 2026).
+2026-04-19 13:40:37,914 [WARNING] datasets.packaged_modules.cache.cache: Found the latest cached dataset configuration 'main' at /openbayes/input/input0/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Sun Apr 19 10:23:45 2026).
+2026-04-19 13:40:37,967 [INFO] csd_pilot: Tokenizer supports enable_thinking=False (Qwen3/3.5 thinking mode disabled)
+warmup_ratio is deprecated and will be removed in v5.2. Use `warmup_steps` instead.
+`torch_dtype` is deprecated! Use `dtype` instead!
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+[qwen35_compat] Patched Qwen3_5Model.compute_3d_position_ids
+Loading weights:   0%|          | 0/427 [00:00<?, ?it/s]Loading weights: 100%|██████████| 427/427 [00:00<00:00, 5642.71it/s]
+max_steps is given, it will override any value given in num_train_epochs
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 248046, 'pad_token_id': 248044}.
+***** Running training *****
+  Num examples = 7,473
+  Num Epochs = 1
+  Num update steps per epoch = 1,246
+  Instantaneous batch size per device = 3
+  Total train batch size (w. parallel, distributed & accumulation) = 6
+  Gradient Accumulation steps = 2
+  Total optimization steps = 100
+  Number of trainable parameters = 116,391,936
+  0%|          | 0/100 [00:00<?, ?it/s]  1%|          | 1/100 [03:43<6:09:32, 223.97s/it]                                                    1%|          | 1/100 [03:43<6:09:32, 223.97s/it]  2%|▏         | 2/100 [12:08<10:35:31, 389.10s/it]                                                     2%|▏         | 2/100 [12:08<10:35:31, 389.10s/it]  3%|▎         | 3/100 [17:27<9:36:56, 356.87s/it]                                                     3%|▎         | 3/100 [17:27<9:36:56, 356.87s/it]  4%|▍         | 4/100 [21:37<8:23:34, 314.73s/it]                                                    4%|▍         | 4/100 [21:37<8:23:34, 314.73s/it]  5%|▌         | 5/100 [26:37<8:10:17, 309.66s/it]                                                    5%|▌         | 5/100 [26:37<8:10:17, 309.66s/it]  6%|▌         | 6/100 [30:37<7:27:56, 285.92s/it]                                                    6%|▌         | 6/100 [30:37<7:27:56, 285.92s/it]  7%|▋         | 7/100 [34:42<7:02:18, 272.46s/it]                                                    7%|▋         | 7/100 [34:42<7:02:18, 272.46s/it]  8%|▊         | 8/100 [38:58<6:49:42, 267.20s/it]                                                    8%|▊         | 8/100 [38:58<6:49:42, 267.20s/it]  9%|▉         | 9/100 [42:48<6:27:30, 255.49s/it]                                                    9%|▉         | 9/100 [42:48<6:27:30, 255.49s/it]{'loss': '0.02264', 'grad_norm': '0.1112', 'learning_rate': '0', 'completion_length': '190.1', 'rewards/reward_fn': '0.2778', 'reward': '0.2778', 'reward_std': '0.09623', 'kl': '0', 'epoch': '0.0008029'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '2e-05', 'completion_length': '192', 'rewards/reward_fn': '0', 'reward': '0', 'reward_std': '0', 'kl': '0', 'epoch': '0.001606'}
+{'loss': '0.02266', 'grad_norm': '0.1409', 'learning_rate': '4e-05', 'completion_length': '192', 'rewards/reward_fn': '0.05556', 'reward': '0.05556', 'reward_std': '0.09623', 'kl': '0.0005055', 'epoch': '0.002409'}
+{'loss': '0.04548', 'grad_norm': '0.1451', 'learning_rate': '6e-05', 'completion_length': '188.7', 'rewards/reward_fn': '0.1667', 'reward': '0.1667', 'reward_std': '0.1925', 'kl': '0.005015', 'epoch': '0.003212'}
+{'loss': '0.04586', 'grad_norm': '0.2088', 'learning_rate': '8e-05', 'completion_length': '192', 'rewards/reward_fn': '0.1667', 'reward': '0.1667', 'reward_std': '0.1925', 'kl': '0.01465', 'epoch': '0.004014'}
+{'loss': '0.001496', 'grad_norm': '0.1279', 'learning_rate': '0.0001', 'completion_length': '192', 'rewards/reward_fn': '0', 'reward': '0', 'reward_std': '0', 'kl': '0.0374', 'epoch': '0.004817'}
+{'loss': '0.02387', 'grad_norm': '0.3675', 'learning_rate': '9.895e-05', 'completion_length': '191.8', 'rewards/reward_fn': '0.05556', 'reward': '0.05556', 'reward_std': '0.09623', 'kl': '0.03083', 'epoch': '0.00562'}
+{'loss': '0.0241', 'grad_norm': '0.08374', 'learning_rate': '9.789e-05', 'completion_length': '192', 'rewards/reward_fn': '0.05556', 'reward': '0.05556', 'reward_std': '0.09623', 'kl': '0.0365', 'epoch': '0.006423'}
+{'loss': '0.02425', 'grad_norm': '0.09256', 'learning_rate': '9.684e-05', 'completion_length': '192', 'rewards/reward_fn': '0.1111', 'reward': '0.1111', 'reward_std': '0.09623', 'kl': '0.04032', 'epoch': '0.007226'}
+Traceback (most recent call last):
+  File "/input0/nips-grpo-dynamics/scripts/run_csd_pilot.py", line 592, in <module>
+    main()
+  File "/input0/nips-grpo-dynamics/scripts/run_csd_pilot.py", line 548, in main
+    run_single_training(
+  File "/input0/nips-grpo-dynamics/scripts/run_csd_pilot.py", line 305, in run_single_training
+    trainer.train()
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1425, in train
+    return inner_training_loop(
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1507, in _inner_training_loop
+    self._run_epoch(
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1735, in _run_epoch
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1907, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+  File "/input0/nips-grpo-dynamics/src/rho_grpo_trainer_v14.py", line 267, in compute_loss
+    ref_per_token_logps = get_per_token_logps(model, prompt_completion_ids, num_logits_to_keep)
+  File "/input0/nips-grpo-dynamics/src/rho_grpo_trainer_v14.py", line 248, in get_per_token_logps
+    logits = mdl(input_ids, num_logits_to_keep=num_logits_to_keep + 1).logits
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 823, in forward
+    return model_forward(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 811, in __call__
+    return convert_to_fp32(self.model_forward(*args, **kwargs))
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 790, in convert_to_fp32
+    return recursively_apply(_convert_to_fp32, tensor, test_type=_is_fp16_bf16_tensor)
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 119, in recursively_apply
+    {
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 120, in <dictcomp>
+    k: recursively_apply(
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 127, in recursively_apply
+    return func(data, *args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 782, in _convert_to_fp32
+    return tensor.float()
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.75 GiB. GPU 0 has a total capacity of 79.33 GiB of which 1.70 GiB is free. Process 326926 has 77.62 GiB memory in use. Of the allocated memory 76.69 GiB is allocated by PyTorch, and 436.77 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+  9%|▉         | 9/100 [46:36<7:51:13, 310.69s/it]

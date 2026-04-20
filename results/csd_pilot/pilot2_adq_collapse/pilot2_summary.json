@@ -1,0 +1,16 @@
+{
+  "n_seeds_const": 3,
+  "n_seeds_adq": 3,
+  "rho": 0.7,
+  "constant_rho": {
+    "collapse_count": 0,
+    "collapse_rate": 0.0,
+    "mean_final_reward": 0.0
+  },
+  "adq": {
+    "collapse_count": 0,
+    "collapse_rate": 0.0,
+    "mean_final_reward": 0.0
+  },
+  "killer_result": false
+}

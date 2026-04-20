@@ -37,6 +37,8 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         ada_kl_coef: float = 0.05,
         ada_clip_range: float = 0.2,
         bandit_controller=None,
+        exact_controller=None,
+        exact_update_every: int = 20,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -50,9 +52,14 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         self._ada_telemetry = []
         self.bandit_controller = bandit_controller
         self._bandit_telemetry = []
+        self.exact_controller = exact_controller
+        self._exact_update_every = exact_update_every
+        self._exact_telemetry = []
         if self.bandit_controller is not None:
             # Let the bandit pick the initial ρ (random over the grid).
             self._rho = self.bandit_controller.initial_rho()
+        elif self.exact_controller is not None:
+            self._rho = float(self.exact_controller.rho)
 
     @property
     def rho(self):
@@ -215,6 +222,82 @@ class RhoGRPOTrainerV14(GRPOTrainer):
             **self.bandit_controller.get_telemetry(),
         })
 
+    def _update_exact_rho(self, model, per_token_logps: torch.Tensor,
+                          completion_mask: torch.Tensor, advantages: torch.Tensor):
+        """Compute per-group g+ and g- via autograd.grad, feed to ExactRhoController.
+
+        Triggered every `self._exact_update_every` calls. Adds 2*B extra
+        autograd.grad traversals per aux step (B = number of non-degenerate
+        groups in the batch). Costs roughly 4-5x a normal step's backward,
+        amortized to ~+5 % of total wall-clock at K=20.
+        """
+        if self.exact_controller is None:
+            return
+        step = self.state.global_step if self.state else 0
+        if step > 0 and step % self._exact_update_every != 0:
+            # Just record the current ρ so the controller stays current
+            return
+
+        G = self._ada_group_size
+        n = advantages.shape[0]
+        n_groups = n // G
+        if n_groups == 0:
+            return
+
+        # LoRA params have requires_grad=True; pick those for the gradient query.
+        params = [p for p in model.parameters() if p.requires_grad]
+        if not params:
+            return
+
+        g_plus_per_group: list = []
+        g_neg_per_group: list = []
+        info = {"groups_seen": 0, "groups_used": 0, "skipped_reason": []}
+
+        for b in range(n_groups):
+            sl = slice(b * G, (b + 1) * G)
+            grp_adv = advantages[sl]
+            pos_mask = (grp_adv > 0).float().unsqueeze(1)  # (G, 1)
+            neg_mask = (grp_adv < 0).float().unsqueeze(1)
+            n_pos = float(pos_mask.sum().item())
+            n_neg = float(neg_mask.sum().item())
+            info["groups_seen"] += 1
+            if n_pos == 0 or n_neg == 0:
+                info["skipped_reason"].append("degenerate")
+                continue
+
+            grp_logps = per_token_logps[sl]                    # (G, T)
+            grp_mask = completion_mask[sl].float()              # (G, T)
+            # E_{τ+}[log π_θ] for THIS group: mean over pos rows of (sum logps / sum mask).
+            pos_per_row = (grp_logps * grp_mask * pos_mask).sum(dim=1) / (grp_mask * pos_mask).sum(dim=1).clamp(min=1.0)
+            neg_per_row = (grp_logps * grp_mask * neg_mask).sum(dim=1) / (grp_mask * neg_mask).sum(dim=1).clamp(min=1.0)
+            mean_pos = (pos_per_row * pos_mask.squeeze(1)).sum() / n_pos
+            mean_neg = (neg_per_row * neg_mask.squeeze(1)).sum() / n_neg
+
+            # g+ = -∇_θ E_{τ+}[log π] (KL gradient sign, see Theorem 1 derivation).
+            try:
+                grads_p = torch.autograd.grad(
+                    -mean_pos, params, retain_graph=True, allow_unused=True,
+                )
+                grads_n = torch.autograd.grad(
+                    -mean_neg, params, retain_graph=True, allow_unused=True,
+                )
+            except Exception as e:
+                info["skipped_reason"].append(f"autograd_error:{type(e).__name__}")
+                continue
+
+            flat_p = torch.cat([g.detach().flatten() for g in grads_p if g is not None])
+            flat_n = torch.cat([g.detach().flatten() for g in grads_n if g is not None])
+            g_plus_per_group.append(flat_p)
+            g_neg_per_group.append(flat_n)
+            info["groups_used"] += 1
+
+        new_rho = self.exact_controller.update(g_plus_per_group, g_neg_per_group, step=step)
+        self._rho = new_rho
+        self._exact_telemetry.append({
+            "step": step, "rho": new_rho, **info,
+            **self.exact_controller.get_telemetry(),
+        })
+
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         # Replicate TRL 0.14 GRPOTrainer.compute_loss body, injecting ρ weighting
         # and AdaBalance stats collection.
@@ -327,6 +410,10 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         # ─── INJECT: ρ-asymmetric weighting + controller updates ───
         self._update_adabalance(rewards, advantages)
         self._update_bandit(rewards)
+        # exact-ρ* needs raw per_token_logps + completion_mask + advantages; runs
+        # autograd.grad on the LIVE forward graph so MUST come before _apply_rho_weighting
+        # (which doesn't touch the graph but conceptually owns the post-weighting state).
+        self._update_exact_rho(model, per_token_logps, completion_mask, advantages)
         advantages = self._apply_rho_weighting(advantages, completion_ids, completion_mask)
 
         # ─── Loss ───

@@ -1,0 +1,7 @@
+{
+  "n": 100,
+  "correct": 56,
+  "accuracy": 0.56,
+  "n_any": 95,
+  "adapter": "results/gates_1_2/rho1.00_seed44_adq/checkpoint-final"
+}

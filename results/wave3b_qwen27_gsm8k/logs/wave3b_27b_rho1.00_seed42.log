@@ -1,0 +1,93 @@
+2026-04-19 08:19:12,007 [INFO] csd_pilot: CSD Pilot — model=Qwen/Qwen3.5-27B, pilot=1_single, max_steps=200
+2026-04-19 08:19:12,011 [INFO] csd_pilot: === Run: rho=1.00, seed=42, adq=False ===
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-04-19 08:19:13,377 [WARNING] datasets.load: Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /openbayes/input/input0/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Fri Apr 17 18:37:24 2026).
+2026-04-19 08:19:13,382 [WARNING] datasets.packaged_modules.cache.cache: Found the latest cached dataset configuration 'main' at /openbayes/input/input0/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Fri Apr 17 18:37:24 2026).
+2026-04-19 08:19:13,444 [INFO] csd_pilot: Tokenizer supports enable_thinking=False (Qwen3/3.5 thinking mode disabled)
+[qwen35_compat] Patched Qwen3_5Model.compute_3d_position_ids
+Map:   0%|          | 0/7473 [00:00<?, ? examples/s]Map:   8%|▊         | 594/7473 [00:00<00:01, 5893.72 examples/s]Map:  17%|█▋        | 1238/7473 [00:00<00:01, 6210.29 examples/s]Map:  25%|██▌       | 1904/7473 [00:00<00:00, 6408.83 examples/s]Map:  34%|███▍      | 2558/7473 [00:00<00:00, 6456.44 examples/s]Map:  43%|████▎     | 3212/7473 [00:00<00:00, 6484.35 examples/s]Map:  52%|█████▏    | 3877/7473 [00:00<00:00, 6538.03 examples/s]Map:  61%|██████    | 4532/7473 [00:00<00:00, 6535.14 examples/s]Map:  69%|██████▉   | 5186/7473 [00:00<00:00, 6532.60 examples/s]Map:  82%|████████▏ | 6144/7473 [00:00<00:00, 6470.55 examples/s]Map:  91%|█████████ | 6807/7473 [00:01<00:00, 6513.81 examples/s]Map: 100%|██████████| 7473/7473 [00:01<00:00, 5948.10 examples/s]Map: 100%|██████████| 7473/7473 [00:01<00:00, 6254.58 examples/s]
+warmup_ratio is deprecated and will be removed in v5.2. Use `warmup_steps` instead.
+`torch_dtype` is deprecated! Use `dtype` instead!
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/851 [00:00<?, ?it/s]Loading weights:   1%|          | 8/851 [00:00<00:12, 67.76it/s]Loading weights:   2%|▏         | 16/851 [00:00<00:13, 61.24it/s]Loading weights:   3%|▎         | 23/851 [00:00<00:13, 62.11it/s]Loading weights:   4%|▍         | 32/851 [00:00<00:12, 67.72it/s]Loading weights:   5%|▍         | 39/851 [00:00<00:12, 65.10it/s]Loading weights:   6%|▌         | 48/851 [00:00<00:16, 48.23it/s]Loading weights:   6%|▋         | 54/851 [00:00<00:16, 47.80it/s]Loading weights:   7%|▋         | 62/851 [00:01<00:17, 44.78it/s]Loading weights:   9%|▉         | 76/851 [00:01<00:12, 63.10it/s]Loading weights:  12%|█▏        | 105/851 [00:01<00:06, 107.91it/s]Loading weights:  14%|█▍        | 118/851 [00:01<00:08, 83.63it/s] Loading weights:  15%|█▌        | 128/851 [00:01<00:08, 85.14it/s]Loading weights:  16%|█▌        | 138/851 [00:01<00:08, 85.63it/s]Loading weights:  17%|█▋        | 148/851 [00:02<00:09, 76.91it/s]Loading weights:  18%|█▊        | 157/851 [00:02<00:10, 63.15it/s]Loading weights:  20%|█▉        | 167/851 [00:02<00:10, 66.96it/s]Loading weights:  21%|██        | 175/851 [00:02<00:10, 66.32it/s]Loading weights:  22%|██▏       | 189/851 [00:02<00:08, 81.15it/s]Loading weights:  25%|██▍       | 211/851 [00:02<00:05, 108.97it/s]Loading weights:  26%|██▌       | 223/851 [00:02<00:05, 107.15it/s]Loading weights:  28%|██▊       | 235/851 [00:03<00:09, 67.74it/s] Loading weights:  29%|██▉       | 248/851 [00:03<00:07, 76.30it/s]Loading weights:  32%|███▏      | 274/851 [00:03<00:05, 102.83it/s]Loading weights:  34%|███▎      | 287/851 [00:03<00:05, 106.17it/s]Loading weights:  35%|███▌      | 299/851 [00:03<00:05, 92.39it/s] Loading weights:  36%|███▋      | 310/851 [00:03<00:06, 82.27it/s]Loading weights:  38%|███▊      | 320/851 [00:04<00:07, 74.22it/s]Loading weights:  39%|███▉      | 331/851 [00:04<00:07, 74.15it/s]Loading weights:  40%|███▉      | 339/851 [00:04<00:07, 72.14it/s]Loading weights:  41%|████      | 347/851 [00:04<00:07, 66.38it/s]Loading weights:  42%|████▏     | 354/851 [00:04<00:08, 60.31it/s]Loading weights:  42%|████▏     | 361/851 [00:04<00:08, 57.51it/s]Loading weights:  43%|████▎     | 367/851 [00:05<00:08, 54.24it/s]Loading weights:  44%|████▍     | 374/851 [00:05<00:08, 55.58it/s]Loading weights:  46%|████▌     | 388/851 [00:05<00:06, 68.23it/s]Loading weights:  47%|████▋     | 401/851 [00:05<00:06, 75.00it/s]Loading weights:  48%|████▊     | 409/851 [00:05<00:07, 56.25it/s]Loading weights:  51%|█████     | 432/851 [00:05<00:04, 88.31it/s]Loading weights:  53%|█████▎    | 447/851 [00:05<00:04, 100.20it/s]Loading weights:  54%|█████▍    | 461/851 [00:06<00:04, 91.98it/s] Loading weights:  55%|█████▌    | 472/851 [00:06<00:04, 89.24it/s]Loading weights:  57%|█████▋    | 483/851 [00:06<00:04, 80.28it/s]Loading weights:  59%|█████▉    | 504/851 [00:06<00:03, 106.28it/s]Loading weights:  61%|██████    | 516/851 [00:06<00:03, 103.51it/s]Loading weights:  62%|██████▏   | 528/851 [00:06<00:03, 90.69it/s] Loading weights:  65%|██████▌   | 557/851 [00:06<00:02, 128.87it/s]Loading weights:  67%|██████▋   | 572/851 [00:07<00:02, 110.15it/s]Loading weights:  69%|██████▊   | 585/851 [00:07<00:03, 87.35it/s] Loading weights:  70%|███████   | 596/851 [00:07<00:02, 89.54it/s]Loading weights:  71%|███████▏  | 607/851 [00:07<00:03, 69.92it/s]Loading weights:  76%|███████▌  | 643/851 [00:07<00:01, 108.49it/s]Loading weights:  77%|███████▋  | 656/851 [00:08<00:01, 98.00it/s] Loading weights:  78%|███████▊  | 668/851 [00:08<00:01, 97.74it/s]Loading weights:  80%|███████▉  | 679/851 [00:08<00:02, 75.01it/s]Loading weights:  81%|████████  | 688/851 [00:08<00:02, 69.74it/s]Loading weights:  82%|████████▏ | 696/851 [00:08<00:02, 68.84it/s]Loading weights:  83%|████████▎ | 707/851 [00:08<00:01, 74.30it/s]Loading weights:  84%|████████▍ | 716/851 [00:08<00:01, 76.52it/s]Loading weights:  85%|████████▌ | 725/851 [00:09<00:01, 75.49it/s]Loading weights:  87%|████████▋ | 741/851 [00:09<00:01, 82.71it/s]Loading weights:  88%|████████▊ | 751/851 [00:09<00:01, 85.16it/s]Loading weights:  90%|████████▉ | 765/851 [00:09<00:01, 76.12it/s]Loading weights:  91%|█████████ | 773/851 [00:09<00:01, 73.50it/s]Loading weights:  92%|█████████▏| 781/851 [00:09<00:00, 72.52it/s]Loading weights:  93%|█████████▎| 789/851 [00:09<00:00, 71.18it/s]Loading weights:  94%|█████████▍| 799/851 [00:10<00:00, 74.92it/s]Loading weights:  95%|█████████▌| 809/851 [00:10<00:00, 74.12it/s]Loading weights:  96%|█████████▌| 817/851 [00:10<00:00, 72.37it/s]Loading weights:  97%|█████████▋| 829/851 [00:10<00:00, 80.08it/s]Loading weights:  98%|█████████▊| 838/851 [00:10<00:00, 70.11it/s]Loading weights: 100%|██████████| 851/851 [00:10<00:00, 79.54it/s]
+max_steps is given, it will override any value given in num_train_epochs
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 248046, 'bos_token_id': None, 'pad_token_id': 248044}.
+***** Running training *****
+  Num examples = 7,473
+  Num Epochs = 1
+  Num update steps per epoch = 1,869
+  Instantaneous batch size per device = 2
+  Total train batch size (w. parallel, distributed & accumulation) = 4
+  Gradient Accumulation steps = 2
+  Total optimization steps = 200
+  Number of trainable parameters = 318,767,104
+  0%|          | 0/200 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/input0/nips-grpo-dynamics/scripts/run_csd_pilot.py", line 538, in <module>
+    if args.pilot == "2_single":
+  File "/input0/nips-grpo-dynamics/scripts/run_csd_pilot.py", line 496, in main
+    "n_converged": len(collapsed) - sum(collapsed) if collapsed else 0,
+  File "/input0/nips-grpo-dynamics/scripts/run_csd_pilot.py", line 253, in run_single_training
+    rope_cb = ClearRopeDeltasCallback()
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1425, in train
+    return inner_training_loop(
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1507, in _inner_training_loop
+    self._run_epoch(
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1735, in _run_epoch
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1907, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+  File "/input0/nips-grpo-dynamics/src/rho_grpo_trainer_v14.py", line 260, in compute_loss
+    per_token_logps = get_per_token_logps(model, prompt_completion_ids, num_logits_to_keep)
+  File "/input0/nips-grpo-dynamics/src/rho_grpo_trainer_v14.py", line 248, in get_per_token_logps
+    logits = mdl(input_ids, num_logits_to_keep=num_logits_to_keep + 1).logits
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 823, in forward
+    return model_forward(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 811, in __call__
+    return convert_to_fp32(self.model_forward(*args, **kwargs))
+  File "/usr/local/lib/python3.10/site-packages/torch/amp/autocast_mode.py", line 43, in decorate_autocast
+    return func(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/peft/peft_model.py", line 1993, in forward
+    return self.base_model(
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/peft/tuners/tuners_utils.py", line 330, in forward
+    return self.model.forward(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/utils/generic.py", line 876, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py", line 1740, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/utils/generic.py", line 952, in wrapper
+    output = func(self, *args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/utils/output_capturing.py", line 248, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py", line 1275, in forward
+    hidden_states = decoder_layer(
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/modeling_layers.py", line 93, in __call__
+    return super().__call__(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py", line 759, in forward
+    hidden_states = self.linear_attn(
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py", line 499, in forward
+    core_attn_out, last_recurrent_state = self.chunk_gated_delta_rule(
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py", line 281, in torch_chunk_gated_delta_rule
+    attn[..., i, :i] = row + (row.unsqueeze(-1) * sub).sum(-2)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 12.00 MiB. GPU 0 has a total capacity of 79.33 GiB of which 7.81 MiB is free. Process 146930 has 79.31 GiB memory in use. Of the allocated memory 78.57 GiB is allocated by PyTorch, and 248.52 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+  0%|          | 0/200 [00:38<?, ?it/s]

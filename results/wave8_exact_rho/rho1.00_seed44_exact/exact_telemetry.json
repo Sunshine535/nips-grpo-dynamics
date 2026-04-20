@@ -1,0 +1,251 @@
+[
+  {
+    "step": 0,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 2,
+    "skipped_reason": [],
+    "n_updates": 1,
+    "n_skipped": 0,
+    "current_rho": 0.73
+  },
+  {
+    "step": 0,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 2,
+    "n_skipped": 1,
+    "current_rho": 0.73
+  },
+  {
+    "step": 20,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 3,
+    "n_skipped": 2,
+    "current_rho": 0.73
+  },
+  {
+    "step": 20,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 1,
+    "skipped_reason": [
+      "degenerate"
+    ],
+    "n_updates": 4,
+    "n_skipped": 3,
+    "current_rho": 0.73
+  },
+  {
+    "step": 40,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 5,
+    "n_skipped": 4,
+    "current_rho": 0.73
+  },
+  {
+    "step": 40,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 1,
+    "skipped_reason": [
+      "degenerate"
+    ],
+    "n_updates": 6,
+    "n_skipped": 5,
+    "current_rho": 0.73
+  },
+  {
+    "step": 60,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 1,
+    "skipped_reason": [
+      "degenerate"
+    ],
+    "n_updates": 7,
+    "n_skipped": 6,
+    "current_rho": 0.73
+  },
+  {
+    "step": 60,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 8,
+    "n_skipped": 7,
+    "current_rho": 0.73
+  },
+  {
+    "step": 80,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 9,
+    "n_skipped": 8,
+    "current_rho": 0.73
+  },
+  {
+    "step": 80,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 1,
+    "skipped_reason": [
+      "degenerate"
+    ],
+    "n_updates": 10,
+    "n_skipped": 9,
+    "current_rho": 0.73
+  },
+  {
+    "step": 100,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 11,
+    "n_skipped": 10,
+    "current_rho": 0.73
+  },
+  {
+    "step": 100,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 12,
+    "n_skipped": 11,
+    "current_rho": 0.73
+  },
+  {
+    "step": 120,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 13,
+    "n_skipped": 12,
+    "current_rho": 0.73
+  },
+  {
+    "step": 120,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 14,
+    "n_skipped": 13,
+    "current_rho": 0.73
+  },
+  {
+    "step": 140,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 1,
+    "skipped_reason": [
+      "degenerate"
+    ],
+    "n_updates": 15,
+    "n_skipped": 14,
+    "current_rho": 0.73
+  },
+  {
+    "step": 140,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 1,
+    "skipped_reason": [
+      "degenerate"
+    ],
+    "n_updates": 16,
+    "n_skipped": 15,
+    "current_rho": 0.73
+  },
+  {
+    "step": 160,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 17,
+    "n_skipped": 16,
+    "current_rho": 0.73
+  },
+  {
+    "step": 160,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 1,
+    "skipped_reason": [
+      "degenerate"
+    ],
+    "n_updates": 18,
+    "n_skipped": 17,
+    "current_rho": 0.73
+  },
+  {
+    "step": 180,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 0,
+    "skipped_reason": [
+      "degenerate",
+      "degenerate"
+    ],
+    "n_updates": 19,
+    "n_skipped": 18,
+    "current_rho": 0.73
+  },
+  {
+    "step": 180,
+    "rho": 0.73,
+    "groups_seen": 2,
+    "groups_used": 1,
+    "skipped_reason": [
+      "degenerate"
+    ],
+    "n_updates": 20,
+    "n_skipped": 19,
+    "current_rho": 0.73
+  }
+]

@@ -1,0 +1,64 @@
+2026-04-19 13:40:36,265 [INFO] csd_pilot: CSD Pilot — model=Qwen/Qwen3.5-9B, pilot=1_single, max_steps=100
+2026-04-19 13:40:36,270 [INFO] csd_pilot: === Run: rho=0.70, seed=42, G=3, adq=False, dataset=gsm8k ===
+Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+2026-04-19 13:40:37,722 [WARNING] datasets.load: Using the latest cached version of the dataset since openai/gsm8k couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'main' at /openbayes/input/input0/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Sun Apr 19 10:23:45 2026).
+2026-04-19 13:40:37,724 [WARNING] datasets.packaged_modules.cache.cache: Found the latest cached dataset configuration 'main' at /openbayes/input/input0/datasets/openai___gsm8k/main/0.0.0/740312add88f781978c0658806c59bc2815b9866 (last modified on Sun Apr 19 10:23:45 2026).
+2026-04-19 13:40:37,779 [INFO] csd_pilot: Tokenizer supports enable_thinking=False (Qwen3/3.5 thinking mode disabled)
+warmup_ratio is deprecated and will be removed in v5.2. Use `warmup_steps` instead.
+`torch_dtype` is deprecated! Use `dtype` instead!
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+[qwen35_compat] Patched Qwen3_5Model.compute_3d_position_ids
+Loading weights:   0%|          | 0/427 [00:00<?, ?it/s]Loading weights: 100%|██████████| 427/427 [00:00<00:00, 6332.07it/s]
+max_steps is given, it will override any value given in num_train_epochs
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'eos_token_id': 248046, 'pad_token_id': 248044}.
+***** Running training *****
+  Num examples = 7,473
+  Num Epochs = 1
+  Num update steps per epoch = 1,246
+  Instantaneous batch size per device = 3
+  Total train batch size (w. parallel, distributed & accumulation) = 6
+  Gradient Accumulation steps = 2
+  Total optimization steps = 100
+  Number of trainable parameters = 116,391,936
+  0%|          | 0/100 [00:00<?, ?it/s]  1%|          | 1/100 [14:06<23:16:06, 846.13s/it]                                                     1%|          | 1/100 [14:06<23:16:06, 846.13s/it]  2%|▏         | 2/100 [30:54<25:37:44, 941.48s/it]                                                     2%|▏         | 2/100 [30:54<25:37:44, 941.48s/it]{'loss': '0', 'grad_norm': '0', 'learning_rate': '0', 'completion_length': '192', 'rewards/reward_fn': '0', 'reward': '0', 'reward_std': '0', 'kl': '0', 'epoch': '0.0008029'}
+{'loss': '0', 'grad_norm': '0', 'learning_rate': '2e-05', 'completion_length': '190.5', 'rewards/reward_fn': '0.1667', 'reward': '0.1667', 'reward_std': '0', 'kl': '0', 'epoch': '0.001606'}
+Traceback (most recent call last):
+  File "/input0/nips-grpo-dynamics/scripts/run_csd_pilot.py", line 592, in <module>
+    main()
+  File "/input0/nips-grpo-dynamics/scripts/run_csd_pilot.py", line 548, in main
+    run_single_training(
+  File "/input0/nips-grpo-dynamics/scripts/run_csd_pilot.py", line 305, in run_single_training
+    trainer.train()
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1425, in train
+    return inner_training_loop(
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1507, in _inner_training_loop
+    self._run_epoch(
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1735, in _run_epoch
+    tr_loss_step = self.training_step(model, inputs, num_items_in_batch)
+  File "/output/.pylibs/lib/python3.10/site-packages/transformers/trainer.py", line 1907, in training_step
+    loss = self.compute_loss(model, inputs, num_items_in_batch=num_items_in_batch)
+  File "/input0/nips-grpo-dynamics/src/rho_grpo_trainer_v14.py", line 267, in compute_loss
+    ref_per_token_logps = get_per_token_logps(model, prompt_completion_ids, num_logits_to_keep)
+  File "/input0/nips-grpo-dynamics/src/rho_grpo_trainer_v14.py", line 248, in get_per_token_logps
+    logits = mdl(input_ids, num_logits_to_keep=num_logits_to_keep + 1).logits
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 823, in forward
+    return model_forward(*args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 811, in __call__
+    return convert_to_fp32(self.model_forward(*args, **kwargs))
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 790, in convert_to_fp32
+    return recursively_apply(_convert_to_fp32, tensor, test_type=_is_fp16_bf16_tensor)
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 119, in recursively_apply
+    {
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 120, in <dictcomp>
+    k: recursively_apply(
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 127, in recursively_apply
+    return func(data, *args, **kwargs)
+  File "/output/.pylibs/lib/python3.10/site-packages/accelerate/utils/operations.py", line 782, in _convert_to_fp32
+    return tensor.float()
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.79 GiB. GPU 0 has a total capacity of 79.33 GiB of which 1.78 GiB is free. Process 326919 has 77.54 GiB memory in use. Of the allocated memory 76.66 GiB is allocated by PyTorch, and 383.60 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+  2%|▏         | 2/100 [39:24<32:10:48, 1182.13s/it]

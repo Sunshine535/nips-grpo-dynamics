@@ -1,0 +1,132 @@
+{
+  "telemetry": [
+    {
+      "step": 0,
+      "rho": 1.0,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 0,
+      "rho": 1.0,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 20,
+      "rho": 1.0,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 20,
+      "rho": 1.0,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 40,
+      "rho": 1.0,
+      "n_groups_used": 1,
+      "skipped": true
+    },
+    {
+      "step": 40,
+      "rho": 1.0,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 60,
+      "rho": 1.0,
+      "n_groups_used": 1,
+      "skipped": true
+    },
+    {
+      "step": 60,
+      "rho": 1.0,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 80,
+      "rho": 1.0,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 80,
+      "rho": 1.0,
+      "n_groups_used": 1,
+      "skipped": true
+    },
+    {
+      "step": 100,
+      "rho": 0.73,
+      "n_groups_used": 2,
+      "var_p": 0.6572443842887878,
+      "cov_pn": 0.0028816601261496544,
+      "rho_hat_raw": 0.1,
+      "skipped": false
+    },
+    {
+      "step": 100,
+      "rho": 0.73,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 120,
+      "rho": 0.73,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 120,
+      "rho": 0.73,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 140,
+      "rho": 0.73,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 140,
+      "rho": 0.73,
+      "n_groups_used": 1,
+      "skipped": true
+    },
+    {
+      "step": 160,
+      "rho": 0.73,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 160,
+      "rho": 0.73,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 180,
+      "rho": 0.73,
+      "n_groups_used": 0,
+      "skipped": true
+    },
+    {
+      "step": 180,
+      "rho": 0.73,
+      "n_groups_used": 0,
+      "skipped": true
+    }
+  ],
+  "summary": {
+    "n_updates": 20,
+    "n_skipped": 19,
+    "current_rho": 0.73
+  }
+}

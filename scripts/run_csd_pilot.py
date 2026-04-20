@@ -90,6 +90,10 @@ def parse_args():
                    help="Override max_completion_length from config")
     p.add_argument("--use_bandit", action="store_true",
                    help="Use UCB1 bandit over discrete ρ grid (Path A)")
+    p.add_argument("--use_exact_rho", action="store_true",
+                   help="Use exact-ρ* controller (per-group autograd.grad estimator)")
+    p.add_argument("--exact_update_every", type=int, default=20,
+                   help="How often (in main steps) to run the exact estimator")
     return p.parse_args()
 
 
@@ -249,9 +253,12 @@ def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, us
 def run_single_training(model_name, config_path, seed, rho, max_steps, output_dir,
                         use_adq=False, use_vllm=False, dataset_name="gsm8k",
                         group_size_override=None, max_completion_length_override=None,
-                        use_bandit=False):
+                        use_bandit=False, use_exact_rho=False,
+                        exact_update_every=20):
     """Run a single training run with CSD logging."""
-    if use_bandit:
+    if use_exact_rho:
+        suffix = "_exact"
+    elif use_bandit:
         suffix = "_bandit"
     elif use_adq:
         suffix = "_adq"
@@ -296,6 +303,14 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
             update_every=1,
             reward_window=10,
         ))
+    exact_controller = None
+    if use_exact_rho:
+        from src.exact_rho_controller import ExactRhoController, ExactRhoConfig
+        exact_controller = ExactRhoController(ExactRhoConfig(
+            update_every=exact_update_every, rho_init=rho,
+            rho_min=0.1, rho_max=10.0, ema_alpha=0.7,
+            min_groups_for_update=2,
+        ))
 
     trainer = RhoGRPOTrainerV14(
         model=model, args=training_config, train_dataset=dataset,
@@ -304,6 +319,8 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
         rho=rho,
         controller=controller,
         bandit_controller=bandit_controller,
+        exact_controller=exact_controller,
+        exact_update_every=exact_update_every,
         group_size_for_ada=G,
         ada_kl_coef=kl_coef,
         ada_clip_range=clip_range,
@@ -394,6 +411,10 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
         _save_json(os.path.join(run_dir, "bandit_telemetry.json"), trainer._bandit_telemetry,    "bandit_telemetry")
         if bandit_controller is not None:
             _save_json(os.path.join(run_dir, "bandit_dump.json"), bandit_controller.dump(),      "bandit_dump")
+    if hasattr(trainer, "_exact_telemetry") and trainer._exact_telemetry:
+        _save_json(os.path.join(run_dir, "exact_telemetry.json"), trainer._exact_telemetry,      "exact_telemetry")
+        if exact_controller is not None:
+            _save_json(os.path.join(run_dir, "exact_dump.json"), exact_controller.dump(),        "exact_dump")
 
     # Clean up GPU memory
     del trainer, model
@@ -575,6 +596,8 @@ def main():
             group_size_override=args.group_size,
             max_completion_length_override=args.max_completion_length,
             use_bandit=args.use_bandit,
+            use_exact_rho=args.use_exact_rho,
+            exact_update_every=args.exact_update_every,
         )
         return
 

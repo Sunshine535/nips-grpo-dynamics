@@ -1,0 +1,26 @@
+{
+  "rho0.70_seed42": {
+    "n": 50,
+    "correct": 13,
+    "accuracy": 0.26,
+    "n_any_answer": 48
+  },
+  "rho0.70_seed42_adq": {
+    "n": 50,
+    "correct": 13,
+    "accuracy": 0.26,
+    "n_any_answer": 48
+  },
+  "rho0.70_seed43": {
+    "n": 50,
+    "correct": 13,
+    "accuracy": 0.26,
+    "n_any_answer": 48
+  },
+  "rho0.70_seed43_adq": {
+    "n": 50,
+    "correct": 13,
+    "accuracy": 0.26,
+    "n_any_answer": 48
+  }
+}
