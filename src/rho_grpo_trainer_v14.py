@@ -36,6 +36,7 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         group_size_for_ada: int = 4,
         ada_kl_coef: float = 0.05,
         ada_clip_range: float = 0.2,
+        bandit_controller=None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -47,6 +48,11 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         self._ada_clip_range = ada_clip_range
         self._rho_step_stats = []
         self._ada_telemetry = []
+        self.bandit_controller = bandit_controller
+        self._bandit_telemetry = []
+        if self.bandit_controller is not None:
+            # Let the bandit pick the initial ρ (random over the grid).
+            self._rho = self.bandit_controller.initial_rho()
 
     @property
     def rho(self):
@@ -194,6 +200,21 @@ class RhoGRPOTrainerV14(GRPOTrainer):
             **self.ada_controller.get_telemetry(),
         })
 
+    def _update_bandit(self, rewards: torch.Tensor):
+        """Feed the bandit the current batch-mean training reward, then let it pick ρ."""
+        if self.bandit_controller is None:
+            return
+        obs = float(rewards.mean().item())
+        new_rho = self.bandit_controller.update(obs)
+        self._rho = new_rho
+        step = self.state.global_step if self.state else 0
+        self._bandit_telemetry.append({
+            "step": step,
+            "rho": new_rho,
+            "observed_reward": obs,
+            **self.bandit_controller.get_telemetry(),
+        })
+
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         # Replicate TRL 0.14 GRPOTrainer.compute_loss body, injecting ρ weighting
         # and AdaBalance stats collection.
@@ -303,8 +324,9 @@ class RhoGRPOTrainerV14(GRPOTrainer):
         std_grouped_rewards = std_grouped_rewards.repeat_interleave(self.num_generations, dim=0)
         advantages = (rewards - mean_grouped_rewards) / (std_grouped_rewards + 1e-4)
 
-        # ─── INJECT: ρ-asymmetric weighting + AdaBalance update ───
+        # ─── INJECT: ρ-asymmetric weighting + controller updates ───
         self._update_adabalance(rewards, advantages)
+        self._update_bandit(rewards)
         advantages = self._apply_rho_weighting(advantages, completion_ids, completion_mask)
 
         # ─── Loss ───

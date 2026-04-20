@@ -84,13 +84,22 @@ def parse_args():
     p.add_argument("--use_vllm", action="store_true")
     p.add_argument("--dataset", type=str, default="gsm8k", choices=["gsm8k", "math500"],
                    help="Dataset to train on")
+    p.add_argument("--group_size", type=int, default=None,
+                   help="Override num_generations from config (must divide batch size)")
+    p.add_argument("--max_completion_length", type=int, default=None,
+                   help="Override max_completion_length from config")
+    p.add_argument("--use_bandit", action="store_true",
+                   help="Use UCB1 bandit over discrete ρ grid (Path A)")
     return p.parse_args()
 
 
-def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, use_vllm=False, dataset_name="gsm8k"):
+def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, use_vllm=False, dataset_name="gsm8k", group_size_override=None, max_completion_length_override=None):
     """Load dataset, model, tokenizer, and create GRPOConfig.
 
     dataset_name: "gsm8k" (default) or "math500".
+    group_size_override: if not None, override tcfg["num_generations"] and batch size
+       accordingly (we force per_device_train_batch_size so that bs × G is at least 2×G).
+    max_completion_length_override: if not None, override tcfg["max_completion_length"].
     """
     from trl import GRPOConfig
 
@@ -175,10 +184,13 @@ def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, us
             "vllm_tensor_parallel_size": tp_size,
         }
 
+    effective_G = group_size_override if group_size_override is not None else tcfg["num_generations"]
+    # per_device_train_batch_size must be >= num_generations (TRL constraint); scale up if needed.
+    effective_bs = max(tcfg["per_device_train_batch_size"], effective_G)
     training_config = GRPOConfig(
         output_dir=output_dir,
         num_train_epochs=1,
-        per_device_train_batch_size=tcfg["per_device_train_batch_size"],
+        per_device_train_batch_size=effective_bs,
         gradient_accumulation_steps=tcfg["gradient_accumulation_steps"],
         learning_rate=tcfg["learning_rate"],
         warmup_ratio=tcfg["warmup_ratio"],
@@ -192,8 +204,8 @@ def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, us
         save_steps=max_steps + 1,  # Don't save checkpoints in pilot
         save_total_limit=1,
         seed=seed,
-        num_generations=tcfg["num_generations"],
-        max_completion_length=tcfg["max_completion_length"],
+        num_generations=effective_G,
+        max_completion_length=max_completion_length_override if max_completion_length_override is not None else tcfg["max_completion_length"],
         max_steps=max_steps,
         report_to="none",
         log_level="info",
@@ -235,15 +247,28 @@ def load_data_and_model(model_name, config_path, seed, max_steps, output_dir, us
 
 
 def run_single_training(model_name, config_path, seed, rho, max_steps, output_dir,
-                        use_adq=False, use_vllm=False, dataset_name="gsm8k"):
+                        use_adq=False, use_vllm=False, dataset_name="gsm8k",
+                        group_size_override=None, max_completion_length_override=None,
+                        use_bandit=False):
     """Run a single training run with CSD logging."""
-    run_dir = os.path.join(output_dir, f"rho{rho:.2f}_seed{seed}" + ("_adq" if use_adq else ""))
+    if use_bandit:
+        suffix = "_bandit"
+    elif use_adq:
+        suffix = "_adq"
+    else:
+        suffix = ""
+    if group_size_override:
+        suffix = f"_G{group_size_override}" + suffix
+    run_dir = os.path.join(output_dir, f"rho{rho:.2f}_seed{seed}{suffix}")
     os.makedirs(run_dir, exist_ok=True)
 
-    logger.info("=== Run: rho=%.2f, seed=%d, adq=%s, dataset=%s ===", rho, seed, use_adq, dataset_name)
+    logger.info("=== Run: rho=%.2f, seed=%d, G=%s, adq=%s, dataset=%s ===",
+                rho, seed, group_size_override or "cfg", use_adq, dataset_name)
 
     dataset, model, tokenizer, training_config, peft_config, G, kl_coef, clip_range = \
-        load_data_and_model(model_name, config_path, seed, max_steps, run_dir, use_vllm, dataset_name=dataset_name)
+        load_data_and_model(model_name, config_path, seed, max_steps, run_dir, use_vllm,
+                            dataset_name=dataset_name, group_size_override=group_size_override,
+                            max_completion_length_override=max_completion_length_override)
 
     if dataset_name == "math500":
         from src.rho_grpo import build_math500_binary_reward_function
@@ -255,12 +280,22 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
     # Use V14 trainer (compatible with TRL 0.14's inline-advantage compute_loss)
     from src.rho_grpo_trainer_v14 import RhoGRPOTrainerV14
     controller = None
+    bandit_controller = None
     if use_adq:
         ada_config = AdaBalanceConfig(
             K=10, tau=0.15, rho_init=rho, warmup_steps=10,
             rho_min_floor=0.3, rho_max_ceil=10.0,
         )
         controller = AdaBalanceController(ada_config)
+    if use_bandit:
+        from src.bandit_rho import UCBBanditRho, BanditRhoConfig
+        bandit_controller = UCBBanditRho(BanditRhoConfig(
+            rho_grid=[0.3, 0.7, 1.0, 2.0, 3.0],
+            exploration_c=1.0,
+            warmup_steps=5,
+            update_every=1,
+            reward_window=10,
+        ))
 
     trainer = RhoGRPOTrainerV14(
         model=model, args=training_config, train_dataset=dataset,
@@ -268,6 +303,7 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
         peft_config=peft_config,
         rho=rho,
         controller=controller,
+        bandit_controller=bandit_controller,
         group_size_for_ada=G,
         ada_kl_coef=kl_coef,
         ada_clip_range=clip_range,
@@ -354,6 +390,10 @@ def run_single_training(model_name, config_path, seed, rho, max_steps, output_di
         _save_json(os.path.join(run_dir, "rho_grpo_logs.json"),  trainer._rho_step_stats,       "rho_grpo_logs")
     if hasattr(trainer, "_ada_telemetry") and trainer._ada_telemetry:
         _save_json(os.path.join(run_dir, "ada_telemetry.json"),  trainer._ada_telemetry,        "ada_telemetry")
+    if hasattr(trainer, "_bandit_telemetry") and trainer._bandit_telemetry:
+        _save_json(os.path.join(run_dir, "bandit_telemetry.json"), trainer._bandit_telemetry,    "bandit_telemetry")
+        if bandit_controller is not None:
+            _save_json(os.path.join(run_dir, "bandit_dump.json"), bandit_controller.dump(),      "bandit_dump")
 
     # Clean up GPU memory
     del trainer, model
@@ -532,6 +572,9 @@ def main():
             args.model, args.config, seed=args.seed_start, rho=args.rho,
             max_steps=args.max_steps, output_dir=args.output_dir,
             use_vllm=args.use_vllm, dataset_name=args.dataset,
+            group_size_override=args.group_size,
+            max_completion_length_override=args.max_completion_length,
+            use_bandit=args.use_bandit,
         )
         return
 
