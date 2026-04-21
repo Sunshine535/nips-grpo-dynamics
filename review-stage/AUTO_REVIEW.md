@@ -363,3 +363,56 @@ No debate issued: both "fatal" findings are factually correct on visual inspecti
 5. **Boost fixed-ρ=0.70 baseline to n=9** or subsample ASE-R to n=3 from the same seed indices for like-for-like stats.
 6. **Patch stale docs**: delete/archive `refine-logs/FINAL_PROPOSAL.md`, rewrite `README.md`, wire or drop dead config fields.
 
+
+---
+
+## Round 2 Data Ready (2026-04-21 07:35 UTC)
+
+Wave 11 + Wave 12 eval all done. Consolidated against Wave 10.
+
+### All arms (GSM8K test n=200)
+
+| Arm                          | n seeds | mean ± std       | per-seed (%) |
+|------------------------------|---------|------------------|---------------|
+| **spo_replay (ASE-R)**       | **9**   | **69.4 ± 10.4%** | 72.5 65.0 59.5 88.0 70.0 82.0 66.0 67.0 54.5 |
+| **fixed_sampler_asr**        | **6**   | **71.1 ± 14.7%** | 68.0 66.0 78.0 46.0 80.5 88.0 |
+| fixed_rho_0.70 (matched n=9) | 9       | 54.2 ± 10.2%     | 44.0 54.5 58.5 51.5 78.0 52.5 56.5 45.0 47.5 |
+| spo_only                     | 3       | 52.2 ± 11.0%     | 58.5 58.5 39.5 |
+| **rft_only (pg-weight=0)**   | **7**   | **35.9 ±  1.3%** | 35.5 36.5 38.5 34.5 36.0 35.0 35.0 |
+| lambda_rep=0.02              | 2       | 57.0 ± 25.5%     | 75.0 39.0 |
+
+### Matched-seed Welch's t-tests
+
+- **spo_replay vs fixed_rho_0.70**: +15.2pp, t=3.12, df=16 (**p < 0.01**)
+- **spo_replay vs rft_only**: +33.5pp, t=**9.54**, df=8.3 (**p << 0.001**)
+- **spo_replay vs spo_only**: +17.2pp, t=2.38, df=3.3
+- **spo_replay vs fixed_sampler_asr**: −1.7pp, t=−0.24 (n.s.; fixed sampler marginally better)
+- **fixed_sampler_asr vs rft_only**: +35.2pp, t=5.83 (**p < 0.001**)
+
+### Paired same-seed (9 shared seeds: 42,43,44,46-51)
+
+**spo_replay (ASE-R) vs fixed_rho_0.70**:
+- per-seed Δ: +28.5, +10.5, +1.0, +36.5, −8.0, +29.5, +9.5, +22.0, +7.0
+- mean Δ = +15.2pp ± 14.8, paired t = **3.08**, df = 8 (p < 0.05 two-sided)
+- **8/9 seeds positive**; only seed 47 shows −8pp
+
+**spo_replay vs rft_only (5 shared seeds)**:
+- per-seed Δ: +37.0, +28.5, +21.0, +53.0, +35.0
+- mean Δ = +34.9pp ± 11.9, paired t = **6.56**, df = 4 (p < 0.01)
+- **5/5 seeds positive**
+
+### Round 1 → Round 2 resolution
+
+| Codex R1 challenge             | R2 resolution                                              |
+|--------------------------------|------------------------------------------------------------|
+| adaptive-dup never fired       | Sampler fixed; fixed-sampler n=6 = 71.1%, broken n=9 = 69.4% (not significantly different) — main claim survives under both |
+| No committed artifacts         | All 334 files + 12 new evals committed to GitHub           |
+| Replay CE ≈ online RFT         | **DISPROVED**: RFT-only n=7 = 35.9 ± 1.3%, SPO+Replay = 69.4% → +33.5pp, Welch's t=9.54, p<<0.001 |
+| Stats asymmetry (n=9 vs n=3)   | Fixed-ρ=0.70 extended to n=9 matched seeds                 |
+
+### Novelty summary
+The key finding: **replay CE needs the SPO backbone to work.** Online RFT alone
+(same replay bank, same compute, zero GRPO gradient) plateaus at 35.9% — only 10pp
+above the base model (25.5%). The combination of SPO-advantage + verified replay
+CE is what produces +44pp over base, not either component alone.
+

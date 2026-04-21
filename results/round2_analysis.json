@@ -1,0 +1,119 @@
+{
+  "timestamp": "2026-04-21T07:35 UTC",
+  "per_arm": {
+    "spo_replay (Wave 10, n=9)": {
+      "n": 9,
+      "accs": [
+        0.725,
+        0.65,
+        0.595,
+        0.88,
+        0.7,
+        0.82,
+        0.66,
+        0.67,
+        0.545
+      ],
+      "seeds": [
+        "spo_full_seed42",
+        "spo_full_seed43",
+        "spo_full_seed44",
+        "spo_full_seed46",
+        "spo_full_seed47",
+        "spo_full_seed48",
+        "spo_full_seed49",
+        "spo_full_seed50",
+        "spo_full_seed51"
+      ]
+    },
+    "spo_only (Wave 10, n=3)": {
+      "n": 3,
+      "accs": [
+        0.585,
+        0.585,
+        0.395
+      ],
+      "seeds": [
+        "spo_only_seed42",
+        "spo_only_seed43",
+        "spo_only_seed44"
+      ]
+    },
+    "rft_only": {
+      "n": 7,
+      "accs": [
+        0.355,
+        0.365,
+        0.385,
+        0.345,
+        0.36,
+        0.35,
+        0.35
+      ],
+      "seeds": [
+        "rft_seed42",
+        "rft_seed43",
+        "rft_seed44",
+        "w11_rft_seed45",
+        "w12_rft_seed45",
+        "w12_rft_seed46",
+        "w12_rft_seed47"
+      ]
+    },
+    "fixed_rho_0.70 (matched)": {
+      "n": 9,
+      "accs": [
+        0.44,
+        0.545,
+        0.585,
+        0.515,
+        0.78,
+        0.525,
+        0.565,
+        0.45,
+        0.475
+      ],
+      "seeds": [
+        "rho0.70_seed42",
+        "rho0.70_seed43",
+        "rho0.70_seed44",
+        "rho0.70_seed46",
+        "rho0.70_seed47",
+        "rho0.70_seed48",
+        "rho0.70_seed49",
+        "rho0.70_seed50",
+        "rho0.70_seed51"
+      ]
+    },
+    "fixed_sampler_asr": {
+      "n": 6,
+      "accs": [
+        0.68,
+        0.66,
+        0.78,
+        0.46,
+        0.805,
+        0.88
+      ],
+      "seeds": [
+        "w11_fixed_sampler_s42",
+        "w11_fixed_sampler_s43",
+        "w11_fixed_sampler_s44",
+        "w12_fixed_sampler_s45",
+        "w12_fixed_sampler_s46",
+        "w12_fixed_sampler_s47"
+      ]
+    },
+    "lambda_rep_0.02": {
+      "n": 2,
+      "accs": [
+        0.75,
+        0.39
+      ],
+      "seeds": [
+        "w12_lambda002_s42",
+        "w12_lambda002_s43"
+      ]
+    }
+  }
+}

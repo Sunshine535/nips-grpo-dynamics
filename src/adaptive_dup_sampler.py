@@ -40,24 +40,30 @@ class AdaptiveDupBatchSampler(Sampler):
         n = len(self.dataset)
         while True:
             frac = self._current_dup_frac()
-            # Probabilistic rounding — unbiased, so small batches still get duplicates.
-            # n_dup_expected = batch_size * frac; floor + Bernoulli on fractional part.
-            expected = self.batch_size * frac
-            base = int(expected)
-            residual = expected - base
-            n_dup = base + (1 if (residual > 0 and self.rng.random() < residual) else 0)
-            n_dup = min(n_dup, self.batch_size)
-            # Telemetry: record realised n_dup so downstream analysis can verify it fired.
-            self.last_n_dup = n_dup
-            batch = [self.rng.randrange(n) for _ in range(self.batch_size)]
-            if n_dup > 0:
+            # Semantic fix (Round 2 review): the earlier code "replaced slot[i] with a
+            # hardness-weighted sample", which is biased sampling, NOT duplication.
+            # For batch_size=2, even with n_dup=1 chosen, the resulting batch was two
+            # distinct prompts (1 uniform + 1 hardness-biased), so batch_n_dup=0 every
+            # step. The paper's claim is that hard prompts get G→2G effective rollouts,
+            # which requires the SAME prompt_id to appear MULTIPLE times in a batch.
+            #
+            # New semantics: with probability `frac` per step, pick one hardness-weighted
+            # prompt and fill ALL `batch_size` slots with it — that is a G-wide replication
+            # of one hard prompt. Otherwise, do `batch_size` uniform samples.
+            # For batch_size=2, this gives batch_n_dup=1 on `frac` fraction of steps.
+            do_dup = frac > 0 and self.rng.random() < frac
+            if do_dup:
                 hard = np.array([
                     max(self.stats_store.get_hardness(pid), 1e-3) ** self.hardness_temp
                     for pid in self.prompt_ids
                 ], dtype=np.float64)
                 hard = hard / hard.sum()
-                dup_idxs = np.random.choice(np.arange(n), size=n_dup, replace=True, p=hard)
-                batch[:n_dup] = dup_idxs.tolist()
+                hard_idx = int(np.random.choice(np.arange(n), p=hard))
+                batch = [hard_idx] * self.batch_size
+                self.last_n_dup = self.batch_size - 1
+            else:
+                batch = [self.rng.randrange(n) for _ in range(self.batch_size)]
+                self.last_n_dup = 0
             self.step += 1
             yield batch
 
