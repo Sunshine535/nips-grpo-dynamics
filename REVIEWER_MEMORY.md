@@ -1,5 +1,41 @@
 # Reviewer Memory (nightmare-mode persistent brain)
 
+## Round 2 — SPO+Replay with Codex's R1 fixes — Score: 5/10 (almost)
+Reviewer: Codex xhigh (same thread `019dacf3-5e9a-7a41-8097-e31278f80315`)
+Date: 2026-04-21 07:35 UTC
+
+### Resolved from Round 1 (Codex confirmed)
+- ✅ Wave-10 artifacts all committed (`results/wave10_aser/*`, `results/stratified_eval_aser/*`). spo_full n=9 recomputes to 69.4±10.4%.
+- ✅ Matched-n fixed-ρ=0.70 baseline: 54.2±10.2%, Welch vs SPO+Replay t=3.12, df≈16.
+- ✅ `pg_weight=0` RFT control is real in code + telemetry.
+- ✅ RFT-only n=7 = 35.9±1.3% vs SPO+Replay 69.4% → +33.5pp (t=9.54). Enough to rule out "pure online replay".
+- ✅ Docs improved; new PROPOSAL_SPO_REPLAY.md + README pivot.
+
+### Still open from Round 2
+1. **[high]** Adaptive duplication STILL doesn't fire — Codex verified batch_n_dup=0 for all 400 steps × 6 fixed-sampler runs. The earlier "fix" only changed `int()` → probabilistic round; the REAL bug was "replace with independent hardness sample" (not duplication). Semantic fix applied (commit 4b16306+): with prob `frac`, fill ALL batch slots with ONE hardness-weighted prompt.
+2. **[high]** Novelty vs RFT is not fully isolated — each `pg_weight=0` run builds its own bank from pg-weight=0 rollouts. The "same bank" comparison is missing. Fix: run `scripts/run_sft_gold_control.py` using GSM8K gold solutions as a frozen perfect-supervision bank (theoretical upper bound for SFT).
+3. **[medium]** analyze_round2.py double-counted rft_seed45 (w11 + w12 both included). Fixed: keep w12 only; w11 seed 45 reruns reported as sensitivity check.
+4. **[medium]** Hard-subset number was 38.0% (R1) → should be 40.7% (matched n=9). Recomputed.
+5. **[medium]** External validity empty — still only Qwen3.5-9B/GSM8K. Needs one cross-dataset or cross-family replication.
+
+### Codex's direct answers (quote)
+- "+33.5pp over the current pg_weight=0 control is enough to rule out the simple story 'this is just pure online replay/RFT'. It is not enough to establish full novelty over 'any SFT on verified successes'."
+- "The n=9 vs n=9 overall win over fixed ρ=0.70 is now good enough for the narrow claim 'beats fixed ρ=0.70 on Qwen3.5-9B / GSM8K under this protocol'."
+- "NeurIPS best-paper: nowhere close. NeurIPS accept: still not there yet, but closer."
+- Recommended pivot: **"SPO backbone + small-K verified replay unlocks learning at G=2 where ρ-controller approaches fail on this setup"**
+
+### Score progression
+Round 1: 3/10 (not ready) — adaptive-dup no-op + no committed artifacts
+Round 2: 5/10 (almost) — fatal fixes done; novelty/provenance gaps remain
+
+### Watchlist for Round 3
+- [CRITICAL] SFT-gold control result: if ≥65%, novelty collapses; if <50%, GRPO credit-assignment confirmed as necessary
+- [HIGH] True-dup sampler rerun: does real duplication move the needle vs broken sampler?
+- Any new analysis script bugs
+- New external replication?
+
+---
+
 ## Round 1 — ASE-R MVP review complete — Score: 3/10 (not ready)
 Reviewer: Codex xhigh (Oracle MCP unavailable → fallback per `shared-references/reviewer-routing.md`)
 threadId: `019dacf3-5e9a-7a41-8097-e31278f80315`

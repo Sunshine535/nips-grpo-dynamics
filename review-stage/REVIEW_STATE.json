@@ -1,31 +1,35 @@
 {
-  "round": 1,
+  "round": 2,
   "threadId": "019dacf3-5e9a-7a41-8097-e31278f80315",
   "status": "in_progress",
   "difficulty": "nightmare",
-  "reviewer_backend": "codex-xhigh-fallback",
-  "last_score": 3.0,
-  "last_verdict": "not ready",
-  "fatal_findings": [
-    "adaptive_dup_never_fires_int_2_times_0.25_equals_0",
-    "zero_aser_result_artifacts_committed"
-  ],
-  "pending_experiments": [
-    "spo_replay_rerun_after_sampler_fix",
-    "rft_matched_compute_control",
-    "fixed_rho_070_boost_to_n9_seeds"
-  ],
-  "pending_fixes_done": [
-    "sampler_probabilistic_round_fix"
-  ],
-  "pending_fixes_todo": [
-    "sync_wave10_artifacts_from_remote",
-    "reframe_method_drop_dup_claim",
-    "patch_stale_docs_readme_proposal",
-    "wire_or_drop_dead_config_fields"
-  ],
+  "reviewer_backend": "codex-xhigh",
+  "last_score": 5.0,
+  "last_verdict": "almost",
   "score_progression": [
-    {"round": 1, "score": 3, "verdict": "not ready"}
+    {"round": 1, "score": 3, "verdict": "not ready"},
+    {"round": 2, "score": 5, "verdict": "almost"}
   ],
-  "timestamp": "2026-04-21T00:00:00"
+  "resolved_in_r2": [
+    "matched_n9_fixed_rho_baseline",
+    "pg_weight_0_rft_control",
+    "wave10_artifacts_committed",
+    "docs_updated_pivot_to_spo_replay"
+  ],
+  "open_from_r2": [
+    "adaptive_dup_still_doesnt_fire (semantic fix in flight — wave13)",
+    "frozen_bank_control_needed (gold-SFT in flight — wave13)",
+    "analyze_round2_dedup_seed45 (fixed)",
+    "hard_subset_number_stale (recomputed 40.7%)",
+    "external_validity_empty (wave14 MATH-500 planned)"
+  ],
+  "pending_experiments_wave13": [
+    "sft_gold_seed42-45 (4 seeds, GPU 0-3 on 43038)",
+    "truedup_aser_seed42-45 (4 seeds, GPU 4-7 on 43038)"
+  ],
+  "pending_experiments_wave14": [
+    "math500_aser_seeds42_43 (cross-dataset)"
+  ],
+  "round3_eta": "2026-04-21T11:00Z",
+  "timestamp": "2026-04-21T08:15:00Z"
 }
