@@ -1,6 +1,6 @@
 # Minimal Experiment Results
 
-**Date**: 2026-04-25 (evals still in progress)
+**Date**: 2026-04-25 (TASA vs DrGRPO evals COMPLETE; TRACE A/B/C running)
 
 ## Experiment ID: TASA-G4-vs-DrGRPO-G4 (not TRACE A/B/C)
 
@@ -30,11 +30,23 @@ the TASA advantage formulation improves on Dr.GRPO under matched setup.
 | TASA G4 | aser_g4_safe (tasa backbone) | GSM8K full 1319 | 42 | acc | 0.5610 | >base 0.255 | PASS | +30.6 pp over base |
 | TASA G4 | aser_g4_safe (tasa backbone) | GSM8K full 1319 | 43 | acc | 0.7362 | >base 0.255 | PASS | +48.1 pp over base |
 | TASA G4 | aser_g4_safe (tasa backbone) | GSM8K full 1319 | 44 | acc | 0.6725 | >base 0.255 | PASS | +41.7 pp over base |
-| TASA G4 | aser_g4_safe (tasa backbone) | GSM8K full 1319 | 45 | acc | PENDING |  |  |  |
-| Dr.GRPO G4 | aser_g4_safe (dr_grpo backbone) | GSM8K full 1319 | 42 | acc | PENDING |  |  |  |
-| Dr.GRPO G4 | aser_g4_safe (dr_grpo backbone) | GSM8K full 1319 | 43 | acc | PENDING |  |  |  |
-| Dr.GRPO G4 | aser_g4_safe (dr_grpo backbone) | GSM8K full 1319 | 44 | acc | PENDING |  |  |  |
-| Dr.GRPO G4 | aser_g4_safe (dr_grpo backbone) | GSM8K full 1319 | 45 | acc | PENDING |  |  |  |
+| TASA G4 | aser_g4_safe (tasa backbone) | GSM8K full 1319 | 45 | acc | 0.5330 | >base 0.255 | PASS | +27.8 pp over base |
+| Dr.GRPO G4 | aser_g4_safe (dr_grpo backbone) | GSM8K full 1319 | 42 | acc | 0.2851 | >base 0.255 | MARGINAL | +3.0 pp over base |
+| Dr.GRPO G4 | aser_g4_safe (dr_grpo backbone) | GSM8K full 1319 | 43 | acc | 0.2782 | >base 0.255 | MARGINAL | +2.3 pp over base |
+| Dr.GRPO G4 | aser_g4_safe (dr_grpo backbone) | GSM8K full 1319 | 44 | acc | 0.2707 | >base 0.255 | MARGINAL | +1.6 pp over base |
+| Dr.GRPO G4 | aser_g4_safe (dr_grpo backbone) | GSM8K full 1319 | 45 | acc | 0.2767 | >base 0.255 | MARGINAL | +2.2 pp over base |
+
+### Aggregate (n=4 seeds per variant)
+
+| Method | Mean accuracy | Std | Delta vs base (25.5%) |
+|--------|:-------------:|:---:|:---------------------:|
+| **TASA G=4** | **62.57%** | 9.52 pp | **+37.1 pp** |
+| **Dr.GRPO G=4** | **27.77%** | 0.59 pp | **+2.3 pp** |
+| Base Qwen3.5-9B | ~25.5% | — | — |
+
+**TASA improves GSM8K full-set accuracy by +37.1 pp over base and +34.8 pp over Dr.GRPO.**
+Dr.GRPO under G=4 + binary reward barely moves from baseline — its mean-centered
+advantage collapses when only {0, 1} rewards are available with a small group.
 
 **Training reward (log_history, last step):**
 

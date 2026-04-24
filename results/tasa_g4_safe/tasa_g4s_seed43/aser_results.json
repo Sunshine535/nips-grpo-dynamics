@@ -1,0 +1,13 @@
+{
+  "backbone": "tasa",
+  "seed": 43,
+  "no_dup": true,
+  "lambda_rep": 0.0,
+  "pg_weight": 1.0,
+  "max_steps": 200,
+  "elapsed_sec": 13384.8,
+  "model": "Qwen/Qwen3.5-9B",
+  "final_reward_mean": 1.0,
+  "max_reward_mean": 1.0,
+  "n_reward_logs": 200
+}
