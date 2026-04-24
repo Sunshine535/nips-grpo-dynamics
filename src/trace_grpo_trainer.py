@@ -152,8 +152,16 @@ class TraceGRPOTrainer(GRPOTrainer):
         seq_idx = torch.arange(is_eos.size(1), device=device).expand(is_eos.size(0), -1)
         completion_mask = (seq_idx <= eos_idx.unsqueeze(1)).int()
 
-        def get_per_token_logps(mdl, ids, n_keep):
-            logits = mdl(ids, num_logits_to_keep=n_keep + 1).logits
+        # GPT-5.5 P0: pass full attention_mask to logprob computation (prompt + completion up to EOS)
+        prompt_attention_mask = prompt_inputs["attention_mask"].to(dtype=completion_mask.dtype)
+        if prompt_attention_mask.size(0) != prompt_completion_ids.size(0):
+            factor = prompt_completion_ids.size(0) // prompt_attention_mask.size(0)
+            prompt_attention_mask = prompt_attention_mask.repeat_interleave(factor, dim=0)
+        full_attention_mask = torch.cat([prompt_attention_mask, completion_mask], dim=1)
+
+        def get_per_token_logps(mdl, ids, attention_mask, n_keep):
+            logits = mdl(ids, attention_mask=attention_mask,
+                         num_logits_to_keep=n_keep + 1).logits
             logits = logits[:, :-1, :]
             target = ids[:, -n_keep:]
             logits = logits[:, -n_keep:]
@@ -164,16 +172,19 @@ class TraceGRPOTrainer(GRPOTrainer):
             return torch.stack(per_token)
 
         n_keep = completion_ids.size(1)
-        per_token_logps = get_per_token_logps(model, prompt_completion_ids, n_keep)
+        per_token_logps = get_per_token_logps(
+            model, prompt_completion_ids, full_attention_mask, n_keep)
         with torch.inference_mode():
             if self.ref_model is not None:
-                ref_logps = get_per_token_logps(self.ref_model, prompt_completion_ids, n_keep)
+                ref_logps = get_per_token_logps(
+                    self.ref_model, prompt_completion_ids, full_attention_mask, n_keep)
             else:
                 with self.accelerator.unwrap_model(model).disable_adapter():
-                    ref_logps = get_per_token_logps(model, prompt_completion_ids, n_keep)
+                    ref_logps = get_per_token_logps(
+                        model, prompt_completion_ids, full_attention_mask, n_keep)
         per_token_kl = torch.exp(ref_logps - per_token_logps) - (ref_logps - per_token_logps) - 1
 
-        # Decode for reward (only up to EOS)
+        # GPT-5.5 P1: decode only up to EOS (completion_mask), not raw completion_ids
         valid_lens = completion_mask.sum(dim=1).tolist()
         completions = []
         for row, vl in zip(completion_ids, valid_lens):
