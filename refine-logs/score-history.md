@@ -1,8 +1,7 @@
-# Score Evolution
+# Score Evolution — TASA-GRPO
 
-| Round | Problem Fidelity | Method Specificity | Contribution Quality | Frontier Leverage | Feasibility | Validation Focus | Venue Readiness | Overall | Verdict |
-|-------|------------------|--------------------|----------------------|-------------------|-------------|------------------|-----------------|---------|---------|
-| 1     | 8                | 5                  | 6                    | 8                 | 6           | 6                | 6               | 6.4     | REVISE  |
-| 2     | 9.1              | 8.0                | 8.8                  | 7.2               | 7.8         | 8.7              | 7.9             | 8.2     | REVISE  |
-| 3     | 9.1              | 8.5                | 7.7                  | 8.3               | 9.0         | 9.3              | 8.2             | 8.7     | REVISE  |
-| 4     | 9.3              | 8.9                | 9.1                  | 9.3               | 8.9         | 9.0              | 9.5             | 9.1     | READY   |
+| Round | PF | MS | CQ | FL | Feas | VF | VR | Overall | Verdict |
+|-------|----|----|----|----|------|----|----|---------| --------|
+| 1     | 7  | 5  | 5  | 6  | 6    | 6  | 4  | 5.6     | REVISE  |
+| 2     | 8  | 8  | 7  | 7  | 8    | 7  | 6  | 7.3     | REVISE  |
+| 3     | 9  | 8  | 8  | 7  | 8    | 8  | 7  | 8.0     | READY   |

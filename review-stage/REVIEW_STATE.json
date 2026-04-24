@@ -1,35 +1,23 @@
 {
-  "round": 2,
-  "threadId": "019dacf3-5e9a-7a41-8097-e31278f80315",
+  "round": 1,
+  "threadId": "019db654-8306-7492-a2cf-24911e7f3151",
   "status": "in_progress",
   "difficulty": "nightmare",
   "reviewer_backend": "codex-xhigh",
-  "last_score": 5.0,
-  "last_verdict": "almost",
+  "last_score": 2.0,
+  "last_verdict": "not ready",
   "score_progression": [
-    {"round": 1, "score": 3, "verdict": "not ready"},
-    {"round": 2, "score": 5, "verdict": "almost"}
+    {"round": 1, "score": 2, "verdict": "not ready"}
   ],
-  "resolved_in_r2": [
-    "matched_n9_fixed_rho_baseline",
-    "pg_weight_0_rft_control",
-    "wave10_artifacts_committed",
-    "docs_updated_pivot_to_spo_replay"
+  "critical_experiment": "fullset_eval (n=1319) of ALL 200-step adapters",
+  "pending_experiments": [
+    "follow_pipeline.sh → launch_fullset_eval.sh (auto-chain after Wave14b/15)",
+    "35 adapters × 1319 questions = ~5 GPU-batches (~6h total)"
   ],
-  "open_from_r2": [
-    "adaptive_dup_still_doesnt_fire (semantic fix in flight — wave13)",
-    "frozen_bank_control_needed (gold-SFT in flight — wave13)",
-    "analyze_round2_dedup_seed45 (fixed)",
-    "hard_subset_number_stale (recomputed 40.7%)",
-    "external_validity_empty (wave14 MATH-500 planned)"
+  "open_issues": [
+    "n=200 vs n=1319 — does the gap persist?",
+    "500-step collapse root cause",
+    "SOTA baseline implementation (DAPO, RLOO, RePO)"
   ],
-  "pending_experiments_wave13": [
-    "sft_gold_seed42-45 (4 seeds, GPU 0-3 on 43038)",
-    "truedup_aser_seed42-45 (4 seeds, GPU 4-7 on 43038)"
-  ],
-  "pending_experiments_wave14": [
-    "math500_aser_seeds42_43 (cross-dataset)"
-  ],
-  "round3_eta": "2026-04-21T11:00Z",
-  "timestamp": "2026-04-21T08:15:00Z"
+  "timestamp": "2026-04-23T02:10:00Z"
 }

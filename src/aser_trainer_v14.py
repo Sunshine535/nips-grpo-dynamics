@@ -35,11 +35,11 @@ class _NullCtx:
 
 
 class ASERTrainerV14(GRPOTrainer):
-    """SPO / Dr. GRPO backbone + per-prompt baseline + verified replay CE."""
+    """SPO / Dr. GRPO / TASA backbone + per-prompt baseline + verified replay CE."""
 
     def __init__(
         self, *args,
-        backbone_mode: str = "spo",                # "spo" | "dr_grpo"
+        backbone_mode: str = "spo",                # "spo" | "dr_grpo" | "tasa"
         prompt_stats=None,
         replay_bank=None,
         lambda_rep: float = 0.05,
@@ -47,10 +47,14 @@ class ASERTrainerV14(GRPOTrainer):
         replay_warmup_steps: int = 50,
         success_threshold: float = 0.5,            # reward >= this → push to replay bank
         pg_weight: float = 1.0,                    # 0.0 → pure RFT (bank-only, no GRPO gradient)
+        alpha_pos: float = 0.0,                    # (α,β) reweighting: 0 = off
+        beta_neg: float = 0.0,                     # 0 = off; both > 0 → scale pos/neg advantages
+        tasa_threshold: float = 0.5,               # TASA: correctness threshold c
+        zero_score_handler=None,                   # ZeroScoreHandler for HalluZero baselines
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
-        assert backbone_mode in ("spo", "dr_grpo"), backbone_mode
+        assert backbone_mode in ("spo", "dr_grpo", "tasa"), backbone_mode
         self.backbone_mode = backbone_mode
         self.prompt_stats = prompt_stats
         self.replay_bank = replay_bank
@@ -59,8 +63,41 @@ class ASERTrainerV14(GRPOTrainer):
         self.replay_warmup_steps = int(replay_warmup_steps)
         self.success_threshold = float(success_threshold)
         self.pg_weight = float(pg_weight)
+        self._alpha = float(alpha_pos)
+        self._beta = float(beta_neg)
+        self._tasa_c = float(tasa_threshold)
+        self.zero_score_handler = zero_score_handler
 
         self._aser_step_stats: list = []
+
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _compute_tasa_advantages(group_rewards: torch.Tensor, c: float,
+                                 device: torch.device) -> torch.Tensor:
+        """Threshold-Anchored Signed Advantage (TASA).
+
+        A_i = (r_i - c)_+ / Z+  -  (c - r_i)_+ / Z-
+
+        Guarantees: r_i > c => A_i > 0, r_i <= c => A_i <= 0.
+        """
+        B, G = group_rewards.shape
+        flat = group_rewards.reshape(-1)
+        excess = torch.clamp(flat - c, min=0.0)       # (r_i - c)_+
+        deficit = torch.clamp(c - flat, min=0.0)       # (c - r_i)_+
+
+        excess_g = excess.view(B, G)
+        deficit_g = deficit.view(B, G)
+        z_plus = excess_g.sum(dim=1, keepdim=True).clamp(min=1e-8)
+        z_minus = deficit_g.sum(dim=1, keepdim=True).clamp(min=1e-8)
+
+        has_pos = (excess_g.sum(dim=1, keepdim=True) > 0).float()
+        has_neg = (deficit_g.sum(dim=1, keepdim=True) > 0).float()
+
+        pos_term = (excess_g / z_plus) * has_pos
+        neg_term = (deficit_g / z_minus) * has_neg
+
+        advantages = pos_term - neg_term     # (B, G)
+        return advantages.reshape(-1).to(device)
 
     # ------------------------------------------------------------------
     def _compute_replay_loss(self, model, device) -> torch.Tensor:
@@ -204,8 +241,30 @@ class ASERTrainerV14(GRPOTrainer):
                 device=device, dtype=rewards.dtype,
             )
             advantages = rewards - baseline_vals.repeat_interleave(self.num_generations, dim=0)
+        elif self.backbone_mode == "tasa":
+            c = self._tasa_c
+            advantages = self._compute_tasa_advantages(group_rewards, c, device)
         else:
             raise ValueError(self.backbone_mode)
+
+        # ─── (α, β) reweighting for phase-diagram sweep (off by default) ───
+        if self._alpha > 0 and self._beta > 0:
+            pos_mask = advantages > 0
+            neg_mask = advantages < 0
+            w_pos = self._alpha
+            w_neg = (1.0 - self._alpha) * self._beta
+            norm = w_pos + w_neg
+            if norm > 0:
+                advantages = advantages.clone()
+                advantages[pos_mask] *= (w_pos * 2.0 / norm)
+                advantages[neg_mask] *= (w_neg * 2.0 / norm)
+
+        # ─── HalluZero zero-score reweighting (off by default) ───
+        if self.zero_score_handler is not None:
+            step = int(self.state.global_step) if self.state else 0
+            advantages = self.zero_score_handler.reweight_advantages(
+                advantages, rewards, global_step=step,
+            )
 
         # ─── Update per-prompt stats AFTER advantages are computed (use-then-update) ───
         if self.prompt_stats is not None:

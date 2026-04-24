@@ -1,0 +1,13 @@
+{
+  "backbone": "dr_grpo",
+  "seed": 42,
+  "no_dup": true,
+  "lambda_rep": 0.0,
+  "pg_weight": 1.0,
+  "max_steps": 200,
+  "elapsed_sec": 6906.4,
+  "model": "Qwen/Qwen3.5-9B",
+  "final_reward_mean": 0.75,
+  "max_reward_mean": 0.875,
+  "n_reward_logs": 200
+}

@@ -58,12 +58,21 @@ def parse_args():
     p.add_argument("--output-dir", default="results/wave10_aser")
     p.add_argument("--max-steps", type=int, default=200)
     p.add_argument("--seed", type=int, default=42)
-    p.add_argument("--backbone", choices=["spo", "dr_grpo"], default="spo")
+    p.add_argument("--backbone", choices=["spo", "dr_grpo", "tasa"], default="spo")
     p.add_argument("--no-dup", action="store_true", help="disable adaptive duplication (Stage 1)")
     p.add_argument("--lambda-rep", type=float, default=None,
                    help="override config; set to 0 to disable replay CE")
     p.add_argument("--pg-weight", type=float, default=1.0,
                    help="multiplier on the GRPO policy-gradient loss. 0.0 → pure online RFT.")
+    p.add_argument("--alpha-pos", type=float, default=0.0,
+                   help="(α,β) phase diagram: positive advantage weight. 0 = off.")
+    p.add_argument("--beta-neg", type=float, default=0.0,
+                   help="(α,β) phase diagram: negative advantage scale. 0 = off.")
+    p.add_argument("--tasa-threshold", type=float, default=0.5,
+                   help="TASA correctness threshold c (default 0.5)")
+    p.add_argument("--zero-score-strategy", type=str, default="none",
+                   choices=["clip", "temperature", "curriculum", "relabel", "none"],
+                   help="HalluZero zero-score gradient reshaping strategy")
     p.add_argument("--run-name", type=str, default=None)
     return p.parse_args()
 
@@ -163,7 +172,7 @@ def main():
         bf16=tcfg["bf16"],
         gradient_checkpointing=False,
         logging_steps=max(1, tcfg["logging_steps"]),
-        save_steps=args.max_steps + 1,
+        save_steps=min(250, args.max_steps + 1),
         save_total_limit=1,
         seed=args.seed,
         num_generations=tcfg["num_generations"],
@@ -184,6 +193,11 @@ def main():
 
     reward_fn = build_gsm8k_binary_reward_function()
 
+    zs_handler = None
+    if args.zero_score_strategy != "none":
+        from src.zero_score_handler import ZeroScoreConfig, ZeroScoreHandler, ZeroScoreStrategy
+        zs_handler = ZeroScoreHandler(ZeroScoreConfig(strategy=ZeroScoreStrategy(args.zero_score_strategy)))
+
     trainer = ASERTrainerV14(
         model=model, args=training_config, train_dataset=ds,
         processing_class=tok, reward_funcs=reward_fn, peft_config=peft_cfg,
@@ -195,6 +209,10 @@ def main():
         replay_warmup_steps=acfg.get("replay_warmup_steps", 50),
         success_threshold=acfg.get("success_threshold", 0.5),
         pg_weight=args.pg_weight,
+        alpha_pos=args.alpha_pos,
+        beta_neg=args.beta_neg,
+        tasa_threshold=args.tasa_threshold,
+        zero_score_handler=zs_handler,
         callbacks=[rope_cb],
     )
 
