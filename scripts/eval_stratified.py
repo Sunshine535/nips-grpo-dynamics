@@ -47,7 +47,7 @@ def extract_answer(text: str) -> str:
     return nums[-1].replace(",", "") if nums else ""
 
 
-def load_gsm8k_test(n: int, cache_dir: str):
+def load_gsm8k_test(n: int, cache_dir: str, selection: str = "first_n", seed: int = 42):
     parquet_paths = glob.glob(
         f"{cache_dir}/datasets--openai--gsm8k/snapshots/*/main/test-*.parquet"
     )
@@ -55,9 +55,22 @@ def load_gsm8k_test(n: int, cache_dir: str):
         import pandas as pd
         from datasets import Dataset
         df = pd.read_parquet(parquet_paths[0])
-        return Dataset.from_pandas(df).select(range(min(n, len(df))))
-    from datasets import load_dataset
-    return load_dataset("openai/gsm8k", "main", split="test").select(range(n))
+        ds = Dataset.from_pandas(df)
+    else:
+        from datasets import load_dataset
+        ds = load_dataset("openai/gsm8k", "main", split="test")
+
+    if selection == "full":
+        return ds
+    elif selection == "first_n":
+        return ds.select(range(min(n, len(ds))))
+    elif selection == "random":
+        import random
+        rng = random.Random(seed)
+        indices = rng.sample(range(len(ds)), min(n, len(ds)))
+        return ds.select(sorted(indices))
+    else:
+        return ds.select(range(min(n, len(ds))))
 
 
 def main():
@@ -65,7 +78,11 @@ def main():
     p.add_argument("--adapter", default=None, help="LoRA adapter dir, or None for base-model eval")
     p.add_argument("--base_model", default="Qwen/Qwen3.5-9B")
     p.add_argument("--cache_dir", default="/openbayes/input/input0/hub")
-    p.add_argument("--n", type=int, default=100)
+    p.add_argument("--n", type=int, default=100,
+                   help="Number of questions (ignored when --selection full)")
+    p.add_argument("--selection", default="first_n",
+                   choices=["first_n", "full", "random"],
+                   help="How to select test questions. Use 'full' for paper-grade evaluation.")
     p.add_argument("--out", required=True)
     args = p.parse_args()
 
@@ -83,7 +100,7 @@ def main():
     else:
         model = base.eval()
 
-    ds = load_gsm8k_test(args.n, args.cache_dir)
+    ds = load_gsm8k_test(args.n, args.cache_dir, selection=args.selection)
     per_q = []
     correct = 0
     for i, ex in enumerate(ds):
@@ -117,18 +134,22 @@ def main():
             "correct": bool(is_correct),
         })
 
+    n_evaluated = len(per_q)
     result = {
         "adapter": args.adapter or "BASE",
         "base_model": args.base_model,
-        "n": args.n,
+        "n": n_evaluated,
+        "n_requested": args.n,
+        "selection": args.selection,
         "correct": correct,
-        "accuracy": correct / args.n,
+        "accuracy": correct / max(n_evaluated, 1),
+        "eval_question_ids": [q["i"] for q in per_q],
         "per_q": per_q,
     }
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w") as f:
         json.dump(result, f, indent=2)
-    print(f"[done] acc={correct}/{args.n}={correct/args.n:.3f}  saved to {args.out}")
+    print(f"[done] acc={correct}/{n_evaluated}={correct/max(n_evaluated,1):.3f} selection={args.selection} saved to {args.out}")
 
 
 if __name__ == "__main__":
