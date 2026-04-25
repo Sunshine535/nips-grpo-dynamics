@@ -1,0 +1,29 @@
+{
+  "seed42": {
+    "acc": 0.8354814253222138,
+    "correct": 1102,
+    "n": 1319
+  },
+  "seed43": {
+    "acc": 0.2926459438968916,
+    "correct": 386,
+    "n": 1319
+  },
+  "seed42_adapter_files": [
+    "aser_results.json",
+    "aser_step_stats.json"
+  ],
+  "seed43_adapter_files": [
+    "aser_results.json",
+    "aser_step_stats.json"
+  ],
+  "seed42_adapter_hash": {
+    "aser_results.json": "910fd9f4a1a751f103493c3b517dc12434b36707",
+    "aser_step_stats.json": "09197d6af65b3f04d5ad5b5d5ff1be7ca8012c38"
+  },
+  "seed43_adapter_hash": {
+    "aser_results.json": "eef2657cb528e33db54757b62e5412dce7111f82",
+    "aser_step_stats.json": "b912047ca2184a1922d10567e9f64942f8c43062"
+  },
+  "eval_ids_identical": true
+}

@@ -48,7 +48,15 @@ class TraceGRPOTrainer(GRPOTrainer):
     ):
         super().__init__(*args, **kwargs)
         assert backbone_mode in ("spo", "dr_grpo", "tasa"), backbone_mode
-        assert trace_mode in ("full", "constant_gate", "no_replay"), trace_mode
+        # GPT-5.5 review Task 3: cleaner ablation modes
+        # full              = trust sampler + adaptive lambda + weighted drift budget
+        # constant_gate     = trust sampler + constant lambda = lambda_max  (legacy)
+        # uniform_constant  = uniform sampler  + constant lambda = lambda_max
+        # trust_sampler_constant = trust sampler + constant lambda (synonym for constant_gate, kept for clarity)
+        # no_replay         = no replay at all
+        valid_modes = ("full", "constant_gate", "uniform_constant",
+                       "trust_sampler_constant", "no_replay")
+        assert trace_mode in valid_modes, trace_mode
         self.backbone_mode = backbone_mode
         self.credit_store = prompt_credit_store
         self.trust_bank = trust_replay_bank
@@ -59,36 +67,94 @@ class TraceGRPOTrainer(GRPOTrainer):
         self.trace_mode = trace_mode
         self.drift_budget_cap = float(drift_budget_cap)
         self._trace_step_stats: list = []
+        # GPT-5.5 review Task 5: track BOTH raw and weighted drift signals
         self._replay_token_total = 0
         self._pg_token_total = 0
+        self._weighted_replay_total = 0.0  # sum of lambda_eff * replay_tokens
+        self._weighted_pg_total = 0.0      # sum of |adv| * pg_tokens
 
     def _compute_trace_replay_loss(self, model, device) -> tuple:
-        """Trust-gated replay CE with adaptive lambda_eff."""
+        """Trust-gated replay CE with adaptive lambda_eff.
+        Returns (loss, info_dict) where info_dict contains decomposed
+        suppressors per GPT-5.5 review Task 4.
+        """
+        info = {
+            "lambda_eff": 0.0,
+            "mean_trust_raw": 0.0,
+            "mean_age_decay": 0.0,
+            "mean_diversity": 0.0,
+            "mean_length_guard": 0.0,
+            "mean_saturation_penalty": 0.0,
+            "drift_budget_raw": 1.0,
+            "drift_budget_weighted": 1.0,
+            "drift_ratio_raw": 0.0,
+            "drift_ratio_weighted": 0.0,
+            "n_items_sampled": 0,
+            "replay_tokens": 0,
+        }
         if self.trust_bank is None or self.trace_mode == "no_replay":
-            return torch.tensor(0.0, device=device), 0.0
+            return torch.tensor(0.0, device=device), info
         step = int(self.state.global_step) if self.state else 0
         if step < self.replay_warmup_steps:
-            return torch.tensor(0.0, device=device), 0.0
+            return torch.tensor(0.0, device=device), info
 
-        if self.trace_mode == "full":
+        # Sampler choice
+        if self.trace_mode == "uniform_constant":
+            # GPT-5.5 review Task 3: clean uniform-sampler ablation
+            items = self.trust_bank.uniform_sample(
+                self.replay_batch_size, step) if hasattr(
+                    self.trust_bank, "uniform_sample") else \
+                self.trust_bank.weighted_sample(
+                    self.replay_batch_size, step, credit_store=None)
+        elif self.trace_mode == "full":
             items = self.trust_bank.weighted_sample(
                 self.replay_batch_size, step, credit_store=self.credit_store)
-        else:
+        else:  # constant_gate / trust_sampler_constant
             items = self.trust_bank.weighted_sample(
                 self.replay_batch_size, step, credit_store=None)
         if not items:
-            return torch.tensor(0.0, device=device), 0.0
+            return torch.tensor(0.0, device=device), info
 
+        info["n_items_sampled"] = len(items)
+
+        # Lambda computation
         if self.trace_mode == "full":
-            mean_trust = np.mean([it.get("trust_weight", 1.0) for it in items])
-            drift_ratio = self._replay_token_total / max(self._pg_token_total, 1)
-            drift_budget = max(0.0, 1.0 - drift_ratio / self.drift_budget_cap)
+            # Decompose trust into components for diagnostics
+            mean_trust = float(np.mean([it.get("trust_weight", 1.0) for it in items]))
+            # Detailed diagnostic decomposition from items if available
+            try:
+                age_decays = [it.get("_age_decay", 1.0) for it in items]
+                diversities = [it.get("_diversity", 1.0) for it in items]
+                length_guards = [it.get("_length_guard", 1.0) for it in items]
+                sat_pens = [it.get("_sat_penalty", 1.0) for it in items]
+                info["mean_age_decay"] = float(np.mean(age_decays))
+                info["mean_diversity"] = float(np.mean(diversities))
+                info["mean_length_guard"] = float(np.mean(length_guards))
+                info["mean_saturation_penalty"] = float(np.mean(sat_pens))
+            except Exception:
+                pass
+            info["mean_trust_raw"] = mean_trust
+
+            # GPT-5.5 review Task 5: weighted drift budget alongside raw
+            drift_ratio_raw = self._replay_token_total / max(self._pg_token_total, 1)
+            drift_ratio_weighted = (self._weighted_replay_total
+                                    / max(self._weighted_pg_total, 1e-8))
+            info["drift_ratio_raw"] = float(drift_ratio_raw)
+            info["drift_ratio_weighted"] = float(drift_ratio_weighted)
+            drift_budget_raw = max(0.0, 1.0 - drift_ratio_raw / self.drift_budget_cap)
+            drift_budget_weighted = max(0.0, 1.0 - drift_ratio_weighted / self.drift_budget_cap)
+            info["drift_budget_raw"] = float(drift_budget_raw)
+            info["drift_budget_weighted"] = float(drift_budget_weighted)
+            # Use weighted drift budget per GPT-5.5 Task 5
+            drift_budget = drift_budget_weighted
             lambda_eff = self.lambda_max * min(mean_trust, 1.0) * drift_budget
         else:
             lambda_eff = self.lambda_max
 
+        info["lambda_eff"] = float(lambda_eff)
+
         if lambda_eff < 1e-8:
-            return torch.tensor(0.0, device=device), 0.0
+            return torch.tensor(0.0, device=device), info
 
         tok = self.processing_class
         pad_id = tok.pad_token_id or tok.eos_token_id
@@ -115,8 +181,11 @@ class TraceGRPOTrainer(GRPOTrainer):
 
         replay_tokens = sum(len(it["token_ids"]) for it in items)
         self._replay_token_total += replay_tokens
+        # GPT-5.5 Task 5: track lambda-weighted replay tokens
+        self._weighted_replay_total += float(lambda_eff) * replay_tokens
+        info["replay_tokens"] = int(replay_tokens)
 
-        return out.loss * lambda_eff, float(lambda_eff)
+        return out.loss * lambda_eff, info
 
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         if return_outputs:
@@ -263,9 +332,14 @@ class TraceGRPOTrainer(GRPOTrainer):
 
         pg_tokens = int(completion_mask.sum().item())
         self._pg_token_total += pg_tokens
+        # GPT-5.5 Task 5: track |advantage|-weighted PG tokens for weighted drift budget
+        with torch.no_grad():
+            mean_adv_abs = float(advantages.abs().mean().item())
+        self._weighted_pg_total += max(mean_adv_abs, 1e-8) * pg_tokens
 
-        # Replay loss (trust-gated)
-        loss_rep, lambda_eff = self._compute_trace_replay_loss(model, device)
+        # Replay loss (trust-gated). info contains decomposed suppressors per Task 4.
+        loss_rep, replay_info = self._compute_trace_replay_loss(model, device)
+        lambda_eff = replay_info.get("lambda_eff", 0.0)
         loss = loss_pg + loss_rep
 
         # Metrics
@@ -285,11 +359,13 @@ class TraceGRPOTrainer(GRPOTrainer):
         all_fail = int((group_rewards.max(dim=1).values == 0).sum().item())
         all_pass = int((group_rewards.min(dim=1).values > 0).sum().item())
 
-        self._trace_step_stats.append({
+        # GPT-5.5 Task 4: include decomposed suppressors in step stats
+        step_stat = {
             "step": step,
             "trace_mode": self.trace_mode,
             "mean_reward": float(rewards.mean().item()),
             "mean_advantage": float(advantages.mean().item()),
+            "mean_adv_abs": mean_adv_abs,
             "loss_pg": float(loss_pg.detach().item()),
             "loss_rep": float(loss_rep.detach().item()) if isinstance(loss_rep, torch.Tensor) else 0.0,
             "lambda_eff": lambda_eff,
@@ -299,5 +375,19 @@ class TraceGRPOTrainer(GRPOTrainer):
             "all_fail_groups": all_fail,
             "all_pass_groups": all_pass,
             "replay_token_ratio": self._replay_token_total / max(self._pg_token_total, 1),
-        })
+            "weighted_replay_token_ratio": (self._weighted_replay_total
+                                            / max(self._weighted_pg_total, 1e-8)),
+            # Decomposed lambda_eff factors (full mode only, else 0)
+            "mean_trust_raw": replay_info.get("mean_trust_raw", 0.0),
+            "mean_age_decay": replay_info.get("mean_age_decay", 0.0),
+            "mean_diversity": replay_info.get("mean_diversity", 0.0),
+            "mean_length_guard": replay_info.get("mean_length_guard", 0.0),
+            "mean_saturation_penalty": replay_info.get("mean_saturation_penalty", 0.0),
+            "drift_budget_raw": replay_info.get("drift_budget_raw", 1.0),
+            "drift_budget_weighted": replay_info.get("drift_budget_weighted", 1.0),
+            "drift_ratio_raw": replay_info.get("drift_ratio_raw", 0.0),
+            "drift_ratio_weighted": replay_info.get("drift_ratio_weighted", 0.0),
+            "n_items_sampled": replay_info.get("n_items_sampled", 0),
+        }
+        self._trace_step_stats.append(step_stat)
         return loss

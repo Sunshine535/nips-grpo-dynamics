@@ -35,11 +35,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.torch_compat import apply_torch_compat_patch
 apply_torch_compat_patch()
 
+import random
 from src.rho_grpo import build_gsm8k_binary_reward_function
 from src.qwen35_compat import apply_qwen35_text_only_patch, patch_model_instance, ClearRopeDeltasCallback
 from src.prompt_credit_state import PromptCreditStore
 from src.trust_gated_replay_bank import TrustGatedReplayBank
 from src.trace_grpo_trainer import TraceGRPOTrainer
+from src.provenance import write_manifest  # GPT-5.5 review Task 1
 
 apply_qwen35_text_only_patch()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
@@ -76,6 +78,23 @@ def main():
     name = args.run_name or f"trace_{args.trace_mode}_seed{args.seed}"
     run_dir = os.path.join(args.output_dir, name)
     os.makedirs(os.path.join(run_dir, "logs"), exist_ok=True)
+
+    # GPT-5.5 review Task 1: write provenance manifest at run start
+    # GPT-5.5 review Risk #7: pin Python and NumPy RNG for reproducibility
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(args.seed)
+    write_manifest(
+        run_dir, kind="train",
+        config=cfg, config_path=args.config,
+        seed=args.seed, model=args.model,
+        dataset={"name": cfg["dataset"]["name"], "split": cfg["dataset"]["split"]},
+        extra={"trace_mode": args.trace_mode, "backbone": backbone,
+               "lambda_max": lambda_max, "max_steps": args.max_steps,
+               "run_name": name, "phase": "start"},
+    )
 
     tok = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
     if tok.pad_token is None:
@@ -200,6 +219,23 @@ def main():
         json.dump(_coerce(trainer._trace_step_stats), f, indent=2)
     with open(os.path.join(run_dir, "prompt_credit_dump.json"), "w") as f:
         json.dump(_coerce(credit_store.dump()), f, indent=2)
+
+    # GPT-5.5 review Task 1: write final manifest with adapter hash
+    write_manifest(
+        run_dir, kind="train",
+        config=cfg, config_path=args.config,
+        seed=args.seed, model=args.model,
+        dataset={"name": cfg["dataset"]["name"], "split": cfg["dataset"]["split"]},
+        adapter=adapter_dir,
+        extra={"trace_mode": args.trace_mode, "backbone": backbone,
+               "lambda_max": lambda_max, "max_steps": args.max_steps,
+               "elapsed_sec": round(elapsed, 1), "run_name": name,
+               "phase": "end",
+               "final_reward_mean": results.get("final_reward_mean"),
+               "max_reward_mean": results.get("max_reward_mean"),
+               "bank_size_final": trust_bank.size()},
+        manifest_name="run_manifest.json",
+    )
 
     print(f"[done] {name} trace_mode={args.trace_mode} "
           f"reward={results.get('final_reward_mean')} bank={trust_bank.size()}")

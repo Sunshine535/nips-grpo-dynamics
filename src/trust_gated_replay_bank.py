@@ -62,31 +62,49 @@ class TrustGatedReplayBank:
         return True
 
     def compute_item_trust(self, item: ReplayItem, current_step: int,
-                           frontier: float, saturation: float) -> float:
+                           frontier: float, saturation: float,
+                           return_components: bool = False):
+        """Compute item trust = frontier * age_decay * length_guard * diversity * (1-saturation).
+        If return_components=True, returns a dict with each factor for diagnostics
+        (per GPT-5.5 review Task 4).
+        """
         age = max(0, current_step - item.source_step)
         age_decay = math.exp(-age / self.age_tau)
         length_guard = 1.0 if item.length <= self.max_length else 0.5
         n_unique = len(self.hashes[item.prompt_id])
         diversity = min(1.0, n_unique * self.diversity_bonus)
         sat_penalty = max(0.0, 1.0 - saturation)
-        trust = age_decay * length_guard * diversity * sat_penalty
-        return frontier * trust
+        trust = frontier * age_decay * length_guard * diversity * sat_penalty
+        if return_components:
+            return {
+                "trust": trust,
+                "frontier": frontier,
+                "age_decay": age_decay,
+                "length_guard": length_guard,
+                "diversity": diversity,
+                "sat_penalty": sat_penalty,
+            }
+        return trust
 
     def weighted_sample(self, n: int, current_step: int,
-                        credit_store=None) -> list:
+                        credit_store=None, return_components: bool = True) -> list:
         all_items = [item for items in self.bank.values() for item in items]
         if not all_items:
             return []
 
         weights = []
+        components_list = []
         for item in all_items:
             frontier = 1.0
             saturation = 0.0
             if credit_store is not None:
                 frontier = credit_store.get_frontier(item.prompt_id)
                 saturation = credit_store.get_saturation(item.prompt_id)
-            w = self.compute_item_trust(item, current_step, frontier, saturation)
+            comp = self.compute_item_trust(item, current_step, frontier,
+                                           saturation, return_components=True)
+            w = comp["trust"]
             weights.append(max(w, 1e-8))
+            components_list.append(comp)
 
         total = sum(weights)
         probs = [w / total for w in weights]
@@ -111,12 +129,47 @@ class TrustGatedReplayBank:
             item.last_replayed_step = current_step
             if credit_store is not None:
                 credit_store.record_replay(item.prompt_id)
-            result.append({
+            comp = components_list[idx]
+            entry = {
                 "prompt_id": item.prompt_id,
                 "prompt": item.prompt,
                 "token_ids": item.token_ids,
                 "text": item.text,
                 "trust_weight": weights[idx],
+            }
+            if return_components:
+                entry.update({
+                    "_age_decay": comp["age_decay"],
+                    "_length_guard": comp["length_guard"],
+                    "_diversity": comp["diversity"],
+                    "_sat_penalty": comp["sat_penalty"],
+                    "_frontier": comp["frontier"],
+                })
+            result.append(entry)
+        return result
+
+    def uniform_sample(self, n: int, current_step: int) -> list:
+        """GPT-5.5 review Task 3: clean uniform-sampler ablation.
+
+        Samples n items uniformly at random (with replacement) from all items in
+        the bank, ignoring trust/frontier/age. This is what 'uniform_constant'
+        mode uses to isolate the trainer/storage from the trust mechanism.
+        """
+        all_items = [item for items in self.bank.values() for item in items]
+        if not all_items:
+            return []
+        n = min(n, len(all_items))
+        chosen = [random.choice(all_items) for _ in range(n)]
+        result = []
+        for item in chosen:
+            item.replay_count += 1
+            item.last_replayed_step = current_step
+            result.append({
+                "prompt_id": item.prompt_id,
+                "prompt": item.prompt,
+                "token_ids": item.token_ids,
+                "text": item.text,
+                "trust_weight": 1.0,
             })
         return result
 

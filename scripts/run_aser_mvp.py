@@ -45,6 +45,8 @@ from src.prompt_stats import PromptStatsStore
 from src.replay_bank import VerifiedReplayBank
 from src.adaptive_dup_sampler import AdaptiveDupBatchSampler
 from src.aser_trainer_v14 import ASERTrainerV14
+from src.provenance import write_manifest  # GPT-5.5 review Task 1
+import random
 
 apply_qwen35_text_only_patch()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
@@ -101,6 +103,23 @@ def main():
     if args.lambda_rep is not None:
         acfg["lambda_rep"] = float(args.lambda_rep)
     run_dir = make_run_dir(args, cfg)
+
+    # GPT-5.5 review Task 1 + Risk #7: pin RNG and write provenance manifest
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(args.seed)
+    write_manifest(
+        run_dir, kind="train",
+        config=cfg, config_path=args.config,
+        seed=args.seed, model=args.model,
+        dataset={"name": cfg["dataset"]["name"], "split": cfg["dataset"]["split"]},
+        extra={"backbone": getattr(args, "backbone", "spo"),
+               "lambda_rep": acfg.get("lambda_rep"),
+               "max_steps": getattr(args, "max_steps", None),
+               "phase": "start"},
+    )
 
     # ─── Tokenizer + dataset ───
     tok = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
@@ -297,6 +316,23 @@ def main():
         "size": replay_bank.size(),
         "n_prompts": replay_bank.n_prompts(),
     }, "replay_summary")
+
+    # GPT-5.5 review Task 1: write final manifest with adapter hash
+    write_manifest(
+        run_dir, kind="train",
+        config=cfg, config_path=args.config,
+        seed=args.seed, model=args.model,
+        dataset={"name": cfg["dataset"]["name"], "split": cfg["dataset"]["split"]},
+        adapter=adapter_dir,
+        extra={"backbone": getattr(args, "backbone", "spo"),
+               "lambda_rep": acfg.get("lambda_rep"),
+               "max_steps": getattr(args, "max_steps", None),
+               "phase": "end",
+               "final_reward_mean": results.get("final_reward_mean"),
+               "max_reward_mean": results.get("max_reward_mean"),
+               "replay_bank_size": replay_bank.size()},
+        manifest_name="run_manifest.json",
+    )
 
     print(f"[done] run_dir={run_dir}  final_reward={results.get('final_reward_mean')}  "
           f"replay_size={replay_bank.size()}")

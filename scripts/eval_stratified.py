@@ -32,6 +32,7 @@ apply_torch_compat_patch()
 
 import torch  # noqa: E402
 from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
+from src.provenance import write_manifest  # noqa: E402  GPT-5.5 review Task 1
 
 _ans_pat = re.compile(r"####\s*(-?[\d,]+\.?\d*)")
 _fallback = re.compile(r"(-?[\d,]+\.?\d*)")
@@ -150,6 +151,26 @@ def main():
     with open(args.out, "w") as f:
         json.dump(result, f, indent=2)
     print(f"[done] acc={correct}/{n_evaluated}={correct/max(n_evaluated,1):.3f} selection={args.selection} saved to {args.out}")
+
+    # GPT-5.5 review Task 1: write eval manifest with adapter hash
+    out_dir = os.path.dirname(args.out) or "."
+    eval_basename = os.path.splitext(os.path.basename(args.out))[0]
+    write_manifest(
+        out_dir, kind="eval",
+        seed=42,  # eval is deterministic (greedy)
+        model=args.base_model,
+        dataset={"name": "openai/gsm8k", "split": "test", "selection": args.selection,
+                 "n_evaluated": n_evaluated, "n_requested": args.n},
+        adapter=args.adapter,
+        eval_question_ids=[q["i"] for q in per_q],
+        generation_args={"do_sample": False, "max_new_tokens": 256,
+                         "temperature": None, "top_p": None,
+                         "pad_token_id": tok.eos_token_id},
+        extra={"accuracy": correct / max(n_evaluated, 1),
+               "correct": correct,
+               "out_path": args.out},
+        manifest_name=f"eval_manifest_{eval_basename}.json",
+    )
 
 
 if __name__ == "__main__":

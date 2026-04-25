@@ -1,0 +1,39 @@
+dataset:
+  name: "openai/gsm8k"
+  split: "train"
+
+model:
+  name: "Qwen/Qwen3.5-9B"
+
+training:
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 4
+  learning_rate: 2.0e-5
+  warmup_ratio: 0.05
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  bf16: true
+  logging_steps: 1
+  num_generations: 4
+  max_completion_length: 256
+  gradient_checkpointing: false
+
+lora:
+  r: 64
+  lora_alpha: 128
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+  lora_dropout: 0.05
+  task_type: "CAUSAL_LM"
+
+aser:
+  backbone: "tasa"
+  dup_frac: 0.0
+  hardness_temp: 2.0
+  dup_warmup_steps: 100
+  alpha_baseline: 0.1
+  alpha_success: 0.1
+  lambda_rep: 0.0
+  replay_batch_size: 2
+  replay_max_per_prompt: 2
+  replay_warmup_steps: 50
+  success_threshold: 0.5
