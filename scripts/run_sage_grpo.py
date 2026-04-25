@@ -56,6 +56,8 @@ def parse_args():
     p.add_argument("--lambda-pair", type=float, default=None)
     p.add_argument("--lambda-pos", type=float, default=None)
     p.add_argument("--pair-batch-size", type=int, default=None)
+    p.add_argument("--replay-warmup-steps", type=int, default=None,
+                   help="Override config replay_warmup_steps (useful for smoke tests)")
     p.add_argument("--run-name", type=str, default=None)
     return p.parse_args()
 
@@ -70,6 +72,7 @@ def main():
     lambda_pair = args.lambda_pair if args.lambda_pair is not None else scfg.get("lambda_pair", 0.05)
     lambda_pos = args.lambda_pos if args.lambda_pos is not None else scfg.get("lambda_pos", 0.0)
     pair_batch_size = args.pair_batch_size if args.pair_batch_size is not None else scfg.get("pair_batch_size", 2)
+    replay_warmup = args.replay_warmup_steps if args.replay_warmup_steps is not None else scfg.get("replay_warmup_steps", 50)
 
     name = args.run_name or f"sage_{args.sage_mode}_seed{args.seed}"
     run_dir = os.path.join(args.output_dir, name)
@@ -159,7 +162,7 @@ def main():
         evidence_bank=evidence_bank, prompt_credit_store=credit_store,
         lambda_pair=lambda_pair, lambda_pos=lambda_pos,
         pair_batch_size=pair_batch_size,
-        replay_warmup_steps=scfg.get("replay_warmup_steps", 50),
+        replay_warmup_steps=replay_warmup,
         success_threshold=scfg.get("success_threshold", 0.5),
         failure_threshold=scfg.get("failure_threshold", 0.0),
         tasa_c=scfg.get("tasa_c", 0.5),

@@ -1,4 +1,4 @@
-method: SAGE-GRPO
+method: COVER-GRPO
 
 dataset:
   name: "openai/gsm8k"
