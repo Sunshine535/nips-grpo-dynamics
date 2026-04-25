@@ -1,0 +1,1 @@
+Current TRACE-GRPO positive-only trust-gated replay remains in the repository as historical negative evidence and ablation. It is not the current main method because B0/B1/C debug ablation showed C_full does not meaningfully outperform B1_trust_sampler_constant and all TRACE variants remain low on GSM8K full.
