@@ -1,0 +1,12 @@
+{
+  "method": "TRACE-GRPO",
+  "trace_mode": "full",
+  "backbone": "spo",
+  "seed": 42,
+  "lambda_max": 0.05,
+  "max_steps": 200,
+  "elapsed_sec": 14533.3,
+  "model": "Qwen/Qwen3.5-9B",
+  "final_reward_mean": 0.625,
+  "max_reward_mean": 1.0
+}
