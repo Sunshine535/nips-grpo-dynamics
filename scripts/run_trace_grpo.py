@@ -59,7 +59,10 @@ def parse_args():
     p.add_argument("--max-steps", type=int, default=200)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--backbone", choices=["spo", "dr_grpo", "tasa"], default=None)
-    p.add_argument("--trace-mode", choices=["full", "constant_gate", "no_replay"], default="full")
+    p.add_argument("--trace-mode",
+                   choices=["full", "constant_gate", "no_replay",
+                            "uniform_constant", "trust_sampler_constant"],
+                   default="full")
     p.add_argument("--lambda-max", type=float, default=None)
     p.add_argument("--run-name", type=str, default=None)
     return p.parse_args()
