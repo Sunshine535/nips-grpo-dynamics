@@ -11,6 +11,7 @@ Modes (for A/B/C/D ablation):
 """
 import logging
 import math
+import random
 from typing import Optional
 
 import numpy as np
@@ -92,55 +93,73 @@ class SageGRPOTrainer(GRPOTrainer):
         tok = self.processing_class
         pad_id = tok.pad_token_id or tok.eos_token_id
 
-        def _build_ids(prompt_text, comp_ids):
+        def _build_ids_and_comp_mask(prompt_text, comp_ids):
             p_enc = tok(prompt_text, add_special_tokens=False)["input_ids"]
-            return p_enc + [int(t) for t in comp_ids]
+            c = [int(t) for t in comp_ids]
+            full = p_enc + c
+            comp_mask = [0] * len(p_enc) + [1] * len(c)
+            return full, comp_mask
 
         all_pos_ids, all_neg_ids = [], []
+        all_pos_cmask, all_neg_cmask = [], []
         for pair in pairs:
-            all_pos_ids.append(_build_ids(pair["prompt"], pair["pos_token_ids"]))
-            all_neg_ids.append(_build_ids(pair["prompt"], pair["neg_token_ids"]))
+            pi, pm = _build_ids_and_comp_mask(pair["prompt"], pair["pos_token_ids"])
+            ni, nm = _build_ids_and_comp_mask(pair["prompt"], pair["neg_token_ids"])
+            all_pos_ids.append(pi); all_pos_cmask.append(pm)
+            all_neg_ids.append(ni); all_neg_cmask.append(nm)
 
-        def _pad_and_mask(id_lists):
+        def _pad_and_mask(id_lists, cmask_lists):
             max_len = max(len(ids) for ids in id_lists)
-            padded, masks = [], []
-            for ids in id_lists:
+            padded, attn_masks, comp_masks = [], [], []
+            for ids, cm in zip(id_lists, cmask_lists):
                 pad_len = max_len - len(ids)
                 padded.append(ids + [pad_id] * pad_len)
-                masks.append([1] * len(ids) + [0] * pad_len)
+                attn_masks.append([1] * len(ids) + [0] * pad_len)
+                comp_masks.append(cm + [0] * pad_len)
             return (torch.tensor(padded, device=device, dtype=torch.long),
-                    torch.tensor(masks, device=device, dtype=torch.long))
+                    torch.tensor(attn_masks, device=device, dtype=torch.long),
+                    torch.tensor(comp_masks, device=device, dtype=torch.long))
 
-        pos_ids, pos_mask = _pad_and_mask(all_pos_ids)
-        neg_ids, neg_mask = _pad_and_mask(all_neg_ids)
+        pos_ids, pos_attn, pos_cmask = _pad_and_mask(all_pos_ids, all_pos_cmask)
+        neg_ids, neg_attn, neg_cmask = _pad_and_mask(all_neg_ids, all_neg_cmask)
 
-        def _seq_logp(mdl, ids, mask):
-            logits = mdl(ids, attention_mask=mask).logits[:, :-1]
+        def _comp_logp(mdl, ids, attn_mask, comp_mask):
+            """Completion-only sequence log-prob (GPT-5.5 Task 3)."""
+            logits = mdl(ids, attention_mask=attn_mask).logits[:, :-1]
             targets = ids[:, 1:]
             lp = logits.log_softmax(dim=-1)
             token_lp = torch.gather(lp, 2, targets.unsqueeze(2)).squeeze(2)
-            return (token_lp * mask[:, 1:]).sum(dim=1)
+            return (token_lp * comp_mask[:, 1:]).sum(dim=1)
 
-        logp_pos = _seq_logp(model, pos_ids, pos_mask)
-        logp_neg = _seq_logp(model, neg_ids, neg_mask)
+        logp_pos = _comp_logp(model, pos_ids, pos_attn, pos_cmask)
+        logp_neg = _comp_logp(model, neg_ids, neg_attn, neg_cmask)
 
         with torch.inference_mode():
             if self.ref_model is not None:
-                ref_logp_pos = _seq_logp(self.ref_model, pos_ids, pos_mask)
-                ref_logp_neg = _seq_logp(self.ref_model, neg_ids, neg_mask)
+                ref_logp_pos = _comp_logp(self.ref_model, pos_ids, pos_attn, pos_cmask)
+                ref_logp_neg = _comp_logp(self.ref_model, neg_ids, neg_attn, neg_cmask)
             else:
                 with self.accelerator.unwrap_model(model).disable_adapter():
-                    ref_logp_pos = _seq_logp(model, pos_ids, pos_mask)
-                    ref_logp_neg = _seq_logp(model, neg_ids, neg_mask)
+                    ref_logp_pos = _comp_logp(model, pos_ids, pos_attn, pos_cmask)
+                    ref_logp_neg = _comp_logp(model, neg_ids, neg_attn, neg_cmask)
 
         margin = (logp_pos - logp_neg) - self.ref_coef * (ref_logp_pos - ref_logp_neg)
-        loss_pair = -F.logsigmoid(margin).mean()
+
+        # GPT-5.5 Task 3: weight pairs by reward_gap * frontier * age_decay
+        pair_weights = torch.tensor(
+            [max(0.05, min(1.0, p["reward_gap"] * p["frontier"] * p["age_decay"]))
+             for p in pairs], device=device, dtype=margin.dtype)
+        loss_pair = (pair_weights * -F.logsigmoid(margin)).sum() / pair_weights.sum().clamp(min=1e-8)
 
         info["loss_pair"] = float(loss_pair.detach().item())
         info["n_pairs"] = len(pairs)
         info["pair_reward_gap_mean"] = float(np.mean([p["reward_gap"] for p in pairs]))
         info["pair_frontier_mean"] = float(np.mean([p["frontier"] for p in pairs]))
         info["pair_age_mean"] = float(np.mean([p["age_decay"] for p in pairs]))
+        info["pair_weight_mean"] = float(pair_weights.mean().item())
+        info["pair_weight_min"] = float(pair_weights.min().item())
+        info["pair_weight_max"] = float(pair_weights.max().item())
+        info["completion_only_pair_logp"] = True
         info["mechanism_active"] = True
         return info, loss_pair
 
