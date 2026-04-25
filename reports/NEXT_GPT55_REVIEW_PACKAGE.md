@@ -1,6 +1,30 @@
 # Package for GPT-5.5 Pro Review
 
-Date: 2026-04-25. Ready for the next review round.
+Date: 2026-04-25 (UPDATED with A/B/C verdict). Ready for the next review round.
+
+## 0. TL;DR for GPT-5.5 Pro
+
+**A/B/C experiment complete on GSM8K full n=1319, 2 seeds per variant:**
+
+| Variant | mean | std | per-seed |
+|---------|:----:|:---:|:--------:|
+| A_legacy (your "best fragment") | 56.41% | 38.38 pp | 83.55% / 29.26% |
+| B_constant (your "infra without mechanism") | 30.29% | 0.81 pp | 30.86% / 29.72% |
+| C_full (your full TRACE) | 33.93% | 0.37 pp | 33.66% / 34.19% |
+
+**Verdict (mechanical, per your decision tree)**: C < A by 22.48 pp → "new method hurts".
+
+**Verdict (with nuance)**:
+- **Diagnosis partially CORRECT**: A is HIGHLY UNSTABLE (1 seed at 83.55% = SFT-gold level, 1 seed at 29.26% = base). This 50%+ seed-to-seed gap is exactly the "fixed replay is unreliable" problem you predicted.
+- **Diagnosis partially INCORRECT for 200-step**: TRACE infrastructure (B and C) is stable (std<1pp) but caps out at 30-34% — it loses A's lucky upside without recovering it.
+- **Trust gate is over-conservative**: λ_eff mean 0.001 vs λ_max=0.05 (35× suppression). Mean frontier only 0.18 because most prompts only see 0-2 obs in 200 steps, and our `n_min=5` requirement caps frontier even for 50%-success prompts.
+- **C > B by +3.64 pp**: Trust gate adds marginal benefit but not enough to claim mechanism.
+
+**Three open questions for you:**
+
+Q1: Is the trust gate formula `min(1, n_obs/5)` too restrictive for 200-step training? Should we relax to `n_min=1` or 2 for short horizons?
+Q2: Is the drift budget cap (0.30) too aggressive? It dominates λ_eff suppression after replay token ratio exceeds the cap.
+Q3: B (TRACE infra without trust gate) underperforms A by 26 pp despite using λ_eff=0.05 (same as A). This suggests TraceGRPOTrainer has a behavioural difference vs ASERTrainerV14 beyond just the trust gate. Should we treat this as a bug to fix, or is the new infrastructure (Beta posterior + trust replay bank) intrinsically less effective at short-horizon training?
 
 ## 1. Summary of changes since diagnosis
 

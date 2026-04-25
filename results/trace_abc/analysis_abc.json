@@ -1,0 +1,113 @@
+{
+  "base": "results/trace_abc",
+  "variants": {
+    "A_legacy": {
+      "n": 2,
+      "seeds": [
+        42,
+        43
+      ],
+      "mean": 0.5641,
+      "std": 0.3838,
+      "min": 0.2926,
+      "max": 0.8355,
+      "per_seed": {
+        "42": 0.8355,
+        "43": 0.2926
+      }
+    },
+    "B_constant": {
+      "n": 2,
+      "seeds": [
+        42,
+        43
+      ],
+      "mean": 0.3029,
+      "std": 0.008,
+      "min": 0.2972,
+      "max": 0.3086,
+      "per_seed": {
+        "42": 0.3086,
+        "43": 0.2972
+      }
+    },
+    "C_full": {
+      "n": 2,
+      "seeds": [
+        42,
+        43
+      ],
+      "mean": 0.3393,
+      "std": 0.0038,
+      "min": 0.3366,
+      "max": 0.3419,
+      "per_seed": {
+        "42": 0.3366,
+        "43": 0.3419
+      }
+    }
+  },
+  "mechanism": {
+    "A_legacy": {
+      "A_legacy_spo_replay_seed42": {
+        "n_steps": 800,
+        "lambda_eff_mean": 0.0,
+        "lambda_eff_max": 0.0,
+        "lambda_eff_nonzero_steps": 0,
+        "mean_frontier_final": 0.0,
+        "bank_size_final": 0,
+        "replay_token_ratio_final": 0.0
+      },
+      "A_legacy_spo_replay_seed43": {
+        "n_steps": 800,
+        "lambda_eff_mean": 0.0,
+        "lambda_eff_max": 0.0,
+        "lambda_eff_nonzero_steps": 0,
+        "mean_frontier_final": 0.0,
+        "bank_size_final": 0,
+        "replay_token_ratio_final": 0.0
+      }
+    },
+    "B_constant": {
+      "B_trace_constant_gate_seed43": {
+        "n_steps": 800,
+        "lambda_eff_mean": 0.0375,
+        "lambda_eff_max": 0.05,
+        "lambda_eff_nonzero_steps": 600,
+        "mean_frontier_final": 0.1944,
+        "bank_size_final": 643,
+        "replay_token_ratio_final": 0.343
+      },
+      "B_trace_constant_gate_seed42": {
+        "n_steps": 800,
+        "lambda_eff_mean": 0.0375,
+        "lambda_eff_max": 0.05,
+        "lambda_eff_nonzero_steps": 600,
+        "mean_frontier_final": 0.1778,
+        "bank_size_final": 647,
+        "replay_token_ratio_final": 0.3483
+      }
+    },
+    "C_full": {
+      "C_trace_full_seed43": {
+        "n_steps": 800,
+        "lambda_eff_mean": 0.001078,
+        "lambda_eff_max": 0.008754,
+        "lambda_eff_nonzero_steps": 520,
+        "mean_frontier_final": 0.2,
+        "bank_size_final": 712,
+        "replay_token_ratio_final": 0.3001
+      },
+      "C_trace_full_seed42": {
+        "n_steps": 800,
+        "lambda_eff_mean": 0.001084,
+        "lambda_eff_max": 0.008222,
+        "lambda_eff_nonzero_steps": 526,
+        "mean_frontier_final": 0.1778,
+        "bank_size_final": 738,
+        "replay_token_ratio_final": 0.3001
+      }
+    }
+  },
+  "verdict": "C-A=-0.2248, C-B=+0.0364, B-A=-0.2612\nVERDICT: C < A \u2014 new method hurts. Check implementation or diagnosis."
+}
