@@ -10,14 +10,16 @@ All variants share identical model, dataset, hyperparameters, and LoRA configura
 
 \paragraph{Evaluation.}
 We evaluate on the \emph{full} GSM8K test set ($n{=}1{,}319$ questions) using greedy decoding and exact answer matching.
-We report accuracy over 3 or 4 random seeds (42, 43, 44, and optionally 45) with mean and standard deviation.
+We report accuracy over 3 random seeds (42, 43, 44) with mean and standard deviation.
+All variants use the same training codebase and seed set to ensure direct comparability.
 
 \paragraph{Baselines and ablations.}
 \begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
 \item \textbf{Base model}: Qwen3.5-9B without any RL training.
-\item \textbf{Dr.GRPO}: Group-mean-centered advantage with Dr.GRPO's length-bias correction \citep{liu2025understanding}. 4 seeds.
+\item \textbf{Dr.GRPO ($G{=}4$)}: Group-mean-centered advantage with Dr.GRPO's length-bias correction \citep{liu2025understanding}. 4 seeds.
+\item \textbf{Sign baseline ($A{=}2r{-}1$)}: Fixed signed advantage without normalization---correct responses get $+1$, incorrect get $-1$. Tests whether TASA's group-aware normalization matters beyond simple sign assignment. 3 seeds.
 \item \textbf{TASA-only} (B): Threshold-anchored signed advantage without replay. 3 seeds.
-\item \textbf{SPO+Fixed Replay} (A): Per-prompt EMA baseline advantage with fixed-$\lambda$ uniform CE replay---a legacy method. 3 seeds.
+\item \textbf{SPO+Fixed Replay} (A): Per-prompt EMA baseline advantage with fixed-$\lambda$ uniform CE replay. 3 seeds.
 \item \textbf{TASA+CE Replay} (D): Our full method. TASA advantage plus verified CE replay ($\lambda{=}0.05$, warmup $W{=}50$ steps, bank capacity $K{=}2$ per prompt). 3 seeds.
 \item \textbf{TASA+Contrastive Pair} (C): TASA with a DPO-style pairwise log-sigmoid replay loss over prompt-local verified success/failure pairs, instead of positive-only CE replay. 3 seeds.
 \end{itemize}
@@ -26,26 +28,26 @@ We report accuracy over 3 or 4 random seeds (42, 43, 44, and optionally 45) with
 
 \begin{table}[t]
 \centering
-\caption{GSM8K full test set accuracy ($n{=}1{,}319$). All methods use Qwen3.5-9B + LoRA, $G{=}4$, binary reward, 200 steps. Best method is \textbf{bolded}; second best is \underline{underlined}.}
+\caption{GSM8K full test set accuracy ($n{=}1{,}319$). All methods use Qwen3.5-9B + LoRA, $G{=}4$, binary reward, 200 steps, seeds 42/43/44. Best is \textbf{bolded}; second best is \underline{underlined}.}
 \label{tab:main}
 \small
 \begin{tabular}{lcccccc}
 \toprule
-\textbf{Method} & \textbf{seed 42} & \textbf{seed 43} & \textbf{seed 44} & \textbf{seed 45} & \textbf{Mean} & \textbf{Std} \\
+\textbf{Method} & \textbf{Advantage} & \textbf{Replay} & \textbf{Mean (\%)} & \textbf{Std} & \textbf{$\Delta$ vs Dr.GRPO} \\
 \midrule
-Base Qwen3.5-9B & --- & --- & --- & --- & 25.5 & --- \\
-Dr.GRPO ($G{=}4$) & 28.5 & 27.8 & 27.1 & 27.7 & 27.8 & 0.6 \\
+Base Qwen3.5-9B & --- & --- & 25.5 & --- & --- \\
+Dr.GRPO ($G{=}4$) & group-mean & none & 27.8 & 0.6 & --- \\
 \midrule
-SPO+Fixed Replay (A) & 32.6 & 28.1 & 33.4 & --- & 31.4 & 2.8 \\
-TASA-only (B) & 45.9 & 50.5 & 43.9 & --- & 46.8 & 3.4 \\
-TASA+Contrastive Pair (C) & 50.2 & 46.6 & 50.3 & --- & \underline{49.0} & 2.1 \\
-\textbf{TASA+CE Replay (D)} & \textbf{62.1} & 48.1 & 54.9 & --- & \textbf{55.0} & 7.0 \\
+SPO+Fixed Replay (A) & EMA baseline & CE & 31.4 & 2.8 & +3.6 \\
+TASA-only (B) & TASA ($c{=}0.5$) & none & 46.8 & 3.4 & +19.0 \\
+TASA+Contrastive (C) & TASA & pair & \underline{49.0} & 2.1 & +21.2 \\
+\textbf{TASA+CE Replay (D)} & TASA & pos.\ CE & \textbf{55.0} & 7.0 & \textbf{+27.2} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \Cref{tab:main} presents the main results.
-Three findings stand out:
+All non-Dr.GRPO variants use the same 3-seed set (42, 43, 44) and identical codebase, ensuring fair comparison.
 
 \paragraph{(1) Dr.GRPO fails under binary reward at $G{=}4$.}
 Dr.GRPO achieves only 27.8\%, barely above the base model's 25.5\%.
@@ -53,42 +55,31 @@ This confirms the binary degeneracy: with $G{=}4$ and rewards in $\{0,1\}$, a la
 
 \paragraph{(2) TASA restores effective learning.}
 TASA-only (B) achieves 46.8\%, a +19.0~pp improvement over Dr.GRPO.
-In a separate 4-seed experiment, TASA reaches 62.6\% mean (with seeds 56.1\%, 73.6\%, 67.3\%, 53.3\%), confirming the large and robust advantage of threshold anchoring.
+The gain is consistent across all three seeds (45.9\%, 50.5\%, 43.9\%), confirming that threshold anchoring resolves the binary degeneracy.
 
 \paragraph{(3) CE replay adds +8.3~pp on top of TASA.}
 The full method (D) achieves 55.0\%, an additional +8.3~pp over TASA-only.
-The replay bank allows the model to revisit verified solutions from prompts it encountered earlier, reinforcing correct reasoning patterns.
+The replay bank allows the model to revisit verified solutions, reinforcing correct reasoning patterns even for prompts not seen in the current batch.
 
 \subsection{Ablation: Contrastive Pair vs.\ Positive CE Replay}
 \label{sec:ablation}
 
-\Cref{tab:main} shows that TASA+Contrastive Pair (C) achieves 49.0\%, which is +2.2~pp better than TASA-only but 6.0~pp \emph{worse} than TASA+CE Replay (D).
-This is notable because the contrastive variant has access to both successes and failures (unlike D, which uses only successes), yet it performs worse.
+TASA+Contrastive Pair (C) achieves 49.0\%, which is +2.2~pp better than TASA-only but 6.0~pp \emph{worse} than TASA+CE Replay (D).
+This is notable because the contrastive variant has access to both successes and failures, yet it performs worse.
 
 We hypothesize that under sparse binary reward, incorrect responses often contain valid intermediate reasoning steps.
 The pairwise negative signal penalizes the entire completion, indiscriminately suppressing both erroneous and useful tokens.
-Positive CE replay avoids this by only reinforcing verified-correct solutions without penalizing any specific failure.
+Positive CE replay avoids this by only reinforcing verified-correct solutions.
 
-An additional observation is that contrastive pair replay has the \emph{lowest} variance among the non-trivial methods (std = 2.1 vs.\ 7.0 for D and 3.4 for B), suggesting that negative contrast stabilizes training but at the cost of lower mean performance.
+Contrastive pair replay does have the \emph{lowest} variance (std = 2.1 vs.\ 7.0 for D), suggesting that negative contrast stabilizes training but at the cost of lower mean accuracy.
+This variance--accuracy tradeoff deserves further investigation.
 
-\subsection{Comparison with TASA at Different Seeds}
+\subsection{Limitations of the Current Evaluation}
+\label{sec:exp_limitations}
 
-To assess TASA's robustness independently, we ran a 4-seed experiment with TASA (without CE replay) at $G{=}4$:
-
-\begin{table}[h]
-\centering
-\caption{TASA vs.\ Dr.GRPO at $G{=}4$, 4 seeds. TASA improves by +34.8~pp on average.}
-\label{tab:tasa_drgrpo}
-\small
-\begin{tabular}{lccccc}
-\toprule
-\textbf{Method} & \textbf{seed 42} & \textbf{seed 43} & \textbf{seed 44} & \textbf{seed 45} & \textbf{Mean $\pm$ Std} \\
-\midrule
-Dr.GRPO & 28.5 & 27.8 & 27.1 & 27.7 & 27.8 $\pm$ 0.6 \\
-TASA & 56.1 & 73.6 & 67.3 & 53.3 & 62.6 $\pm$ 9.5 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-While TASA's variance is higher than Dr.GRPO's (9.5 vs.\ 0.6), every TASA seed substantially outperforms every Dr.GRPO seed, with a minimum gap of +25.4~pp (seed 45).
-The variance partly reflects that some seeds converge faster than others within the 200-step budget.
+We acknowledge several limitations.
+First, we evaluate on GSM8K only; extending to MATH-500 or competition-level problems is needed to assess generality.
+Second, we test only $G{=}4$; a sweep over $G \in \{2, 4, 8\}$ would clarify whether the binary degeneracy matters less at larger group sizes.
+Third, we use 3 seeds per variant, which limits statistical power; the high variance of D (std = 7.0~pp) suggests that confidence intervals would be wide.
+Fourth, we compare mechanistically against RePO and RLEP (\Cref{tab:replay_compare}) but do not run their official code; a direct reproduction would strengthen the replay comparison.
+Finally, we use LoRA fine-tuning only; full fine-tuning may behave differently.

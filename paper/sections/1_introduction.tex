@@ -36,8 +36,8 @@ The result suggests that, in sparse binary RLVR, directly imitating verified suc
 
 \paragraph{Contributions.}
 \begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
-\item We identify and characterize the \emph{small-group binary degeneracy} in GRPO, where mean-centered advantage produces zero gradients for all-correct or all-incorrect groups.
-\item We propose TASA, a threshold-anchored signed advantage that restores reward-direction-faithful gradients under binary reward, achieving +19~pp over Dr.GRPO at $G{=}4$.
-\item We introduce verified CE replay---a simpler alternative to importance-weighted PG replay---that further improves TASA by +8.3~pp and does not require stored log-probabilities.
-\item We show through ablation that positive CE replay outperforms contrastive pair replay by 6.0~pp, challenging the assumption that negative evidence aids learning in this setting.
+\item We identify and characterize the \emph{small-group binary degeneracy} in GRPO, where mean-centered advantage produces zero gradients for all-correct or all-incorrect groups (\Cref{sec:prelim}).
+\item We propose TASA, a threshold-anchored signed advantage that provides non-degenerate gradients under binary reward. While the formulation is simple---a count-normalized sign update around a fixed threshold---it yields a +19~pp gain over Dr.GRPO at $G{=}4$, demonstrating that even straightforward fixes to the advantage can have large impact (\Cref{sec:tasa}).
+\item We combine TASA with verified CE replay---a simpler alternative to the importance-weighted PG replay used by RePO \citep{li2025repo} and RLEP \citep{zhang2025rlep}---that further improves accuracy by +8.3~pp without requiring stored log-probabilities (\Cref{sec:replay}).
+\item We show through ablation that, in our setting, positive CE replay outperforms a DPO-style contrastive pair replay by 6.0~pp, suggesting that direct success imitation is more effective than pairwise negative contrast under sparse binary verification (\Cref{sec:ablation}).
 \end{itemize}

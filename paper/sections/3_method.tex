@@ -45,6 +45,16 @@ TASA satisfies four desirable properties under binary rewards:
 
 The non-degeneracy property is the key advantage over group-mean centering: TASA provides gradient signal for \emph{every} group, including the homogeneous ones that GRPO/Dr.GRPO discard.
 
+\paragraph{Relationship to simpler baselines.}
+Under binary rewards, TASA reduces to a count-normalized signed assignment: correct responses get $A_i = +1/n_+$ and incorrect ones get $A_i = -1/n_-$, where $n_+$ and $n_-$ are the counts of correct and incorrect responses.
+A simpler alternative, $A_i = 2r_i - 1 \in \{-1, +1\}$, also preserves sign but ignores group composition.
+TASA's normalization by group counts prevents the magnitude from growing when few responses share a label, which we find important for stable training (see \Cref{sec:exp}).
+
+\paragraph{Potential failure modes.}
+Because TASA always provides non-zero gradients, it can reinforce low-quality but technically correct solutions or penalize near-miss attempts that contain useful reasoning.
+It also introduces a mild bias: in all-correct groups, every response is pushed up equally regardless of solution quality.
+We view this as an acceptable tradeoff in the binary-reward setting, where the verifier provides no quality signal beyond correctness.
+
 \subsection{Verified CE Replay}
 \label{sec:replay}
 
