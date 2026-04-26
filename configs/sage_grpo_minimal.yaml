@@ -33,7 +33,7 @@ sage:
   failure_threshold: 0.0
   lambda_pair: 0.05
   lambda_pos: 0.0
-  pair_batch_size: 2
+  pair_batch_size: 1
   replay_warmup_steps: 50
   ref_coef: 1.0
   tasa_c: 0.5
