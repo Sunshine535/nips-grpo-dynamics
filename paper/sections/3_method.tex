@@ -1,0 +1,101 @@
+\section{Method}
+\label{sec:method}
+
+\subsection{Preliminaries: GRPO Under Binary Rewards}
+\label{sec:prelim}
+
+Given a prompt $x$ and a policy $\pitheta$, GRPO \citep{shao2024deepseekmath} samples a group of $G$ completions $\{y_1, \ldots, y_G\} \sim \pitheta(\cdot|x)$ and computes binary verifier rewards $r_i = R(x, y_i) \in \{0, 1\}$.
+The standard group-relative advantage is:
+\begin{equation}
+\label{eq:grpo_adv}
+A_i^{\mathrm{GRPO}} = \frac{r_i - \bar{r}}{\sigma + \epsilon}, \quad \bar{r} = \frac{1}{G}\sum_{j=1}^G r_j, \quad \sigma = \mathrm{std}(\{r_j\}).
+\end{equation}
+The policy is updated via clipped surrogate loss with KL regularization against a reference policy $\piref$:
+\begin{equation}
+\Lcal_{\mathrm{PG}} = -\E_{x,y}\Big[\sum_t A_i \log \pitheta(y_t | x, y_{<t}) - \beta \, \mathrm{KL}(\pitheta \| \piref)\Big].
+\end{equation}
+
+\paragraph{The degeneracy problem.}
+Under binary rewards with small $G$, a large fraction of groups are \emph{homogeneous}: all responses are correct ($r_i = 1$ for all $i$) or all are incorrect ($r_i = 0$ for all $i$).
+For these groups, $\bar{r} \in \{0, 1\}$ and $\sigma = 0$, so $A_i^{\mathrm{GRPO}} = 0$ for every response in the group---producing zero gradient.
+At $G{=}4$, if a prompt has success probability $p$, the probability of a homogeneous group is $p^4 + (1-p)^4$.
+For a typical prompt with $p=0.3$, this gives $p^4 + (1-p)^4 = 0.0081 + 0.2401 = 0.248$, meaning about one quarter of groups produce no learning signal.
+Dr.GRPO \citep{liu2025understanding} addresses length bias but retains this mean-centered formulation, so the degeneracy persists.
+
+\subsection{Threshold-Anchored Signed Advantage (TASA)}
+\label{sec:tasa}
+
+We replace the group mean with a fixed \emph{threshold} $c$ as the advantage anchor.
+For binary rewards, we set $c = 0.5$ (the midpoint between reward values 0 and 1).
+The TASA advantage for the $i$-th response is:
+\begin{equation}
+\label{eq:tasa}
+A_i^{\mathrm{TASA}} = \frac{(r_i - c)_+}{\Zp} - \frac{(c - r_i)_+}{\Zm},
+\end{equation}
+where $(x)_+ = \max(x, 0)$, $\Zp = \sum_{j=1}^G (r_j - c)_+$ is the total positive excess, and $\Zm = \sum_{j=1}^G (c - r_j)_+$ is the total negative deficit, both clamped to be at least $\epsilon > 0$.
+
+\paragraph{Properties.}
+TASA satisfies four desirable properties under binary rewards:
+\begin{enumerate}[leftmargin=*,topsep=2pt,itemsep=1pt]
+\item \textbf{Sign preservation.} If $r_i > c$, then $A_i > 0$; if $r_i \leq c$, then $A_i \leq 0$. Correct responses always receive positive advantage.
+\item \textbf{Monotonicity.} $A_i$ is monotonically non-decreasing in $r_i$.
+\item \textbf{Boundedness.} $A_i \in [-1, 1]$.
+\item \textbf{Non-degeneracy.} Even all-correct groups ($r_i = 1$ for all $i$) produce $A_i = 1/G > 0$, and all-incorrect groups produce $A_i = -1/G < 0$. No group yields zero advantage.
+\end{enumerate}
+
+The non-degeneracy property is the key advantage over group-mean centering: TASA provides gradient signal for \emph{every} group, including the homogeneous ones that GRPO/Dr.GRPO discard.
+
+\subsection{Verified CE Replay}
+\label{sec:replay}
+
+To further exploit rare correct responses, we maintain a \emph{verified success bank} $\Bcal$ that stores successful completions encountered during training.
+Each entry records the prompt $x$, completion token IDs $y^+$, and insertion step.
+The bank is:
+\begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
+\item \textbf{Per-prompt}: each prompt can hold at most $K$ distinct solutions (we use $K{=}2$).
+\item \textbf{Hash-deduplicated}: new entries are rejected if their token-ID hash matches an existing entry for the same prompt.
+\item \textbf{Recency-biased}: when the bank for a prompt is full, the oldest entry is replaced.
+\end{itemize}
+
+At each training step (after a warmup of $W$ steps), we sample a mini-batch of verified successes from $\Bcal$ and compute a supervised cross-entropy loss:
+\begin{equation}
+\label{eq:replay}
+\Lcal_{\mathrm{replay}} = -\E_{(x, y^+) \sim \Bcal} \sum_t \log \pitheta(y^+_t | x, y^+_{<t}),
+\end{equation}
+where prompt tokens are masked (label $= {-}100$) so that only completion tokens contribute to the loss.
+
+\paragraph{Total objective.}
+The training loss combines TASA policy gradient, CE replay, and KL regularization:
+\begin{equation}
+\label{eq:total}
+\Lcal = \Lcal_{\mathrm{TASA\text{-}PG}} + \lambda \, \Lcal_{\mathrm{replay}} + \beta \, \Lcal_{\mathrm{KL}},
+\end{equation}
+where $\lambda$ controls replay strength and $\beta$ controls KL penalty.
+
+\paragraph{Comparison with PG-based replay.}
+Both RePO \citep{li2025repo} and RLEP \citep{zhang2025rlep} replay past completions using the same policy-gradient objective with importance-sampling (IS) correction:
+\[
+\Lcal_{\mathrm{PG\text{-}replay}} = -\E_{(x,y)\sim\Bcal}\bigg[\sum_t \min\!\Big(\frac{\pitheta(y_t|x,y_{<t})}{\pi_{\mathrm{old}}(y_t|x,y_{<t})} A_i,\;\mathrm{clip}(\cdot)\Big)\bigg].
+\]
+This requires storing the generating policy's log-probabilities $\log\pi_{\mathrm{old}}$ for every replayed token and computing per-token IS ratios that become stale as the policy evolves.
+Our CE replay (\Cref{eq:replay}) avoids both requirements: it stores only token IDs and uses a supervised objective that is agnostic to the generating policy.
+\Cref{tab:replay_compare} summarizes the differences.
+
+\begin{table}[t]
+\centering
+\caption{Comparison of replay loss designs. Our CE replay is simpler, requiring no stored log-probabilities or importance-sampling correction.}
+\label{tab:replay_compare}
+\small
+\begin{tabular}{lccc}
+\toprule
+& \textbf{Our CE Replay} & \textbf{RePO} & \textbf{RLEP} \\
+\midrule
+Replay loss & Supervised CE & PG + IS clip & PG + IS clip \\
+Stored data & Token IDs only & Token IDs + log-probs & Token IDs + log-probs \\
+IS correction & None needed & Token-level IS ratio & Token-level IS ratio \\
+Buffer scope & Per-prompt ($K{=}2$) & Global & Global \\
+Deduplication & Hash-based & None & None \\
+Online / Offline & Online & Online & Two-phase \\
+\bottomrule
+\end{tabular}
+\end{table}

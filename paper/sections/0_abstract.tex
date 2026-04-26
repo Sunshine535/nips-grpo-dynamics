@@ -1,0 +1,8 @@
+\begin{abstract}
+Group Relative Policy Optimization (GRPO) enables reinforcement learning from verifiable rewards without a learned reward model, but it struggles under sparse binary rewards at small group sizes: the standard group-mean-centered advantage produces zero or near-zero gradients when all responses within a group receive the same binary score.
+We address this with two complementary mechanisms.
+First, we introduce \emph{Threshold-Anchored Signed Advantage} (TASA), which replaces the group-mean baseline with a fixed threshold $c$ and computes advantages as $A_i = (r_i{-}c)_+/\Zp - (c{-}r_i)_+/\Zm$, guaranteeing that correct responses always receive positive gradients regardless of group composition.
+Second, we add \emph{Verified CE Replay}: an online, per-prompt, hash-deduplicated bank of verified successful completions that are replayed with a supervised cross-entropy loss---simpler than the importance-weighted policy-gradient replay used by prior methods, requiring no stored log-probabilities and no importance-sampling correction.
+On the full GSM8K test set (1{,}319 questions) with Qwen3.5-9B and LoRA at group size $G{=}4$, Dr.GRPO barely improves over the base model (27.8\% vs.\ 25.5\%), TASA alone reaches 46.8\%, and TASA with CE replay achieves 55.0\%---a +27.2 percentage-point gain over Dr.GRPO.
+An ablation replacing positive CE replay with a DPO-style contrastive pair loss yields only 49.0\%, confirming that positive supervised replay outperforms pairwise negative contrast in this setting.
+\end{abstract}

@@ -1,0 +1,33 @@
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{GRPO and variants for math reasoning.}
+GRPO \citep{shao2024deepseekmath} replaces per-token value estimation with group-relative advantage normalization, enabling sample-efficient RL post-training.
+Dr.GRPO \citep{liu2025understanding} identifies and corrects a response-length bias in GRPO by removing per-response length normalization.
+DAPO \citep{yu2025dapo} introduces decoupled clipping and dynamic sampling for large-scale RL.
+CoRPO \citep{tang2025corpo} proposes a correctness-anchored advantage similar in spirit to our threshold anchoring, but applies it to continuous rewards with a different normalization.
+\citet{chen2025ittakestwo} analyze the $G{=}2$ case and show that GRPO reduces to a DPO-like contrastive loss.
+All these methods retain group-relative or group-mean advantage normalization; under binary rewards at small $G$, this produces degenerate zero-advantage groups.
+TASA addresses this directly by anchoring advantage to a fixed threshold instead of the group mean.
+
+\paragraph{Replay and experience management in RLVR.}
+Several recent works incorporate replay mechanisms into GRPO-style training.
+RePO \citep{li2025repo} maintains a global replay buffer and replays sampled completions using the same policy-gradient objective with token-level importance-sampling (IS) correction, achieving strong gains especially from reward-oriented sampling.
+RLEP \citep{zhang2025rlep} uses a two-phase approach: first collecting verified-correct trajectories from a partially trained model, then replaying them with IS-corrected PG updates.
+ExGRPO \citep{exgrpo2025} organizes an experience pool by correctness levels and replays trajectories with experience-value weighting.
+A common thread is that all three methods use importance-weighted PG for replay, requiring stored log-probabilities and IS correction.
+Our verified CE replay is deliberately simpler: it replays verified successes with a supervised CE loss, avoiding the need for stored log-probabilities and sidestepping IS staleness.
+The replay bank is per-prompt (not global), hash-deduplicated, and capped at $K{=}2$ entries per prompt.
+
+\paragraph{Pairwise preference optimization.}
+DPO \citep{rafailov2023direct} optimizes a pairwise preference between chosen and rejected completions using a log-sigmoid objective.
+KTO \citep{ethayarajh2024kto} extends this to unpaired positive/negative signals.
+These methods are typically applied offline with human preference data.
+Our contrastive pair ablation (\Cref{sec:ablation}) applies a DPO-style pairwise loss \emph{online} using verifier-generated success/failure pairs.
+The result---that positive-only CE replay outperforms pairwise contrast by 6.0~pp---suggests that under sparse binary verification, directly imitating correct solutions is more effective than contrasting them with incorrect ones.
+
+\paragraph{Negative evidence in reinforcement learning.}
+RE-GRPO \citep{regrpo2026} leverages hard negative cases through a negative pool with KL-regularized sampling.
+\citet{negative2026} report that training with only negative samples can improve reasoning pass@$k$.
+Our ablation complements these findings: while negative evidence may help in some settings, in our sparse binary GRPO setup at $G{=}4$, pairwise negative contrast hurts accuracy compared to positive-only replay.
+This may be because incorrect responses still contain useful intermediate reasoning steps that the negative signal indiscriminately penalizes.

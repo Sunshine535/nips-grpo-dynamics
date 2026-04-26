@@ -1,0 +1,16 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We identified the small-group binary degeneracy in GRPO---a failure mode where mean-centered advantage collapses to zero for homogeneous groups under sparse binary rewards---and proposed two complementary solutions.
+TASA replaces the group-mean baseline with a fixed threshold, guaranteeing sign-correct gradients for every response regardless of group composition.
+Verified CE replay stores and revisits successful solutions using a supervised loss that is simpler than the importance-weighted PG replay of prior methods.
+Together, TASA and CE replay improve GSM8K accuracy from 27.8\% (Dr.GRPO) to 55.0\%, a +27.2~pp gain, at group size $G{=}4$ with binary reward on Qwen3.5-9B + LoRA.
+
+\paragraph{Limitations.}
+Our experiments are limited to a single dataset (GSM8K), a single model (Qwen3.5-9B), and LoRA fine-tuning only.
+We use 3--4 seeds per variant, which limits statistical power.
+We compare mechanistically against RePO and RLEP but do not run their official code; a direct reproduction would strengthen the comparison.
+The high variance of TASA (std = 9.5 pp across 4 seeds) suggests that the method is sensitive to training dynamics, and further investigation into stabilization is warranted.
+
+\paragraph{Future work.}
+Natural extensions include: (1)~scaling to larger group sizes and full fine-tuning to test whether the degeneracy matters less at large $G$; (2)~direct comparison with RePO and RLEP using their official codebases; (3)~extending to harder benchmarks (MATH, competition-level problems); and (4)~investigating whether failure evidence can serve as a \emph{gating signal} for when and where to apply replay, rather than as a direct contrastive training signal.
