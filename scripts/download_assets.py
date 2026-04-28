@@ -1,22 +1,14 @@
 #!/usr/bin/env python3
 """
-Step 1: Run this on a server WITH internet access.
-Step 2: rsync downloaded files to GPU server (port 43038).
-
-Downloads go to /openbayes/input/input0/hub/ — same path as GPU server,
-so rsync preserves the path structure and HF cache works offline.
+Step 1: Run on server WITH internet (only needs huggingface_hub + datasets).
+Step 2: rsync to GPU server (port 43038).
 
 Usage:
-    python3 download_assets.py
-
-After download, rsync to GPU server:
-    rsync -avP /openbayes/input/input0/hub/models--Qwen--Qwen3.5-9B \
-        root@<gpu-server>:/openbayes/input/input0/hub/
-    rsync -avP /openbayes/input/input0/datasets/ \
-        root@<gpu-server>:/openbayes/input/input0/datasets/
+    pip install huggingface_hub datasets
+    python3 scripts/download_assets.py
 """
 
-import os, sys
+import os
 
 BASE = "/openbayes/input/input0"
 HUB = f"{BASE}/hub"
@@ -29,7 +21,6 @@ os.environ.update({
     "TRANSFORMERS_CACHE": HUB,
 })
 
-# Try China mirror first
 for ep in ["https://hf-mirror.com", "https://huggingface.co"]:
     try:
         import requests
@@ -44,13 +35,8 @@ for ep in ["https://hf-mirror.com", "https://huggingface.co"]:
 def dl_model(repo):
     from huggingface_hub import snapshot_download
     print(f"\n>>> Downloading model: {repo}")
-    p = snapshot_download(repo, cache_dir=HUB, resume_download=True)
+    p = snapshot_download(repo, cache_dir=HUB)
     print(f"    Done → {p}")
-    # Verify
-    from transformers import AutoTokenizer, AutoConfig
-    tok = AutoTokenizer.from_pretrained(repo, cache_dir=HUB)
-    cfg = AutoConfig.from_pretrained(repo, cache_dir=HUB)
-    print(f"    Verified: vocab={tok.vocab_size} hidden={cfg.hidden_size} layers={cfg.num_hidden_layers}")
 
 
 def dl_dataset(name, config=None):
@@ -70,17 +56,13 @@ if __name__ == "__main__":
     dl_dataset("openai/gsm8k", "main")
     dl_dataset("HuggingFaceH4/MATH-500")
 
-    # Print rsync commands for copy to GPU server
     print("\n" + "=" * 60)
-    print("Download complete. Now rsync to GPU server:")
+    print("Done. Rsync to GPU server:")
     print("=" * 60)
     print(f"""
 rsync -avP {HUB}/models--Qwen--Qwen3.5-9B \\
     root@<gpu-server>:{HUB}/
 
-rsync -avP {DS_DIR}/openai___gsm8k \\
-    root@<gpu-server>:{DS_DIR}/
-
-rsync -avP {DS_DIR}/HuggingFaceH4___MATH-500 \\
+rsync -avP {DS_DIR}/ \\
     root@<gpu-server>:{DS_DIR}/
 """)
