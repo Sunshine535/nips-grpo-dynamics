@@ -53,6 +53,8 @@ def parse_args():
     p.add_argument("--max-steps", type=int, default=200)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--sage-mode", choices=["tasa_only", "positive_ce_only", "pair_only", "full"], default="full")
+    p.add_argument("--advantage-mode", choices=["tasa", "sign", "drgrpo"], default="tasa",
+                   help="Advantage formulation: tasa (threshold-anchored), sign (A=2r-1), drgrpo (group-mean)")
     p.add_argument("--lambda-pair", type=float, default=None)
     p.add_argument("--lambda-pos", type=float, default=None)
     p.add_argument("--pair-batch-size", type=int, default=None)
@@ -168,6 +170,7 @@ def main():
         tasa_c=scfg.get("tasa_c", 0.5),
         ref_coef=scfg.get("ref_coef", 1.0),
         sage_mode=args.sage_mode,
+        advantage_mode=args.advantage_mode,
         callbacks=[ClearRopeDeltasCallback()])
 
     t0 = time.time()

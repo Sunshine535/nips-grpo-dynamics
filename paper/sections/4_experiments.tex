@@ -6,7 +6,8 @@
 \paragraph{Model and training.}
 We use Qwen3.5-9B \citep{qwen2025} with LoRA ($r{=}64$, $\alpha{=}128$) on the GSM8K training set \citep{cobbe2021gsm8k}.
 Training uses GRPO with group size $G{=}4$, binary answer-verification reward, learning rate $2{\times}10^{-5}$, gradient accumulation 4, and 200 optimization steps.
-All variants share identical model, dataset, hyperparameters, and LoRA configuration; only the advantage formulation and replay mechanism differ.
+Variants B, C, and D share the same training codebase (SAGE trainer); variant A and Dr.GRPO use an earlier trainer (ASER).
+All variants share model, dataset, hyperparameters, and LoRA configuration; only the advantage formulation and replay mechanism differ.
 
 \paragraph{Evaluation.}
 We evaluate on the \emph{full} GSM8K test set ($n{=}1{,}319$ questions) using greedy decoding and exact answer matching.
@@ -17,11 +18,10 @@ All variants use the same training codebase and seed set to ensure direct compar
 \begin{itemize}[leftmargin=*,topsep=2pt,itemsep=1pt]
 \item \textbf{Base model}: Qwen3.5-9B without any RL training.
 \item \textbf{Dr.GRPO ($G{=}4$)}: Group-mean-centered advantage with Dr.GRPO's length-bias correction \citep{liu2025understanding}. 4 seeds.
-\item \textbf{Sign baseline ($A{=}2r{-}1$)}: Fixed signed advantage without normalization---correct responses get $+1$, incorrect get $-1$. Tests whether TASA's group-aware normalization matters beyond simple sign assignment. 3 seeds.
 \item \textbf{TASA-only} (B): Threshold-anchored signed advantage without replay. 3 seeds.
 \item \textbf{SPO+Fixed Replay} (A): Per-prompt EMA baseline advantage with fixed-$\lambda$ uniform CE replay. 3 seeds.
 \item \textbf{TASA+CE Replay} (D): Our full method. TASA advantage plus verified CE replay ($\lambda{=}0.05$, warmup $W{=}50$ steps, bank capacity $K{=}2$ per prompt). 3 seeds.
-\item \textbf{TASA+Contrastive Pair} (C): TASA with a DPO-style pairwise log-sigmoid replay loss over prompt-local verified success/failure pairs, instead of positive-only CE replay. 3 seeds.
+\item \textbf{TASA+Contrastive Pair} (C): TASA with a pairwise log-sigmoid replay loss over prompt-local verified success/failure pairs, weighted by reward gap and prompt frontier score with age decay. 3 seeds.
 \end{itemize}
 
 \subsection{Main Results}
@@ -47,7 +47,8 @@ TASA+Contrastive (C) & TASA & pair & \underline{49.0} & 2.1 & +21.2 \\
 \end{table}
 
 \Cref{tab:main} presents the main results.
-All non-Dr.GRPO variants use the same 3-seed set (42, 43, 44) and identical codebase, ensuring fair comparison.
+Variants B, C, and D use the same 3-seed set (42, 43, 44) and the same SAGE training codebase, ensuring fair comparison within the TASA family.
+Variant A and Dr.GRPO use an earlier ASER codebase with the same hyperparameters.
 
 \paragraph{(1) Dr.GRPO fails under binary reward at $G{=}4$.}
 Dr.GRPO achieves only 27.8\%, barely above the base model's 25.5\%.
@@ -57,15 +58,16 @@ This confirms the binary degeneracy: with $G{=}4$ and rewards in $\{0,1\}$, a la
 TASA-only (B) achieves 46.8\%, a +19.0~pp improvement over Dr.GRPO.
 The gain is consistent across all three seeds (45.9\%, 50.5\%, 43.9\%), confirming that threshold anchoring resolves the binary degeneracy.
 
-\paragraph{(3) CE replay adds +8.3~pp on top of TASA.}
-The full method (D) achieves 55.0\%, an additional +8.3~pp over TASA-only.
+\paragraph{(3) CE replay adds +8.3~pp on top of TASA (directional).}
+The full method (D) achieves 55.0\%, an additional +8.3~pp over TASA-only, though with only 3 seeds the difference is not statistically significant (Welch $p \approx 0.17$).
 The replay bank allows the model to revisit verified solutions, reinforcing correct reasoning patterns even for prompts not seen in the current batch.
+We treat this as a directional result that warrants further investigation with larger seed counts.
 
 \subsection{Ablation: Contrastive Pair vs.\ Positive CE Replay}
 \label{sec:ablation}
 
-TASA+Contrastive Pair (C) achieves 49.0\%, which is +2.2~pp better than TASA-only but 6.0~pp \emph{worse} than TASA+CE Replay (D).
-This is notable because the contrastive variant has access to both successes and failures, yet it performs worse.
+TASA+Contrastive Pair (C) achieves 49.0\%, which is +2.2~pp better than TASA-only but 6.0~pp lower than TASA+CE Replay (D), though neither difference is statistically significant at 3 seeds (Welch $p \approx 0.27$ for D vs.\ C).
+This directional finding is notable because the contrastive variant has access to both successes and failures, yet it trends lower.
 
 We hypothesize that under sparse binary reward, incorrect responses often contain valid intermediate reasoning steps.
 The pairwise negative signal penalizes the entire completion, indiscriminately suppressing both erroneous and useful tokens.

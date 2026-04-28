@@ -10,7 +10,7 @@ Together, TASA and CE replay improve GSM8K accuracy from 27.8\% (Dr.GRPO) to 55.
 Our experiments are limited to a single dataset (GSM8K), a single model (Qwen3.5-9B), and LoRA fine-tuning only.
 We use 3--4 seeds per variant, which limits statistical power.
 We compare mechanistically against RePO and RLEP but do not run their official code; a direct reproduction would strengthen the comparison.
-The high variance of TASA (std = 9.5 pp across 4 seeds) suggests that the method is sensitive to training dynamics, and further investigation into stabilization is warranted.
+The high variance of TASA+CE Replay (std = 7.0~pp across 3 seeds) suggests that the method is sensitive to training dynamics, and further investigation into stabilization is warranted.
 
 \paragraph{Future work.}
 Natural extensions include: (1)~scaling to larger group sizes and full fine-tuning to test whether the degeneracy matters less at large $G$; (2)~direct comparison with RePO and RLEP using their official codebases; (3)~extending to harder benchmarks (MATH, competition-level problems); and (4)~investigating whether failure evidence can serve as a \emph{gating signal} for when and where to apply replay, rather than as a direct contrastive training signal.

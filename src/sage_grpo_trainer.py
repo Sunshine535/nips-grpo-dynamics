@@ -40,11 +40,13 @@ class SageGRPOTrainer(GRPOTrainer):
         tasa_c: float = 0.5,
         ref_coef: float = 1.0,
         sage_mode: str = "full",
+        advantage_mode: str = "tasa",
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
         valid = ("tasa_only", "positive_ce_only", "pair_only", "full")
         assert sage_mode in valid, sage_mode
+        assert advantage_mode in ("tasa", "sign", "drgrpo"), advantage_mode
         self.evidence_bank = evidence_bank
         self.credit_store = prompt_credit_store
         self.lambda_pair = float(lambda_pair)
@@ -56,12 +58,24 @@ class SageGRPOTrainer(GRPOTrainer):
         self.tasa_c = float(tasa_c)
         self.ref_coef = float(ref_coef)
         self.sage_mode = sage_mode
+        self.advantage_mode = advantage_mode
         self._sage_step_stats: list = []
 
     @staticmethod
     def _compute_tasa_advantages(group_rewards, c, device):
         from src.aser_trainer_v14 import ASERTrainerV14
         return ASERTrainerV14._compute_tasa_advantages(group_rewards, c, device)
+
+    @staticmethod
+    def _compute_sign_advantages(group_rewards, device):
+        return (2.0 * group_rewards - 1.0).view(-1).to(device)
+
+    @staticmethod
+    def _compute_drgrpo_advantages(group_rewards, device, eps=1e-8):
+        mean = group_rewards.mean(dim=1, keepdim=True)
+        std = group_rewards.std(dim=1, keepdim=True)
+        adv = (group_rewards - mean) / (std + eps)
+        return adv.view(-1).to(device)
 
     def _get_per_token_logps(self, mdl, input_ids, attention_mask, n_keep):
         logits = mdl(input_ids, attention_mask=attention_mask,
@@ -276,7 +290,12 @@ class SageGRPOTrainer(GRPOTrainer):
         group_mean = group_rewards.mean(dim=1)
         group_pids = [int(x.get("prompt_id", -1)) for x in inputs]
 
-        advantages = self._compute_tasa_advantages(group_rewards, self.tasa_c, device)
+        if self.advantage_mode == "sign":
+            advantages = self._compute_sign_advantages(group_rewards, device)
+        elif self.advantage_mode == "drgrpo":
+            advantages = self._compute_drgrpo_advantages(group_rewards, device)
+        else:
+            advantages = self._compute_tasa_advantages(group_rewards, self.tasa_c, device)
 
         # Update credit state
         if self.credit_store is not None:

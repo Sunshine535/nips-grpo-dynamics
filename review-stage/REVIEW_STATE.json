@@ -1,23 +1,11 @@
 {
   "round": 1,
-  "threadId": "019db654-8306-7492-a2cf-24911e7f3151",
+  "threadId": "019dd219-f6a5-78b1-a286-794b2f7f7b3b",
   "status": "in_progress",
   "difficulty": "nightmare",
-  "reviewer_backend": "codex-xhigh",
-  "last_score": 2.0,
+  "last_score": 3.0,
   "last_verdict": "not ready",
-  "score_progression": [
-    {"round": 1, "score": 2, "verdict": "not ready"}
-  ],
-  "critical_experiment": "fullset_eval (n=1319) of ALL 200-step adapters",
-  "pending_experiments": [
-    "follow_pipeline.sh → launch_fullset_eval.sh (auto-chain after Wave14b/15)",
-    "35 adapters × 1319 questions = ~5 GPU-batches (~6h total)"
-  ],
-  "open_issues": [
-    "n=200 vs n=1319 — does the gap persist?",
-    "500-step collapse root cause",
-    "SOTA baseline implementation (DAPO, RLOO, RePO)"
-  ],
-  "timestamp": "2026-04-23T02:10:00Z"
+  "score_progression": [{"round": 1, "score": 3, "verdict": "not ready"}],
+  "pending_experiments": [],
+  "timestamp": "2026-04-28T11:00:00Z"
 }

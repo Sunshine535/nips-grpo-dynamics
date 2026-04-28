@@ -39,13 +39,24 @@ _fallback = re.compile(r"(-?[\d,]+\.?\d*)")
 _think_pat = re.compile(r"<think>.*?</think>", re.DOTALL)
 
 
+def _canonicalize_number(s: str) -> str:
+    s = s.strip().rstrip(".")
+    try:
+        val = float(s)
+        if val == int(val):
+            return str(int(val))
+        return str(val)
+    except (ValueError, OverflowError):
+        return s
+
+
 def extract_answer(text: str) -> str:
     text = _think_pat.sub("", text).strip()
     m = _ans_pat.search(text)
     if m:
-        return m.group(1).replace(",", "")
+        return _canonicalize_number(m.group(1).replace(",", ""))
     nums = _fallback.findall(text)
-    return nums[-1].replace(",", "") if nums else ""
+    return _canonicalize_number(nums[-1].replace(",", "")) if nums else ""
 
 
 def load_gsm8k_test(n: int, cache_dir: str, selection: str = "first_n", seed: int = 42):
@@ -106,7 +117,7 @@ def main():
     correct = 0
     for i, ex in enumerate(ds):
         m = _ans_pat.search(ex["answer"])
-        gold = m.group(1).replace(",", "") if m else ""
+        gold = _canonicalize_number(m.group(1).replace(",", "")) if m else ""
         msgs = [
             {"role": "system", "content": "You are a math tutor. Solve problems step by step. Write your final numerical answer after ####."},
             {"role": "user", "content": f"Question: {ex['question']}"},
