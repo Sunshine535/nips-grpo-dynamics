@@ -55,6 +55,8 @@ def parse_args():
     p.add_argument("--sage-mode", choices=["tasa_only", "positive_ce_only", "pair_only", "full"], default="full")
     p.add_argument("--advantage-mode", choices=["tasa", "sign", "drgrpo"], default="tasa",
                    help="Advantage formulation: tasa (threshold-anchored), sign (A=2r-1), drgrpo (group-mean)")
+    p.add_argument("--lr", type=float, default=None, help="Override learning rate")
+    p.add_argument("--num-generations", type=int, default=None, help="Override G (group size)")
     p.add_argument("--lambda-pair", type=float, default=None)
     p.add_argument("--lambda-pos", type=float, default=None)
     p.add_argument("--pair-batch-size", type=int, default=None)
@@ -140,12 +142,14 @@ def main():
         output_dir=run_dir, num_train_epochs=1,
         per_device_train_batch_size=tcfg["per_device_train_batch_size"],
         gradient_accumulation_steps=tcfg["gradient_accumulation_steps"],
-        learning_rate=tcfg["learning_rate"], warmup_ratio=tcfg["warmup_ratio"],
+        learning_rate=args.lr if args.lr is not None else tcfg["learning_rate"],
+        warmup_ratio=tcfg["warmup_ratio"],
         weight_decay=tcfg["weight_decay"], max_grad_norm=tcfg["max_grad_norm"],
         bf16=tcfg["bf16"], gradient_checkpointing=False,
         logging_steps=max(1, tcfg["logging_steps"]),
         save_steps=min(250, args.max_steps + 1), save_total_limit=1,
-        seed=args.seed, num_generations=tcfg["num_generations"],
+        seed=args.seed,
+        num_generations=args.num_generations if args.num_generations is not None else tcfg["num_generations"],
         max_completion_length=tcfg["max_completion_length"],
         max_steps=args.max_steps, report_to="none", log_level="info")
 
